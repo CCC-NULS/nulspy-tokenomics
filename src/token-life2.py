@@ -6,62 +6,49 @@ Created on Thu Jan 16 23:53:45 2020
 @author: kathynorman
 """
 
-import array as arr
 import matplotlib.pyplot as m_pyplot
+from matplotlib.axes import Axes
 import win32
-import matplotlib
-from matplotlib import colors
+
+# Token      #enter your start date, using this format       #interval = 30  #
+# inflation/deflation interval in days
 
 
 class NulsPlot(object):
     
     def __init__(self):
-        self.token_symbol = "NULS"   # 3 characters, all caps.  e.g SET = Space Exploration 
-        # Token
-        self.initial_supply = 100000000  #100,000,000  NULS
-        self.stop_inflation = 210000000  #210,000,000  NULS
-        self.annual_inflation = 5000000   # 5,000,000 NULS
-        self.monthly_inflation = self.annual_inflation/12
-           #enter your start date, using this format
-        self.deflation_ratio = 0.004
-        #interval = 30  # inflation/deflation interval in days
-        self.start_inflation = 2 * 12
-        self.interval_count = 0
-        self.tokens = self.initial_supply
-        self.token_count = []
-        self.token_initial_supply = []
-        self.token_interval = []
-        self.deflation = False
+        self.token_symbol = "NULS"   # 3 characters, all caps.  e.g SET = Space Exploration
 
-    def prompt_for_input(self):        
+    def main(self):
         prompt = True
-        while prompt: 
+        while prompt:
+            deflation_ratio = 0.004
+            initial_supply = 100000000  # 100,000,000  NULS
+            stop_inflation = 210000000  # 210,000,000  NULS
+            annual_inflation = 5000000  # 5,000,000 NULS
+            monthly_inflation = annual_inflation / 12
+            start_inflation = 2 * 12
             print('For ' + self.token_symbol + ' the following values are set:')
-            print("Initial Supply : " + "{:,}".format(self.initial_supply))
-            print('Inflation begins in ' + "{:,}".format(self.start_inflation) + 'months/intervals')
-            print('Inflation amount per month/interval: ' +  "{:,}".format(self.monthly_inflation))
-            print('Inflation is turned off initial_supply + '
-                  'inflation reaches:  ' + "{:,}".format(self.stop_inflation))
-            print('De-inflation ratio is: ' + "{:,}".format(self.deflation_ratio))
+            print("Initial Supply : " + "{:,}".format(initial_supply))
+            print('Inflation begins in ' + "{:,}".format(start_inflation) + ' months/intervals')
+            verbs = 'Inflation amount per month/interval: '
+            print(verbs + "{:,}".format(monthly_inflation))
+            words = 'Inflation is turned off initial_supply + '
+            print(words + 'inflation reaches:  ' + "{:,}".format(stop_inflation))
+            print('De-inflation ratio is: ' + "{:,}".format(deflation_ratio))
             print('De-inflation and inflation bgins at the same time.')
-        
-            prompt_vals = self.prompt_for_value()
-            if prompt_vals:
-                print(i for i in prompt_vals)
-                [self.initial_supply, self.start_inflation, self.monthly_inflation,
-                 self.stop_inflation, self.deflation_ratio] = [*prompt_vals]
-            self.final_part()
-    #% 2d, Portal : % 5.2f" %(1, 05.333))     "{:,}".format(x) 
-        # x = float(input("Enter a number:"))
-    def prompt_for_value(self)-> []:
-           
-        start_inflation, deflation_ratio = None, None
-        initial_supply, monthly_inflation, stop_inflation = None, None, None
+            orig_list = [initial_supply, start_inflation, monthly_inflation, stop_inflation,
+                        deflation_ratio]
+            answer = input('Do you want to change any values? y/n: ')
+            if answer == 'n' or answer == 'N':
+                self.final_part(orig_list)
+            else:
+                new_vals = self.get_new_vals(orig_list)
+                self.final_part(new_vals)
 
-        answer = input('Do you want to change any values? y/n: ')
-
-        if answer == 'n' or answer == 'N':
-            return False
+    def get_new_vals(self, the_list) -> []:
+        [initial_supply, start_inflation, monthly_inflation, stop_inflation,
+         deflation_ratio] = [*the_list]
 
         answer = input('Initial Supply : ')
 
@@ -76,9 +63,8 @@ class NulsPlot(object):
         if answer != "":
             monthly_inflation = int(float(answer))
 
-        answer = input(
-                'Inflation is turned off when total(initial_supply and inflation) '
-                'reaches: ')
+        inflat_words = 'Inflation is turned off when total (initial_supply and inflation) reaches: '
+        answer = input(inflat_words)
         if answer != "":
             stop_inflation = int(float(answer))
 
@@ -87,61 +73,81 @@ class NulsPlot(object):
             deflation_ratio = float(answer)
 
         ans_list = [initial_supply, start_inflation, monthly_inflation, stop_inflation,
-                deflation_ratio]
+                    deflation_ratio]
         return ans_list
        
-    def final_part(self):
-        #while True:
-    
-        #    tokens = (tokens + inflation_amount) * (1 - deflation_ratio)
-        if self.tokens >= self.stop_inflation: 
+    def final_part(self, pvals):
+        [initial_supply, start_inflation, monthly_inflation, stop_inflation, deflation_ratio] = \
+            [*pvals]
+        tokens = initial_supply  # start for tokens
+
+        tokens = tokens + monthly_inflation
+        token_count = []
+        token_initial_supply = []
+        token_interval = []
+
+        # token_count = initial_supply
+        deflation = False
+        interval_count = 0
+
+        if tokens >= stop_inflation:
             monthly_inflation = 0
         
-        if self.deflation:
-           self.monthly_inflation = self.monthly_inflation *  (1 - deflation_ratio)
+        if deflation:
+            monthly_inflation = monthly_inflation * (1 - deflation_ratio)
            
-        elif (self.interval_count + 1)  >= self.start_inflation:
-           self.deflation = True
+        elif (interval_count + 1) >= start_inflation:
+            deflation = True
         
-        self.tokens = self.tokens + self.monthly_inflation
-        token_count.append(round(tokens)) 
+        tokens = tokens + monthly_inflation
+        tokens_rounded = round(tokens)
+
+        token_count = token_count.extend([tokens_rounded])
+
         token_initial_supply.append(initial_supply)  
         token_interval.append(interval_count)
         interval_count += 1
-    
-        print(tokens, monthly_inflation, deflation, interval_count)
-        
-        if interval_count >= 75*12: 
-            continue
-        
-        print("and we are done with calcs")   
 
+        print("tokens: ", tokens )
+        print("monthly_inflation: ", monthly_inflation,)
+        print("deflation: ", deflation, )
+        print("interval_count: ", interval_count)
+
+        if interval_count >= 75*12: 
+            pass
+
+        tok_list = [token_count, token_initial_supply, token_interval]
+
+        print("and we are done with calcs")
+        self.plot_graph(tok_list)
+
+    def plot_graph(self, toks_list):
+        [token_count, token_initial_supply, token_interval] = [*toks_list]
+        gca_plot = m_pyplot.gca()
+
+        # ax = Axes(gca_plot)
+        # gca_plot.Rectangle = (1, 1, 2,4)
+        # ax.annotate('local max', xy=(2, 1), xytext=(3, 1.5),
+        #             arrowprops=dict(facecolor='black', shrink=0.05),
+        #             )
+
+        # ax.set_prop_cycle(['blue', 'green'])
+        m_pyplot.suptitle(" Life Span for token " + self.token_symbol)
+        m_pyplot.plot(token_interval, token_count)
+        m_pyplot.plot(token_interval, token_initial_supply)
+        m_pyplot.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
+        m_pyplot.ylabel(self.token_symbol + ' Token Count, increments of 1M')
+        m_pyplot.xlabel('30 day intervals')
+        m_pyplot.grid(True)
+        m_pyplot.show()
 
 
 if __name__ == "__main__":
     np = NulsPlot()
-    np.prompt_for_input()
+    np.main()
 
-
-
-
-m_pyplot.gca().set_color_cycle(['blue', 'green'])
-plot = m_pyplot.gca()
-m_pyplot.set
-
-
-
-
-m_pyplot.suptitle(" Life Span for token " + token_symbol)
-m_pyplot.plot(token_interval, token_count)
-m_pyplot.plot(token_interval, token_initial_supply)
-m_pyplot.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
-m_pyplot.ylabel(token_symbol + ' Token Count, increments of 1M')
-m_pyplot.xlabel('30 day intervals')
-m_pyplot.grid(True)
-m_pyplot.show()
-
-
+    # The set_color_cycle attribute was deprecated in version 1.5.
+    # Use set_prop_cycle instead.
 
 """
 sample code to be deleted later   
