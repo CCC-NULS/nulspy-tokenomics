@@ -6,7 +6,7 @@ Created on Thu Jan 16 23:53:45 2020
 @author: kathynorman
 """
 
-import matplotlib.pyplot as m_pyplot
+import matplotlib.pyplot as mpyplot
 from matplotlib.axes import Axes
 import win32
 
@@ -36,7 +36,7 @@ class NulsPlot(object):
             words = 'Inflation is turned off initial_supply + '
             print(words + 'inflation reaches:  ' + "{:,}".format(stop_inflation))
             print('De-inflation ratio is: ' + "{:,}".format(deflation_ratio))
-            print('De-inflation and inflation bgins at the same time.')
+            print('De-inflation and inflation begin at the same time.')
             orig_list = [initial_supply, start_inflation, monthly_inflation, stop_inflation,
                         deflation_ratio]
             answer = input('Do you want to change any values? y/n: ')
@@ -102,7 +102,7 @@ class NulsPlot(object):
         tokens = tokens + monthly_inflation
         tokens_rounded = round(tokens)
 
-        token_count = token_count.extend([tokens_rounded])
+        token_count.extend([tokens_rounded])
 
         token_initial_supply.append(initial_supply)  
         token_interval.append(interval_count)
@@ -116,30 +116,32 @@ class NulsPlot(object):
         if interval_count >= 75*12: 
             pass
 
-        tok_list = [token_count, token_initial_supply, token_interval]
+        tok_list = [*token_count, *token_initial_supply, token_interval]
 
         print("and we are done with calcs")
         self.plot_graph(tok_list)
 
     def plot_graph(self, toks_list):
         [token_count, token_initial_supply, token_interval] = [*toks_list]
-        gca_plot = m_pyplot.gca()
+        m_pyplot = mpyplot.gca()
+        y0 = 0
+        width = 2
+        height = 5
+        rect = [y0, width, height]
+        ax = Axes(m_pyplot, rect)
 
-        # ax = Axes(gca_plot)
-        # gca_plot.Rectangle = (1, 1, 2,4)
-        # ax.annotate('local max', xy=(2, 1), xytext=(3, 1.5),
-        #             arrowprops=dict(facecolor='black', shrink=0.05),
-        #             )
+        ax.legend("Life Span for token " + self.token_symbol)
+        ax.plot(token_interval, token_count, 'blue')
+        ax.plot(token_interval, token_count)
+        ax.plot(token_interval, token_initial_supply)
+        ax.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
+        ax.ylabel = 'self.token_symbol + ' + 'Token Count, increments of 1M'
+        ax.xlabel = '30 day intervals'
+        ax.grid(True)
+        ax.legend = "ax.legend"
+        ax.plot
+        ax.show()
 
-        # ax.set_prop_cycle(['blue', 'green'])
-        m_pyplot.suptitle(" Life Span for token " + self.token_symbol)
-        m_pyplot.plot(token_interval, token_count)
-        m_pyplot.plot(token_interval, token_initial_supply)
-        m_pyplot.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
-        m_pyplot.ylabel(self.token_symbol + ' Token Count, increments of 1M')
-        m_pyplot.xlabel('30 day intervals')
-        m_pyplot.grid(True)
-        m_pyplot.show()
 
 
 if __name__ == "__main__":
