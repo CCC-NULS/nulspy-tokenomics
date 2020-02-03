@@ -112,7 +112,7 @@ class NulsPlot(object):
         print(tokens, monthly_inflation, deflation, interval_count)
         
         if interval_count >= 75*12: 
-            continue
+            pass
         
         print("and we are done with calcs")   
 
