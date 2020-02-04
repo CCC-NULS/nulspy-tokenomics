@@ -97,7 +97,6 @@ class NulsPlot(object):
 
     def plot_graph(self):
 
-
         plt.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
         #
         xlabel_str = '30 day intervals'
