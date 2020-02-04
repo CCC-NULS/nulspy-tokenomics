@@ -31,15 +31,23 @@ class NulsPlot(object):
             monthly_inflation = annual_inflation / 12
             start_inflation = 2 * 12
             print('\nFor ' + self.token_symbol + ' the following values are set:')
+
+            yearlywords = 'Inflation - Annual - per year: '
+            print(yearlywords + "{:,}".format(initial_supply))
+
             print("Initial Supply : " + "{:,}".format(initial_supply))
+
             print('Inflation begins in ' + "{:,}".format(start_inflation) + ' months/intervals')
-            verbs = 'Inflation amount per month/interval: '
-            mo_inflat = round(monthly_inflation)
-            print(verbs + "{:,}".format(mo_inflat))
-            inf = annual_inflation * .000001
-            print("Annual inflation percent: " + str(inf) + '%')
+            wording = 'Inflation tokens per month: '
+            monthly_inflation_rnd = round(monthly_inflation * 12)
+            print(wording + "{:,}".format(monthly_inflation_rnd))
 
+            annual_words = 'Inflation tokens annually: '
+            annual_inflation_rnd = round(monthly_inflation * 12)
+            print(annual_words + "{:,}".format(annual_inflation_rnd))
 
+            inflation_percent = annual_inflation * .000001
+            print("Annual inflation percent: " + str(inflation_percent) + '%')
 
             words = 'Inflation is turned off when initital supply + inflation reaches '
             print(words + "{:,}".format(stop_inflation))
@@ -91,7 +99,6 @@ class NulsPlot(object):
             [*pvals]
         tokens = initial_supply  # start for tokens
 
-        tokens = tokens + monthly_inflation
         tokens_plus_inflation_rounded = []
         token_count = []
         token_initial_supply = []
@@ -101,38 +108,40 @@ class NulsPlot(object):
         interval_count = 5
         interval_count_list = []
         monthly_inflation_list = []
+        annual_inflation = monthly_inflation * 12
+        annual_inflation_list = []
 
         for i in range(interval_count):
+            if (interval_count + 1) >= start_inflation:
+                deflation = True
             if tokens >= stop_inflation:
                 monthly_inflation = 0
-
             if deflation:
                 monthly_inflation = monthly_inflation * (1 - deflation_ratio) / 1000000
 
-            elif (interval_count + 1) >= start_inflation:
-                deflation = True
+            tokens = tokens + annual_inflation
+            tokens_plus_inflation_round = round(tokens)
 
-            tokens_plus_inflation = tokens + monthly_inflation
-            tokens_plus_inflation_round = round(tokens_plus_inflation)
-
-            print("\n\ninitial_supply: ", round(initial_supply))
+            print("\n\ninterval_count: ", interval_count)
+            print("initial_supply: ", round(initial_supply))
+            print("monthly inflation: ", round(monthly_inflation))
+            print("annual inflation: ", round(annual_inflation))
             print("tokens plus inflation (rounded): ", tokens_plus_inflation_round)
-            print("monthly_inflation: ", monthly_inflation)
-            print("deflation: ", deflation )
-            print("interval_count: ", interval_count)
+            print("deflation: ", deflation)
 
             monthly_inflation_list.append(monthly_inflation)
+            annual_inflation_list.append(annual_inflation)
             tokens_plus_inflation_rounded.append(tokens_plus_inflation_round)
 
             token_initial_supply.append(initial_supply)
             interval_count_list.append(interval_count)
             interval_count += 1
-            initial_supply = tokens_plus_inflation
+            initial_supply = tokens
 
             if interval_count >= 75*12:
-                pass
+                break
 
-        tok_list = [*token_count, *token_initial_supply, interval_count]
+        tok_list = [token_count, token_initial_supply, interval_count]
 
         print("and we are done with calcs")
         self.plot_graph(tok_list)
