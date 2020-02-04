@@ -27,35 +27,25 @@ class NulsPlot(object):
             deflation_ratio = 0.004
             initial_supply = 100000000  # 100,000,000  NULS
             stop_inflation = 210000000  # 210,000,000  NULS
-            annual_inflation = 5000000  # 5,000,000 NULS
-            monthly_inflation = annual_inflation / 12
+            interval_inflation = 5000000  # 5,000,000 NULS
             start_inflation = 2 * 12
-            print('\nFor ' + self.token_symbol + ' the following values are set:')
+            print('\nFor ' + self.token_symbol + ' the following values are set:') #1
 
-            yearlywords = 'Inflation - Annual - per year: '
-            print(yearlywords + "{:,}".format(initial_supply))
+            print("Initial Supply : " + "{:,}".format(initial_supply)) #2
 
-            print("Initial Supply : " + "{:,}".format(initial_supply))
+            print('Inflation begins in ' + "{:,}".format(start_inflation) + ' intervals') #3
 
-            print('Inflation begins in ' + "{:,}".format(start_inflation) + ' months/intervals')
-            wording = 'Inflation tokens per month: '
-            monthly_inflation_rnd = round(monthly_inflation * 12)
-            print(wording + "{:,}".format(monthly_inflation_rnd))
-
-            annual_words = 'Inflation tokens annually: '
-            annual_inflation_rnd = round(monthly_inflation * 12)
-            print(annual_words + "{:,}".format(annual_inflation_rnd))
-
-            inflation_percent = annual_inflation * .000001
-            print("Annual inflation percent: " + str(inflation_percent) + '%')
-
-            words = 'Inflation is turned off when initital supply + inflation reaches '
-            print(words + "{:,}".format(stop_inflation))
+            print('Inflation amount per interval: ' + "{:,}".format(interval_inflation))
+            print('Inflation is turned off initial_supply when inflation reaches:  ' +
+                  "{:,}".format(stop_inflation))
             print('De-inflation ratio is: ' + "{:,}".format(deflation_ratio))
-            print('De-inflation and inflation begin at the same time')
-            orig_list = [initial_supply, start_inflation, monthly_inflation, stop_inflation,
-                         deflation_ratio]
+            print('De-inflation and inflation begin at the same time.')
+
             answer = input('\n----->  Do you want to change any values? (y/n): ')
+
+            orig_list = [initial_supply, start_inflation, interval_inflation, stop_inflation,
+                         deflation_ratio]
+
             if answer == 'n' or answer == 'N':
                 self.final_part(orig_list)
             else:
@@ -63,11 +53,11 @@ class NulsPlot(object):
                 self.final_part(new_vals)
 
     def get_new_vals(self, the_list) -> []:
-        [initial_supply, start_inflation, monthly_inflation, stop_inflation,
+        [initial_supply, start_inflation, interval_inflation, stop_inflation,
          deflation_ratio] = [*the_list]
 
         answer = input('Initial Supply : ')
-        inf = monthly_inflation * 12 * .000001
+        inf = interval_inflation * 12 * .000001
         print("Annual inflation percent: " + str(inf) + '%')
 
         if answer != "":
@@ -79,7 +69,7 @@ class NulsPlot(object):
 
         answer = input('Inflation amount per month/interval :')
         if answer != "":
-            monthly_inflation = int(float(answer))
+            interval_inflation = int(float(answer))
 
         inflat_words = 'Inflation is turned off when total (initial_supply and inflation) reaches: '
         answer = input(inflat_words)
@@ -90,55 +80,45 @@ class NulsPlot(object):
         if answer != "":
             deflation_ratio = float(answer)
 
-        ans_list = [initial_supply, start_inflation, monthly_inflation, stop_inflation,
-                    deflation_ratio]
-        return ans_list
+        answer_list = [initial_supply, start_inflation, interval_inflation, stop_inflation,
+                       deflation_ratio]
+        return answer_list
        
     def final_part(self, pvals):
-        [initial_supply, start_inflation, monthly_inflation, stop_inflation, deflation_ratio] = \
-            [*pvals]
-        tokens = initial_supply  # start for tokens
+        [initial_supply, start_inflation, interval_inflation, stop_inflation, deflation_ratio] = [
+            *pvals]
 
-        tokens_plus_inflation_rounded = []
+        deflation = False
+        interval_count = 0
+        tokens = initial_supply
         token_count = []
         token_initial_supply = []
+        token_interval = []
 
-        # token_count = initial_supply
-        deflation = False
-        interval_count = 5
-        interval_count_list = []
-        monthly_inflation_list = []
-        annual_inflation = monthly_inflation * 12
-        annual_inflation_list = []
 
-        for i in range(interval_count):
-            if (interval_count + 1) >= start_inflation:
-                deflation = True
+        while True:
             if tokens >= stop_inflation:
-                monthly_inflation = 0
+                interval_inflation = 0
+
             if deflation:
-                monthly_inflation = monthly_inflation * (1 - deflation_ratio) / 1000000
+                interval_inflation = interval_inflation * (1 - deflation_ratio)
+            elif (interval_count + 1) >= start_inflation:
+                deflation = True
 
-            tokens = tokens + annual_inflation
-            tokens_plus_inflation_round = round(tokens)
+            tokens = tokens + interval_inflation
+            token_count.append(round(tokens))
+            token_initial_supply.append(initial_supply)
+            token_interval.append(interval_count)
+            interval_count += 1
 
+            print(tokens, interval_inflation, deflation, interval_count)
             print("\n\ninterval_count: ", interval_count)
             print("initial_supply: ", round(initial_supply))
-            print("monthly inflation: ", round(monthly_inflation))
-            print("annual inflation: ", round(annual_inflation))
-            print("tokens plus inflation (rounded): ", tokens_plus_inflation_round)
+            print("interval inflation: ", round(interval_inflation))
             print("deflation: ", deflation)
 
-            monthly_inflation_list.append(monthly_inflation)
-            annual_inflation_list.append(annual_inflation)
-            tokens_plus_inflation_rounded.append(tokens_plus_inflation_round)
-
-            token_initial_supply.append(initial_supply)
-            interval_count_list.append(interval_count)
-            interval_count += 1
-            initial_supply = tokens
-
-            if interval_count >= 75*12:
+            if interval_count >= 75 * 12:   #put this back
+            #if interval_count >= 12:
                 break
 
         tok_list = [token_count, token_initial_supply, interval_count]
@@ -147,34 +127,36 @@ class NulsPlot(object):
         self.plot_graph(tok_list)
 
     def plot_graph(self, toks_list):
-        [token_count, token_initial_supply, token_interval] = [*toks_list]
-        fa = '7'
-        fb = '5'
-        fstr: str = 'figsize = (' + fa + ', ' + fb + ')'
+        [token_count, token_initial_supply, token_intv] = [*toks_list]
+        token_interval = [i for i in range(1, token_intv+1)]
+
+        plt.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
+
+        xlabel_str = '30 day intervals'
+        ylabel_str = self.token_symbol + ' Token Count, increments of 1M'
+
+        figtup = ('7', '5',)
+        fstr: str = 'figsize = (' + figtup[0] + ', ' + figtup[0] + ')'
         plt.figure(fstr)
-        legend_str = "Life Span for token " + self.token_symbol
-        plt.legend(legend_str)
 
-        xlab = '30 day intervals'
+        plt.ylabel(ylabel_str)
+        plt.xlabel(xlabel_str)
+        plt.suptitle(" Life Span for token " + self.token_symbol)
+        plt.grid(True)
+        plt.plot(token_interval, token_count, color="green")
+        plt.plot(token_interval, token_initial_supply, color="blue")
 
-        ylab = self.token_symbol + ' Token Count: increments of 1M'
-        plt.title = 'Go Vikings!'
-        plt.ylabel(ylab)
-        x = [1,2,3]
-        y = [3,4,5]
-        plt.plot(x, y,  label=xlab, color='green', linestyle=':', )
         plt.show()
 
 
-        # ax.plot(token_interval, token_count, 'blue')
-        # ax.plot(token_interval, token_initial_supply, 'green')
-        # ax.legend(['Token Life', 'Token Initial Supply'], loc='bottom right')
-        # ax.ylabel = self.token_symbol + ' Token Count, increments of 1M'
-        # ax.xlabel = ' 30 day intervals'
-        # ax.grid(True)
-        # ax.plot
-        # ax.show()
 
+
+
+
+        # x = [1,2,3]
+        # y = [3,4,5]
+        # plt.plot(x, y,  label=xlab, color='green', linestyle=':', )
+        # plt.show()
 
 
 if __name__ == "__main__":
@@ -183,45 +165,3 @@ if __name__ == "__main__":
 
     # The set_color_cycle attribute was deprecated in version 1.5.
     # Use set_prop_cycle instead.
-
-"""
-sample code to be deleted later   
-
-import matplotlib.pyplot as m_pyplot
-m_pyplot.plot([1, 2, 3, 4])
-m_pyplot.ylabel('some numbers')
-m_pyplot.show()
-
-
-import matplotlib.pyplot as m_pyplot
-
-m_pyplot.plot(range(10))  # Creates the plot.  No need to save the current figure.
-m_pyplot.draw()  # Draws, but does not block
-
-m_pyplot.figure()  # New window, if needed.  No need to save it, as pyplot uses the concept of current figure
-m_pyplot.plot(range(10, 20))
-m_pyplot.draw()
-
-
-
-
-import array as arr
-a = arr.array('i', [2, 4, 6, 8])
-print("First element:", a[0])
-print("Second element:", a[1])
-print("Last element:", a[-1])
-
-try:
-     coinN= int(input("Enter next coin: "))
-
-     if coinN == "" and totalcoin == rand: 
-         print("Congratulations. Your calculations were a success.")
-     if coinN == "" and totalcoin < rand:
-         print("I'm sorry. You only entered",totalcoin,"cents.")  
-
- except ValueError:
-     print("Invalid Input")
- else:
-     totalcoin = totalcoin + coinN
-"""
-
