@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jan 16 23:53:45 2020
-@author: kathynorman
+@author: Kathy Norman and Nancy Schorr
 """
 
 import matplotlib.pyplot as plt
-
-from matplotlib.axes import Axes
-import matplotlib.axes
-import win32
-
-
-# Token      #enter your start date, using this format       #interval = 30  #
-# inflation/deflation interval in days
 
 
 class NulsPlot(object):
@@ -104,19 +96,17 @@ class NulsPlot(object):
         self.plot_graph()
 
     def plot_graph(self):
-        # token_count_list, token_self.start_inflation, interval_count_list
-        # token_interval = [i for i in range(1, token_intv+1)]
-        #
-        # plt.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
+
+
+        plt.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
         #
         xlabel_str = '30 day intervals'
-        # ylabel_str = self.TOKEN_SYMBOL + ' Token Count, increments of 1M'
+        ylabel_str = self.TOKEN_SYMBOL + ' Token Count, increments of 1M'
 
         #
-        # plt.ylabel(ylabel_str)
-        # plt.xlabel(xlabel_str)
+        plt.ylabel(ylabel_str)
         # plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
-        # plt.grid(True)
+        plt.grid(True)
         # plt.plot(token_interval, token_count_lst, token_self.start_inflation )
         plt.xlabel(xlabel_str)
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
