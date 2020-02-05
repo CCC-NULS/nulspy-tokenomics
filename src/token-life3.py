@@ -7,7 +7,7 @@ Created on Thu Jan 16 23:53:45 2020
 import matplotlib.pyplot as plt
 
 
-class NulsPlot(object):
+class TokenLife(object):
 
     def __init__(self):
         self.TOKEN_SYMBOL = "VKG"  # 3 characters, all caps.  e.g SET = Space Exploration
@@ -119,8 +119,8 @@ class NulsPlot(object):
 
 
 if __name__ == "__main__":
-    np = NulsPlot()
-    np.main()
+    tokencalc = TokenLife()
+    tokencalc.main()
 
     # The set_color_cycle attribute was deprecated in version 1.5.
     # Use set_prop_cycle instead.
