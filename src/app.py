@@ -6,13 +6,13 @@ from os import path
 from flask import Flask, request, render_template
 from jinja2 import Environment, PackageLoader, select_autoescape
 from datetime import datetime
-from ./token
+
 from app_support_code import nocache
 from app_support_code import AppSupport as ac
 #sys.stderr = sys.stdout   rootloglev = 40
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 env = Environment(    # jinja2
     loader=PackageLoader('psu-calc', 'templates'),
     autoescape=select_autoescape(['html', 'xml']),
@@ -23,7 +23,7 @@ def main_work(site, just_name):   # run LinkCheck and ac.myprint to console
     os_path_plus_stat = path.join(app.root_path, "static")
     file_path = path.join(os_path_plus_stat, just_name)
 
-    lc = TokenLife()
+    # lc = TokenLife()
     answers, redirs = lc.main(site)
     len_ans = len(answers)
     len_red = len(redirs)
