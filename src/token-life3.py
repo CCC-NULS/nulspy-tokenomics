@@ -24,13 +24,13 @@ class TokenLife(object):
     def main(self):
         print('\nFor ' + self.TOKEN_SYMBOL + ' the following values are set:')  # 1
 
-        print("Initial Supply : " + "{:,}".format(self.initial_supply))  # 2
+        print("Initial Supply : " + "{:,}".format(self.initialsupply))  # 2
 
-        print('Inflation begins in ' + "{:,}".format(self.start_inflation) + ' intervals')  # 3
+        print('Inflation begins in ' + "{:,}".format(self.startintervals) + ' intervals')  # 3
 
-        print('Inflation tokens per interval: ' + "{:,}".format(self.interval_inflation_tokens))
+        print('Inflation tokens per interval: ' + "{:,}".format(self.intervalinflation_tokens))
         print('Inflation is turned off self.start_inflation when inflation reaches:  ' +
-              "{:,}".format(self.stop_inflation))
+              "{:,}".format(self.stopinflation))
         print('De-inflation ratio is: ' + "{:,}".format(self.deflation_ratio))
         print('De-inflation and inflation begin at the same time.')
 
