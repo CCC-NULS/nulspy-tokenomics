@@ -24,13 +24,13 @@ class TokenLife(object):
     def main(self):
         print('\nFor ' + self.TOKEN_SYMBOL + ' the following values are set:')  # 1
 
-        print("Initial Supply : " + "{:,}".format(self.initialsupply))  # 2
+        print("Initial Supply : " + "{:,}".format(self.initial_supply))  # 2
 
-        print('Inflation begins in ' + "{:,}".format(self.startintervals) + ' intervals')  # 3
+        print('Inflation begins in ' + "{:,}".format(self.start_inflation) + ' intervals')  # 3
 
-        print('Inflation tokens per interval: ' + "{:,}".format(self.intervalinflation_tokens))
+        print('Inflation tokens per interval: ' + "{:,}".format(self.interval_inflation_tokens))
         print('Inflation is turned off self.start_inflation when inflation reaches:  ' +
-              "{:,}".format(self.stopinflation))
+              "{:,}".format(self.stop_inflation))
         print('De-inflation ratio is: ' + "{:,}".format(self.deflation_ratio))
         print('De-inflation and inflation begin at the same time.')
 
@@ -72,7 +72,7 @@ class TokenLife(object):
         print("\n ----- ----- ----->   Starting token count: ", tokens)
         print("self.start_inflation: ", self.start_inflation)
 
-        interval_limit = 75 * 12
+        interval_limit = 175 * 12
         print("  Interval limit: ", interval_limit)
         self.interval_count_list = [i for i in range(1, interval_limit)]
         print(" interval_inflation_tokens: ", self.interval_inflation_tokens)
@@ -96,20 +96,26 @@ class TokenLife(object):
         self.plot_graph()
 
     def plot_graph(self):
-
-        plt.legend(['Token Life', 'Token Initial Supply'], loc='upper left')
+        # import io
+        plt.title('Token Life - Token Supply')
+        plt.legend(['Initial Supply: ', self.initial_supply], loc='upper left')
         #
         xlabel_str = '30 day intervals'
         ylabel_str = self.TOKEN_SYMBOL + ' Token Count, increments of 1M'
 
-        #
         plt.ylabel(ylabel_str)
-        # plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
+        #plt.suptitle("Deflation Ratio: " + str(self.deflation_ratio))
         plt.grid(True)
         # plt.plot(token_interval, token_count_lst, token_self.start_inflation )
         plt.xlabel(xlabel_str)
+        plt.xlabel("yes")
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
         plt.plot(self.interval_count_list, self.token_count_list)
+        # img = io.StringIO()
+        plt.savefig("tokens.svg",  dpi=150, format='svg')
+        #fig.savefig(img, format='svg')
+        # clip off the xml headers from the image
+        # svg_img = '<svg' + img.getvalue().split('<svg')[1]
         plt.show()
 
         # x = [1,2,3]
