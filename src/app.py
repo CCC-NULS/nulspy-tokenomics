@@ -4,13 +4,13 @@
 from waitress import serve
 from flask import Flask, request, render_template
 from jinja2 import Environment, PackageLoader, select_autoescape
-
+import app_support
 
 app = Flask(__name__)
 env = Environment(    # jinja2
     # loader=PackageLoader('psu-calc', 'templates'),
+    # loader=PackageLoader('psu-calc', 'templates'),
     autoescape=select_autoescape(['html', 'xml']),
-
 )
 
 
@@ -27,24 +27,18 @@ def show():
     annual_inflation = request.form['annual_inflation']  # from index.html   # the site
     inflation_intervals = request.form['start_inflation']  # from same place
 
-    args_dict = { "ini_sup": initial_supply,
-                  "stop_i": stop_inflation,
-                  "defl": deflation_ratio,
-                  "ann_inf": annual_inflation,
-                  "inf_interval":
-                  inflation_intervals}
-
-
+    args_dict = {"ini_sup": initial_supply,
+                 "stop_i": stop_inflation,
+                 "defl": deflation_ratio,
+                 "ann_inf": annual_inflation,
+                 "inf_interval": inflation_intervals}
 
     print("got these", initial_supply, stop_inflation, deflation_ratio, annual_inflation,
-          inflation_intervals  )
-    app-support.
+          inflation_intervals)
 
-    print("got these", initial_supply, stop_inflation, deflation_ratio, annual_inflation,
-          inflation_intervals  )
-
-    tokencalc = TokenLife()
-    tokencalc.main()
+    tokencalc = app_support.app_support()
+    plotname = tokencalc.main(args_dict)
+    return render_template('showplot.html', img_name=plotname)  ## has the user entry form
 
 
 

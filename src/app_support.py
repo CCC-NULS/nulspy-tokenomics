@@ -80,16 +80,18 @@ class app_support:
         plt.plot(self.interval_count_list, self.token_count_list)
 
         timestp = format(datetime.now(), '%d%H%M%S')
-        fname = "/plots/plot" + timestp + ".svg"
+        fname = "plots/plot" + timestp + ".svg"
         plt.savefig(fname,  dpi=150, format='svg')
         self.write_html_file(fname)
 
-    def write_html_file(self):
+    def write_html_file(self, fname):
         f = open("plottemp.html", 'w')
         a1 = "<html><head></head><body>"
         a2 = "<script>  img = document.createElement('img'); img.src = 'plots/plot-5202157.svg;"
         a3 = "document.getElementById('body').appendChild(img);   </script>"
         a4 = "</body></html>"
         a5 = a1 + a2 + a3 + a4
+        f = open(fname, 'r')
+
         f.write(a5)
         f.close()
