@@ -5,6 +5,7 @@ from waitress import serve
 from flask import Flask, request, render_template
 from jinja2 import Environment, PackageLoader, select_autoescape
 import app_support
+from datetime import datetime
 
 app = Flask(__name__)
 env = Environment(    # jinja2
@@ -26,21 +27,27 @@ def show():
     deflation_ratio = request.form['deflation_ratio']  # from index.html   # the site
     annual_inflation = request.form['annual_inflation']  # from index.html   # the site
     inflation_intervals = request.form['start_inflation']  # from same place
+    timestp = format(datetime.now(), '%d%H%M%S')
 
     args_dict = {"ini_sup": initial_supply,
                  "stop_i": stop_inflation,
                  "defl": deflation_ratio,
                  "ann_inf": annual_inflation,
-                 "inf_interval": inflation_intervals}
+                 "inf_interval": inflation_intervals,
+                 "timestp": timestp}
 
     print("got these", initial_supply, stop_inflation, deflation_ratio, annual_inflation,
           inflation_intervals)
 
     tokencalc = app_support.app_support()
-    plotname = tokencalc.main(args_dict)
-    return render_template('showplot.html', img_name=plotname)  ## has the user entry form
+    fname = tokencalc.main(args_dict)
+    img_url = "<img src=" + fname + ">"
+    nowplot(img_url)
 
 
+@app.route('/plot', methods=['GET', 'POST'])
+def nowplot(img_url):
+    return render_template('plot.html', data=img_url)  ## has the user entry form
 
 #
 #
