@@ -25,12 +25,13 @@ def show():
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
     deflation_ratio = request.form['deflation_ratio']  # from index.html   # the site
     annual_inflation = request.form['annual_inflation']  # from index.html   # the site
-    interval_inflation_tokens = annual_inflation / 12  # 5,000,000 NULS
-    start_inflation = 2 * 12  # add later as entry
+    inflation_intervals = request.form['start_inflation']  # from same place
 
     print("got these", initial_supply, stop_inflation, deflation_ratio, annual_inflation,
-          interval_inflation_tokens, start_inflation)
-
+          inflation_intervals  )
+    interval_inflation_tokens = annual_inflation / 12  # 5,000,000 NULS
+    # start_inflation = 2 * 12  # add later as entry
+    #start_inflation
     #return render_template('show.html', name="Hello Joe")  ## has a form
 
 #
