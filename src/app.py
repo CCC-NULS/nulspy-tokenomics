@@ -29,7 +29,7 @@ def plots():
     pname = "plot.html"
     timestp = format(datetime.now(), '%d%H%M%S')
     fname = "plot" + timestp + ".svg"
-    dirname = "plots/"
+    dirname = "/static/plots/"
     imgtag = '<img src="' + dirname + fname + '" alt="Plot">'
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
@@ -50,7 +50,7 @@ def plots():
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    return render_template("plot.html", data=imgtag)
+    return render_template("plots.html", data=imgtag)
 
 
 if __name__ == '__main__':

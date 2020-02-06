@@ -78,7 +78,7 @@ class AppSupport:
         plt.xlabel(xlabel_str)
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
         plt.plot(self.interval_count_list, self.token_count_list)
-        newname = "plots/" + fname
+        newname = "static/plots/" + fname
         plt.savefig(newname,  dpi=150, format='svg')
         return True
 
