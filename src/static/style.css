@@ -1,0 +1,191 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+
+#container {
+  height: 4em;
+    width: 100%;
+  position: relative;
+}
+
+#image {
+    z-index=-1;
+  position: absolute;
+height: 6em;
+width: 100%;
+}
+
+#logo {
+    z-index=7;
+    position: absolute;
+    height: 2em;
+    width: 8.1em;
+    padding-left:.3em;
+    padding-top:.3em;
+}
+
+#text {
+  z-index: 100;
+  position: absolute;
+  color: white;
+  font-size: 1.9em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+   text-shadow: .05em .05em .05em grey;
+  padding-left: 1em;
+  padding-bottom: 2em;
+  text-align: center;
+
+ .bcentered {
+    position: absolute;
+    bottom: .5em;
+    left: 1em;
+}
+
+.text-body {
+  color: black;
+  font-size: 1.4em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  text-shadow: .01em .01em .01em grey;
+
+ .bcentered {
+    position: absolute;
+    bottom: .5em;
+    left: 1em;
+}
+
+html {
+  font-family: 'Montserrat', sans-serif;
+  padding: 1rem;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  color: slategrey;
+  margin: 1rem 0;
+}
+
+a {
+  color: #377ba8;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid lightgray;
+}
+
+.content {
+  padding: 0 1rem 1rem;
+}
+
+.content > header {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: flex-end;
+}
+
+.content > header h1 {
+  flex: auto;
+  margin: 1rem 0 0.25rem 0;
+}
+
+
+.content form {
+  margin: 2em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.content input, .content textarea {
+  margin-bottom: 1em;
+}
+
+.content textarea {
+  min-height: 12em;
+  resize: vertical;
+}
+
+
+
+input[type=submit] {
+  align-self: start;
+  min-width: 10em;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.box{
+  position: static;
+  z-index:1
+  height: 30px;
+  width: 79%;
+  color: white;
+  font-size: 1.9em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 750;
+  padding-top:.5em;
+  text-align: center;
+   box-shadow:2px 4px 8px #168a8a;
+  background-color: #78D0EA;
+  background-color: cyan; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom right, #78D0EA, #168a8a); /* Standard syntax (must be last) */
+}
+
+.box{
+  position: static;
+  z-index:1
+  height: 30px;
+  width: 79%;
+  color: white;
+  font-size: 1.9em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 750;
+  padding-top:.5em;
+  text-align: center;
+  background-color: #78D0EA;
+}

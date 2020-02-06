@@ -1,0 +1,118 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en-US" prefix="og: http://ogp.me/ns#" style="background:#805ad5;">
+
+<head profile="https://www.w3.org/2005/10/profile">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache" >
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content=0 >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Nancy Schorr">
+<meta name="date" content="2018-11-15" scheme="YYYY-MM-DD">
+<meta property="og:title" content="TokenCalc" />
+<meta property="og:url" content="https://nuls.io/" />
+<meta property="og:image" content="vikinglogo.jpg" />
+<!--<link rel=stylesheet href="http://westteam.nulstar.com/build/tailwind.css">-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+<meta property="og:description" content="This will query the Nuls Chain Factory blockchain. Written by Kathy Norman,
+Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
+
+<link rel=stylesheet href="../static/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+
+<title>&emsp;PSU-Calc Token-Life</title>
+
+<style>
+
+
+</style>
+</head>
+
+<body>
+
+<img src="./vikinglogo.JPG" alt="VikingChain" style="margin-top:1em; margin-left:4em; margin-bottom:1em;">
+
+<div id="maindiv" style="margin: 20% 15%;
+      background: linear-gradient(to bottom right,#805ad5 10%, #004a6b 90%);">
+
+
+
+   <p id="text" style="padding-top:.1em; color:#004a6b;">
+Welcome to TokenLife
+  </p>
+
+<hr class="hrstyle">
+<br>
+<div id="maintext" class="textbody" style="padding: 1em; margin:2em;">
+VikingChain is the first product review platform that ensures un-biased product review by employing the
+decentralized benefits of blockchain technology.
+
+
+<div id="inset" style="margin:2em; padding:1em 4em; background:white; border: 1px solid;
+    box-shadow: 5px 10px #b794f4; border-radius:7px;">
+Intervals can be thought of as months or 30/day increments.
+<br>
+For this blockchain, the following values will be set:   <br>
+
+Initial Supply : 100,000,000 VKGs/NULS<br>
+
+Inflation begins in intervals: 24 (2 years)<br>
+
+Inflation tokens per interval: 5,000,000 / 12 (416,666.66) VKGs or NULs<br>
+
+Inflation is turned off when inflation reaches: 210,000,000  VKGs/NULS<br>
+
+De-inflation ratio is: 0.004<br>
+
+De-inflation and inflation begin at the same time.<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make your changes below.<br><br>
+
+
+  <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+    <span style="font-weight:700;color:rgb(55, 53, 66);margin-left:7em;">Enter Your Changes:</span><br>
+
+
+<form action="/show" method ="POST" >
+
+Initial Supply :
+<input type="text" size="24" value="100000000" name="initial_supply">&nbsp;<br>
+
+    Inflation tokens per interval:
+<input type="text" size="24" value="5000000" name="annual_inflation">&nbsp;<br>
+
+Inflation begins in intervals:
+  <input type="text" size="24" name="start_inflation" value="24">&nbsp;<br>
+
+Inflation stops at:
+  <input type="text" size="24" value="210000000" name="stop_inflation">&nbsp;<br>
+
+
+    De-inflation ratio:
+  <input type="text" size="24" value="0.004" name="deflation_ratio">&nbsp;<br>
+
+
+<input type="submit" value=" Plot it "
+       style="width:14em; min-width:14em;  background: linear-gradient(to bottom right,#b794f4 50%, #004a6b 100%);
+       color:white; text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em 1em; margin-left:6em;
+       margin-top:3em; font-size: 1.2em;
+        font-weight:500; font-family:Montserrat, sans-serif; border-radius:.7em;">
+
+</form>
+    </div> <!-- inset -->
+</div>  <!-- text -->
+<br>
+
+</div>  <!-- main -->
+
+
+</body>
+
+</html>
