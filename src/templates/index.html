@@ -29,6 +29,16 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <title>&emsp;PSU-Calc Token-Life</title>
 
 <style>
+.maintitle {
+  font-size: 42px;  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;  text-shadow: 2px 2px 2px  grey;
+  margin-left:4em; margin-top:5em; padding-top:5em; color:white;
+}
+
+.maindiv {  margin-top: 2em; padding:1em;
+      background: linear-gradient(to bottom right, #ffcccc, #004a6b 100%)
+}
+
 
 
 </style>
@@ -36,26 +46,21 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 
 <body>
 
-<img src="./vikinglogo.JPG" alt="VikingChain" style="margin-top:1em; margin-left:4em; margin-bottom:1em;">
+<img src="./vikinglogo.JPG" alt="VikingChain" style="margin-top:1em; margin-left:4em; ">
+<span class="maintitle" style="text-align:center; margin-top:3em!important;">
+    <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Welcome to TokenLife
+</span>
 
-<div id="maindiv" style="margin: 20% 15%;
-      background: linear-gradient(to bottom right,#805ad5 10%, #004a6b 90%);">
-
-
-
-   <p id="text" style="padding-top:.1em; color:#004a6b;">
-Welcome to TokenLife
-  </p>
-
-<hr class="hrstyle">
-<br>
-<div id="maintext" class="textbody" style="padding: 1em; margin:2em;">
-VikingChain is the first product review platform that ensures un-biased product review by employing the
-decentralized benefits of blockchain technology.
+<div class="maindiv">
 
 
-<div id="inset" style="margin:2em; padding:1em 4em; background:white; border: 1px solid;
+<div id="textbody" class="textbody" style="padding: 1px 4em .4em 4em; margin:.2em; font-size: 24px;">
+
+
+<div id="inset" style="margin:1em; padding: 4px 4em 4em 4em; background:white; border: 1px solid;
     box-shadow: 5px 10px #b794f4; border-radius:7px;">
+<br>
+    Test out different values here, and see a plot of how they play out over time.<br>
 Intervals can be thought of as months or 30/day increments.
 <br>
 For this blockchain, the following values will be set:   <br>
@@ -70,9 +75,9 @@ Inflation is turned off when inflation reaches: 210,000,000  VKGs/NULS<br>
 
 De-inflation ratio is: 0.004<br>
 
-De-inflation and inflation begin at the same time.<br><br>
+De-inflation and inflation begin at the same time.<br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make your changes below.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make your changes below.<br>
 
 
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -102,7 +107,7 @@ Inflation stops at:
 <input type="submit" value=" Plot it "
        style="width:14em; min-width:14em;  background: linear-gradient(to bottom right,#b794f4 50%, #004a6b 100%);
        color:white; text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em 1em; margin-left:6em;
-       margin-top:3em; font-size: 1.2em;
+       margin-top:1.5em; font-size: 1.2em;
         font-weight:500; font-family:Montserrat, sans-serif; border-radius:.7em;">
 
 </form>
