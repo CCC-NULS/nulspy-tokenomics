@@ -2,10 +2,12 @@
 # from time import sleep
 
 from waitress import serve
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from jinja2 import Environment, PackageLoader, select_autoescape
-import app_support
+import appsupport
 from datetime import datetime
+from os import path
+
 
 app = Flask(__name__)
 env = Environment(    # jinja2
@@ -20,11 +22,13 @@ def index():
     return render_template('index.html')  ## has the user entry form
 
 
-@app.route('/show',  methods=['POST', 'GET', 'HEAD'])
+@app.route('/show', methods=['POST'])
 def show():
     timestp = format(datetime.now(), '%d%H%M%S')
+    os_path_plus = path.join(app.root_path, "templates")
+    pname = os_path_plus + "\\plot.html"
     fname = "plots/plot" + timestp + ".svg"
-    img_url = "<img src=" + fname + ">"
+    img_tag = '<img src="' + fname + '">'
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
@@ -38,16 +42,12 @@ def show():
                  "ann_inf": annual_inflation,
                  "inf_interval": inflation_intervals,
                  "timestp": timestp,
-                 "fname": fname }
+                 "img_tag": img_tag,
+                 "fname": fname,
+                 "pname": pname}
 
-    tk_obj = app_support.app_support()
+    tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    nowplot(img_url)
-
-
-@app.route('/plot', methods=['GET', 'POST'])
-def nowplot(img_url):
-    return render_template('plot.html', data=img_url)
 
 
 if __name__ == '__main__':
