@@ -78,11 +78,6 @@ class app_support:
 
 
 
-
-
-
-        #self.write_html_file(fname)
-
     # def write_html_file(self, fname):
     #     a1 = "<html><head></head><body>"
     #     a2 = "<script>  img = document.createElement('img'); img.src = 'plots/plot-5202157.svg;"
