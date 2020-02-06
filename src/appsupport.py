@@ -64,6 +64,7 @@ class AppSupport:
             print("\n\n")
         print("and we are done with calcs")
         self.plot_graph(fname)
+        return True
 
     def plot_graph(self, fname):
 
@@ -79,7 +80,5 @@ class AppSupport:
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
         plt.plot(self.interval_count_list, self.token_count_list)
         plt.savefig(fname,  dpi=150, format='svg')
-
-        pname = self.pname + "\\plot.html"
-        return render_template(self.pname, img_tag)
+        return True
 

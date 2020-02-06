@@ -22,11 +22,12 @@ def index():
     return render_template('index.html')  ## has the user entry form
 
 
-@app.route('/show', methods=['POST'])
-def show():
-    timestp = format(datetime.now(), '%d%H%M%S')
+@app.route('/plot', methods=['GET', 'POST', 'HEAD'])
+def plot():
     os_path_plus = path.join(app.root_path, "templates")
-    pname = os_path_plus + "\\plot.html"
+    # pname = os_path_plus + "\\plot.html"
+    pname = "plot.html"
+    timestp = format(datetime.now(), '%d%H%M%S')
     fname = "plots/plot" + timestp + ".svg"
     img_tag = '<img src="' + fname + '">'
 
@@ -48,6 +49,7 @@ def show():
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
+    return render_template("plot.html", data=img_tag)
 
 
 if __name__ == '__main__':
