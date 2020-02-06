@@ -5,10 +5,10 @@ Created on Thu Jan 16 23:53:45 2020
 """
 
 import matplotlib.pyplot as plt
-import datetime
+from datetime import datetime
 
-class TokenLife(object):
 
+class app_support:
     def __init__(self):
         self.TOKEN_SYMBOL = "VKG"  # 3 characters, all caps.  e.g SET = Space Exploration
         self.initial_supply = 100000000  # 100,000,000  NULS
@@ -27,17 +27,17 @@ class TokenLife(object):
     def main(self, args_dict) -> str:
         self.TOKEN_SYMBOL = "VKG"  # 3 characters, all caps.  e.g SET = Space Exploration
 
-        self.initial_supply = args_dict.get("ini_sup")  # 100,000,000  NULS
-        self.stop_inflation = args_dict.get("stop_i")   # 210,000,000  NULS
-        self.deflation_ratio = args_dict.get("defl")
-        self.annual_inflation = args_dict.get("annual_inflation")   # 5,000,000 NULS
-        self.intervals_till_start_infl = args_dict.get("inf_interval")
+        self.initial_supply = int(args_dict.get("ini_sup"))  # 100,000,000  NULS
+        self.stop_inflation = int(args_dict.get("stop_i"))   # 210,000,000  NULS
+        self.deflation_ratio = float(args_dict.get("defl"))
+        self.annual_inflation = int(args_dict.get("ann_inf"))  # 5,000,000 NULS
+        self.intervals_till_start_infl = int(args_dict.get("inf_interval"))
 
         self.interval_inflation_rate = self.annual_inflation / 12  # 5,000,000 NULS
 
         tokens = self.initial_supply
         print("\n ----- ----- ----->   Starting token count: ", tokens)
-        print("self.start_inflation: ", self.start_inflation)
+        print("self.start_inflation: ", self.intervals_till_start_infl)
 
         interval_limit = 75 * 12
         print("  Interval limit: ", interval_limit)
@@ -61,9 +61,10 @@ class TokenLife(object):
 
         print("and we are done with calcs")
         fname = self.plot_graph()
+
         return fname
 
-    def plot_graph(self):
+    def plot_graph(self) -> str:
         # import io
         plt.title('Token Life - Token Supply')
         plt.legend(['Initial Supply: ', self.initial_supply], loc='upper left')
@@ -77,8 +78,18 @@ class TokenLife(object):
         plt.xlabel("yes")
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
         plt.plot(self.interval_count_list, self.token_count_list)
-        timestp = format(datetime.now(), '%Y%m%d.%H.%M%S')
-        fname = "plot-" + timestp
-        plt.savefig(fname,  dpi=150, format='svg')
 
-        return fname
+        timestp = format(datetime.now(), '%d%H%M%S')
+        fname = "/plots/plot" + timestp + ".svg"
+        plt.savefig(fname,  dpi=150, format='svg')
+        self.write_html_file(fname)
+
+    def write_html_file(self):
+        f = open("plottemp.html", 'w')
+        a1 = "<html><head></head><body>"
+        a2 = "<script>  img = document.createElement('img'); img.src = 'plots/plot-5202157.svg;"
+        a3 = "document.getElementById('body').appendChild(img);   </script>"
+        a4 = "</body></html>"
+        a5 = a1 + a2 + a3 + a4
+        f.write(a5)
+        f.close()
