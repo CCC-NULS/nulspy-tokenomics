@@ -72,13 +72,13 @@ class AppSupport:
         plt.legend(['Initial Supply: ', self.initial_supply], loc='upper left')
         #
         xlabel_str = '30 day intervals'
-        ylabel_str = self.TOKEN_SYMBOL + ' Token Count, increments of 1M'
+        ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 1M'
         plt.ylabel(ylabel_str)
         plt.grid(True)
         plt.xlabel(xlabel_str)
-        plt.xlabel("yes")
         plt.suptitle(" Life Span for token " + self.TOKEN_SYMBOL)
         plt.plot(self.interval_count_list, self.token_count_list)
-        plt.savefig(fname,  dpi=150, format='svg')
+        newname = "plots/" + fname
+        plt.savefig(newname,  dpi=150, format='svg')
         return True
 

@@ -3,12 +3,15 @@
 <html lang="en-US" prefix="og: http://ogp.me/ns#" style=" background:#f7f7f7!important; padding: 1rem;">
 
 <head profile="https://www.w3.org/2005/10/profile">
-
+         <script type="text/javascript">
+            var imgfile = {{ data }}
+        </script>
 <title> Token-Life</title>
 </head>
 
 <body>
-{{ img_url }}
+<p>{{ data | safe }}</p>
+
 
 </body>
 

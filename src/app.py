@@ -22,14 +22,15 @@ def index():
     return render_template('index.html')  ## has the user entry form
 
 
-@app.route('/plot', methods=['GET', 'POST', 'HEAD'])
-def plot():
-    os_path_plus = path.join(app.root_path, "templates")
+@app.route('/plots', methods=['GET', 'POST', 'HEAD'])
+def plots():
+    # os_path_plus = path.join(app.root_path, "templates")
     # pname = os_path_plus + "\\plot.html"
     pname = "plot.html"
     timestp = format(datetime.now(), '%d%H%M%S')
-    fname = "plots/plot" + timestp + ".svg"
-    img_tag = '<img src="' + fname + '">'
+    fname = "plot" + timestp + ".svg"
+    dirname = "plots/"
+    imgtag = '<img src="' + dirname + fname + '" alt="Plot">'
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
@@ -43,17 +44,18 @@ def plot():
                  "ann_inf": annual_inflation,
                  "inf_interval": inflation_intervals,
                  "timestp": timestp,
-                 "img_tag": img_tag,
+                 "img_tag": imgtag,
                  "fname": fname,
                  "pname": pname}
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    return render_template("plot.html", data=img_tag)
+    return render_template("plot.html", data=imgtag)
 
 
 if __name__ == '__main__':
     serve(app)
+    a = 1
 
 
     #app.run('127.0.0.1', 5000, debug=True)  (nginx?)
