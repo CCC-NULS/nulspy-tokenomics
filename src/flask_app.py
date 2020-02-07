@@ -25,17 +25,11 @@ def index():
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    # n = flask.request.host_url  # returns http://host.com/etc
-
-    second_template = "plots.html"
-
     basename = os.path.dirname(app.instance_path)
-
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
     plotfilepath = "{0}\\plots\\{1}".format(basename, plotsvg)
     plotfilepath = os.path.normcase(plotfilepath)
-    print("plotfilepath: ", plotfilepath)
 
     print("!!!!!!!!!!!  filepath:  ", str(plotfilepath))
 
@@ -56,7 +50,6 @@ def plots():
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    # return render_template(second_template, data=plotfilepath)
 
     with open(plotfilepath) as tfile:
         pfile_contents = tfile.read()
@@ -64,10 +57,7 @@ def plots():
 
 
 if __name__ == '__main__':
-
     serve(app)
-    a = 1
-
 
     #app.run('127.0.0.1', 5000, debug=True)  (nginx?)
 
