@@ -1,15 +1,15 @@
-#!venv
-# from time import sleep
 
-from waitress import serve
-from flask import Flask, request, render_template, redirect, url_for
-from jinja2 import Environment, PackageLoader, select_autoescape
+from flask import Flask, request, render_template,  escape, url_for
+from jinja2 import Environment, select_autoescape
 import appsupport
 from datetime import datetime
 from os import path
-
+from waitress import serve
+import flask
+import os
 
 app = Flask(__name__)
+
 env = Environment(    # jinja2
     # loader=PackageLoader('psu-calc', 'templates'),
     # loader=PackageLoader('psu-calc', 'templates'),
@@ -19,18 +19,22 @@ env = Environment(    # jinja2
 
 @app.route('/')   # change later
 def index():
+
     return render_template('index.html')  ## has the user entry form
 
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    # os_path_plus = path.join(app.root_path, "templates")
-    # pname = os_path_plus + "\\plot.html"
-    pname = "plot.html"
+    homedir = flask.request.host_url
+
+    template_name = "plots.html"
+
     timestp = format(datetime.now(), '%d%H%M%S')
-    fname = "plot" + timestp + ".svg"
-    dirname = "/static/plots/"
-    imgtag = '<img src="' + dirname + fname + '" alt="Plot">'
+    plotsvg = "plot" + timestp + ".svg"
+    plotfilepath = homedir + "/plots/" + plotsvg
+    p = "{0}/plots/{1}".format(homedir, plotsvg)
+    print("!!!!!!!!!!!  filepath:  ", str(plotfilepath))
+    imgtag = '<img src="' + plotfilepath + '" alt="Plots">'
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
@@ -44,16 +48,17 @@ def plots():
                  "ann_inf": annual_inflation,
                  "inf_interval": inflation_intervals,
                  "timestp": timestp,
-                 "img_tag": imgtag,
-                 "fname": fname,
-                 "pname": pname}
+                 "plotfilepath": plotfilepath,
+                 "plotsvg": plotsvg,
+                 "template_name": template_name}
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    return render_template("plots.html", data=imgtag)
+    return render_template(template_name, data=imgtag)
 
 
 if __name__ == '__main__':
+
     serve(app)
     a = 1
 
