@@ -65,8 +65,10 @@ class AppSupport:
         rcParams['figure.figsize'] = [12, 9]
 
         plt.title('Token Life - Token Supply')
+        isstr = 'Initial Supply: {}'.format(str(self.initial_supply))
+        print(isstr)
 
-        plt.legend(['Initial Supply: ', self.initial_supply], loc='upper left')
+        plt.legend([isstr, 'Token Initial Supply'], loc='bottom right')
         xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflation, deflation)
         ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 1M'
         plt.ylabel(ylabel_str, size=16, color="green")
