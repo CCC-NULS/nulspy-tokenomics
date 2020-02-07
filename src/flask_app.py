@@ -1,5 +1,5 @@
 
-from flask import Flask, request, render_template,  escape, url_for
+from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
 from datetime import datetime
@@ -25,16 +25,19 @@ def index():
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    homedir = flask.request.host_url
+    # n = flask.request.host_url  # returns http://host.com/etc
 
-    template_name = "plots.html"
+    second_template = "plots.html"
+
+    basename = os.path.dirname(app.instance_path)
 
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
-    plotfilepath = homedir + "/plots/" + plotsvg
-    p = "{0}/plots/{1}".format(homedir, plotsvg)
+    plotfilepath = "{0}\\plots\\{1}".format(basename, plotsvg)
+    plotfilepath = os.path.normcase(plotfilepath)
+    print("plotfilepath: ", plotfilepath)
+
     print("!!!!!!!!!!!  filepath:  ", str(plotfilepath))
-    imgtag = '<img src="' + plotfilepath + '" alt="Plots">'
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
@@ -49,12 +52,15 @@ def plots():
                  "inf_interval": inflation_intervals,
                  "timestp": timestp,
                  "plotfilepath": plotfilepath,
-                 "plotsvg": plotsvg,
-                 "template_name": template_name}
+                 "plotsvg": plotsvg}
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
-    return render_template(template_name, data=imgtag)
+    # return render_template(second_template, data=plotfilepath)
+
+    with open(plotfilepath) as tfile:
+        pfile_contents = tfile.read()
+    return render_template_string(pfile_contents)
 
 
 if __name__ == '__main__':

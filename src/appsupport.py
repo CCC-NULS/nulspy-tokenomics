@@ -19,8 +19,6 @@ class AppSupport:
         self.token_count_list = []
         self.interval_count_list = []
         self.plotsvg = None
-        self.img_tag = None
-        self.template_name = None
         self.interval_inflation_rate = None
 
     def main(self, args_dict):
