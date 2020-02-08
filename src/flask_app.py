@@ -25,13 +25,15 @@ def index():
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    basename = os.path.dirname(app.instance_path)
+    os.chdir("..")
+    basename = os.path.abspath(os.curdir)
+    # basename = os.path.dirname(app.instance_path)
+
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
-    plotfilepath = "{0}\\plots\\{1}".format(basename, plotsvg)
-    plotfilepath = os.path.normcase(plotfilepath)
-
-    print("!!!!!!!!!!!  filepath:  ", str(plotfilepath))
+    plotsdir = 'plotfiles'
+    plotfilep = os.path.join(basename, plotsdir)
+    plotfilepath = os.path.normcase(plotfilep)
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
