@@ -14,15 +14,6 @@ height: 6em;
 width: 100%;
 }
 
-#logo {
-    z-index=7;
-    position: absolute;
-    height: 2em;
-    width: 8.1em;
-    padding-left:.3em;
-    padding-top:.3em;
-}
-
 #text {
   z-index: 100;
   position: absolute;
@@ -50,8 +41,8 @@ width: 100%;
 
  .bcentered {
     position: absolute;
-    bottom: .5em;
-    left: 1em;
+    bottom: .5 em;
+    left: 1 em;
 }
 
 html {
@@ -97,25 +88,9 @@ hr {
 
 
 .content form {
-  margin: 2em 0;
   display: flex;
   flex-direction: column;
 }
-
-.content label {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-}
-
-.content input, .content textarea {
-  margin-bottom: 1em;
-}
-
-.content textarea {
-  min-height: 12em;
-  resize: vertical;
-}
-
 
 
 input[type=submit] {
@@ -158,34 +133,4 @@ input[type=submit] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.box{
-  position: static;
-  z-index:1
-  height: 30px;
-  width: 79%;
-  color: white;
-  font-size: 1.9em;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 750;
-  padding-top:.5em;
-  text-align: center;
-   box-shadow:2px 4px 8px #168a8a;
-  background-color: #78D0EA;
-  background-color: cyan; /* For browsers that do not support gradients */
-    background-image: linear-gradient(to bottom right, #78D0EA, #168a8a); /* Standard syntax (must be last) */
-}
-
-.box{
-  position: static;
-  z-index:1
-  height: 30px;
-  width: 79%;
-  color: white;
-  font-size: 1.9em;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 750;
-  padding-top:.5em;
-  text-align: center;
-  background-color: #78D0EA;
 }

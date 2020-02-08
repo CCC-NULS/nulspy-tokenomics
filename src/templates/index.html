@@ -62,7 +62,7 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
     <title>Token Life</title>
 </head>
 
-<body style="background:#805ad5;font-family:'Hind', serif;">
+<body style="background:#805ad5;font-family:'Hind', serif;font-size:18px;">
 
 
 
@@ -99,57 +99,66 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <h4 class="hind" style="color:#26386b">Intervals can be thought of as months or 30/day increments.</h4>
 
 
-<h5 class="hind">&emsp;&emsp;For this blockchain, the following values are set:   </h5>
+<h5 class="hind" style="margin-block-start: 1em;margin-block-end: 1em;">
+
+    &emsp;&emsp;For this blockchain, the following values are set:   </h5>
+
 
 <div class="hind" style="left-margin:2em;">
 
-Initial Supply : 100,000,000 VKGs/NULS<br>
+Initial Supply:  &emsp;&emsp; 100,000,000 VKGs/NULS<br>
 
-Inflation begins in intervals: 24 (2 years)<br>
+Inflation begins in intervals: &emsp;&emsp; 24 (2 years)<br>
 
-Inflation tokens per interval: 5,000,000 / 12 (416,666.66) VKGs or NULs<br>
+Inflation tokens per interval: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKGs or NULs<br>
 
-Inflation is turned off when inflation reaches: 210,000,000  VKGs/NULS<br>
+Inflation is turned off when inflation reaches: &emsp;&emsp; 210,000,000  VKGs/NULS<br>
 
-De-inflation ratio is: 0.004<br>
-
-De-inflation and inflation begin at the same time.<br>
-<br>
+De-inflation ratio is: &emsp;&emsp; 0.004<br>
+<p style="line-height:4px;"></p>
+&emsp;&emsp;&emsp;De-inflation and inflation begin at the same time.<br>
 </div>
 
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-
+<style>
+.inputc {
+    font-size:22px;
+    font-family: 'Lato', sans-serif;
+    color:blue;
+    }
+.parspace {
+     margin-bottom: 4px;
+    }
+</style>
 
 
   <h3>Enter Adjustments</h3>
 
 <span style="margin-bottom: 4px;"> </span>
 
-<form action="/plots" method ="POST" >
+<form action="/plots" method ="POST"  >
 
-Initial Supply :
-<input type="text" size="20" value="100000000" name="initial_supply">&nbsp;<br>
-<span style="margin-bottom: 4px;"> </span>
+Initial Supply:
+<input type="number" value="100000000" name="initial_supply" class="inputc"><p class="parspace"></p>
 
     Inflation tokens per interval:
-<input type="text" size="20" value="5000000" name="annual_inflation">&nbsp;<br>
-<span style="margin-bottom: 4px;"> </span>
+<input type="number"  value="5000000" name="annual_inflation" class="inputc">&nbsp;<p class="parspace"></p>
 
 Inflation begins in intervals:
-  <input type="text" size="20" name="start_inflation" value="24">&nbsp;<br>
+  <input type="number"  name="start_inflation" value="24" class="inputc"><p class="parspace"></p>
 
 Inflation stops at:
-  <input type="text" size="20" value="210000000" name="stop_inflation">&nbsp;<br>
+  <input type="number" value="210000000" name="stop_inflation" class="inputc">&nbsp;<p class="parspace"></p>
 
 
     De-inflation ratio:
-  <input type="text" size="20" value="0.004" name="deflation_ratio">&nbsp;<br>
+  <input type="text" size="20" value="0.004" name="deflation_ratio" class="inputc"><p class="parspace"></p>
 
 
-<input type="submit" value=" Plot it "
+<input type="submit" value=" Plot Me "
        style="width:7em; min-width:7em;  background: #dd6b20;
-       color:white; text-shadow: 3px 2px 5px #a98975; padding: 5px; margin-left:5em;
-       margin-top:1.5em; font-size: 21px;
+       color:white; text-shadow: 3px 2px 5px #a98975; padding: 5px; margin-left:7em;
+       margin-top:12px; font-size: 21px;
         font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
 
 </form>
