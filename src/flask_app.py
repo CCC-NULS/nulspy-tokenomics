@@ -7,6 +7,7 @@ from os import path
 from waitress import serve
 import flask
 import os
+from time import sleep
 
 app = Flask(__name__)
 
@@ -52,6 +53,15 @@ def plots():
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
+
+    filethere = 1
+    try:
+        while filethere:
+            sleep(.5)
+            if os.path.isfile(plotfilepath):
+                filethere = 0
+    except FileNotFoundError:
+        pass
 
     with open(plotfilepath) as tfile:
         pfile_contents = tfile.read()

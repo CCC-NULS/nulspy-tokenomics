@@ -6,6 +6,7 @@ Created on Thu Jan 16 23:53:45 2020
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import matplotlib
+from matplotlib import axes
 
 
 class AppSupport:
@@ -53,7 +54,7 @@ class AppSupport:
         return True
 
     def plot_graph(self, plotfilepath):
-        from time import sleep
+        rcParams['figure.figsize'] = [12, 9]
         font = {'weight': 'bold',
                 'size': 15}
         d = self.deflation_ratio
@@ -61,25 +62,21 @@ class AppSupport:
 
         deflation = "{:.1%}".format(d)
         matplotlib.rc('font', **font)
-        rcParams['figure.figsize'] = [12, 9]
 
-        plt.title('Token Life - Token Supply')
+        plt.title('Token Life - Token Supply', pad=20, color="purple", size=30)
+
         isstr = 'Initial Supply: {}'.format(str(self.initial_supply))
-        print(isstr)
 
-        plt.legend([isstr, 'Token Initial Supply'], loc='lower right')
         xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflation, deflation)
-        ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 1M'
-        plt.ylabel(ylabel_str, size=16, color="green")
+        ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 100 M'
+        plt.ylabel(ylabel_str, size=20, color="green", labelpad=20)
         plt.grid(True, linewidth=2, color='green')
-        plt.xlabel(xlabel_str, labelpad=20)
-        plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=1.12, color="red")
-        # ax2 = plt
-        # r = rcParams
+        plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
+        plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
-        plt.plot(self.interval_count_list, self.token_count_list, color='purple', linestyle='--', linewidth=5)
-        # plt.plot(self.interval_count_list, self.interval_inflation_rate_list, color='orange', linestyle='--', linewidth=5)
-        print("now path is: ", plotfilepath)
+        plt.plot(self.interval_count_list, self.token_count_list, color='purple', linestyle='--', linewidth=5,  label='x vs y')
+        #plt.legend()
+        plt.legend([isstr, 'Token Initial Supply'], loc='lower left')
+
         plt.savefig(plotfilepath,  dpi=150, format='svg')
-        sleep(3)
         return True
