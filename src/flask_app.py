@@ -32,8 +32,8 @@ def plots():
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
-    plotfilep = os.path.join(basename, plotsdir)
-    plotfilepath = os.path.normcase(plotfilep)
+    plotfilesdir = os.path.join(basename, plotsdir)
+    plotfilepath = os.path.join(plotfilesdir, plotsvg)
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site

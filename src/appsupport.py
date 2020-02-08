@@ -54,8 +54,7 @@ class AppSupport:
 
     def plot_graph(self, plotfilepath):
         from time import sleep
-        font = {'family': 'normal',
-                'weight': 'bold',
+        font = {'weight': 'bold',
                 'size': 15}
         d = self.deflation_ratio
         inflation = str(self.annual_inflation)
