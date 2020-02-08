@@ -1,6 +1,6 @@
 <!DOCTYPE html  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<html lang="en-US" prefix="og: http://ogp.me/ns#" style="background:#805ad5;">
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
 
 <head profile="https://www.w3.org/2005/10/profile">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,12 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Nancy Schorr">
 <meta name="date" content="2018-11-15" scheme="YYYY-MM-DD">
-<meta property="og:title" content="TokenCalc" />
-<meta property="og:url" content="https://nuls.io/" />
-<meta property="og:image" content="vikinglogo.jpg" />
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+<meta property="og:title" content="TokenCalc" >
+<meta property="og:url" content="https://nuls.io/" >
+<meta property="og:image" content="vikinglogo.jpg" >
 
 <meta property="og:description" content="This will query the Nuls Chain Factory blockchain. Written by Kathy Norman,
 Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
@@ -25,30 +27,56 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
 
-<title>Token Life</title>
+
 
 <style>
+
 .maintitle {
-  font-size: 42px;  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;  text-shadow: 2px 2px 2px  grey;
-  margin-left:4em; margin-top:5em; padding-top:5em; color:white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42!important;
+  font-weight: 700;
+  color:white;
+  text-shadow: 3px 2px 2px #darkgrey;
 }
 
-.maindiv {  margin-top: 2em; padding:1em;
-      background: linear-gradient(to bottom right, #ffcccc, #004a6b 100%)
+.maindiv {  margin-top:5px; padding:1px;
+      background: linear-gradient(to bottom right,#a98975, #ffcccc, # 100%);
 }
-
+.row {
+  display: flex;            /* equal height of the children */
+}
+.col {
+  flex: 2;                        /* additionally, equal width */
+  padding: 2em;
+}
 </style>
+
+
+
+    <title>Token Life</title>
 </head>
 
-<body>
+<body style="background:#805ad5;font-family: 'Montserrat', sans-serif;">
 
-<img src="/static/vikinglogo.jpg" alt="VikingChain" style="margin-top:1em; margin-left:1em; border-radius:10px;">
-<span class="maintitle" style="text-align:center; margin-top:3em!important;
-       text-shadow: 3px 2px 5px black;">
-    <br>&emsp; &emsp;&emsp;&emsp;&emsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    Welcome to Token Life
-</span>
+
+
+
+
+<div class="row">
+
+  <div class="col">
+      <img src="../static/vikinglogo.jpg" alt="VikingChain">
+  </div>
+
+
+  <div class="col maintitle">Welcome to Token Life
+  </div>
+
+</div>            <!-- end row -->
+
+
+
+
 
 <div class="maindiv">
 
@@ -56,8 +84,8 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <div id="textbody" class="textbody" style="padding: 1px 4em .4em 4em; margin:.2em; font-size: 20px;">
 
 
-<div id="inset" style="margin:1em; padding: 4px 4em 4em 4em; background:white; border: 1px solid;
-    box-shadow: 5px 10px #b794f4; border-radius:7px;">
+<div id="inset" style="margin:1em; padding: 4px 4em 4em 4em; background:white;
+    border-radius:4px;">
 <br>
     Test out different values here, and see a plot of how they play out over time.
     <br>
@@ -79,23 +107,24 @@ Inflation is turned off when inflation reaches: 210,000,000  VKGs/NULS<br>
 De-inflation ratio is: 0.004<br>
 
 De-inflation and inflation begin at the same time.<br>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make your changes below.<br>
+<br>
 
 
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 
-    <span style="display: block; font-weight:700;color:rgb(55, 53, 66);margin-left:7em;
-margin-top:16px;margin-bottom:15px;">Enter Your Changes:</span><br>
-
+<span style="display: block; font-weight:700;color:rgb(55, 53, 66);margin-left:7em;
+margin-top:22px;margin-bottom:7px;">Enter Any Changes</span><br>
+<span style="margin-bottom: 4px;"> </span>
 
 <form action="/plots" method ="POST" >
 
 Initial Supply :
 <input type="text" size="20" value="100000000" name="initial_supply">&nbsp;<br>
+<span style="margin-bottom: 4px;"> </span>
 
     Inflation tokens per interval:
 <input type="text" size="20" value="5000000" name="annual_inflation">&nbsp;<br>
+<span style="margin-bottom: 4px;"> </span>
 
 Inflation begins in intervals:
   <input type="text" size="20" name="start_inflation" value="24">&nbsp;<br>
@@ -109,9 +138,9 @@ Inflation stops at:
 
 
 <input type="submit" value=" Plot it "
-       style="width:7em; min-width:7em;  background: linear-gradient(to bottom right,#b794f4 0%, #004a6b 100%);
-       color:white; text-shadow: 3px 2px 5px black; padding: .5em; margin-left:5em;
-       margin-top:1.5em; font-size: 1.2em;
+       style="width:7em; min-width:7em;  background: #dd6b20;
+       color:white; text-shadow: 3px 2px 5px #a98975; padding: 5px; margin-left:5em;
+       margin-top:1.5em; font-size: 21px;
         font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
 
 </form>

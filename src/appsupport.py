@@ -72,7 +72,7 @@ class AppSupport:
         ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 1M'
         plt.ylabel(ylabel_str, size=16, color="green")
         plt.grid(True, linewidth=2, color='green')
-        plt.xlabel(xlabel_str)
+        plt.xlabel(xlabel_str, labelpad=20)
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=1.12, color="red")
         # ax2 = plt
         # r = rcParams

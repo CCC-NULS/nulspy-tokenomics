@@ -68,7 +68,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   color: slategrey;
-  margin: 1rem 0;
+  margin: 10px;
 }
 
 a {
