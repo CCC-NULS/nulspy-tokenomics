@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import matplotlib
 from matplotlib import axes
-
+import sys
 
 class AppSupport:
     def __init__(self):
@@ -31,6 +31,7 @@ class AppSupport:
         self.intervals_till_start_infl = int(args_dict.get("inf_interval"))
         self.interval_inflation_rate = self.annual_inflation / 12  # 5,000,000 NULS
         plotfilepath = args_dict.get("plotfilepath")
+        print("nms - {}  ".format(plotfilepath), file=sys.stderr)
 
         tokens = self.initial_supply
         # print("\n ----- ----- ----->   Starting token count: ", tokens)  print("self.start_inflation: ",
@@ -54,6 +55,7 @@ class AppSupport:
         return True
 
     def plot_graph(self, plotfilepath):
+        print("!!! nms ---------------- plotfilepath: {}".format(plotfilepath), file=sys.stderr)
         rcParams['figure.figsize'] = [12, 9]
         font = {'weight': 'bold',
                 'size': 15}

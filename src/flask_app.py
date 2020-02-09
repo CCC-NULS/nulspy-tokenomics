@@ -4,7 +4,7 @@ from jinja2 import Environment, select_autoescape
 import appsupport
 from datetime import datetime
 from os import path
-from waitress import serve
+# from waitress import serve
 import flask
 import os
 from time import sleep
@@ -26,15 +26,18 @@ def index():
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    os.chdir("..")
-    basename = os.path.abspath(os.curdir)
-    # basename = os.path.dirname(app.instance_path)
+    #os.chdir("..")
+    #basename = os.path.abspath(os.curdir)
+    #basename = os.path.dirname(app.instance_path)
 
+    basename ='/home/jetgal/psucalc'
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
     plotfilesdir = os.path.join(basename, plotsdir)
-    plotfilepath = os.path.join(plotfilesdir, plotsvg)
+    plotfp = os.path.join(plotfilesdir, plotsvg)
+    plotfilepath = os.path.normpath(plotfp)
+
 
     initial_supply = request.form['initial_supply']  # from index.html   # the site
     stop_inflation = request.form['stop_inflation']  # from index.html   # the site
@@ -68,8 +71,8 @@ def plots():
     return render_template_string(pfile_contents)
 
 
-if __name__ == '__main__':
-    serve(app)
+# if __name__ == '__main__':
+#     serve(app)
 
     #app.run('127.0.0.1', 5000, debug=True)  (nginx?)
 
