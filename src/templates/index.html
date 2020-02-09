@@ -14,11 +14,11 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-<meta property="og:title" content="TokenCalc" >
+<meta property="og:title" content="Token Life" >
 <meta property="og:url" content="https://nuls.io/" >
 <meta property="og:image" content="vikinglogo.jpg" >
 
-<meta property="og:description" content="This will query the Nuls Chain Factory blockchain. Written by Kathy Norman,
+<meta property="og:description" content="This will query the NULS Chain Factory blockchain. Written by Kathy Norman,
 Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 
 <link rel=stylesheet href="../static/style.css">
@@ -102,7 +102,7 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <div id="inset" style="margin:1em; padding: 1.2em 1em 1em 5em; background:white;
     border-radius:7px;box-shadow: 6px 6px grey;">
 
-   <h3 class="hind">Test out different values here, and see a plot of how they play out over time. </h3>
+   <h3 class="hind">Try different values and view a plot of how they play out over time. </h3>
 
 <h4 class="hind" style="color:#26386b">Intervals can be thought of as months or 30/day increments.</h4>
 
@@ -114,18 +114,18 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 
 <div class="hind" style="left-margin:2em;">
 
-Initial Supply:  &emsp;&emsp; 100,000,000 VKG/NULS<br>
+
 Initial Supply:  &emsp;&emsp; 100,000,000 VKG/NULS<br>
 
 Inflation begins in intervals: &emsp;&emsp; 24 (2 years)<br>
 
-Inflation tokens per interval: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS<br>
+Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS<br>
 
 Inflation is turned off when inflation reaches: &emsp;&emsp; 210,000,000  VKG/NULS<br>
 
-De-inflation ratio is: &emsp;&emsp; 0.004<br>
+Deflation ratio is: &emsp;&emsp; 0.004       ( 0.01 = 1% )  <br>
 <p style="line-height:4px;"></p>
-&emsp;&emsp;&emsp;De-inflation and inflation begin at the same time.<br>
+&emsp;&emsp;&emsp;Inflation and deflation begin at the same time.<br>
 </div>
 
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -150,17 +150,17 @@ De-inflation ratio is: &emsp;&emsp; 0.004<br>
 Initial Supply:
 <input type="number" value="100000000" name="initial_supply" class="inputc"><p class="parspace"></p>
 
-    Inflation tokens per interval:
+    Inflation tokens per 12 intervals:
 <input type="number"  value="5000000" name="annual_inflation" class="inputc">&nbsp;<p class="parspace"></p>
 
-Inflation begins in intervals:
+Inflation begins in how many intervals:
   <input type="number"  name="start_inflation" value="24" class="inputc"><p class="parspace"></p>
 
 Inflation stops at:
   <input type="number" value="210000000" name="stop_inflation" class="inputc">&nbsp;<p class="parspace"></p>
 
 
-    De-inflation ratio:
+    De-inflation ratio ( .01 = 1% ):
   <input type="text" size="20" value="0.004" name="deflation_ratio" class="inputc"><p class="parspace"></p>
 
 
