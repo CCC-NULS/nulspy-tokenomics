@@ -80,15 +80,15 @@ class AppSupport:
         print("token_count_list_y ", TOP_Y)
 
 # -------- TICKS
-        min_x_tics = TOP_X / 20
-        major_x_tics = TOP_X / 10
+        min_x_plugs = TOP_X / 20
+        major_x plugs = TOP_X / 10
 
         min_y_tic = TOP_Y / 20
         major_y_tic = TOP_Y / 10
 
 
-        major_ticks_x = np.arange(BOTTOM_X, xint, major_x_tics)
-        minor_ticks_x = np.arange(BOTTOM_X, xint, min_x_tics)
+        major_ticks_x = np.arange(BOTTOM_X, xint, major_x plugs)
+        minor_ticks_x = np.arange(BOTTOM_X, xint, min_x_plugs)
 
         major_ticks_y = np.arange(BOTTOM_Y, TOP_Y,  major_y_tic)
         BOTTOM_Yy = BOTTOM_Y + min_y_tic
