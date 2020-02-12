@@ -37,8 +37,8 @@ def plots():
     plotfp = os.path.join(plotfilesdir, plotsvg)
     plotfilepath = os.path.normpath(plotfp)
 
-    initial_supply = request.form['initial_supply']  # from index.html   # the site
-    stop_inflation = request.form['stop_inflation']  # from index.html   # the site
+    initial_supply = request.form['initial_supply_y']  # from index.html   # the site
+    stop_inflation = request.form['stop_inflation_y']  # from index.html   # the site
     deflation_ratio = request.form['deflation_ratio']  # from index.html   # the site
     annual_inflation = request.form['annual_inflation']  # from index.html   # the site
     inflation_intervals = request.form['start_inflation']  # from same place
