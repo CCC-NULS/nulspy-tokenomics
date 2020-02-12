@@ -26,6 +26,7 @@ class AppSupport:
         self.interval_limit_x = None
         self.ones_list = []
         self.the_div = None
+        self.real_initial_supply_y = None
 
     def checkthis(self, bignum):
         a = len(str(int(bignum)))
@@ -43,17 +44,18 @@ class AppSupport:
         self.inflation_intervals = int(args_dict.get("inflation_intervals"))
         self.interval_inflation_rate = self.annual_inflation / 12  # 5,000,000 NULS
         plotfilepath = args_dict.get("plotfilepath")
+        self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
 
         tokens = self.initial_supply_y
         self.interval_limit_x = 75 * 12
         self.interval_count_list_x = [i for i in range(1, self.interval_limit_x)]
 
         for i in self.interval_count_list_x:
-            if tokens >= self.stop_inflation_y:
+            if tokens <= self.stop_inflation_y:
                 self.interval_inflation_rate = self.interval_inflation_rate * (1 - self.disinflation_ratio)
-            tokens = tokens + self.interval_inflation_rate
-            self.token_count_list_y.append(int(tokens))
-            self.ones_list.append(1)
+                tokens = tokens + self.interval_inflation_rate
+                self.token_count_list_y.append(int(tokens))
+                self.ones_list.append(1)
         self.plot_graph(plotfilepath)
         return True
 
@@ -69,11 +71,16 @@ class AppSupport:
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
 
-        interval_inflation = str(round(self.annual_inflation * self.the_div / 12))
+        # interval_inflation = str(round(
+
+        an_inf = round(self.annual_inflation * self.the_div / 12)
+        an_inf_str = str("{:,}".format(an_inf))
+
         bottom_x = 0
         top_x = int(self.interval_limit_x + (self.interval_limit_x / 10))
         bottom_y = self.initial_supply_y
-        top_y = int(self.token_count_list_y[-1])
+        top_count = self.token_count_list_y[-1]
+        top_y = int(top_count) + int(top_count / 20)
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
@@ -87,6 +94,7 @@ class AppSupport:
 
         min_y_gaps = int(top_y / 20)
         major_y_gaps = int(top_y / 10)
+        major_y_gaps = self.roundup(major_y_gaps)
 
         major_ticks_x = np.arange(bottom_x, top_x, major_x_gaps)
         minor_ticks_x = np.arange(bottom_x, top_x, min_x_gaps)
@@ -107,11 +115,13 @@ class AppSupport:
 
         ax.grid(which='both')
 
+        supply_label = str("{:,}".format(self.real_initial_supply_y))
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
-        isstr = 'Initial Supply: {}'.format(str(bottom_y))
-        xlabel_str = "30 day intervals " + interval_inflation + " inflation and " + disinflation + " deflation"
+        isstr = 'Initial Supply: ' + supply_label
 
-        ylabel_str = 'Tokens in increments of 100 M'
+        xlabel_str = "30 day Intervals, " + an_inf_str + " Inflation, and " + disinflation + " Disinflation"
+        tdiv = "{:,}".format(self.the_div)
+        ylabel_str = 'Tokens times ' + str(tdiv)
 
         plt.ylabel(ylabel_str, size=20, color="green", labelpad=2)
         plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
@@ -119,8 +129,10 @@ class AppSupport:
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=2)
+        plt.plot([1, self.stop_inflation_y], [top_x, self.stop_inflation_y], color='r')
+        plt.plot([70, 70], [100, 250], 'k-', lw=2)
 
-        plt.legend([isstr, 'Token Initial Supply'], loc='lower left')
+        plt.legend([isstr, 'Token Initial Supply'], loc='lower center')
         plt.savefig(plotfilepath,  dpi=150, format='svg')
         #plt.show()
         return True

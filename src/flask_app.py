@@ -15,6 +15,19 @@ env = Environment(    # jinja2
 )
 
 
+def chk_for_file(tfile):
+    sleep(1.5)
+    while True:
+        try:
+            x = os.path.isfile(tfile)
+            if x:
+                return True
+            else:
+                sleep(1)
+        except FileNotFoundError:
+            continue
+
+
 @app.route('/')   # change later
 def index():
     return render_template('index.html')  ## has the user entry form
@@ -54,14 +67,7 @@ def plots():
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
 
-    filethere = 1
-    while filethere:
-        sleep(.5)
-        try:
-            if os.path.isfile(plotfilepath):
-                filethere = 0
-        except FileNotFoundError:
-            continue
+    chk_for_file(plotfilepath)
 
     with open(plotfilepath) as tfile:
         pfile_contents = tfile.read()
