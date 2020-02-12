@@ -3,33 +3,32 @@ from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
 from datetime import datetime
-from os import path
 from waitress import serve
-import flask
 import os
 from time import sleep
 
 app = Flask(__name__)
 
 env = Environment(    # jinja2
-    # loader=PackageLoader('psu-calc', 'templates'),
-    # loader=PackageLoader('psu-calc', 'templates'),
+
     autoescape=select_autoescape(['html', 'xml']),
 )
 
 
 @app.route('/')   # change later
 def index():
-
     return render_template('index.html')  ## has the user entry form
 
 
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
     os.chdir("..")
-    #basename = os.path.abspath(os.curdir)
+    base_linux = '/home/jetgal/psucalc'
+    if os.name == 'nt':
+        basename = os.path.abspath(os.curdir)
+    else:
+        basename = base_linux
 
-    basename ='/home/jetgal/psucalc'
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
@@ -69,8 +68,10 @@ def plots():
     return render_template_string(pfile_contents)
 
 
-#if __name__ == '__main__':
-    #serve(app)
+if __name__ == '__main__':
+    if os.name == 'nt':
+        serve(app)
 
-    #app.run('127.0.0.1', 5000, debug=True)  (nginx?)
+
+    #app.run('127.0.0.1', 5000, debug=True)  (nginx)
 
