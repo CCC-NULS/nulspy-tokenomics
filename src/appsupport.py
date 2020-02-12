@@ -85,11 +85,11 @@ class AppSupport:
 # -------- TICKS
         top_x = int(self.roundup(top_x))  # round up
 
-        min_x_gaps = top_x / 20
-        major_x_gaps = top_x / 10
+        min_x_gaps = int(top_x / 20)
+        major_x_gaps = int(top_x / 10)
 
-        min_y_gaps = top_y / 20
-        major_y_gaps = top_y / 10
+        min_y_gaps = int(top_y / 20)
+        major_y_gaps = int(top_y / 10)
 
         major_ticks_x = np.arange(bottom_x, top_x, major_x_gaps)
         minor_ticks_x = np.arange(bottom_x, top_x, min_x_gaps)
@@ -125,5 +125,5 @@ class AppSupport:
 
         plt.legend([isstr, 'Token Initial Supply'], loc='lower left')
         plt.savefig(plotfilepath,  dpi=150, format='svg')
-        plt.show()
+        #plt.show()
         return True
