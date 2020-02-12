@@ -60,29 +60,54 @@ class AppSupport:
 
     def plot_graph(self, plotfilepath):
         #print("!!! nms ---------------- plotfilepath: {}".format(plotfilepath), file=sys.stderr)
-        # rcParams['figure.figsize'] = [12, 9]
-        font = {  'size': 14}
+        font = {'size': 12}
         d = self.deflation_ratio
         inflation = str(self.annual_inflation)
-        inter = self.interval_limit / 15
+        minor_tic_x = self.interval_limit / 15
         interlist = []
         x = 0
         while x < self.interval_limit:
             interlist.append(x)
-            x += inter
+            x += minor_tic_x
 
         deflation = "{:.1%}".format(d)
         matplotlib.rc('font', **font)
 # ---------------------------------------------- plt
+        import numpy as np
         fig, ax = plt.subplots(figsize=(12, 9))
-        intcount = self.interval_count_list
-        ax.set_xlim(xmin=interlist[0], xmax=interlist[-1]
-        ax.set_ylim(ymin=0, ymax=self.token_count_list[-1])
 
-        print("intcount ", self.token_count_list)
-        # self.initial_supply
-        # self.interval_count_list
+        ax.set_xlim(xmin=interlist[0], xmax=interlist[-1])
+        ax.set_ylim(ymin=self.token_count_list[0], ymax=self.token_count_list[-1])
 
+        print("token_count_list ", self.token_count_list)
+
+# -------- TICKS
+        minx_tic = self.stop_inflation / 20
+        majx_tic = self.interval_limit / 10
+
+
+
+        xint = 1000 #  interlist[-1]
+
+        minorx = self.token_count_list[0]
+        minorxminor = self.token_count_list[0]
+        miny_tic = self.interval_limit / 20
+        majy_tic = self.interval_limit / 10
+
+
+        major_ticks_x = np.arange(interlist[0], xint, majx_tic)
+        minor_ticks_x = np.arange(interlist[0], xint, minx_tic)
+
+        major_ticks_y = np.arange(minorx, 50000000,  majy_tic)
+        minor_ticks_y = np.arange(self.token_count_list[0], 25, miny_tic)
+
+        ax.set_yticks(major_ticks_y)
+        ax.set_yticks(minor_ticks_y, minor=True)
+
+        ax.set_xticks(major_ticks_x)
+        ax.set_xticks(minor_ticks_x, minor=True)
+
+        ax.grid(which='both')
 
 
 
@@ -94,20 +119,23 @@ class AppSupport:
         xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflation, deflation)
         ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 100 M'
         plt.ylabel(ylabel_str, size=20, color="green", labelpad=20)
-        plt.grid(True, linewidth=2, color='green', ds='steps-mid', linestyle='--')
+        # plt.grid(True, linewidth=1, color='b', linestyle='-')
+
+
+
+
         plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
         # ----------------new
-        import numpy as np
-        from matplotlib.ticker import (AutoMinorLocator, MultipleLocator)
+
 
         # fig = plt.figure()
         # f = plt.figure()
         # ax = fig.add_subplot()
         # Major ticks every 20, minor ticks every 5
         # major_ticks = np.arange(0, 1000, 100)
-        # minor_ticks = np.arange(0, 100, 5)
+        # minor_ticks = np.arange(0, token_count_list[-1], 30)
 
         # ax.set_xticks(major_ticks)
         # ax.set_xticks(minor_ticks, minor=True)
@@ -140,9 +168,9 @@ class AppSupport:
         # ax.grid(which='major', color='#CCCCCC', linestyle='--')
         # ax.grid(which='minor', color='#CCCCCC', linestyle=':')
 
-        plt.plot(self.ones_list, self.token_count_list, color='purple', linestyle=':', linewidth=2)
+        plt.plot( self.token_count_list, color='purple', linestyle='-', linewidth=2)
 
         plt.legend([isstr, 'Token Initial Supply'], loc='lower left')
-
-        plt.savefig(plotfilepath,  dpi=150, format='svg')
+        #plt.savefig(plotfilepath,  dpi=150, format='svg')
+        plt.show()
         return True
