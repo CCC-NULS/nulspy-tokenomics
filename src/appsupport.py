@@ -8,6 +8,7 @@ import matplotlib
 import numpy as np
 from math import ceil, floor
 import matplotlib.lines as lines
+import matplotlib.text as text
 
 class AppSupport:
     def __init__(self):
@@ -73,7 +74,6 @@ class AppSupport:
         newval = floor(num/multiplier)*multiplier
         return newval
 
-
     def plot_graph(self, plotfilepath):
         plt.ioff()
         font = {'size': 12}
@@ -87,17 +87,27 @@ class AppSupport:
         bottom_x = 0
         top_x = int(self.interval_limit_x + (self.interval_limit_x / 10))
         bottom_y = self.initial_supply_y
+
         top_count = self.token_count_list_y[-1]
         top_y = int(top_count) + int(top_count / 5)
+
+        if self.stop_inflation_y > top_y:
+            top_y = self.stop_inflation_y + (self.stop_inflation_y / 5)
+
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
         fig, ax = plt.subplots(figsize=(12, 9))
         stp_inf = self.stop_inflation_y
 
-        plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='--', label="Stop Inflation", color='r')
+        plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
+        ano = self.stop_inflation_y + 2
+        # ax.annotate('Stop Inflation Boundary', (25, ano))
 
-# -------- TICKS
+        plt.text(25, ano, 'Stop Inflation Boundary', color='r', size='large')
+        plt.text(100, bottom_y + 10, '-----  Token Growth Over Time', color='purple', size='x-large', weight='bold')
+
+        # -------- TICKS
         top_x = int(self.roundup(top_x))  # round up
 
         min_x_gaps = int(top_x / 20)
@@ -133,15 +143,15 @@ class AppSupport:
         tdiv = "{:,}".format(self.the_div)
         ylabel_str = 'Tokens times ' + str(tdiv)
 
-        plt.ylabel(ylabel_str, size=20, color="green", labelpad=2)
+        plt.ylabel(ylabel_str, size=20, color="green", labelpad=7)
         plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
        
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
-        plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=2)
-        isstr = 'Initial Supply: ' + supply_label
+        plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
+        str1 = 'Token Growth Over Time'
 
-        plt.legend([isstr], loc='lower center')
+        # plt.legend(['', str1], loc='lower center')
         plt.savefig(plotfilepath,  dpi=150, format='svg')
         #plt.show()
         return True
