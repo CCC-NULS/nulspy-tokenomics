@@ -81,8 +81,7 @@ class AppSupport:
 
         # interval_inflation = str(round(
 
-        an_inf = round(self.annual_inflation * self.the_div / 12)
-        an_inf_str = str("{:,}".format(an_inf))
+
 
         bottom_x = 0
         top_x = int(self.interval_limit_x + (self.interval_limit_x / 10))
@@ -104,7 +103,7 @@ class AppSupport:
         ano = self.stop_inflation_y + 2
         # ax.annotate('Stop Inflation Boundary', (25, ano))
 
-        plt.text(25, ano, 'Stop Inflation Boundary', color='r', size='large')
+        plt.text(25, ano, 'Max Supply', color='r', size='large')
         plt.text(100, bottom_y + 10, '-----  Token Growth Over Time', color='purple', size='x-large', weight='bold')
 
         # -------- TICKS
@@ -136,15 +135,20 @@ class AppSupport:
 
         ax.grid(which='both')
 
-        supply_label = str("{:,}".format(self.real_initial_supply_y))
+        # supply_label = str("{:,}".format(self.real_initial_supply_y))
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
 
-        xlabel_str = "30 day Intervals, " + an_inf_str + " Inflation, and " + disinflation + " Disinflation"
-        tdiv = "{:,}".format(self.the_div)
-        ylabel_str = 'Tokens times ' + str(tdiv)
+        an_inf = round(self.annual_inflation * self.the_div / 12)
+        ans = str("{:,}".format(an_inf))
+        part2 = " Inflation, and Disinflation Ratio: "
+        xlabel_str = "30 day Intervals, " + ans + part2 + disinflation
 
-        plt.ylabel(ylabel_str, size=20, color="green", labelpad=7)
-        plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
+        # tdiv = "{:,}".format(self.the_div)
+        ylabel_str = 'Total Supply (In millions)'
+        #ylabel_str = 'Total Supply (In millions)' + str(tdiv)
+
+        plt.ylabel(ylabel_str, size=14, color="green", labelpad=7)
+        plt.xlabel(xlabel_str, size=14, labelpad=20, color="blue")
        
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
