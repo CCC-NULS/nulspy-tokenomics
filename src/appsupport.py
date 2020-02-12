@@ -4,10 +4,7 @@ Created on Thu Jan 16 23:53:45 2020
 @author: Kathy Norman and Nancy Schorr
 """
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
 import matplotlib
-from matplotlib import axes
-import sys
 import numpy as np
 from math import ceil
 
@@ -29,7 +26,6 @@ class AppSupport:
         self.interval_limit_x = None
         self.ones_list = []
         self.the_div = None
-
 
     def checkthis(self, bignum):
         a = len(str(int(bignum)))
@@ -56,7 +52,7 @@ class AppSupport:
             if tokens >= self.stop_inflation_y:
                 self.interval_inflation_rate = self.interval_inflation_rate * (1 - self.disinflation_ratio)
             tokens = tokens + self.interval_inflation_rate
-            self.token_count_list_y.append(tokens)
+            self.token_count_list_y.append(int(tokens))
             self.ones_list.append(1)
         self.plot_graph(plotfilepath)
         return True
@@ -69,14 +65,15 @@ class AppSupport:
         return newval
 
     def plot_graph(self, plotfilepath):
+        plt.ioff()
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
 
-        inflation = str(self.annual_inflation)
+        interval_inflation = str(round(self.annual_inflation * self.the_div / 12))
         bottom_x = 0
-        top_x = self.interval_limit_x + (self.interval_limit_x / 10)
+        top_x = int(self.interval_limit_x + (self.interval_limit_x / 10))
         bottom_y = self.initial_supply_y
-        top_y = self.token_count_list_y[-1]
+        top_y = int(self.token_count_list_y[-1])
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
@@ -112,9 +109,9 @@ class AppSupport:
 
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
         isstr = 'Initial Supply: {}'.format(str(bottom_y))
-        inflate_label = inflation * self.the_div
-        xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflate_label, disinflation)
-        ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 100 M'
+        xlabel_str = "30 day intervals " + interval_inflation + " inflation and " + disinflation + " deflation"
+
+        ylabel_str = 'Tokens in increments of 100 M'
 
         plt.ylabel(ylabel_str, size=20, color="green", labelpad=2)
         plt.xlabel(xlabel_str, size=20, labelpad=20, color="blue")
