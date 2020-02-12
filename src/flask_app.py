@@ -27,9 +27,9 @@ def index():
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
     os.chdir("..")
-    basename = os.path.abspath(os.curdir)
+    #basename = os.path.abspath(os.curdir)
 
-    # basename ='/home/jetgal/psucalc'
+    basename ='/home/jetgal/psucalc'
     timestp = format(datetime.now(), '%d%H%M%S')
     plotsvg = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
@@ -69,8 +69,8 @@ def plots():
     return render_template_string(pfile_contents)
 
 
-if __name__ == '__main__':
-    serve(app)
+#if __name__ == '__main__':
+    #serve(app)
 
     #app.run('127.0.0.1', 5000, debug=True)  (nginx?)
 
