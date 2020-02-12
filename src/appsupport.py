@@ -9,6 +9,7 @@ import matplotlib
 from matplotlib import axes
 import sys
 import numpy as np
+from math import ceil
 
 
 class AppSupport:
@@ -24,89 +25,95 @@ class AppSupport:
         self.interval_count_list_x = []
         self.interval_supply_list = [i for i in range(1, 900)]
         self.interval_inflation_rate = None
+        self.inflation_intervals = None
         self.interval_limit_x = None
         self.ones_list = []
+        self.the_div = None
+
+
+    def checkthis(self, bignum):
+        a = len(str(int(bignum)))
+        b = a - 3
+        c = 10**b
+        return c
 
     def main(self, args_dict):
-        self.initial_supply_y = int(args_dict.get("initial_supply_y"))  # 100,000,000  NULS
-        self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
+        the_div = self.checkthis(args_dict.get("initial_supply_y"))
+        self.the_div = the_div
+        self.initial_supply_y = int(args_dict.get("initial_supply_y"))/the_div  # 100,000,000  NULS
+        self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))/the_div   # 210,000,000  NULS
         self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
-        self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
+        self.annual_inflation = int(args_dict.get("annual_inflation"))/the_div  # 5,000,000 NULS
         self.inflation_intervals = int(args_dict.get("inflation_intervals"))
         self.interval_inflation_rate = self.annual_inflation / 12  # 5,000,000 NULS
         plotfilepath = args_dict.get("plotfilepath")
-        #print("nms - {}  ".format(plotfilepath), file=sys.stderr)
 
         tokens = self.initial_supply_y
-        # print("\n ----- ----- ----->   Starting token count: ", tokens)  print("self.start_inflation: ",
-        # self.intervals_till_start_infl)
+        self.interval_limit_x = 75 * 12
+        self.interval_count_list_x = [i for i in range(1, self.interval_limit_x)]
 
-        self.interval_limit_x = 75 * 12                         # print("  Interval limit: ", interval_limit_x)
-        self.interval_count_list_x = [i for i in range(1, self.interval_limit_x)]    # print(" interval_inflation_rate: ",
-                                                            # self.interval_inflation_rate)
-
-        for i in self.interval_count_list_x:  # print("\n -- Current interval_count: ", interval_count)
-
+        for i in self.interval_count_list_x:
             if tokens >= self.stop_inflation_y:
                 self.interval_inflation_rate = self.interval_inflation_rate * (1 - self.disinflation_ratio)
-                    # mynumber = self.interval_inflation_rate * (1 - self.disinflation_ratio)
-                    # print("\n\n mynumber: ", mynumber)
-                    # print("now in deflation. Interval_inflation is: ", self.interval_inflation_rate)
-
-            tokens = tokens + self.interval_inflation_rate      # print("new count of tokens: ", tokens)
-            self.token_count_list_y.append(tokens)               # print("and we are done with calcs")
+            tokens = tokens + self.interval_inflation_rate
+            self.token_count_list_y.append(tokens)
             self.ones_list.append(1)
         self.plot_graph(plotfilepath)
         return True
 
+    def roundup(self, nm):
+        num = int(nm)
+        amt = len(str(num))-1
+        multiplier = 10 ** amt
+        newval = ceil(num/multiplier)*multiplier
+        return newval
+
     def plot_graph(self, plotfilepath):
-        #print("!!! nms ---------------- plotfilepath: {}".format(plotfilepath), file=sys.stderr)
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
+
         inflation = str(self.annual_inflation)
-        BOTTOM_X = 0
-        TOP_X = self.interval_limit_x + (self.interval_limit_x /10)
-        BOTTOM_Y = self.initial_supply_y
-        TOP_Y = self.token_count_list_y[-1]
+        bottom_x = 0
+        top_x = self.interval_limit_x + (self.interval_limit_x / 10)
+        bottom_y = self.initial_supply_y
+        top_y = self.token_count_list_y[-1]
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
-# ---------------------------------------------- plt
         fig, ax = plt.subplots(figsize=(12, 9))
-        int_plus = TOP_X * .1    # add 10% to x axis
-        x_last = TOP_X + int_plus                                           #  interlist[-1]
-        # interlist_x = [i for i in range(0, x_last, 50)]
-
-        print("token_count_list_y ", TOP_Y)
 
 # -------- TICKS
-        min_x_plugs = TOP_X / 20
-        major_x_plugs = TOP_X / 10
+        top_x = int(self.roundup(top_x))  # round up
 
-        min_y_plugs = TOP_Y / 20
-        major_y_plugs = TOP_Y / 10
+        min_x_gaps = top_x / 20
+        major_x_gaps = top_x / 10
 
-        major_ticks_x = np.arange(BOTTOM_X, TOP_X, major_x_plugs)
-        minor_ticks_x = np.arange(BOTTOM_X, TOP_X, min_x_plugs)
+        min_y_gaps = top_y / 20
+        major_y_gaps = top_y / 10
 
-        major_ticks_y = np.arange(BOTTOM_Y, TOP_Y,  major_y_plugs)
-        BOTTOM_Y_start = BOTTOM_Y + min_y_plugs
-        minor_ticks_y = np.arange(BOTTOM_Y_start, TOP_Y, min_y_plugs)
+        major_ticks_x = np.arange(bottom_x, top_x, major_x_gaps)
+        minor_ticks_x = np.arange(bottom_x, top_x, min_x_gaps)
 
-        ax.set_xlim(xmin=BOTTOM_X, xmax=TOP_X)
-        ax.set_ylim(ymin=BOTTOM_Y, ymax=TOP_Y)
+        major_ticks_y = np.arange(bottom_y, top_y,  major_y_gaps)
+        bottom_y_start = bottom_y + min_y_gaps
+
+        minor_ticks_y = np.arange(bottom_y_start, top_y, min_y_gaps)
+
+        ax.set_xlim(xmin=0, xmax=top_x)
+        ax.set_ylim(ymin=bottom_y, ymax=top_y)
         ax.set_yticks(major_ticks_y)
         ax.set_yticks(minor_ticks_y, minor=True)
 
         ax.set_xticks(major_ticks_x)
         ax.set_xticks(minor_ticks_x, minor=True)
+        ax.ticklabel_format(style='plain')
 
         ax.grid(which='both')
 
-        plt.title('Token Life - Token Supply', pad=20, color="purple", size=30)
-        isstr = 'Initial Supply: {}'.format(str(BOTTOM_Y))
-
-        xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflation, disinflation)
+        plt.title('Life Span for Token', pad=20, color="purple", size=30)
+        isstr = 'Initial Supply: {}'.format(str(bottom_y))
+        inflate_label = inflation * self.the_div
+        xlabel_str = "30 day intervals - {} inflation and {} deflation".format(inflate_label, disinflation)
         ylabel_str = self.TOKEN_SYMBOL + ' Tokens in increments of 100 M'
 
         plt.ylabel(ylabel_str, size=20, color="green", labelpad=2)
