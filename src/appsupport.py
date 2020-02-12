@@ -6,8 +6,8 @@ Created on Thu Jan 16 23:53:45 2020
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-from math import ceil
-
+from math import ceil, floor
+import matplotlib.lines as lines
 
 class AppSupport:
     def __init__(self):
@@ -66,6 +66,14 @@ class AppSupport:
         newval = ceil(num/multiplier)*multiplier
         return newval
 
+    def rounddown(self, nm):
+        num = int(nm)
+        amt = len(str(num))-1
+        multiplier = 10 ** amt
+        newval = floor(num/multiplier)*multiplier
+        return newval
+
+
     def plot_graph(self, plotfilepath):
         plt.ioff()
         font = {'size': 12}
@@ -80,11 +88,14 @@ class AppSupport:
         top_x = int(self.interval_limit_x + (self.interval_limit_x / 10))
         bottom_y = self.initial_supply_y
         top_count = self.token_count_list_y[-1]
-        top_y = int(top_count) + int(top_count / 20)
+        top_y = int(top_count) + int(top_count / 5)
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
         fig, ax = plt.subplots(figsize=(12, 9))
+        stp_inf = self.stop_inflation_y
+
+        plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='--', label="Stop Inflation", color='r')
 
 # -------- TICKS
         top_x = int(self.roundup(top_x))  # round up
@@ -92,22 +103,22 @@ class AppSupport:
         min_x_gaps = int(top_x / 20)
         major_x_gaps = int(top_x / 10)
 
-        min_y_gaps = int(top_y / 20)
+        # min_y_gaps = int(top_y / 20)
         major_y_gaps = int(top_y / 10)
-        major_y_gaps = self.roundup(major_y_gaps)
+        major_y_gaps = self.rounddown(major_y_gaps)
 
         major_ticks_x = np.arange(bottom_x, top_x, major_x_gaps)
         minor_ticks_x = np.arange(bottom_x, top_x, min_x_gaps)
 
         major_ticks_y = np.arange(bottom_y, top_y,  major_y_gaps)
-        bottom_y_start = bottom_y + min_y_gaps
+        # bottom_y_start = bottom_y + min_y_gaps
 
-        minor_ticks_y = np.arange(bottom_y_start, top_y, min_y_gaps)
+        # minor_ticks_y = np.arange(bottom_y_start, top_y, min_y_gaps)
 
         ax.set_xlim(xmin=0, xmax=top_x)
         ax.set_ylim(ymin=bottom_y, ymax=top_y)
         ax.set_yticks(major_ticks_y)
-        ax.set_yticks(minor_ticks_y, minor=True)
+        # ax.set_yticks(minor_ticks_y, minor=True)
 
         ax.set_xticks(major_ticks_x)
         ax.set_xticks(minor_ticks_x, minor=True)
@@ -117,7 +128,6 @@ class AppSupport:
 
         supply_label = str("{:,}".format(self.real_initial_supply_y))
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
-        isstr = 'Initial Supply: ' + supply_label
 
         xlabel_str = "30 day Intervals, " + an_inf_str + " Inflation, and " + disinflation + " Disinflation"
         tdiv = "{:,}".format(self.the_div)
@@ -129,10 +139,9 @@ class AppSupport:
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=2)
-        plt.plot([1, self.stop_inflation_y], [top_x, self.stop_inflation_y], color='r')
-        plt.plot([70, 70], [100, 250], 'k-', lw=2)
+        isstr = 'Initial Supply: ' + supply_label
 
-        plt.legend([isstr, 'Token Initial Supply'], loc='lower center')
+        plt.legend([isstr], loc='lower center')
         plt.savefig(plotfilepath,  dpi=150, format='svg')
         #plt.show()
         return True
