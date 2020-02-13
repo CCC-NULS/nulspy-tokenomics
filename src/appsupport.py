@@ -102,15 +102,9 @@ class AppSupport:
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-
-        #plt.subplots_adjust(bottom=.9)
         plt.margins(y=1.2, tight=False)
 
-        # plt.figtext(0.9, .001, 'Hit Back Button to Start Over', horizontalalignment='right',
-        #             va='baseline',
-        #             color='r',
-        #             size='large', weight='bold')
-
+        plt.figtext(0.01, 0, 'Hit Back Button to Start Over',  color='b',  size='medium')
 
         # -------- TICKS
 
