@@ -53,13 +53,13 @@ def plots():
     stop_inflation_y = request.form['stop_inflation_y']  # from index.html   # the site
     disinflation_ratio = request.form['disinflation_ratio']  # from index.html   # the site
     annual_inflation = request.form['annual_inflation']  # from index.html   # the site
-    inflation_intervals = request.form['start_inflation']  # from same place
+    start_inflation = request.form['start_inflation']  # from same place
 
     args_dict = {"initial_supply_y": initial_supply_y,
                  "stop_inflation_y": stop_inflation_y,
                  "disinflation_ratio": disinflation_ratio,
                  "annual_inflation": annual_inflation,
-                 "inflation_intervals": inflation_intervals,
+                 "start_inflation": start_inflation,
                  "timestp": timestp,
                  "plotfilepath": plotfilepath,
                  "plotsvg": plotsvg}
