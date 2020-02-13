@@ -25,7 +25,7 @@ class AppSupport:
         self.interval_limit_x = None
         self.ones_list = []
         self.real_initial_supply_y = None
-        self.interval_inf = None
+        self.monthly_inflation = None
         self.initial_supply_list = []
         self.token_interval_list = []
 
@@ -33,7 +33,7 @@ class AppSupport:
         self.initial_supply_y = int(args_dict.get("initial_supply_y"))  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
         self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
-        self.annual_inflation = int(args_dict.get("annual_inflation")) # 5,000,000 NULS
+        self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath = args_dict.get("plotfilepath")
@@ -45,40 +45,18 @@ class AppSupport:
         deflation = False
 
         while interval_count <= self.interval_limit_x:
-            if interval_count < start_inflation:  # first 24 mos, no inflate or deflate
-                self.token_count_list_y.append(round(tokens))
-                self.initial_supply_list.append(self.initial_supply_y)
-                self.token_interval_list.append(interval_count)
-            else:     # over 24 months but under 900
-                deflation = True
-                if tokens < self.stop_inflation_y:
-                    monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
-                    tokens = tokens + monthly_inflation
+            deflation = True
+            if (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation):
+                tokens += monthly_inflation * (1 - self.disinflation_ratio)
 
-            self.token_count_list_y.append(round(tokens))  # removed "round"
+            self.token_count_list_y.append(round(tokens))
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
+        # self.monthly_inflation = monthly_inflation
         self.plot_graph(plotfilepath)
-
-        # #    tokens = (tokens + inflation_amount) * (1 - deflation_ratio)
-        # if tokens >= stop_inflation: monthly_inflation = 0
-        #
-        # if deflation:
-        #     monthly_inflation = monthly_inflation * (1 - deflation_ratio)
-        # elif (interval_count + 1) >= start_inflation:
-        #     deflation = True
-        #
-        # tokens = tokens + monthly_inflation
-        # token_count.append(round(tokens))
-        # token_initial_supply.append(initial_supply)
-        # token_interval.append(interval_count)
-        # interval_count += 1
-        #
-        # print(tokens, monthly_inflation, deflation, interval_count)
-        # if interval_count >= 75 * 12: break
 
     def roundup(self, num):
         multiplier = 10 ** len(str(int(num)))-1
@@ -105,14 +83,17 @@ class AppSupport:
 
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
-        fig, ax = plt.subplots(figsize=(12, 9))
+        fig, ax = plt.subplots(figsize=(14, 9))
 
         stp_inf = self.stop_inflation_y
+        padding = 1000000
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
-        text_loc = self.stop_inflation_y + 7
+        text_loc = self.stop_inflation_y + padding
         # ax.annotate('Stop Inflation Boundary', (25, text_loc))
         plt.text(25, text_loc, 'Max Supply', color='r', size='large')
-        plt.text(100, bottom_y + 20, '-----  Token Growth Over Time', color='purple', size='x-large', weight='bold')
+        ylocation = self.initial_supply_y + padding
+        plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
+                 weight='bold')
 
         # -------- TICKS
         top_x = int(self.roundup(top_x))  # round up
@@ -131,7 +112,7 @@ class AppSupport:
 
         ax.set_xlim(xmin=0, xmax=top_x)
         ax.set_ylim(ymin=bottom_y, ymax=top_y)
-        ax.set_yticks(major_ticks_y)
+        # ax.set_yticks(major_ticks_y)
 
         ax.set_xticks(major_ticks_x)
         ax.set_xticks(minor_ticks_x, minor=True)
@@ -142,7 +123,7 @@ class AppSupport:
         # supply_label = str("{:,}".format(self.real_initial_supply_y))
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
 
-        ans = str("{:,}".format(self.interval_inf))
+        ans = str("{:,}".format(round(self.annual_inflation / 12)))
         part2 = " Inflation, and Disinflation Ratio: "
         xlabel_str = "30 day Intervals, " + ans + part2 + disinflation
 
