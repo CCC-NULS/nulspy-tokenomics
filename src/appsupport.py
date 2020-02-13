@@ -37,43 +37,31 @@ class AppSupport:
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath = args_dict.get("plotfilepath")
-        interval_count = 0
+        interval_count = 1
 
         tokens = self.initial_supply_y
         self.interval_limit_x = 75 * 12
         monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
         deflation = False
-        interval_counter = 0
 
-        while True:
-            if interval_counter < start_inflation:
+        while interval_count <= self.interval_limit_x:
+            if interval_count < start_inflation:  # first 24 mos, no inflate or deflate
                 self.token_count_list_y.append(round(tokens))
                 self.initial_supply_list.append(self.initial_supply_y)
                 self.token_interval_list.append(interval_count)
-                interval_count += 1
-            else:
+            else:     # over 24 months but under 900
                 deflation = True
-                monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
-                tokens = (tokens + monthly_inflation
+                if tokens < self.stop_inflation_y:
+                    monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
+                    tokens = tokens + monthly_inflation
 
-                if tokens >= self.stop_inflation_y:
-                    monthly_inflation = 0
-
-                tokens = tokens + monthly_inflation
-                self.token_count_list_y.append(round(tokens))  # removed "round"
-                self.initial_supply_list.append(self.initial_supply_y)
-                self.token_interval_list.append(interval_count)
-                interval_count += 1
-
-                print(tokens, monthly_inflation, deflation, interval_count)
-                if interval_count > 75 * 12:
-                    break
-
-
-
+            self.token_count_list_y.append(round(tokens))  # removed "round"
+            self.initial_supply_list.append(self.initial_supply_y)
+            self.token_interval_list.append(interval_count)
+            print(tokens, monthly_inflation, deflation, interval_count)
+            interval_count += 1
 
         self.plot_graph(plotfilepath)
-        return True
 
         # #    tokens = (tokens + inflation_amount) * (1 - deflation_ratio)
         # if tokens >= stop_inflation: monthly_inflation = 0
