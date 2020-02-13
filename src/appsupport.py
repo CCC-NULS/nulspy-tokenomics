@@ -53,11 +53,10 @@ class AppSupport:
             self.token_count_list_y.append(round(tokens))
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
-            print(tokens, monthly_inflation, deflation, interval_count)
+            #print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
         self.plot_graph(plotfilepath)
-
 
     def rounddown(self, nm):
         num = int(nm)
