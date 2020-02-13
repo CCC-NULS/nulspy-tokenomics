@@ -6,9 +6,9 @@ Created on Thu Jan 16 23:53:45 2020
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-from math import ceil, floor
-import matplotlib.lines as lines
-import matplotlib.text as text
+from math import floor
+# import matplotlib.lines as lines
+# import matplotlib.text as text
 from matplotlib.ticker import StrMethodFormatter
 
 
@@ -90,25 +90,28 @@ class AppSupport:
         disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
 
-        fig, ax = plt.subplots(2, sharex='col', sharey='row', figsize=(14, 9))
+        fig, ax = plt.subplots(figsize=(14, 9))
 
         stp_inf = self.stop_inflation_y
         vpadding = top_y / 22
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
         text_loc = self.stop_inflation_y + (vpadding/5)
-        # ax.annotate('Stop Inflation Boundary', (25, text_loc))
+
         plt.text(100, text_loc, 'Max Supply', color='r', size='large', weight='bold')
         ylocation = self.initial_supply_y + vpadding
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-        plt.annotate('Something', (0, 0), (-50, -120), xycoords='axes pixels',
-                     textcoords='axes pixels', va='bottom')
 
-        plt.figtext(0.9, .001, 'Hit Back Button to Start Over', horizontalalignment='right',
-                    va='baseline',
-                    color='r',
-                    size='large', weight='bold')
+        #plt.subplots_adjust(bottom=.9)
+        plt.margins(y=1.2, tight=False)
+
+        # plt.figtext(0.9, .001, 'Hit Back Button to Start Over', horizontalalignment='right',
+        #             va='baseline',
+        #             color='r',
+        #             size='large', weight='bold')
+
+
         # -------- TICKS
 
         gx = int(top_x / 10)
@@ -119,9 +122,9 @@ class AppSupport:
         major_y_gaps = self.round_up_to_multiple(gy, 1000000)
         major_ticks_y = np.arange(bottom_y, top_y, major_y_gaps)
 
-        big_x = top_x + ((top_x)/10)
+        big_x = top_x + top_x/10
 
-        big_y = top_y + ((top_y)/10)
+        big_y = top_y + top_y/10
         ax.set_xlim(xmin=0, xmax=big_x)
         ax.set_ylim(ymin=bottom_y, ymax=big_y)
 
@@ -131,7 +134,6 @@ class AppSupport:
 
         ax.grid(which='both')
 
-        # supply_label = str("{:,}".format(self.real_initial_supply_y))
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
 
         an_infl = str("{:,}".format(round(self.annual_inflation / 12)))
@@ -147,9 +149,13 @@ class AppSupport:
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
-        # str1 = 'Token Growth Over Time'
 
-        # plt.legend(['', str1], loc='lower center')
         plt.savefig(plotfilepath,  dpi=150, format='svg')
         #plt.show()
         return True
+
+
+        # supply_label = str("{:,}".format(self.real_initial_supply_y))
+        # plt.legend(['', str1], loc='lower center')
+        # str1 = 'Token Growth Over Time'
+        # ax.annotate('Stop Inflation Boundary', (25, text_loc))
