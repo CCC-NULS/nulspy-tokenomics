@@ -36,7 +36,8 @@ def index():
 @app.route('/plots', methods=['GET', 'POST', 'HEAD'])
 def plots():
     os.chdir("..")
-    base_linux = '/home/jetgal/psucalc'
+    # base_linux = '/home/jetgal/psucalc'
+    base_linux = '/usr/share/nginx/html'
     if os.name == 'nt':
         basename = os.path.abspath(os.curdir)
     else:
