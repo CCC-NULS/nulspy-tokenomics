@@ -77,6 +77,8 @@ def plots():
 if __name__ == '__main__':
     if os.name == 'nt':
         serve(app)
+    else:
+        app.run(host='0.0.0.0')
 
 
     #app.run('127.0.0.1', 5000, debug=True)  (nginx)
