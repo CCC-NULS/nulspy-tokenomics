@@ -1,11 +1,13 @@
 
+
+import os
+from datetime import datetime
+from waitress import serve
+from time import sleep
 from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
-from datetime import datetime
-from waitress import serve
-import os
-from time import sleep
+
 
 app = Flask(__name__)
 
@@ -33,21 +35,21 @@ def index():
     return render_template('index.html')  ## has the user entry form
 
 
-@app.route('/plots', methods=['GET', 'POST', 'HEAD'])
+@app.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
 def plots():
-    os.chdir("..")
-    # base_linux = '/home/jetgal/psucalc'
-    base_linux = '/usr/share/nginx/html'
+    # os.chdir("..")
     if os.name == 'nt':
-        basename = os.path.abspath(os.curdir)
+        app_root = "E:/PycharmProjects/psu-calc"
+        # app_root = os.path.abspath(os.curdir)
     else:
-        basename = base_linux
+        # app_root = '/home/jetgal/psucalc'  # pythonanywhere
+        app_root = '/usr/share/nginx/html/vkg'
 
     timestp = format(datetime.now(), '%d%H%M%S')
-    plotsvg = "plot" + timestp + ".svg"
+    plot_name = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
-    plotfilesdir = os.path.join(basename, plotsdir)
-    plotfp = os.path.join(plotfilesdir, plotsvg)
+    plotfilesdir = os.path.join(app_root, plotsdir)
+    plotfp = os.path.join(plotfilesdir, plot_name)
     plotfilepath = os.path.normpath(plotfp)
 
     initial_supply_y = request.form['initial_supply_y']  # from index.html   # the site
@@ -63,7 +65,7 @@ def plots():
                  "start_inflation": start_inflation,
                  "timestp": timestp,
                  "plotfilepath": plotfilepath,
-                 "plotsvg": plotsvg}
+                 "plotsvg": plot_name}
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
@@ -77,10 +79,11 @@ def plots():
 
 if __name__ == '__main__':
     if os.name == 'nt':
-        serve(app)
+        # myserver.bind_server_socket()  # for wsgi linux
+
+        serve(app, host='0.0.0.0', port=5000)
     else:
-        app.run(host='0.0.0.0')
+        app.run('0.0.0.0', 5000)
 
-
-    #app.run('127.0.0.1', 5000, debug=True)  (nginx)
+        # app.run('127.0.0.1', 5000, debug=True)  (nginx)
 
