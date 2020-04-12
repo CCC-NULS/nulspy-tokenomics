@@ -2,14 +2,13 @@
 
 import os
 from datetime import datetime
-from waitress import serve
 from time import sleep
 from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 env = Environment(    # jinja2
 
@@ -30,12 +29,12 @@ def chk_for_file(tfile):
             continue
 
 
-@app.route('/')   # change later
+@application.route('/')   # change later
 def index():
     return render_template('index.html')  ## has the user entry form
 
 
-@app.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
+@application.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
 def plots():
     # os.chdir("..")
     if os.name == 'nt':
@@ -43,7 +42,7 @@ def plots():
         # app_root = os.path.abspath(os.curdir)
     else:
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
-        app_root = '/usr/share/nginx/html/vkg'
+        app_root = '/usr/share/nginx/html/tokenlife'
 
     timestp = format(datetime.now(), '%d%H%M%S')
     plot_name = "plot" + timestp + ".svg"
@@ -76,14 +75,14 @@ def plots():
         pfile_contents = tfile.read()
     return render_template_string(pfile_contents)
 
+if __name__ == "__main__":
+    application.run(host='0.0.0.0')
 
-if __name__ == '__main__':
-    if os.name == 'nt':
-        # myserver.bind_server_socket()  # for wsgi linux
 
-        serve(app, host='0.0.0.0', port=5000)
-    else:
-        app.run('0.0.0.0', 5000)
 
-        # app.run('127.0.0.1', 5000, debug=True)  (nginx)
+
+    # serve(app, listen='0.0.0.0:8082')
+    # serve(app, unix_socket='/tmp/tokenlife.sock')
+#https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
+
 

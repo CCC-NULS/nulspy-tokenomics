@@ -1,7 +1,6 @@
-#!/usr/bin/python3
 
-#from app import app as application
-from flask_app import app as application
+
+from flask_app import application
 
 if __name__ == "__main__":
     application.run()
