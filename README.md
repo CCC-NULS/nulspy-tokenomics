@@ -30,4 +30,6 @@ The app/dapp aims to help understand the economic ramifications of these setting
 
 To setup and run: You'll need at least python 3.7, flask, and the other goodies in the repo. The easiest way to run it yourself is to use flask as the server. Otherwise you'll need Nginx with Gunicorn, Waitress, or something similar that will serve Python.
 
+To run - see the run.sh file. The other run files are provided as helpers for your server setup.
+
 
