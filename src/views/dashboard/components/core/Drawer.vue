@@ -2,6 +2,7 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
+    class="gradientdd"
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
@@ -92,13 +93,13 @@
 
 <script>
   // Utilities
+
   import {
     mapState,
   } from 'vuex'
 
   export default {
     name: 'DashboardCoreDrawer',
-
     props: {
       expandOnHover: {
         type: Boolean,

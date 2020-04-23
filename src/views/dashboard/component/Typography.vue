@@ -47,7 +47,7 @@
                   />
                 </v-col>
 
-                <v-col cols="8">
+                <v-col cols="6">
                   <component
                     :is="t[2]"
                     :class="i"
@@ -92,21 +92,21 @@
   export default {
     data: () => ({
       typography: {
-        'display-4': ['Display 4', tHeader, 'h1'],
-        'display-3': ['Display 3', material + mat2, 'h2'],
-        'display-2': ['Display 2', material, 'h3'],
-        'display-1': ['Display 1', material, 'h4'],
-        headline: ['Headline', moreText, 'h5'],
-        'title text-uppercase': ['Title', material, 'h6'],
-        '': ['Paragraph', leader, 'p'],
-        blockquote: ['Quote', leader, 'blockquote'],
-        'text--disabled': ['Muted Text', leaderShort, 'p'],
-        'primary--text': ['Primary Text', leaderShort, 'p'],
-        'info--text': ['Info Text', leaderShort, 'p'],
-        'success--text': ['Success Text', leaderShort, 'p'],
-        'warning--text': ['Warning Text', leaderShort, 'p'],
-        'danger--text': ['Danger Text', leaderShort, 'p'],
-        small: ['Small Tag', small, 'h2'],
+        'display-4': [' ', tHeader, 'h1'],
+        'display-3': [' ', material + mat2, 'h2'],
+        'display-2': [' ', material, 'h3'],
+        'display-1': [' ', material, 'h4'],
+        headline: [' ', moreText, 'h5'],
+        'title text-uppercase': [' ', material, 'h6'],
+        '': [' ', leader, 'p'],
+        blockquote: [' ', leader, 'blockquote'],
+        'text--disabled': [' ', leaderShort, 'p'],
+        'primary--text': [' ', leaderShort, 'p'],
+        'info--text': [' ', leaderShort, 'p'],
+        'success--text': [' ', leaderShort, 'p'],
+        'warning--text': [' ', leaderShort, 'p'],
+        'danger--text': [' ', leaderShort, 'p'],
+        small: [' ', small, 'h2'],
       },
     }),
   }

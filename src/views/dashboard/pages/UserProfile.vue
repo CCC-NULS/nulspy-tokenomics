@@ -142,7 +142,7 @@
       >
         <base-material-card
           class="v-card-profile"
-          avatar="../../assets/nulsbox.JPG"
+          avatar="http://westteam.nulstar.com/nms/artws/Social_Telegram_G.svg"
         >
           <v-card-text class="text-center">
             <h6 class="display-1 mb-1 grey--text">
