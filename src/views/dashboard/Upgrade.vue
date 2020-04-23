@@ -105,7 +105,7 @@
                     target="_blank"
                     href="https://www.creative-tim.com/product/vuetify-material-dashboard-pro?ref=vtymd-upgrade-page"
                   >
-                    Upgrade to Pro
+                    Pro
                   </v-btn>
                 </td>
               </tr>

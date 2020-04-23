@@ -58,7 +58,7 @@
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Campaign Performance
+            Last Years Performance
           </p>
 
           <template v-slot:actions>
@@ -121,7 +121,7 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
+            Daily Staking
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
@@ -132,7 +132,7 @@
               mdi-arrow-up
             </v-icon>
             <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
+            increase in today's staking
           </p>
 
           <template v-slot:actions>
@@ -195,11 +195,11 @@
           </template>
 
           <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
+            Completed Payouts
           </h3>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Last Campaign Performance
+            Last Month's Performance
           </p>
 
           <template v-slot:actions>
@@ -209,7 +209,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light">tokens sent 26 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>

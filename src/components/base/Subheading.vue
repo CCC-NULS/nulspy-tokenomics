@@ -23,11 +23,11 @@
     props: {
       subheading: {
         type: String,
-        default: '',
+        default: 'NULS',
       },
       text: {
         type: String,
-        default: '',
+        default: 'NULS',
       },
     },
   }

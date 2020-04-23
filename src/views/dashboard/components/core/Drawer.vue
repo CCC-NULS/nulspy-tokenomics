@@ -5,12 +5,13 @@
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-    :src="barImage"
     mobile-break-point="960"
     app
     width="260"
     v-bind="$attrs"
   >
+    <!-- from above :src="barImage" -->
+
     <template v-slot:img="props">
       <v-img
         :gradient="`to bottom, ${barColor}`"
@@ -27,7 +28,6 @@
       <v-list-item>
         <v-list-item-avatar
           class="align-self-center"
-          color="white"
           contain
         >
           <v-img
@@ -50,6 +50,7 @@
     <v-list
       expand
       nav
+      dark
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -78,6 +79,7 @@
 
     <template v-slot:append>
       <base-item
+        dark
         :item="{
           title: $t('upgrade'),
           icon: 'mdi-package-up',
@@ -106,41 +108,41 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/',
-        },
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'dashboard',
+        //   to: '/',
+        // },
         {
           icon: 'mdi-account',
           title: 'user',
           to: '/pages/user',
         },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
-        },
+        // {
+        //   title: 'rtables',
+        //   icon: 'mdi-clipboard-outline',
+        //   to: '/tables/regular-tables',
+        // },
         {
           title: 'typography',
           icon: 'mdi-format-font',
           to: '/components/typography',
         },
-        {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
-        },
+        // {
+        //   title: 'icons',
+        //   icon: 'mdi-chart-bubble',
+        //   to: '/components/icons',
+        // },
         {
           title: 'google',
           icon: 'mdi-map-marker',
           to: '/maps/google-maps',
         },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
-        },
+        // {
+        //   title: 'notifications',
+        //   icon: 'mdi-bell',
+        //   to: '/components/notifications',
+        // },
       ],
     }),
 

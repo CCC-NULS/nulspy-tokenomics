@@ -4,8 +4,11 @@
     :prepend-icon="item.icon"
     :sub-group="subGroup"
     append-icon="mdi-menu-down"
-    :color="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)' ? 'white' : 'grey darken-1'"
+    :color="barColor !== 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)' ? 'cyan darken-2' : 'grey darken-1'"
   >
+  <!--  :color="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)' ? 'white' : 'grey darken-1'"
+   -->
+
     <template v-slot:activator>
       <v-list-item-icon
         v-if="text"

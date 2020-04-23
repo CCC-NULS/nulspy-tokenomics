@@ -162,9 +162,9 @@
 
     data: () => ({
       notifications: [
-        'Mike John Responded to your email',
+        'Someone Responded to your email',
         'You have 5 new tasks',
-        'You\'re now friends with Andrew',
+        'You sold',
         'Another Notification',
         'Another one',
       ],

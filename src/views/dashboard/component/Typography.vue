@@ -5,7 +5,7 @@
     tag="section"
   >
     <base-v-component
-      heading="Typography"
+      heading="NULS"
       link="styles/typography"
     />
 
@@ -19,11 +19,11 @@
         >
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
-              Material Dashboard Heading
+              NULS Tokenomics Calculator
             </div>
 
             <div class="subtitle-1 font-weight-light">
-              Created using Roboto Font Family
+              All About NULS
             </div>
           </template>
 
@@ -59,11 +59,11 @@
                     <p v-if="i === 'quote'">
                       {{ t[1] }}
                     </p>
-                    <small v-if="i === 'quote'">Kanye West, Musician</small>
+                    <small v-if="i === 'quote'">Satoshi</small>
 
                     <template v-if="i === 'small'">
                       <br>
-                      <small>Use 'small' tag for the headers</small>
+                      <small>Buy blockchain</small>
                     </template>
                   </component>
                 </v-col>
@@ -77,19 +77,26 @@
 </template>
 
 <script>
-  const leader = 'I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.'
+  const leader = 'Blockchain will be worth billions of dollars, ' +
+    'because we understand culture.'
   const leaderShort = leader.slice(0, 105) + '...'
-  const material = 'The Life of Material Dashboard'
-  const small = 'Header with small subtitle'
+  // const material = 'The Life of Material Dashboard'
+  const material = 'NULS is an open-source, enterprise-grade, adaptive blockchain platform'
+  const mat2 = ' that offers fast-track business solutions for developers.'
+  const small = 'NULS sets a new industry standard in streamlining blockchain adoption'
+  const tHeader = 'About NULS'
+  const moreText = 'Featuring microservices, smart contracts, cross-chain interoperability, ' +
+    'and instant chain-building, ' +
+    'NULS sets a new industry standard in streamlining blockchain adoption.'
 
   export default {
     data: () => ({
       typography: {
-        'display-4': ['Display 4', material, 'h1'],
-        'display-3': ['Display 3', material, 'h2'],
+        'display-4': ['Display 4', tHeader, 'h1'],
+        'display-3': ['Display 3', material + mat2, 'h2'],
         'display-2': ['Display 2', material, 'h3'],
         'display-1': ['Display 1', material, 'h4'],
-        headline: ['Headline', material, 'h5'],
+        headline: ['Headline', moreText, 'h5'],
         'title text-uppercase': ['Title', material, 'h6'],
         '': ['Paragraph', leader, 'p'],
         blockquote: ['Quote', leader, 'blockquote'],

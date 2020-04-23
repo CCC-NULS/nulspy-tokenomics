@@ -23,39 +23,39 @@ export default new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
+        // {
+        //   name: 'Inflation',
+        //   path: 'components/notifications',
+        //   component: () => import('@/views/dashboard/component/Notifications'),
+        // },
+        // {
+        //   name: 'Nodes',
+        //   path: 'components/icons',
+        //   component: () => import('@/views/dashboard/component/Icons'),
+        // },
         {
-          name: 'Notifications',
-          path: 'components/notifications',
-          component: () => import('@/views/dashboard/component/Notifications'),
-        },
-        {
-          name: 'Icons',
-          path: 'components/icons',
-          component: () => import('@/views/dashboard/component/Icons'),
-        },
-        {
-          name: 'Typography',
+          name: 'Staking',
           path: 'components/typography',
           component: () => import('@/views/dashboard/component/Typography'),
         },
         // Tables
         {
-          name: 'Regular Tables',
+          name: 'Blockchain',
           path: 'tables/regular-tables',
           component: () => import('@/views/dashboard/tables/RegularTables'),
         },
         // Maps
         {
-          name: 'Google Maps',
+          name: 'View Graph',
           path: 'maps/google-maps',
           component: () => import('@/views/dashboard/maps/GoogleMaps'),
         },
         // Upgrade
-        {
-          name: 'Upgrade',
-          path: 'upgrade',
-          component: () => import('@/views/dashboard/Upgrade'),
-        },
+        // {
+        //   name: 'Upgrade',
+        //   path: 'upgrade',
+        //   component: () => import('@/views/dashboard/Upgrade'),
+        // },
       ],
     },
   ],

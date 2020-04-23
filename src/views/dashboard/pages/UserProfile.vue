@@ -28,7 +28,7 @@
                   md="4"
                 >
                   <v-text-field
-                    label="Company (disabled)"
+                    label=" "
                     disabled
                   />
                 </v-col>
@@ -142,20 +142,26 @@
       >
         <base-material-card
           class="v-card-profile"
-          avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
+          avatar="../../assets/nulsbox.JPG"
         >
           <v-card-text class="text-center">
             <h6 class="display-1 mb-1 grey--text">
               Tryout Values
             </h6>
 
-            <h4 class="display-2 font-weight-light mb-3 black--text">
-              Test Inflation
-            </h4>
+            <h4
+              class="display-2 font-weight-light mb-3 black--text"
+              :value="dataone"
+            />
 
             <p
               class="font-weight-light grey--text"
-              :value="dataone"
+              :value="dataoneb"
+            />
+
+            <p
+              class="font-weight-light grey--text"
+              :value="datatwo + datathree"
             />
 
             <v-btn
@@ -163,7 +169,7 @@
               rounded
               class="mr-0"
             >
-              Follow
+              Continue
             </v-btn>
           </v-card-text>
         </base-material-card>
