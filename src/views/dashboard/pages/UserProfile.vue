@@ -11,32 +11,42 @@
       >
         <base-material-card primary>
           <template v-slot:heading>
-            <div class="display-2 font-weight-medium" />
-
-            <div class="display-2 font-weight-medium">
-              The following values are already set:<br><br>
+            <div
+              id="firstdiv"
+              shaped
+              class="displaynms font-weight-light"
+            >
+              <v-chip
+                medium
+                dark
+              >
+                The following defaults values are set
+              </v-chip>
+              <br> <br>
               <ul>
                 <li>
-                  Initial Supply:  &emsp;&emsp; 100,000,000 NULS<br>
+                  Initial Token Supply: &nbsp; 100,000,000<br>
                 </li>
                 <li>
-                  Inflation begins in intervals: &emsp;&emsp; 24 (2 years)<br>
+                  Inflation begins in how many intervals? &nbsp; 24 = 2 yrs
+                  <br>
                 </li>
                 <li>
-                  Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) NULS<br>
+                  Inflation tokens per 12 intervals? &nbsp;5,000,000 /12 (416,666.66) <br>
                 </li>
                 <li>
-                  Inflation is turned off at: &emsp;&emsp; 210,000,000  NULS<br>
+                  Inflation is turned off at: &emsp;&emsp; 210,000,000<br>
                 </li>
                 <li>
-                  Disinflation ratio is: &emsp;&emsp; 0.004     ( 0.01 = 1% )  <br><br>
-                  Inflation and disinflation begin at the same time.<br><br>
+                  Disinflation ratio is: &emsp;&emsp; 0.004 ( 0.01 = 1% )  <br><br>
                 </li>
               </ul>
-            </div>
-
-            <div class="subtitle-1b display-2 font-weight-bold">
-              &emsp;&emsp;&emsp;&emsp; <br>
+              <v-chip
+                medium
+                raised
+              >
+                Inflation and de-inflation begin at the same time
+              </v-chip>
             </div>
           </template>
 
@@ -102,6 +112,13 @@
                   cols="12"
                   md="4"
                 >
+                  <v-input
+                    label="test"
+                    value="0.004"
+                    type="number"
+                    name="disinflation_ratioo"
+                  />
+
                   <v-text-field
                     label="Disinflation ratio ( .01 = 1% ):"
                     class="purple-input display-2"
@@ -190,3 +207,32 @@
     },
   }
 </script>
+<style>
+  .displaynms {
+    line-height: 1.7em;
+    font-size: 24px!important;
+    padding-left: 26px!important;
+  }
+  .v-chip {
+    background-color: #7E57C2!important;
+    padding: 19px;
+    margin-bottom: 10px!important;
+  }
+  .v-chip__content {
+    font-size: 22px;
+    font-weight: 400;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+}
+  .v-card__title {
+    font-size: 22px;
+    font-weight: 400;
+    padding-top: 12px;
+    padding-bottom: 14px;
+    padding-left: 22px;
+    margin-right: 22px;
+    text-align: center;
+}
+</style>

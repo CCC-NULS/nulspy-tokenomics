@@ -115,7 +115,7 @@
         //   to: '/',
         // },
         {
-          icon: 'mdi-account',
+          icon: 'mdi-wrench',
           title: 'user',
           to: '/pages/user',
         },
