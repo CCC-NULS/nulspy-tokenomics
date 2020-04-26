@@ -9,20 +9,24 @@
         cols="12"
         md="8"
       >
-        <base-material-card primary>
+        <base-material-card
+          color="secondary darken-4"
+        >
           <template v-slot:heading>
             <div
               id="firstdiv"
               shaped
-              class="displaynms font-weight-light"
+              class="displaynms font-weight-medium"
             >
               <v-chip
                 medium
                 dark
+                color="secondary darken-3"
+                outline
               >
-                The following defaults values are set
+                DEFAULT / PRESET VALUES
               </v-chip>
-              <br> <br>
+              <br>
               <ul>
                 <li>
                   Initial Token Supply: &nbsp; 100,000,000<br>
@@ -38,10 +42,11 @@
                   Inflation is turned off at: &emsp;&emsp; 210,000,000<br>
                 </li>
                 <li>
-                  Disinflation ratio is: &emsp;&emsp; 0.004 ( 0.01 = 1% )  <br><br>
+                  De-inflation ratio: &emsp;&emsp; 0.004 ( 0.01 = 1% )  <br><br>
                 </li>
               </ul>
               <v-chip
+                color="info lighten-2"
                 medium
                 raised
               >
@@ -49,110 +54,117 @@
               </v-chip>
             </div>
           </template>
-
-          <v-form>
-            <v-container class="py-0">
-              <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <!-- class="inputc"  -->
-                  <v-text-field
-                    class="purple-input display-2"
-                    label="Initial Supply:"
-                    :value="inSupply"
-                    type="string"
-                    name="initial_supply_y"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <!-- class="inputc"  -->
-                  <v-text-field
-                    label="Inflation tokens per 12 intervals:"
-                    class="purple-input display-2"
-                    value="5000000"
-                    type="number"
-                    name="annual_inflation"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <!-- class="inputc"  -->
-                  <v-text-field
-                    label="Inflation begins in how many intervals:"
-                    class="purple-input display-2"
-                    value="24"
-                    type="number"
-                    name="start_inflation"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Inflation stops at:"
-                    class="purple-input display-2"
-                    value="210000000"
-                    type="number"
-                    name="stop_inflation_y"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-input
-                    label="test"
-                    value="0.004"
-                    type="number"
-                    name="disinflation_ratioo"
-                  />
-
-                  <v-text-field
-                    label="Disinflation ratio ( .01 = 1% ):"
-                    class="purple-input display-2"
-                    value="0.004"
-                    type="number"
-                    name="deratio"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-btn
-                    color="success"
-                    class="mr-0"
-                    @click="submitForm"
+          <ValidationObserver v-slot="{ invalid }">
+            <v-form @submit.prevent="onSubmit">
+              <v-container class="py-0">
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="4"
                   >
-                    Plot Graph
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
+                    <!-- class="inputc"  -->
+                    <v-text-field
+                      id="in-supply"
+                      v-model="insupp"
+                      class="purple-input display-2"
+                      label="Initial Supply textfield"
+                      type="string"
+                      name="initial_supply_y"
+                    />
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      name="First Name"
+                      rules="required|alpha"
+                    >
+                      <input
+                        v-model="firstName"
+                        type="text"
+                      >
+                      <span>{{ errors[0] }}</span>
+                    </ValidationProvider>
+
+                    <v-text-field
+                      id="aninflate"
+                      v-model="number"
+                      name="annual_inflation"
+                      class="purple-input display-2"
+                      type="number"
+                      value="5000000"
+                      label="Inflation per 12 intervals inputfield"
+                    />
+                  </v-col>
+
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <!-- class="inputc"  -->
+                    <v-text-field
+                      label="Inflation begins in how many intervals:"
+                      class="purple-input display-2"
+                      value="24"
+                      type="number"
+                      name="start_inflation"
+                    />
+                  </v-col>
+
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-text-field
+                      label="Inflation stops at:"
+                      class="purple-input display-2"
+                      value="210000000"
+                      type="number"
+                      name="stop_inflation_y"
+                    />
+                  </v-col>
+
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-input
+                      label="test"
+                      value="0.004"
+                      type="number"
+                      name="disinflation_ratioo"
+                    />
+
+                    <v-text-field
+                      label="Disinflation ratio ( .01 = 1% ):"
+                      class="purple-input display-2"
+                      value="0.004"
+                      type="number"
+                      name="deratio"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-btn
+                      type="submit"
+                      color="warning"
+                      :disabled="invalid"
+                    >
+                      Submit
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
+          </ValidationObserver>
         </base-material-card>
       </v-col>
-      <div
-        v-if="!$v.initial_supply_y.required"
-        class="form__error"
-      >
-        *This field is required.
-      </div>
-
-
-
 
       <v-col
         cols="12"
@@ -197,41 +209,27 @@
 </template>
 
 <script>
-  import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators'
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
 
   export default {
-    data () {
-      return {
-        inSupply: inSupply,
-        dataone: 'Try different values and view a plot of how they play out over time.',
-        dataoneb: 'Intervals can be thought of as months or 30/day increments.',
-        datatwo: 'For this blockchain, the following values are set: ',
-        datathree: 'Initial Supply:  100,000,000 VKG/NULS',
-        datafour: 'Inflation begins in intervals: &emsp;&emsp; 24 (2 years)',
-        datafive: 'Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS',
-        datasix: 'Inflation is turned off when inflation reaches:   210,000,000  VKG/NULS',
-        dataseven: 'Disinflation ratio is:   0.004       ( 0.01 = 1% ) ',
-        dataeight: 'Inflation and disinflation begin at the same time.',
-      }
-    },
-    validations: {
-      initial_supply_y: {
-        required,
-        minLength: minLength(4),
-        maxLength: maxLength(12),
-        alphaNum,
-      },
-    },
+    data: () => ({
+      givenNumber,
+      inSupply,
+      firstName: '',
+      dataone: 'Try different values and view a plot of how they play out over time.',
+      dataoneb: 'Intervals can be thought of as months or 30/day increments.',
+      datatwo: 'For this blockchain, the following values are set: ',
+      datathree: 'Initial Supply:  100,000,000 VKG/NULS',
+      datafour: 'Inflation begins in intervals: &emsp;&emsp; 24 (2 years)',
+      datafive: 'Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS',
+      datasix: 'Inflation is turned off when inflation reaches:   210,000,000  VKG/NULS',
+      dataseven: 'Disinflation ratio is:   0.004       ( 0.01 = 1% ) ',
+      dataeight: 'Inflation and disinflation begin at the same time.',
+    }),
     methods: {
-      submitForm () {
-        if (!this.$v.$anyError) {
-          // actually submit form ...
-          alert('Form submitted')
-        } else {
-          alert('Please fix errors and try again.')
-        }
+      onSubmit () {
+        alert('Form has been submitted!')
       },
     },
   }
@@ -244,7 +242,6 @@
     padding-left: 26px!important;
   }
   .v-chip {
-    background-color: #7E57C2!important;
     padding: 19px;
     margin-bottom: 10px!important;
   }

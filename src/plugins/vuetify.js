@@ -2,16 +2,17 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import i18n from '@/i18n'
 import '@/sass/overrides.sass'
-import Vuelidate from 'vuelidate'
 
 Vue.use(Vuetify)
-Vue.use(Vuelidate)
 
 const theme = {
-  primary: '#4CAF50',
-  secondary: '#9C27b0',
+  primary: '#6200EE',
+  secondary: '#03DAC5',
   accent: '#9C27b0',
-  info: '#00CAE3',
+  info: '#3700B3',
+  error: '#FF4D53',
+  warning: '#37474F',
+  success: '#00BFA5',
 }
 
 export default new Vuetify({
