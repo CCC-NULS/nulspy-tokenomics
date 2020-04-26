@@ -124,7 +124,7 @@
                     class="purple-input display-2"
                     value="0.004"
                     type="number"
-                    name="disinflation_ratio"
+                    name="deratio"
                   />
                 </v-col>
                 <v-col
@@ -134,6 +134,7 @@
                   <v-btn
                     color="success"
                     class="mr-0"
+                    @click="submitForm"
                   >
                     Plot Graph
                   </v-btn>
@@ -143,6 +144,15 @@
           </v-form>
         </base-material-card>
       </v-col>
+      <div
+        v-if="!$v.initial_supply_y.required"
+        class="form__error"
+      >
+        *This field is required.
+      </div>
+
+
+
 
       <v-col
         cols="12"
@@ -187,6 +197,7 @@
 </template>
 
 <script>
+  import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators'
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
 
@@ -205,8 +216,27 @@
         dataeight: 'Inflation and disinflation begin at the same time.',
       }
     },
+    validations: {
+      initial_supply_y: {
+        required,
+        minLength: minLength(4),
+        maxLength: maxLength(12),
+        alphaNum,
+      },
+    },
+    methods: {
+      submitForm () {
+        if (!this.$v.$anyError) {
+          // actually submit form ...
+          alert('Form submitted')
+        } else {
+          alert('Please fix errors and try again.')
+        }
+      },
+    },
   }
 </script>
+
 <style>
   .displaynms {
     line-height: 1.7em;

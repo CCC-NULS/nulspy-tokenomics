@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import i18n from '@/i18n'
 import '@/sass/overrides.sass'
+import Vuelidate from 'vuelidate'
 
 Vue.use(Vuetify)
+Vue.use(Vuelidate)
 
 const theme = {
   primary: '#4CAF50',
