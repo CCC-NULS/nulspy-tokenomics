@@ -54,7 +54,7 @@
               </v-chip>
             </div>
           </template>
-          <ValidationObserver v-slot="{ invalid }">
+          <validation-observer v-slot="{ invalid }">
             <v-form @submit.prevent="onSubmit">
               <v-container class="py-0">
                 <v-row>
@@ -78,17 +78,18 @@
                     cols="12"
                     md="4"
                   >
-                    <ValidationProvider
+                    <validation-provider
                       v-slot="{ errors }"
-                      name="First Name"
+                      ref="name"
+                      name="name"
                       rules="required|alpha"
                     >
-                      <input
-                        v-model="firstName"
-                        type="text"
-                      >
-                      <span>{{ errors[0] }}</span>
-                    </ValidationProvider>
+                      <v-text-field
+                        v-model="name"
+                        label="Name"
+                      />
+                      <span>{{ errors }}</span>
+                    </validation-provider>
 
                     <v-text-field
                       id="aninflate"
@@ -132,19 +133,17 @@
                     cols="12"
                     md="4"
                   >
-                    <v-input
-                      label="test"
-                      value="0.004"
-                      type="number"
-                      name="disinflation_ratioo"
-                    />
-
                     <v-text-field
                       label="Disinflation ratio ( .01 = 1% ):"
                       class="purple-input display-2"
                       value="0.004"
                       type="number"
                       name="deratio"
+                    />
+                    <v-text-field
+                      v-model="email"
+                      :rules="[rules.required, rules.email]"
+                      label="E-mail"
                     />
                   </v-col>
                   <v-col
@@ -162,7 +161,7 @@
                 </v-row>
               </v-container>
             </v-form>
-          </ValidationObserver>
+          </validation-observer>
         </base-material-card>
       </v-col>
 
@@ -209,10 +208,21 @@
 </template>
 
 <script>
+  import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+  import { required } from 'vee-validate/dist/rules'
+
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
+  extend('required', {
+    ...required,
+    message: 'This field is required',
+  })
 
   export default {
+    components: {
+      ValidationProvider: ValidationProvider,
+      ValidationObserver: ValidationObserver,
+    },
     data: () => ({
       givenNumber,
       inSupply,
@@ -230,6 +240,16 @@
     methods: {
       onSubmit () {
         alert('Form has been submitted!')
+      },
+    },
+    title: 'Preliminary report',
+    email: '',
+    rules: {
+      required: value => !!value || 'Required.',
+      counter: value => value.length <= 20 || 'Max 20 characters',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Invalid e-mail.'
       },
     },
   }
