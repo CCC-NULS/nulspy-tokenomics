@@ -54,114 +54,107 @@
               </v-chip>
             </div>
           </template>
-          <validation-observer v-slot="{ invalid }">
-            <v-form @submit.prevent="onSubmit">
-              <v-container class="py-0">
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="4"
+          <v-form>
+            <v-container class="py-0">
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <!-- class="inputc"  -->
+                  <v-text-field
+                    id="in-supply"
+                    v-model="insupp"
+                    class="purple-input display-2"
+                    label="Initial Supply textfield"
+                    type="string"
+                    name="initial_supply_y"
+                  />
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <validation-provider
+                    v-slot="{ errors }"
+                    ref="name"
+                    name="name"
+                    rules="required|alpha"
                   >
-                    <!-- class="inputc"  -->
                     <v-text-field
-                      id="in-supply"
-                      v-model="insupp"
-                      class="purple-input display-2"
-                      label="Initial Supply textfield"
-                      type="string"
-                      name="initial_supply_y"
+                      v-model="name"
+                      label="Name"
                     />
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <validation-provider
-                      v-slot="{ errors }"
-                      ref="name"
-                      name="name"
-                      rules="required|alpha"
-                    >
-                      <v-text-field
-                        v-model="name"
-                        label="Name"
-                      />
-                      <span>{{ errors }}</span>
-                    </validation-provider>
+                    <span>{{ errors }}</span>
+                  </validation-provider>
 
-                    <v-text-field
-                      id="aninflate"
-                      v-model="number"
-                      name="annual_inflation"
-                      class="purple-input display-2"
-                      type="number"
-                      value="5000000"
-                      label="Inflation per 12 intervals inputfield"
-                    />
-                  </v-col>
+                  <v-text-field
+                    id="aninflate"
+                    v-model="number"
+                    name="annual_inflation"
+                    class="purple-input display-2"
+                    type="number"
+                    value="5000000"
+                    label="Inflation per 12 intervals inputfield"
+                  />
+                </v-col>
 
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <!-- class="inputc"  -->
-                    <v-text-field
-                      label="Inflation begins in how many intervals:"
-                      class="purple-input display-2"
-                      value="24"
-                      type="number"
-                      name="start_inflation"
-                    />
-                  </v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <!-- class="inputc"  -->
+                  <v-text-field
+                    label="Inflation begins in how many intervals:"
+                    class="purple-input display-2"
+                    value="24"
+                    type="number"
+                    name="start_inflation"
+                  />
+                </v-col>
 
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <v-text-field
-                      label="Inflation stops at:"
-                      class="purple-input display-2"
-                      value="210000000"
-                      type="number"
-                      name="stop_inflation_y"
-                    />
-                  </v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Inflation stops at:"
+                    class="purple-input display-2"
+                    value="210000000"
+                    type="number"
+                    name="stop_inflation_y"
+                  />
+                </v-col>
 
-                  <v-col
-                    cols="12"
-                    md="4"
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Disinflation ratio ( .01 = 1% ):"
+                    class="purple-input display-2"
+                    value="0.004"
+                    type="number"
+                    name="deratio"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-btn
+                    type="submit"
+                    color="warning"
+                    :disabled="invalid"
                   >
-                    <v-text-field
-                      label="Disinflation ratio ( .01 = 1% ):"
-                      class="purple-input display-2"
-                      value="0.004"
-                      type="number"
-                      name="deratio"
-                    />
-                    <v-text-field
-                      v-model="email"
-                      :rules="[rules.required, rules.email]"
-                      label="E-mail"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <v-btn
-                      type="submit"
-                      color="warning"
-                      :disabled="invalid"
-                    >
-                      Submit
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </validation-observer>
+                    Submit
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
         </base-material-card>
       </v-col>
 
@@ -203,6 +196,54 @@
           </v-card-text>
         </base-material-card>
       </v-col>
+    </v-row>
+    <v-row>
+      <validation-observer v-slot="{ invalid }">
+        <form @submit.prevent="onSubmit">
+          <validation-provider
+            v-slot="{ errors }"
+            name="E-mail"
+            rules="required|email"
+          >
+            <input
+              v-model="email"
+              type="email"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="First Name"
+            rules="required|alpha"
+          >
+            <input
+              v-model="firstName"
+              type="text"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="Last Name"
+            rules="required|alpha"
+          >
+            <input
+              v-model="lastName"
+              type="text"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+
+          <button
+            type="submit"
+            :disabled="invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </validation-observer>
     </v-row>
   </v-container>
 </template>
