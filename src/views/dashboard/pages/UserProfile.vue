@@ -157,7 +157,6 @@
           </v-form>
         </base-material-card>
       </v-col>
-
       <v-col
         cols="12"
         md="4"
@@ -166,84 +165,115 @@
           class="v-card-profile"
           avatar="http://westteam.nulstar.com/nms/artws/Social_Telegram_G.svg"
         >
-          <v-card-text class="text-center">
-            <h6 class="display-2 mb-1 grey--text">
-              Tryout Values
-            </h6>
-
-            <h4
-              class="display-2 font-weight-light mb-3 black--text"
-              :value="dataone"
-            />
-
-            <p
-              class="font-weight-light grey--text"
-              :value="dataoneb"
-            />
-
-            <p
-              class="font-weight-light grey--text"
-              :value="datatwo + datathree"
-            />
-
-            <v-btn
-              color="success"
-              rounded
-              class="mr-0"
+          <v-row>
+            <v-col
+              cols="12"
+              md="4"
             >
-              Continue
-            </v-btn>
-          </v-card-text>
+              <v-card-text class="text-center">
+                <h6 class="display-2 mb-1 grey--text">
+                  Tryout Values
+                </h6>
+
+                <h4
+                  class="display-2 font-weight-light mb-3 black--text"
+                  :value="dataone"
+                />
+
+                <p
+                  class="font-weight-light grey--text"
+                  :value="dataoneb"
+                />
+
+                <p
+                  class="font-weight-light grey--text"
+                  :value="datatwo + datathree"
+                />
+
+                <v-btn
+                  color="success"
+                  rounded
+                  class="mr-0"
+                >
+                  Continue
+                </v-btn>
+              </v-card-text>
+            </v-col>
+          </v-row>
         </base-material-card>
       </v-col>
     </v-row>
     <v-row>
-      <validation-observer v-slot="{ invalid }">
-        <form @submit.prevent="onSubmit">
-          <validation-provider
-            v-slot="{ errors }"
-            name="E-mail"
-            rules="required|email"
-          >
-            <input
-              v-model="email"
-              type="email"
-            >
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="First Name"
-            rules="required|alpha"
-          >
-            <input
-              v-model="firstName"
-              type="text"
-            >
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="Last Name"
-            rules="required|alpha"
-          >
-            <input
-              v-model="lastName"
-              type="text"
-            >
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-
-          <button
-            type="submit"
-            :disabled="invalid"
-          >
-            Submit
-          </button>
-        </form>
-      </validation-observer>
+      <v-col>
+        <base-material-card
+          color="secondary darken-1"
+        >
+          <validation-observer v-slot="{ invalid }">
+            <form @submit.prevent="onSubmit">
+              <v-row>
+                <v-col>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="E-mail"
+                    rules="required|email"
+                  >
+                    <input
+                      v-model="email"
+                      type="email"
+                      outline="true"
+                      color="pink"
+                      x-large
+                      text-color="purple"
+                      background-color="primary"
+                    >
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </v-col>
+                <v-col>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="First Name"
+                    rules="required|alpha"
+                  >
+                    <input
+                      v-model="firstName"
+                      type="text"
+                      outline
+                    >
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </v-col>
+                <v-col>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="Last Name"
+                    rules="required|alpha"
+                  >
+                    <input
+                      v-model="lastName"
+                      type="text"
+                      outline
+                    >
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <button
+                    type="submit"
+                    :disabled="invalid"
+                    outline
+                    primary
+                  >
+                    Submit
+                  </button>
+                </v-col>
+              </v-row>
+            </form>
+          </validation-observer>
+        </base-material-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -267,7 +297,9 @@
     data: () => ({
       givenNumber,
       inSupply,
+      email: '',
       firstName: '',
+      lastName: '',
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
@@ -281,16 +313,6 @@
     methods: {
       onSubmit () {
         alert('Form has been submitted!')
-      },
-    },
-    title: 'Preliminary report',
-    email: '',
-    rules: {
-      required: value => !!value || 'Required.',
-      counter: value => value.length <= 20 || 'Max 20 characters',
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Invalid e-mail.'
       },
     },
   }
