@@ -115,7 +115,7 @@
         //   to: '/',
         // },
         {
-          icon: 'mdi-wrench',
+          icon: 'mdi-poll',
           title: 'user',
           to: '/pages/user',
         },

@@ -206,7 +206,7 @@
     <v-row>
       <v-col
         cols="12"
-        md="2"
+        md="8"
       >
         <base-material-card
           color="secondary darken-1"
@@ -220,61 +220,78 @@
               @submit.prevent="onSubmit"
             >
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <validation-provider
                     v-slot="{ errors }"
                     name="E-mail"
                     rules="required|email"
                   >
-                    <v-input
+                    <v-text-field
                       id="one1"
                       v-model="email"
-                      name="email1"
+                      name="E-mail"
                       type="email"
-                      dark
+                      color="primary"
                       enabled="true"
-                      outlined
-                      color="pink"
-                      x-large
-                      background-color="primary"
-                      :messages="['Messages']"
+                      outlined="true"
+                      large
+                      label="Email"
+                      :messages="['Enter Email']"
                       :success="success"
                       :success-messages="successMsg"
                       :error="error"
                       :error-messages="errorMsg"
-                      :hide-details="hideDetails"
                       :error-count="errorCount"
-                      hint="I am hint"
+                      hint="real email with @"
                       :persistent-hint="persistentHint"
-                      append-icon="close"
-                      prepend-icon="phone"
-                      @click:append="appendIconCallback"
-                      @click:prepend="prependIconCallback"
                     />
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <validation-provider
                     v-slot="{ errors }"
-                    name="First Name"
-                    rules="required|alpha"
+                    name="Inflation Top"
+                    rules="required|numeric|min|max"
                   >
-                    <v-input
-                      v-model="firstName"
-                      type="text"
-                      outline
+                    <v-text-field
+                      v-model="inflationTop"
+                      type="number"
+                      min="300000"
+                      max="999999999"
+                      outlined="true"
+                      color="primary"
+                      enabled="true"
+                      large
+                      label="Inflation Stops at"
+                      :messages="['Enter Amount']"
+                      :success="success"
+                      :success-messages="successMsg"
+                      :error="error"
+                      :error-messages="errorMsg"
+                      :error-count="errorCount"
+                      hint="Max 900,000,000"
+                      :persistent-hint="persistentHint"
                     />
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <validation-provider
                     v-slot="{ errors }"
                     name="Last Name"
                     rules="required|alpha"
                   >
-                    <v-input
+                    <v-text-field
                       v-model="lastName"
                       type="text"
                       outline
@@ -282,13 +299,14 @@
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <button
                     type="submit"
                     :disabled="invalid"
-                    outline
                     primary
                   >
                     Submit
@@ -305,7 +323,8 @@
 
 <script>
   import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-  import { required } from 'vee-validate/dist/rules'
+  import { required, min, max, numeric } from 'vee-validate/dist/rules'
+  import { mdiAccount } from 'material-icons'
 
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
@@ -315,6 +334,10 @@
   })
 
   export default {
+    min,
+    max,
+    numeric,
+    mdiAccount,
     components: {
       ValidationProvider: ValidationProvider,
       ValidationObserver: ValidationObserver,
@@ -323,7 +346,7 @@
       givenNumber,
       inSupply,
       email: '',
-      firstName: '',
+      inflationTop: '',
       lastName: '',
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',

@@ -20,6 +20,7 @@ import './plugins/chartist'
 import VeeValidate from './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
+import 'material-icons'
 
 Vue.config.productionTip = false
 
@@ -29,5 +30,6 @@ new Vue({
   vuetify,
   VeeValidate,
   i18n,
+  iconfont: 'mdi',
   render: h => h(App),
 }).$mount('#app')
