@@ -204,12 +204,21 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col
+        cols="12"
+        md="2"
+      >
         <base-material-card
           color="secondary darken-1"
         >
-          <validation-observer v-slot="{ invalid }">
-            <form @submit.prevent="onSubmit">
+          <validation-observer
+            v-slot="{ invalid }"
+            ref="form"
+          >
+            <form
+              name="form"
+              @submit.prevent="onSubmit"
+            >
               <v-row>
                 <v-col>
                   <validation-provider
@@ -217,15 +226,31 @@
                     name="E-mail"
                     rules="required|email"
                   >
-                    <input
+                    <v-input
+                      id="one1"
                       v-model="email"
+                      name="email1"
                       type="email"
-                      outline="true"
+                      dark
+                      enabled="true"
+                      outlined
                       color="pink"
                       x-large
-                      text-color="purple"
                       background-color="primary"
-                    >
+                      :messages="['Messages']"
+                      :success="success"
+                      :success-messages="successMsg"
+                      :error="error"
+                      :error-messages="errorMsg"
+                      :hide-details="hideDetails"
+                      :error-count="errorCount"
+                      hint="I am hint"
+                      :persistent-hint="persistentHint"
+                      append-icon="close"
+                      prepend-icon="phone"
+                      @click:append="appendIconCallback"
+                      @click:prepend="prependIconCallback"
+                    />
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
@@ -235,11 +260,11 @@
                     name="First Name"
                     rules="required|alpha"
                   >
-                    <input
+                    <v-input
                       v-model="firstName"
                       type="text"
                       outline
-                    >
+                    />
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
@@ -249,11 +274,11 @@
                     name="Last Name"
                     rules="required|alpha"
                   >
-                    <input
+                    <v-input
                       v-model="lastName"
                       type="text"
                       outline
-                    >
+                    />
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </v-col>
@@ -309,10 +334,30 @@
       datasix: 'Inflation is turned off when inflation reaches:   210,000,000  VKG/NULS',
       dataseven: 'Disinflation ratio is:   0.004       ( 0.01 = 1% ) ',
       dataeight: 'Inflation and disinflation begin at the same time.',
+      text: '',
+      success: false,
+      error: false,
+      hideDetails: false,
+      errorCount: 1,
+      persistentHint: true,
     }),
+    computed: {
+      successMsg () {
+        return this.success ? ['Done'] : []
+      },
+      errorMsg () {
+        return this.error ? ['Error', 'Another one', 'One more', 'All the errors'] : []
+      },
+    },
     methods: {
       onSubmit () {
         alert('Form has been submitted!')
+      },
+      appendIconCallback () {
+        alert('click:append')
+      },
+      prependIconCallback () {
+        alert('click:prepend')
       },
     },
   }
