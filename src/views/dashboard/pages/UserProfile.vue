@@ -310,7 +310,7 @@
                     primary
                   >
                     Submit
-                  </button>
+                  </button> 
                 </v-col>
               </v-row>
             </form>
@@ -332,6 +332,12 @@
     ...required,
     message: 'This field is required',
   })
+  extend('min', value => {
+    return value.length >= 300000;
+  });
+  extend('max', value => {
+    return value.length <= 999999999;
+  });
 
   export default {
     min,
@@ -376,12 +382,12 @@
       onSubmit () {
         alert('Form has been submitted!')
       },
-      appendIconCallback () {
+/*       appendIconCallback () {
         alert('click:append')
       },
       prependIconCallback () {
         alert('click:prepend')
-      },
+      }, */
     },
   }
 </script>
