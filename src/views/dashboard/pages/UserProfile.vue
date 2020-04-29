@@ -10,7 +10,7 @@
         md="8"
       >
         <base-material-card
-          color="secondary darken-4"
+          color="secondary darken-2"
         >
           <template v-slot:heading>
             <div
@@ -21,7 +21,7 @@
               <v-chip
                 medium
                 dark
-                color="secondary darken-3"
+                color="info"
               >
                 DEFAULT / PRESET VALUES
               </v-chip>
@@ -53,113 +53,125 @@
               </v-chip>
             </div>
           </template>
-          <v-form>
-            <v-container class="py-4">
-              <v-row>
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <!--
-                  <v-chip
-                    align-center
-                    medium
-                    class="v_chip_small"
-                    dark
-                    raised
-                    color="blue-grey"
+
+          <v-form
+            id="fform"
+          >
+            <v-container
+              id="vcontain"
+              class="py-4"
+            >
+              <v-card
+                pr-5
+                pl-5
+              >
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="6"
                   >
-                  -->
-                  <v-chip v-bind="buttonprops">
-                    Make Your Choices:&emsp;
-                  </v-chip>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    id="vsel1"
-                    type="string"
-                    label="Initial Token Supply"
-                    :items="initsupply"
-                    placeholder="100,000"
-                  />
-                </v-col>
-                <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    id="vsel2"
-                    type="string"
-                    label="Annual Inflation"
-                    :items="aninflation"
-                    placeholder="100,000"
-                  />
-                </v-col>
-              </v-row>
-
-              <v-row>
-                <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    id="vsel3"
-                    type="string"
-                    label="Inflation Interval"
-                    :items="inflatervals"
-                  />
-                </v-col>
-                <!-- stop inflation:  # # # #  # # # #  # # # #  -->
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    id="vsel4"
-                    type="string"
-                    label="Stop Inflation "
-                    :items="stopinflation"
-                  />
-                </v-col>
-                <!-- disinflation:  # # # #  # # # #  # # # #  -->
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    id="vsel5"
-                    type="string"
-                    label="Disinflation Ratio"
-                    :items="disinflation"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                  md="5"
-                />
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-btn
-                    align="center"
-                    type="submit"
-                    color="warning lighten-2"
+                    <v-chip
+                      id="smchip"
+                      v-bind="chipprops"
+                      class="margleft"
+                      elevation-14
+                      raised
+                    >
+                      Make Your Choices:&emsp;
+                    </v-chip>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="4"
                   >
-                    Submit
-                  </v-btn>
-                </v-col>
-              </v-row>
+                    <v-select
+                      id="vsel1"
+                      class="margleft"
+                      type="string"
+                      label="Initial Token Supply"
+                      :items="initsupply"
+                      placeholder="100,000"
+                    />
+                  </v-col>
+                  <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-select
+                      id="vsel2"
+                      type="string"
+                      label="Annual Inflation"
+                      :items="aninflation"
+                      placeholder="100,000"
+                    />
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-select
+                      id="vsel3"
+                      type="string"
+                      label="Inflation Interval"
+                      class="margleft"
+                      :items="inflatervals"
+                    />
+                  </v-col>
+                  <!-- stop inflation:  # # # #  # # # #  # # # #  -->
+
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-select
+                      id="vsel4"
+                      type="string"
+                      label="Stop Inflation "
+                      :items="stopinflation"
+                    />
+                  </v-col>
+                  <!-- disinflation:  # # # #  # # # #  # # # #  -->
+
+                  <v-col
+                    cols="12"
+                    md="3"
+                  >
+                    <v-select
+                      id="vsel5"
+                      type="string"
+                      label="Disinflation Ratio %"
+                      class="margright"
+                      :items="disinflation"
+                    />
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="5"
+                  />
+
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-btn
+                      align="center"
+                      type="submit"
+                      color="warning lighten-2"
+                    >
+                      Submit
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
             </v-container>
           </v-form>
         </base-material-card>
@@ -217,12 +229,10 @@
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
   const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
-  const buttonprops = {
+  const chipprops = {
     class: 'v_chip_small',
-    isRaised: true,
-    color: 'primary',
     small: true,
-    dark: true,
+    dark: false,
   }
 
   export default {
@@ -230,7 +240,7 @@
       givenNumber,
       inSupply,
       initsupply,
-      buttonprops,
+      chipprops,
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
@@ -238,12 +248,18 @@
       aninflation: ['500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['500,000', '600,000'],
-      disinflation: ['4', '5'],
+      disinflation: ['4 %', '5 %'],
     }),
   }
 </script>
 
 <style>
+  .margleft {
+    margin-left:12px!important;
+  }
+  .margright {
+    margin-right:29px!important;
+  }
   .displaynms {
     line-height: 1.7em;
     font-size: 24px!important;
@@ -252,16 +268,17 @@
   .v_chip_small {
     padding: 2px;
     margin-bottom: 10px!important;
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 16px!important;
+    font-weight: 300;
+    text-align: center;
   }
   .v-chip {
     padding: 19px;
     margin-bottom: 10px!important;
   }
   .v-chip__content {
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 19px;
+    font-weight: 300;
     padding-left: 22px;
     padding-right: 22px;
     padding-bottom: 14px;
@@ -269,7 +286,7 @@
 }
   .v-card__title {
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 300;
     padding-top: 12px;
     padding-bottom: 14px;
     padding-left: 22px;
