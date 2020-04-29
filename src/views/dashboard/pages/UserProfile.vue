@@ -22,7 +22,6 @@
                 medium
                 dark
                 color="secondary darken-3"
-                outline
               >
                 DEFAULT / PRESET VALUES
               </v-chip>
@@ -55,26 +54,25 @@
             </div>
           </template>
           <v-form>
-            <v-container class="py-0">
+            <v-container class="py-4">
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
-                  <v-select
-                    id="vsel"
-                    label="initsupp"
-                    :items="initsupply"
-                  />
-
-                  <v-text-field
-                    id="in-supply"
-                    v-model="insupp"
-                    class="purple-input display-2"
-                    label="Initial Supply textfield"
-                    type="string"
-                    name="initial_supply_y"
-                  />
+                  <!--
+                  <v-chip
+                    align-center
+                    medium
+                    class="v_chip_small"
+                    dark
+                    raised
+                    color="blue-grey"
+                  >
+                  -->
+                  <v-chip v-bind="buttonprops">
+                    Make Your Choices:&emsp;
+                  </v-chip>
                 </v-col>
               </v-row>
               <v-row>
@@ -82,62 +80,81 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    id="aninflate"
-                    v-model="number"
-                    name="annual_inflation"
-                    class="purple-input display-2"
-                    type="number"
-                    value="5000000"
-                    label="Inflation per 12 intervals inputfield"
+                  <v-select
+                    id="vsel1"
+                    type="string"
+                    label="Initial Token Supply"
+                    :items="initsupply"
+                    placeholder="100,000"
                   />
                 </v-col>
+                <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
+                    id="vsel2"
+                    type="string"
+                    label="Annual Inflation"
+                    :items="aninflation"
+                    placeholder="100,000"
+                  />
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
+                    id="vsel3"
+                    type="string"
+                    label="Inflation Interval"
+                    :items="inflatervals"
+                  />
+                </v-col>
+                <!-- stop inflation:  # # # #  # # # #  # # # #  -->
 
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Inflation begins in how many intervals:"
-                    class="purple-input display-2"
-                    value="24"
-                    type="number"
-                    name="start_inflation"
+                  <v-select
+                    id="vsel4"
+                    type="string"
+                    label="Stop Inflation "
+                    :items="stopinflation"
                   />
                 </v-col>
+                <!-- disinflation:  # # # #  # # # #  # # # #  -->
 
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Inflation stops at:"
-                    class="purple-input display-2"
-                    value="210000000"
-                    type="number"
-                    name="stop_inflation_y"
+                  <v-select
+                    id="vsel5"
+                    type="string"
+                    label="Disinflation Ratio"
+                    :items="disinflation"
                   />
                 </v-col>
-
                 <v-col
                   cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Disinflation ratio ( .01 = 1% ):"
-                    class="purple-input display-2"
-                    value="0.004"
-                    type="number"
-                    name="deratio"
-                  />
-                </v-col>
+                  md="5"
+                />
+
                 <v-col
                   cols="12"
                   md="4"
                 >
                   <v-btn
+                    align="center"
                     type="submit"
-                    color="warning"
+                    color="warning lighten-2"
                   >
                     Submit
                   </v-btn>
@@ -158,7 +175,7 @@
           <v-row>
             <v-col
               cols="12"
-              md="4"
+              md="12"
             >
               <v-card-text class="text-center">
                 <h6 class="display-2 mb-1 grey--text">
@@ -199,16 +216,29 @@
 <script>
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
+  const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
+  const buttonprops = {
+    class: 'v_chip_small',
+    isRaised: true,
+    color: 'primary',
+    small: true,
+    dark: true,
+  }
 
   export default {
     data: () => ({
       givenNumber,
       inSupply,
+      initsupply,
+      buttonprops,
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
-      datathree: 'Initial Supply:  100,000,000 VKG/NULS',
-      initsupply: ['100,000', '200,000'],
+      datathree: 'Initial Supply:  100,000,000',
+      aninflation: ['500,000', '600,000'],
+      inflatervals: ['12', '24', '36', '48'],
+      stopinflation: ['500,000', '600,000'],
+      disinflation: ['4', '5'],
     }),
   }
 </script>
@@ -218,6 +248,12 @@
     line-height: 1.7em;
     font-size: 24px!important;
     padding-left: 26px!important;
+  }
+  .v_chip_small {
+    padding: 2px;
+    margin-bottom: 10px!important;
+    font-size: 22px;
+    font-weight: 400;
   }
   .v-chip {
     padding: 19px;
