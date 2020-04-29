@@ -61,7 +61,12 @@
                   cols="12"
                   md="4"
                 >
-                  <!-- class="inputc"  -->
+                  <v-select
+                    id="vsel"
+                    label="initsupp"
+                    :items="initsupply"
+                  />
+
                   <v-text-field
                     id="in-supply"
                     v-model="insupp"
@@ -77,19 +82,6 @@
                   cols="12"
                   md="4"
                 >
-                  <validation-provider
-                    v-slot="{ errors }"
-                    ref="name"
-                    name="name"
-                    rules="required|alpha"
-                  >
-                    <v-text-field
-                      v-model="name"
-                      label="Name"
-                    />
-                    <span>{{ errors }}</span>
-                  </validation-provider>
-
                   <v-text-field
                     id="aninflate"
                     v-model="number"
@@ -105,7 +97,6 @@
                   cols="12"
                   md="4"
                 >
-                  <!-- class="inputc"  -->
                   <v-text-field
                     label="Inflation begins in how many intervals:"
                     class="purple-input display-2"
@@ -147,7 +138,6 @@
                   <v-btn
                     type="submit"
                     color="warning"
-                    :disabled="invalid"
                   >
                     Submit
                   </v-btn>
@@ -203,192 +193,23 @@
         </base-material-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        md="8"
-      >
-        <base-material-card
-          color="secondary darken-1"
-        >
-          <validation-observer
-            v-slot="{ invalid }"
-            ref="form"
-          >
-            <form
-              name="form"
-              @submit.prevent="onSubmit"
-            >
-              <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="E-mail"
-                    rules="required|email"
-                  >
-                    <v-text-field
-                      id="one1"
-                      v-model="email"
-                      name="E-mail"
-                      type="email"
-                      color="primary"
-                      enabled="true"
-                      outlined="true"
-                      large
-                      label="Email"
-                      :messages="['Enter Email']"
-                      :success="success"
-                      :success-messages="successMsg"
-                      :error="error"
-                      :error-messages="errorMsg"
-                      :error-count="errorCount"
-                      hint="real email with @"
-                      :persistent-hint="persistentHint"
-                    />
-                    <span>{{ errors[0] }}</span>
-                  </validation-provider>
-                </v-col>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Inflation Top"
-                    rules="required|numeric|min|max"
-                  >
-                    <v-text-field
-                      v-model="inflationTop"
-                      type="number"
-                      min="300000"
-                      max="999999999"
-                      outlined="true"
-                      color="primary"
-                      enabled="true"
-                      large
-                      label="Inflation Stops at"
-                      :messages="['Enter Amount']"
-                      :success="success"
-                      :success-messages="successMsg"
-                      :error="error"
-                      :error-messages="errorMsg"
-                      :error-count="errorCount"
-                      hint="Max 900,000,000"
-                      :persistent-hint="persistentHint"
-                    />
-                    <span>{{ errors[0] }}</span>
-                  </validation-provider>
-                </v-col>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Last Name"
-                    rules="required|alpha"
-                  >
-                    <v-text-field
-                      v-model="lastName"
-                      type="text"
-                      outline
-                    />
-                    <span>{{ errors[0] }}</span>
-                  </validation-provider>
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <button
-                    type="submit"
-                    :disabled="invalid"
-                    primary
-                  >
-                    Submit
-                  </button> 
-                </v-col>
-              </v-row>
-            </form>
-          </validation-observer>
-        </base-material-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
 <script>
-  import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-  import { required, min, max, numeric } from 'vee-validate/dist/rules'
-  import { mdiAccount } from 'material-icons'
-
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
-  extend('required', {
-    ...required,
-    message: 'This field is required',
-  })
-  extend('min', value => {
-    return value.length >= 300000;
-  });
-  extend('max', value => {
-    return value.length <= 999999999;
-  });
 
   export default {
-    min,
-    max,
-    numeric,
-    mdiAccount,
-    components: {
-      ValidationProvider: ValidationProvider,
-      ValidationObserver: ValidationObserver,
-    },
     data: () => ({
       givenNumber,
       inSupply,
-      email: '',
-      inflationTop: '',
-      lastName: '',
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
       datathree: 'Initial Supply:  100,000,000 VKG/NULS',
-      datafour: 'Inflation begins in intervals: &emsp;&emsp; 24 (2 years)',
-      datafive: 'Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS',
-      datasix: 'Inflation is turned off when inflation reaches:   210,000,000  VKG/NULS',
-      dataseven: 'Disinflation ratio is:   0.004       ( 0.01 = 1% ) ',
-      dataeight: 'Inflation and disinflation begin at the same time.',
-      text: '',
-      success: false,
-      error: false,
-      hideDetails: false,
-      errorCount: 1,
-      persistentHint: true,
+      initsupply: ['100,000', '200,000'],
     }),
-    computed: {
-      successMsg () {
-        return this.success ? ['Done'] : []
-      },
-      errorMsg () {
-        return this.error ? ['Error', 'Another one', 'One more', 'All the errors'] : []
-      },
-    },
-    methods: {
-      onSubmit () {
-        alert('Form has been submitted!')
-      },
-/*       appendIconCallback () {
-        alert('click:append')
-      },
-      prependIconCallback () {
-        alert('click:prepend')
-      }, */
-    },
   }
 </script>
 
