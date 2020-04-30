@@ -33,6 +33,8 @@ def chk_for_file(tfile):
 def index():
     return render_template('index.html')  ## has the user entry form
 
+# a=100000000&b=5000000&c=24&d=210000000&e=4
+# a=100000000&b=5000000&c=24&d=210000000&e=4
 
 @application.route('/post', methods=["GET"])   # change later
 def show_post():
@@ -41,6 +43,15 @@ def show_post():
     start_inflation = request.args.get('c')
     stop_inflation_y = request.args.get('d')
     disinflation_ratio = request.args.get('e')
+    adict = {"initial_supply_y": initial_supply_y,
+             "stop_inflation_y": stop_inflation_y,
+             "disinflation_ratio": disinflation_ratio,
+             "annual_inflation": annual_inflation,
+             "start_inflation": start_inflation}
+    keepgoing(adict)
+
+
+def keepgoing(args_dict):
 
     if os.name == 'nt':
         app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"
@@ -56,23 +67,28 @@ def show_post():
     plotfp = os.path.join(plotfilesdir, plot_name)
     plotfilepath = os.path.normpath(plotfp)
 
-    args_dict = {"initial_supply_y": initial_supply_y,
-                 "stop_inflation_y": stop_inflation_y,
-                 "disinflation_ratio": disinflation_ratio,
-                 "annual_inflation": annual_inflation,
-                 "start_inflation": start_inflation,
-                 "timestp": timestp,
-                 "plotfilepath": plotfilepath,
-                 "plotsvg": plot_name}
+    args_dict.update({"timestp": timestp})
+    args_dict.update({"plotfilepath": plotfilepath})
+    args_dict.update({"plotsvg": plot_name})
+
+    # args_dict = {"initial_supply_y": initial_supply_y,
+    #              "stop_inflation_y": stop_inflation_y,
+    #              "disinflation_ratio": disinflation_ratio,
+    #              "annual_inflation": annual_inflation,
+    #              "start_inflation": start_inflation,
+    #              "timestp": timestp,
+    #              "plotfilepath": plotfilepath,
+    #              "plotsvg": plot_name}
 
     tk_obj = appsupport.AppSupport()
     tk_obj.main(args_dict)
 
     chk_for_file(plotfilepath)
 
-    with open(plotfilepath) as tfile:
-        pfile_contents = tfile.read()
-    return render_template_string(pfile_contents)
+    # with open(plotfilepath) as tfile:
+    #     pfile_contents = tfile.read()
+    # return render_template_string(pfile_contents)
+    return "<html><body><h1>done!</h1></body></html>"
 
 # @application.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
 # def plots():
@@ -117,7 +133,7 @@ def show_post():
 
 
 if __name__ == "__main__":
-    application.run(host='0.0.0.0')
+    application.run(debug=1, host='127.0.0.1', port=5002)
 
 
 
