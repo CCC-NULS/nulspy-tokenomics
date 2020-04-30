@@ -17,10 +17,10 @@ import router from './router'
 import store from './store'
 import './plugins/base'
 import './plugins/chartist'
-import VeeValidate from './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import 'material-icons'
+import 'cross-spawn'
 
 Vue.config.productionTip = false
 
@@ -28,7 +28,6 @@ new Vue({
   router,
   store,
   vuetify,
-  VeeValidate,
   i18n,
   iconfont: 'mdi',
   render: h => h(App),

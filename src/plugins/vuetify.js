@@ -6,13 +6,15 @@ import '@/sass/overrides.sass'
 Vue.use(Vuetify)
 
 const theme = {
-  primary: '#6200EE',
-  secondary: '#03DAC5',
-  accent: '#9C27b0',
-  info: '#3700B3',
-  error: '#FF4D53',
-  warning: '#37474F',
+  primary: '#37474F',
+  secondary: '#651FFF',
+  tertiary: '#009688',
   success: '#00BFA5',
+  accent: '#212121',
+  info: '#651FFF',
+  error: '512DA8',
+  warning: '#455A64',
+  darkgrey: '#212121',
 }
 
 export default new Vuetify({

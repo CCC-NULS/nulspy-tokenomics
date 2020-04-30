@@ -10,18 +10,18 @@
         md="8"
       >
         <base-material-card
-          color="secondary darken-2"
+          color="tertiary"
         >
           <template v-slot:heading>
             <div
               id="firstdiv"
               shaped
-              class="displaynms font-weight-medium"
+              class="displaynms font-weight-light"
             >
               <v-chip
                 medium
                 dark
-                color="info"
+                color="tertiary"
               >
                 DEFAULT / PRESET VALUES
               </v-chip>
@@ -45,7 +45,7 @@
                 </li>
               </ul>
               <v-chip
-                color="info lighten-2"
+                color="info"
                 medium
                 raised
               >
@@ -56,6 +56,8 @@
 
           <v-form
             id="fform"
+            ref="fform"
+            @submit="newfunc"
           >
             <v-container
               id="vcontain"
@@ -64,6 +66,8 @@
               <v-card
                 pr-5
                 pl-5
+                elevation-15
+                raised
               >
                 <v-row>
                   <v-col
@@ -92,6 +96,7 @@
                       type="string"
                       label="Initial Token Supply"
                       :items="initsupply"
+                      :rules="[v => !!v || 'Item is required']"
                       placeholder="100,000"
                     />
                   </v-col>
@@ -157,6 +162,7 @@
                     cols="12"
                     md="5"
                   />
+                  <!-- submit:  # # # #  # # # #  submit: # # # # # # # # -->
 
                   <v-col
                     cols="12"
@@ -165,7 +171,7 @@
                     <v-btn
                       align="center"
                       type="submit"
-                      color="warning lighten-2"
+                      color="warning"
                     >
                       Submit
                     </v-btn>
@@ -226,6 +232,8 @@
 </template>
 
 <script>
+  const { exec } = require('child_process')
+  // const spwn = require('cross_spawn')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
   const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
@@ -234,6 +242,24 @@
     small: true,
     dark: false,
   }
+  const pscript = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
+  const args = '100000000 5000000 24 210000000 4'
+  // const newarg = 'ls -la'
+
+  function newfunc () {
+    alert('howdy')
+    exec('ls -la')
+  }
+
+  // exec('ls -la', (error, stdout, stderr) => {
+  //   if (error) {
+  //     console.log(`error: ${error.message}`)
+  //   }
+  //   if (stderr) {
+  //     console.log(`stderr: ${stderr}`)
+  //   }
+  //   console.log(`stdout: ${stdout}`)
+  //   })
 
   export default {
     data: () => ({
@@ -241,6 +267,8 @@
       inSupply,
       initsupply,
       chipprops,
+      args,
+      pscript,
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
@@ -250,6 +278,9 @@
       stopinflation: ['500,000', '600,000'],
       disinflation: ['4 %', '5 %'],
     }),
+    methods: {
+      newfunc,
+    },
   }
 </script>
 
