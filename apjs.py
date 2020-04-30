@@ -5,7 +5,6 @@ Created on Thu Jan 16 23:53:45 2020
 @author: Kathy Norman and Nancy Schorr
 """
 import os
-import sys
 from datetime import datetime
 from math import floor
 import numpy as np
@@ -14,7 +13,7 @@ import matplotlib
 from matplotlib.ticker import StrMethodFormatter
 
 
-class AppSupport:
+class Apjs:
     def __init__(self):
         self.TOKEN_SYMBOL = "NUL"  # 3 characters, all caps.  e.g SET = Space Exploration
         self.initial_supply_y = 0
@@ -32,10 +31,14 @@ class AppSupport:
         self.token_interval_list = []
 
     def main(self, argvs):
-        for v in argvs:
-            print(str(v))
-        # exit()
-        # os.chdir("..")
+        newar = list()
+
+        for v in range(1, 6):
+            # print(argvs[v])
+            narg = argvs[v]
+            nint = int(narg)
+            newar.append(nint)
+
         if os.name == 'nt':
             app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"  # E:/PycharmProjects/CCC/nulspy-tokenomics/
             # app_root = os.path.abspath(os.curdir)
@@ -49,23 +52,13 @@ class AppSupport:
         plotfp = os.path.join(plotfilesdir, plot_name)
         plotfilepath = os.path.normpath(plotfp)
 
-        # self.initial_supply_y = int(args_dict.get("initial_supply_y"))  # 100,000,000  NULS
-        # self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        # self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
-        # self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
-        # start_inflation = int(args_dict.get("start_inflation"))
-        # self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
-
-        self.initial_supply_y = int(argvs[0])  # 100,000,000  NULS
-        self.annual_inflation = int(argvs[1])  # 5,000,000 NULS
-        start_inflation = int(argvs[2])        # 24
-        self.stop_inflation_y = int(argvs[3])   # 210,000,000  NULS
-        self.disinflation_ratio = float(argvs[4])  # 0.004
-
-        self.real_initial_supply_y = int(argvs[0])
-
-        for v in argvs:
-            print(str(v))
+        self.initial_supply_y = int(newar[0])  # 100,000,000  NULS
+        self.annual_inflation = int(newar[1])  # 5,000,000 NULS
+        start_inflation = int(newar[2])        # 24
+        self.stop_inflation_y = int(newar[3])   # 210,000,000  NULS
+        disratio = int(newar[4])  # 0.004
+        self.disinflation_ratio = float(disratio / 1000)  # 0.004
+        self.real_initial_supply_y = int(newar[0])
 
         tokens = self.initial_supply_y
         self.interval_limit_x = 75 * 12
@@ -178,9 +171,10 @@ class AppSupport:
 
 if __name__ == "__main__":
     import sys
-    ap = AppSupport()
+    ap = Apjs()
     # for i in sys.argv:
     #     print(i)
-    mylist = ['100000000', '5000000', '24', '210000000', '0.004']
-    ap.main(mylist)
-    # python ./appsupportjs.py 100000000 5000000 24 210000000 0.004
+    # mylist = ['100000000', '5000000', '24', '210000000', '0.004']
+    ap.main(sys.argv)
+    # python ./apjs.py 100000000 5000000 24 210000000 0.004
+    # args="100000000 5000000 24 210000000 4"
