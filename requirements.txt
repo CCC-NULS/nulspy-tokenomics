@@ -7,3 +7,4 @@ waitress>=1.1.0
 validators>=0.12.2
 jinja2>=2.10
 requests>=2.20.1
+numpy>=1.0.0
