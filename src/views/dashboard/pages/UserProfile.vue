@@ -277,7 +277,7 @@
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Methods': 'POST',
       Connection: 'keep-alive',
       'Upgrade-Insecure-Requests': '1',
       Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
