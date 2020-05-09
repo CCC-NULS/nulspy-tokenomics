@@ -2,8 +2,22 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import i18n from '@/i18n'
 import '@/sass/overrides.sass'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, VueAxios, axios)
+
+// Vue.axios.get(api).then((response) => {
+//   console.log(response.data)
+// })
+
+// const result = axios.post(POSTURL_w4,
+//   {
+//     "jsonrpc": "2.0",
+//     "method": METHOD_D,
+//     "params": PARAMS,
+//     "id": ID_D
+//   })
 
 const theme = {
   primary: '#37474F',
@@ -18,6 +32,8 @@ const theme = {
 }
 
 export default new Vuetify({
+  axios,
+  VueAxios,
   lang: {
     t: (key, ...params) => i18n.t(key, params),
   },

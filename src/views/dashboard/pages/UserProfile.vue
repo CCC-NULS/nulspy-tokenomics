@@ -54,10 +54,21 @@
             </div>
           </template>
 
+          <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
+          <!-- // action="http://localhost:5000/post/?"
+          // initial_supply_y = request.args.get('a')
+          // annual_inflation = request.args.get('b')
+          // start_inflation = request.args.get('c')
+          // stop_inflation_y = request.args.get('d')
+          // disinflation_ratio = request.args.get('e')
+          -->
+
           <v-form
             id="fform"
             ref="fform"
-            @submit="newfunc"
+            method="GET"
+            enctype="multipart/form-data"
+            action="http://localhost:5000/post/"
           >
             <v-container
               id="vcontain"
@@ -163,6 +174,7 @@
                     md="5"
                   />
                   <!-- submit:  # # # #  # # # #  submit: # # # # # # # # -->
+                  <!--   @click="submit" # # # # # -->
 
                   <v-col
                     cols="12"
@@ -172,6 +184,7 @@
                       align="center"
                       type="submit"
                       color="warning"
+                      @submit="submitfiles"
                     >
                       Submit
                     </v-btn>
@@ -232,6 +245,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   const { exec } = require('child_process')
   // const spwn = require('cross_spawn')
   const givenNumber = 100000000
@@ -244,23 +258,28 @@
   }
   const pscript = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
   const args = '100000000 5000000 24 210000000 4'
-  // const newarg = 'ls -la'
+
+  const a = '100000000'
+  const b = '5000'
+  const c = '24'
+  const d = '210000000'
+  const e = '.004'
+  const ndata = { a: a, b: b, c: c, d: d, e: e }
 
   function newfunc () {
     alert('howdy')
     exec('ls -la')
   }
 
-  // exec('ls -la', (error, stdout, stderr) => {
-  //   if (error) {
-  //     console.log(`error: ${error.message}`)
-  //   }
-  //   if (stderr) {
-  //     console.log(`stderr: ${stderr}`)
-  //   }
-  //   console.log(`stdout: ${stdout}`)
-  //   })
-
+  function submitfiles () {
+    axios.get('http://127.0.0.1:5000/post', ndata)
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
   export default {
     data: () => ({
       givenNumber,
@@ -280,6 +299,7 @@
     }),
     methods: {
       newfunc,
+      submitfiles,
     },
   }
 </script>
