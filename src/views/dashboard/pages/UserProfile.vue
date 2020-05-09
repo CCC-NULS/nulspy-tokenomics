@@ -55,21 +55,12 @@
           </template>
 
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-          <!-- // action="http://localhost:5000/post/?"
-          // initial_supply_y = request.args.get('a')
-          // annual_inflation = request.args.get('b')
-          // start_inflation = request.args.get('c')
-          // stop_inflation_y = request.args.get('d')
-          // disinflation_ratio = request.args.get('e')
-            enctype="multipart/form-data"
-          -->
 
           <v-form
-            id="fform"
-            ref="fform"
-            method="GET"
+            id="mainform"
+            ref="form"
+            method="POST"
             enctype="multipart/form-data"
-            headers="a"
           >
             <v-container
               id="vcontain"
@@ -257,15 +248,12 @@
     small: true,
     dark: false,
   }
-  const pscript = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-  const args = '100000000 5000000 24 210000000 4'
 
   const a = '100000000'
-  const b = '5000'
-  const c = '24'
+  const b = '6000'
+  const c = '26'
   const d = '210000000'
-  const e = '.004'
-  // const ndata = { a: a, b: b, c: c, d: d, e: e }
+  const e = '.006'
   const formData = new FormData()
   formData.append('a', a)
   formData.append('b', b)
@@ -283,7 +271,8 @@
   }
   function submitfiles () {
     console.log('submitting')
-    axios.get('http://127.0.0.1:5002/post', formData, optionAxios)
+    const baseURL = 'http://127.0.0.1:5002/postdir'
+    axios.post(baseURL, formData, optionAxios)
       .then(function (response) {
         console.log('hello')
         console.log(response)
@@ -299,8 +288,6 @@
       inSupply,
       initsupply,
       chipprops,
-      args,
-      pscript,
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
