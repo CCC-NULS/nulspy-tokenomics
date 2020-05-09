@@ -6,9 +6,11 @@ from time import sleep
 from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
+from flask_cors import CORS
 
 
 application = Flask(__name__)
+CORS(application)
 
 env = Environment(    # jinja2
 
@@ -35,6 +37,7 @@ def index():
 
 # a=100000000&b=5000000&c=24&d=210000000&e=4
 # a=100000000&b=5000000&c=24&d=210000000&e=4
+
 
 @application.route('/post', methods=["GET"])   # change later
 def show_post():
