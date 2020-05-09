@@ -61,6 +61,7 @@
           // start_inflation = request.args.get('c')
           // stop_inflation_y = request.args.get('d')
           // disinflation_ratio = request.args.get('e')
+            enctype="multipart/form-data"
           -->
 
           <v-form
@@ -68,7 +69,7 @@
             ref="fform"
             method="GET"
             enctype="multipart/form-data"
-            action="http://localhost:5000/post/"
+            headers="a"
           >
             <v-container
               id="vcontain"
@@ -184,7 +185,7 @@
                       align="center"
                       type="submit"
                       color="warning"
-                      @submit="submitfiles"
+                      @click="submitfiles"
                     >
                       Submit
                     </v-btn>
@@ -264,16 +265,28 @@
   const c = '24'
   const d = '210000000'
   const e = '.004'
-  const ndata = { a: a, b: b, c: c, d: d, e: e }
-
+  // const ndata = { a: a, b: b, c: c, d: d, e: e }
+  const formData = new FormData()
+  formData.append('a', a)
+  formData.append('b', b)
+  formData.append('c', c)
+  formData.append('d', d)
+  formData.append('e', e)
+  const optionAxios = {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  }
   function newfunc () {
     alert('howdy')
     exec('ls -la')
   }
 
   function submitfiles () {
-    axios.get('http://127.0.0.1:5000/post', ndata)
+    console.log('submitting')
+    axios.get('http://127.0.0.1:5002/post', formData, optionAxios)
       .then(function (response) {
+        console.log('hello')
         console.log(response)
       })
       .catch(function (error) {
