@@ -65,11 +65,10 @@
           -->
 
           <v-form
-            id="fform"
-            ref="fform"
-            method="GET"
+            id="mainform"
+            ref="form"
+            method="POST"
             enctype="multipart/form-data"
-            headers="a"
           >
             <v-container
               id="vcontain"
@@ -267,6 +266,8 @@
   const e = '.004'
   // const ndata = { a: a, b: b, c: c, d: d, e: e }
   const formData = new FormData()
+  const mainurl = 'http://localhost:5002/postdir'
+
   formData.append('a', a)
   formData.append('b', b)
   formData.append('c', c)
@@ -275,6 +276,11 @@
   const optionAxios = {
     headers: {
       'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      Connection: 'keep-alive',
+      'Upgrade-Insecure-Requests': '1',
+      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     },
   }
   function newfunc () {
@@ -283,7 +289,7 @@
   }
   function submitfiles () {
     console.log('submitting')
-    axios.get('http://127.0.0.1:5002/post', formData, optionAxios)
+    axios.post(mainurl, formData, optionAxios)
       .then(function (response) {
         console.log('hello')
         console.log(response)
