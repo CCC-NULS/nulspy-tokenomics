@@ -281,7 +281,6 @@
     alert('howdy')
     exec('ls -la')
   }
-
   function submitfiles () {
     console.log('submitting')
     axios.get('http://127.0.0.1:5002/post', formData, optionAxios)
@@ -293,6 +292,7 @@
         console.log(error)
       })
   }
+
   export default {
     data: () => ({
       givenNumber,
@@ -315,6 +315,7 @@
       submitfiles,
     },
   }
+
 </script>
 
 <style>
