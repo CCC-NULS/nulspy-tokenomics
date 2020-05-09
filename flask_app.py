@@ -7,10 +7,12 @@ from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS
+from flask_cors import cross_origin
 
 
 application = Flask(__name__)
-CORS(application)
+# CORS(application)
+CORS(application, resources={r"/postdir/*": {"origins": "*"}})
 
 env = Environment(    # jinja2
 
@@ -39,8 +41,11 @@ def index():
 # a=100000000&b=5000000&c=24&d=210000000&e=4
 
 
-@application.route('/post', methods=["GET"])   # change later
+@cross_origin()
+@application.route('/postdir', methods=["POST"])   # change later
 def show_post():
+    rdata = request.data
+    print(rdata)
     initial_supply_y = request.args.get('a')
     annual_inflation = request.args.get('b')
     start_inflation = request.args.get('c')
@@ -136,7 +141,7 @@ def keepgoing(args_dict):
 
 
 if __name__ == "__main__":
-    application.run(debug=1, host='127.0.0.1', port=5002)
+    application.run(debug=1, host='localhost', port=5002)
 
 
 

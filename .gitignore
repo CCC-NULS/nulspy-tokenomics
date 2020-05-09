@@ -4,3 +4,5 @@ src/__pycache__
 old
 /plotfiles/*
 
+ __pycache__
+__pycache__/appsupport.cpython-37.pyc

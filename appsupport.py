@@ -30,7 +30,10 @@ class AppSupport:
         self.token_interval_list = []
 
     def main(self, args_dict):
-        self.initial_supply_y = int(args_dict.get("initial_supply_y"))  # 100,000,000  NULS
+        initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
+        if (initsupply_y is None) or initsupply_y < 1:
+            initsupply_y = '100000000'
+        self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
         self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
@@ -53,7 +56,7 @@ class AppSupport:
             self.token_count_list_y.append(round(tokens))
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
-            #print(tokens, monthly_inflation, deflation, interval_count)
+            # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
         self.plot_graph(plotfilepath)
