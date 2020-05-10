@@ -261,7 +261,7 @@
   let d = '&stopinf=' + stopinf
   let e = '&disinf=' + disinf
   let ts = '&timestp=' + timestp
-  datalist = a + b + c + d + e + ts
+  let datalist = a + b + c + d + e + ts
 
   let baseuri = 'http://127.0.0.1:5002/?' + datalist
   const axiosi = axios.create({
@@ -278,16 +278,17 @@
     let plotfp =  app_root + plotsdir + plot_name
     return plotfp
   }
-
   let plotfname = plotfunc();
 
-  ;(async () => {
-    const response = await axios({
-      url: baseuri,
-      method: 'get'
-    })
-    console.log(response)
-  })()
+  function submitfiles () {
+    ;(async () => {
+      const response = await axiosi({
+        url: baseuri,
+        method: 'get'
+      })
+      console.log(response)
+    })()
+  }
 
   function newfunc () {
     alert('howdy')
