@@ -55,14 +55,6 @@
           </template>
 
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-          <!-- // action="http://localhost:5000/post/?"
-          // initial_supply_y = request.args.get('a')
-          // annual_inflation = request.args.get('b')
-          // start_inflation = request.args.get('c')
-          // stop_inflation_y = request.args.get('d')
-          // disinflation_ratio = request.args.get('e')
-            enctype="multipart/form-data"
-          -->
 
           <v-form
             id="mainform"
@@ -257,43 +249,62 @@
     small: true,
     dark: false,
   }
-  const pscript = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-  const args = '100000000 5000000 24 210000000 4'
-
-  const a = '110000000'
+  const a = '100000000'
   const b = '6000'
-  const c = '12'
-  const d = '260000000'
-  const e = '.006'
-  // const ndata = { a: a, b: b, c: c, d: d, e: e }
-  //const get_mainurl = 'http://localhost:5002/postdir?a=110000000&b=6000&c=12&d=260000000&e=6'
-  const mainurl = 'http://localhost:5002/postdir'
-
+  const c = '26'
+  const d = '210000000'
+  const e = '6'
   const formData = new FormData()
   formData.append('a', a)
   formData.append('b', b)
   formData.append('c', c)
   formData.append('d', d)
   formData.append('e', e)
-  const optionAxios = {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Methods': 'POST',
-      'Upgrade-Insecure-Requests': '1',
-      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    },
-  }
+  let timestp = + new Date()
+
+  formData.append('timestp', timestp)
+  const instance = axios.create({
+    baseURL: 'http://127.0.0.1:5002/postdir'
+  });
+  instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  instance.defaults.headers.post['Content-Type'] = 'application/json'
+  instance.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
+  instance.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+
+  // let timestp = new Date().getTime()
+  let plot_name = 'plot' + timestp + '.svg'
+  let plotsdir = 'plotfiles'
+
+    //   if os.name == 'nt':
+  let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
+
+    //     app_root = '/usr/share/nginx/html/tokenlife'
+  let plotfilesdir =  app_root + plotsdir
+  let plotfp = plotfilesdir + plot_name
+    // plotfilepath = os.path.normpath(plotfp)
+
+  // const optionAxios = {
+  //   headers: {
+  //     'Upgrade-Insecure-Requests': '1',
+  //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  //   },
+  // }
+>>>>>>> dev
   function newfunc () {
     alert('howdy')
     exec('ls -la')
   }
   function submitfiles () {
+<<<<<<< HEAD
     console.log('submitting this:')
     console.log(optionAxios)
     axios.post(mainurl, formData, optionAxios)
+=======
+    console.log('submitting')
+    instance.post('http://127.0.0.1:5002/postdir', formData)
+>>>>>>> dev
       .then(function (response) {
-        console.log('hello')
+        console.log('got a response')
         console.log(response)
       })
       .catch(function (error) {
@@ -307,8 +318,6 @@
       inSupply,
       initsupply,
       chipprops,
-      args,
-      pscript,
       dataone: 'Try different values and view a plot of how they play out over time.',
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
