@@ -253,15 +253,16 @@
   const b = '6000'
   const c = '26'
   const d = '210000000'
-  const e = '.006'
+  const e = '6'
   const formData = new FormData()
   formData.append('a', a)
   formData.append('b', b)
   formData.append('c', c)
   formData.append('d', d)
   formData.append('e', e)
-  let timestamp = new Date().getTime()
-  formData.append('timestp', timestamp)
+  let timestp = + new Date()
+
+  formData.append('timestp', timestp)
   const instance = axios.create({
     baseURL: 'http://127.0.0.1:5002/postdir'
   });
@@ -270,15 +271,16 @@
   instance.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   instance.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
-  plot_name = "plot" + timestp + ".svg"
-  plotsdir = 'plotfiles'
+  // let timestp = new Date().getTime()
+  let plot_name = 'plot' + timestp + '.svg'
+  let plotsdir = 'plotfiles'
 
     //   if os.name == 'nt':
-  app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"
+  let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
 
     //     app_root = '/usr/share/nginx/html/tokenlife'
-  plotfilesdir =  app_root + plotsdir
-  plotfp = plotfilesdir + plot_name
+  let plotfilesdir =  app_root + plotsdir
+  let plotfp = plotfilesdir + plot_name
     // plotfilepath = os.path.normpath(plotfp)
 
   // const optionAxios = {
