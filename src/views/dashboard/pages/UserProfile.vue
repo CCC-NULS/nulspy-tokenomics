@@ -175,6 +175,7 @@
                     <v-btn
                       align="center"
                       type="submit"
+                      size="large"
                       color="warning"
                       @click="submitfiles"
                     >
@@ -263,6 +264,10 @@
   const optionAxios = {
     headers: {
       'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Methods': 'POST',
+      'Upgrade-Insecure-Requests': '1',
+      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     },
   }
   function newfunc () {

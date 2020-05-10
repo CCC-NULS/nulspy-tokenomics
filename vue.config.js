@@ -13,4 +13,6 @@ module.exports = {
       enableInSFC: false,
     },
   },
+
+  runtimeCompiler: true
 }
