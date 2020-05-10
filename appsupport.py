@@ -31,8 +31,6 @@ class AppSupport:
 
     def main(self, args_dict):
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
-        # if (initsupply_y is None):
-        #     initsupply_y = '100000000'
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
         self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
@@ -40,6 +38,7 @@ class AppSupport:
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath = args_dict.get("plotfilepath")
+        start_inflation = start_inflation / 1000
 
         tokens = self.initial_supply_y
         self.interval_limit_x = 75 * 12
@@ -59,7 +58,8 @@ class AppSupport:
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
-        self.plot_graph(plotfilepath)
+        tresult = self.plot_graph(plotfilepath)
+        return tresult
 
     def rounddown(self, nm):
         num = int(nm)

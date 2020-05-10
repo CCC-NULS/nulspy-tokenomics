@@ -3,19 +3,16 @@
 import os
 from datetime import datetime
 from time import sleep
-from flask import Flask, request, render_template, render_template_string
+from flask import Flask, request, render_template, jsonify
 from jinja2 import Environment, select_autoescape
 import appsupport
-from flask_cors import CORS
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 
 
 application = Flask(__name__)
-# CORS(application)
 CORS(application, resources={r"/postdir/*": {"origins": "*"}})
 
 env = Environment(    # jinja2
-
     autoescape=select_autoescape(['html', 'xml']),
 )
 
@@ -33,34 +30,43 @@ def chk_for_file(tfile):
             continue
 
 
-@application.route('/')   # change later
+@application.route('/abc')
 def index():
     return render_template('index.html')  ## has the user entry form
 
-# a=100000000&b=5000000&c=24&d=210000000&e=4
-# a=100000000&b=5000000&c=24&d=210000000&e=4
-
 
 @cross_origin()
-@application.route('/postdir', methods=["GET"])   # change later
-def show_post():
-    rdata = request.data
-    print(rdata)
-    initial_supply_y = request.args.get('a')
-    annual_inflation = request.args.get('b')
-    start_inflation = request.args.get('c')
-    stop_inflation_y = request.args.get('d')
-    disinflation_ratio = request.args.get('e')
-    adict = {"initial_supply_y": initial_supply_y,
-             "stop_inflation_y": stop_inflation_y,
-             "disinflation_ratio": disinflation_ratio,
-             "annual_inflation": annual_inflation,
-             "start_inflation": start_inflation}
-    keepgoing(adict)
+@application.route('/', methods=["GET", "POST", "UPDATE"])   # change later
+def postdir():
+    # POST request
+    if request.method == 'POST':
+        print('Incoming POST')
+        print()
+
+    # GET request
+    else:
+        message = {'greeting': 'Hello from Flask!'}
+        print(message)
+
+    formdata = request.form
+    formdict = {"initial_supply_y": formdata.get('initsup'),
+                "annual_inflation": formdata.get('anninf'),
+                "start_inflation": formdata.get('startinf'),
+                "stop_inflation_y": formdata.get('stopinf'),
+                "disinflation_ratio": formdata.get('disinf'),
+                "timestp": formdata.get('timestp')}
+
+    args_dict = make_names(formdict)
+    tk_obj = appsupport.AppSupport()
+
+    tk_obj.main(args_dict)
+
+    chk_file = chk_for_file(args_dict.get('plotfilepath'))
+    print("got this far! file should be there")
+    return chk_file  # true or false
 
 
-def keepgoing(args_dict):
-
+def make_names(args_dict):
     if os.name == 'nt':
         app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"
         # app_root = os.path.abspath(os.curdir)
@@ -68,16 +74,32 @@ def keepgoing(args_dict):
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
         app_root = '/usr/share/nginx/html/tokenlife'
 
-    timestp = format(datetime.now(), '%d%H%M%S')
+    timestp = args_dict.get("timestp")
     plot_name = "plot" + timestp + ".svg"
     plotsdir = 'plotfiles'
     plotfilesdir = os.path.join(app_root, plotsdir)
     plotfp = os.path.join(plotfilesdir, plot_name)
     plotfilepath = os.path.normpath(plotfp)
-
     args_dict.update({"timestp": timestp})
     args_dict.update({"plotfilepath": plotfilepath})
     args_dict.update({"plotsvg": plot_name})
+    return args_dict
+
+
+
+
+
+
+if __name__ == "__main__":
+    application.run(debug=1, host='localhost', port=5002)
+
+
+
+
+    # serve(app, listen='0.0.0.0:8082')
+    # serve(app, unix_socket='/tmp/tokenlife.sock')
+#https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
+
 
     # args_dict = {"initial_supply_y": initial_supply_y,
     #              "stop_inflation_y": stop_inflation_y,
@@ -87,17 +109,6 @@ def keepgoing(args_dict):
     #              "timestp": timestp,
     #              "plotfilepath": plotfilepath,
     #              "plotsvg": plot_name}
-
-    tk_obj = appsupport.AppSupport()
-    tk_obj.main(args_dict)
-
-    chk_for_file(plotfilepath)
-    print("got this far! file should be there")
-
-    # with open(plotfilepath) as tfile:
-    #     pfile_contents = tfile.read()
-    # return render_template_string(pfile_contents)
-    return "<html><body><h1>success!</h1></body></html>"
 
 # @application.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
 # def plots():
@@ -139,16 +150,3 @@ def keepgoing(args_dict):
 #     with open(plotfilepath) as tfile:
 #         pfile_contents = tfile.read()
 #     return render_template_string(pfile_contents)
-
-
-if __name__ == "__main__":
-    application.run(debug=1, host='localhost', port=5002)
-
-
-
-
-    # serve(app, listen='0.0.0.0:8082')
-    # serve(app, unix_socket='/tmp/tokenlife.sock')
-#https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
-
-
