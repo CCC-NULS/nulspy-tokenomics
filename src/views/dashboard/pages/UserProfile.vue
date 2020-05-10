@@ -249,20 +249,20 @@
     small: true,
     dark: false,
   }
-  const a = '100000000'
-  const b = '6000'
-  const c = '26'
+  const initsup = '100000000'
+  const anninf = '6000000'
+  const startinf = '26'
   const d = '210000000'
-  const e = '6'
+  const e = 'disinf'
   const formData = new FormData()
-  formData.append('a', a)
-  formData.append('b', b)
-  formData.append('c', c)
-  formData.append('d', d)
-  formData.append('e', e)
+  formData.append('initsup', initsup)
+  formData.append('anninf', anninf)
+  formData.append('startinf', startinf)
+  formData.append('stopinf', stopinf)
+  formData.append('disinf', disinf)
   let timestp = + new Date()
-
   formData.append('timestp', timestp)
+
   const instance = axios.create({
     baseURL: 'http://127.0.0.1:5002/postdir'
   });
@@ -274,10 +274,8 @@
   // let timestp = new Date().getTime()
   let plot_name = 'plot' + timestp + '.svg'
   let plotsdir = 'plotfiles'
-
     //   if os.name == 'nt':
   let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-
     //     app_root = '/usr/share/nginx/html/tokenlife'
   let plotfilesdir =  app_root + plotsdir
   let plotfp = plotfilesdir + plot_name
@@ -315,10 +313,10 @@
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
       datathree: 'Initial Supply:  100,000,000',
-      aninflation: ['500,000', '600,000'],
+      aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
-      stopinflation: ['500,000', '600,000'],
-      disinflation: ['4 %', '5 %'],
+      stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
+      disinflation: ['3', '4', '5'],
     }),
     methods: {
       newfunc,
