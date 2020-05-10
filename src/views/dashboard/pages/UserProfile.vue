@@ -249,7 +249,6 @@
     small: true,
     dark: false,
   }
-
   const a = '100000000'
   const b = '6000'
   const c = '26'
@@ -261,25 +260,42 @@
   formData.append('c', c)
   formData.append('d', d)
   formData.append('e', e)
-  const optionAxios = {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Methods': 'POST',
-      'Upgrade-Insecure-Requests': '1',
-      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    },
-  }
+  let timestamp = new Date().getTime()
+  formData.append('timestp', timestamp)
+  const instance = axios.create({
+    baseURL: 'http://127.0.0.1:5002/postdir'
+  });
+  instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  instance.defaults.headers.post['Content-Type'] = 'application/json'
+  instance.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
+  instance.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+
+  plot_name = "plot" + timestp + ".svg"
+  plotsdir = 'plotfiles'
+
+    //   if os.name == 'nt':
+  app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"
+
+    //     app_root = '/usr/share/nginx/html/tokenlife'
+  plotfilesdir =  app_root + plotsdir
+  plotfp = plotfilesdir + plot_name
+    // plotfilepath = os.path.normpath(plotfp)
+
+  // const optionAxios = {
+  //   headers: {
+  //     'Upgrade-Insecure-Requests': '1',
+  //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  //   },
+  // }
   function newfunc () {
     alert('howdy')
     exec('ls -la')
   }
   function submitfiles () {
     console.log('submitting')
-    const baseURL = 'http://127.0.0.1:5002/postdir'
-    axios.post(baseURL, formData, optionAxios)
+    instance.post('http://127.0.0.1:5002/postdir', formData)
       .then(function (response) {
-        console.log('hello')
+        console.log('got a response')
         console.log(response)
       })
       .catch(function (error) {
