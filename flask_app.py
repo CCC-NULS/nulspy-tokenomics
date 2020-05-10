@@ -42,7 +42,7 @@ def index():
 
 
 @cross_origin()
-@application.route('/postdir', methods=["POST"])   # change later
+@application.route('/postdir', methods=["GET"])   # change later
 def show_post():
     rdata = request.data
     print(rdata)
@@ -92,11 +92,12 @@ def keepgoing(args_dict):
     tk_obj.main(args_dict)
 
     chk_for_file(plotfilepath)
+    print("got this far! file should be there")
 
     # with open(plotfilepath) as tfile:
     #     pfile_contents = tfile.read()
     # return render_template_string(pfile_contents)
-    return "<html><body><h1>done!</h1></body></html>"
+    return "<html><body><h1>success!</h1></body></html>"
 
 # @application.route('/plotfiles', methods=['GET', 'POST', 'HEAD'])
 # def plots():
