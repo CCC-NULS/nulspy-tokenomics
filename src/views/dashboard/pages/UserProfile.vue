@@ -67,7 +67,7 @@
           <v-form
             id="mainform"
             ref="form"
-            method="POST"
+            method="GET"
             enctype="multipart/form-data"
           >
             <v-container
@@ -259,26 +259,25 @@
   const pscript = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
   const args = '100000000 5000000 24 210000000 4'
 
-  const a = '100000000'
-  const b = '5000'
-  const c = '24'
-  const d = '210000000'
-  const e = '.004'
+  const a = '110000000'
+  const b = '6000'
+  const c = '12'
+  const d = '260000000'
+  const e = '.006'
   // const ndata = { a: a, b: b, c: c, d: d, e: e }
-  const formData = new FormData()
-  const mainurl = 'http://localhost:5002/postdir'
+  const mainurl = 'http://localhost:5002/postdir?a=110000000&b=6000&c=12&d=260000000&e=6'
 
-  formData.append('a', a)
-  formData.append('b', b)
-  formData.append('c', c)
-  formData.append('d', d)
-  formData.append('e', e)
+  // const formData = new FormData()
+  // formData.append('a', a)
+  // formData.append('b', b)
+  // formData.append('c', c)
+  // formData.append('d', d)
+  // formData.append('e', e)
   const optionAxios = {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Methods': 'POST',
-      Connection: 'keep-alive',
+      'Access-Control-Allow-Methods': 'GET',
       'Upgrade-Insecure-Requests': '1',
       Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     },
@@ -288,8 +287,9 @@
     exec('ls -la')
   }
   function submitfiles () {
-    console.log('submitting')
-    axios.post(mainurl, formData, optionAxios)
+    console.log('submitting this:')
+    console.log(optionAxios)
+    axios.get(mainurl, optionAxios)
       .then(function (response) {
         console.log('hello')
         console.log(response)
