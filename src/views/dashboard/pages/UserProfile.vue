@@ -240,7 +240,6 @@
 <script>
   import axios from 'axios'
   const { exec } = require('child_process')
-  // const spwn = require('cross_spawn')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
   const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
@@ -252,57 +251,48 @@
   const initsup = '100000000'
   const anninf = '6000000'
   const startinf = '26'
-  const d = '210000000'
-  const e = 'disinf'
-  const formData = new FormData()
-  formData.append('initsup', initsup)
-  formData.append('anninf', anninf)
-  formData.append('startinf', startinf)
-  formData.append('stopinf', stopinf)
-  formData.append('disinf', disinf)
+  const stopinf = '210000000'
+  const disinf = '6'
   let timestp = + new Date()
-  formData.append('timestp', timestp)
 
-  const instance = axios.create({
-    baseURL: 'http://127.0.0.1:5002/postdir'
+  let a = '&initsup=' + initsup
+  let b = '&anninf=' + anninf
+  let c = '&startinf=' + startinf
+  let d = '&stopinf=' + stopinf
+  let e = '&disinf=' + disinf
+  let ts = '&timestp=' + timestp
+  datalist = a + b + c + d + e + ts
+
+  let baseuri = 'http://127.0.0.1:5002/?' + datalist
+  const axiosi = axios.create({
   });
-  instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-  instance.defaults.headers.post['Content-Type'] = 'application/json'
-  instance.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
-  instance.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  axiosi.defaults.headers.post['Content-Type'] = 'application/json'
+  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
+  axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
-  // let timestp = new Date().getTime()
-  let plot_name = 'plot' + timestp + '.svg'
-  let plotsdir = 'plotfiles'
-    //   if os.name == 'nt':
-  let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-    //     app_root = '/usr/share/nginx/html/tokenlife'
-  let plotfilesdir =  app_root + plotsdir
-  let plotfp = plotfilesdir + plot_name
-    // plotfilepath = os.path.normpath(plotfp)
+  function plotfunc () {
+    let plot_name = 'plot' + timestp + '.svg'
+    let plotsdir = 'plotfiles'
+    let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
+    let plotfp =  app_root + plotsdir + plot_name
+    return plotfp
+  }
 
-  // const optionAxios = {
-  //   headers: {
-  //     'Upgrade-Insecure-Requests': '1',
-  //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  //   },
-  // }
+  let plotfname = plotfunc();
+
+  ;(async () => {
+    const response = await axios({
+      url: baseuri,
+      method: 'get'
+    })
+    console.log(response)
+  })()
+
   function newfunc () {
     alert('howdy')
     exec('ls -la')
   }
-  function submitfiles () {
-    console.log('submitting')
-    instance.post('http://127.0.0.1:5002/postdir', formData)
-      .then(function (response) {
-        console.log('got a response')
-        console.log(response)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-
   export default {
     data: () => ({
       givenNumber,
