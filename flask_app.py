@@ -1,7 +1,6 @@
 
 
 import os
-from datetime import datetime
 from time import sleep
 from flask import Flask, request, render_template, jsonify
 from jinja2 import Environment, select_autoescape
@@ -10,7 +9,7 @@ from flask_cors import CORS, cross_origin
 
 
 application = Flask(__name__)
-CORS(application, resources={r"/postdir/*": {"origins": "*"}})
+CORS(application, resources={r"/*": {"origins": "*"}})
 
 env = Environment(    # jinja2
     autoescape=select_autoescape(['html', 'xml']),
@@ -36,19 +35,18 @@ def index():
 
 
 @cross_origin()
-@application.route('/', methods=["GET", "POST", "UPDATE"])   # change later
-def postdir():
-    # POST request
-    if request.method == 'POST':
-        print('Incoming POST')
-        print()
+@application.route('/', methods=["GET", "POST", "UPDATE", "HEAD"])
+def rootdir():
+    # if request.method == 'POST':
+    #     print('Incoming POST')
 
     # GET request
-    else:
-        message = {'greeting': 'Hello from Flask!'}
-        print(message)
+    if request.method == 'GET':
+        # message = {'greeting': 'Hello from Flask!'}
+        print("Incoming GET")
 
-    formdata = request.form
+    formdata = request.values.dicts[0]
+
     formdict = {"initial_supply_y": formdata.get('initsup'),
                 "annual_inflation": formdata.get('anninf'),
                 "start_inflation": formdata.get('startinf'),
@@ -84,10 +82,6 @@ def make_names(args_dict):
     args_dict.update({"plotfilepath": plotfilepath})
     args_dict.update({"plotsvg": plot_name})
     return args_dict
-
-
-
-
 
 
 if __name__ == "__main__":
