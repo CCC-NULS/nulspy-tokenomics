@@ -57,10 +57,9 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
 
           <v-form
-            id="mainform"
+            id="form"
             ref="form"
-            method="POST"
-            enctype="multipart/form-data"
+            v-model="valid"
           >
             <v-container
               id="vcontain"
@@ -78,7 +77,7 @@
                     md="6"
                   >
                     <v-chip
-                      id="smchip"
+                      id="choicechip"
                       v-bind="chipprops"
                       class="margleft"
                       elevation-14
@@ -94,22 +93,29 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel1"
+                      id="vselone"
+                      v-model="vmodsel1"
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
                       :items="initsupply"
-                      :rules="[v => !!v || 'Item is required']"
                       placeholder="100,000"
+                      @:change="selectionChanged"
                     />
+                    <span>b: {{ vmodsel1 }} </span>
                   </v-col>
+
+
+
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
                   <v-col
                     cols="12"
                     md="4"
                   >
                     <v-select
-                      id="vsel2"
+                      id="vseltwo"
+                      v-model="vmodsel2"
+
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
@@ -125,7 +131,9 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel3"
+                      id="vselthree"
+                      v-model="vmodsel3"
+
                       type="string"
                       label="Inflation Interval"
                       class="margleft"
@@ -139,7 +147,8 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel4"
+                      id="vselfour"
+                      v-model="vmodsel4"
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
@@ -152,7 +161,8 @@
                     md="3"
                   >
                     <v-select
-                      id="vsel5"
+                      id="vselfive"
+                      v-model="vmodsel5"
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
@@ -173,13 +183,14 @@
                     md="4"
                   >
                     <v-btn
+                      id="submitbtn"
                       align="center"
                       type="submit"
                       size="large"
                       color="warning"
-                      @click="submitfiles"
+                      @click="submitform"
                     >
-                      Submit
+                      submitform
                     </v-btn>
                   </v-col>
                 </v-row>
@@ -228,6 +239,11 @@
                 >
                   Continue
                 </v-btn>
+                <v-btn
+                  @click="submitfiles"
+                >
+                  try submit
+                </v-btn>
               </v-card-text>
             </v-col>
           </v-row>
@@ -239,8 +255,8 @@
 
 <script>
   import axios from 'axios'
+
   const { exec } = require('child_process')
-  // const spwn = require('cross_spawn')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
   const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
@@ -249,40 +265,50 @@
     small: true,
     dark: false,
   }
-  const a = '100000000'
-  const b = '6000'
-  const c = '26'
-  const d = '210000000'
-  const e = '6'
-  const formData = new FormData()
-  formData.append('a', a)
-  formData.append('b', b)
-  formData.append('c', c)
-  formData.append('d', d)
-  formData.append('e', e)
+  const initsup = '100000000'
+  const anninf = '6000000'
+  const startinf = '26'
+  const stopinf = '210000000'
+  const disinf = '6'
   let timestp = + new Date()
 
-  formData.append('timestp', timestp)
-  const instance = axios.create({
-    baseURL: 'http://127.0.0.1:5002/postdir'
-  });
-  instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-  instance.defaults.headers.post['Content-Type'] = 'application/json'
-  instance.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
-  instance.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  let a = '&initsup=' + initsup
+  let b = '&anninf=' + anninf
+  let c = '&startinf=' + startinf
+  let d = '&stopinf=' + stopinf
+  let e = '&disinf=' + disinf
+  let ts = '&timestp=' + timestp
+  let datalist = a + b + c + d + e + ts
 
-  // let timestp = new Date().getTime()
-  let plot_name = 'plot' + timestp + '.svg'
-  let plotsdir = 'plotfiles'
+  let baseuri = 'http://localhost:5002/getpy?' + datalist
+  const axiosi = axios.create({
+    });
+  axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  axiosi.defaults.headers.post['Content-Type'] = 'application/json'
+  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
+  axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
-    //   if os.name == 'nt':
-  let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
+  function plotfunc () {
+    let plot_name = 'plot' + timestp + '.svg'
+    let plotsdir = 'plotfiles'
+    let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
+    let plotfp =  app_root + plotsdir + plot_name
+    return plotfp
+  }
+  let plotfname = plotfunc();
 
-    //     app_root = '/usr/share/nginx/html/tokenlife'
-  let plotfilesdir =  app_root + plotsdir
-  let plotfp = plotfilesdir + plot_name
-    // plotfilepath = os.path.normpath(plotfp)
+  function selectionChanged () {
+    let msg = "in selectionChanged routine"
+    console.log(msg)
+    console.log("selectionChanged: " + vmodsel1)
+   }
 
+  function submitform () {
+    alert("vmodsel1: " + this.vmodsel1)
+    console.log("selectionChanged: " + this.vmodsel2)
+    }
+
+<<<<<<< HEAD
   // const optionAxios = {
   //   headers: {
   //     'Upgrade-Insecure-Requests': '1',
@@ -309,11 +335,30 @@
       })
       .catch(function (error) {
         console.log(error)
+=======
+  function submitfiles () {
+    ;(async () => {
+      const response = await axiosi({
+        url: baseuri,
+        method: 'get'
+>>>>>>> dev
       })
+      console.log(response)
+    })()
   }
 
+  function newfunc () {
+    alert('howdy')
+    exec('ls -la')
+  }
   export default {
     data: () => ({
+      valid: true,
+      vmodsel1: '',
+      vmodsel2: '',
+      vmodsel3: '',
+      vmodsel4: '',
+      vmodsel5: '',
       givenNumber,
       inSupply,
       initsupply,
@@ -322,14 +367,16 @@
       dataoneb: 'Intervals can be thought of as months or 30/day increments.',
       datatwo: 'For this blockchain, the following values are set: ',
       datathree: 'Initial Supply:  100,000,000',
-      aninflation: ['500,000', '600,000'],
+      aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
-      stopinflation: ['500,000', '600,000'],
-      disinflation: ['4 %', '5 %'],
+      stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
+      disinflation: ['3', '4', '5'],
     }),
     methods: {
       newfunc,
       submitfiles,
+      submitform,
+      selectionChanged,
     },
   }
 
