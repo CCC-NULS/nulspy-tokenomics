@@ -57,10 +57,10 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
 
           <v-form
-            id="mainform"
+            id="form"
             ref="form"
-            method="POST"
-            enctype="multipart/form-data"
+            v-model="valid"
+            :lazy-validation="lazy"
           >
             <v-container
               id="vcontain"
@@ -78,7 +78,7 @@
                     md="6"
                   >
                     <v-chip
-                      id="smchip"
+                      id="choicechip"
                       v-bind="chipprops"
                       class="margleft"
                       elevation-14
@@ -95,14 +95,19 @@
                   >
                     <v-select
                       id="vsel1"
+                      v-model="vsel1"
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
                       :items="initsupply"
-                      :rules="[v => !!v || 'Item is required']"
                       placeholder="100,000"
+                      @:change="selectionChanged"
                     />
+                    <span>Selected:  </span>
                   </v-col>
+
+
+
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
                   <v-col
                     cols="12"
@@ -110,6 +115,8 @@
                   >
                     <v-select
                       id="vsel2"
+                      v-model="vsel2"
+
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
@@ -126,6 +133,8 @@
                   >
                     <v-select
                       id="vsel3"
+                      v-model="vsel3"
+
                       type="string"
                       label="Inflation Interval"
                       class="margleft"
@@ -140,6 +149,7 @@
                   >
                     <v-select
                       id="vsel4"
+                      v-model="vsel4"
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
@@ -153,6 +163,7 @@
                   >
                     <v-select
                       id="vsel5"
+                      v-model="vsel5"
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
@@ -173,13 +184,14 @@
                     md="4"
                   >
                     <v-btn
+                      id="submitbtn"
                       align="center"
                       type="submit"
                       size="large"
                       color="warning"
-                      @click="submitfiles"
+                      @click="submitform"
                     >
-                      Submit
+                      submitform
                     </v-btn>
                   </v-col>
                 </v-row>
@@ -228,6 +240,11 @@
                 >
                   Continue
                 </v-btn>
+                <v-btn
+                  @click="submitfiles"
+                >
+                  try submit
+                </v-btn>
               </v-card-text>
             </v-col>
           </v-row>
@@ -239,6 +256,7 @@
 
 <script>
   import axios from 'axios'
+
   const { exec } = require('child_process')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
@@ -263,9 +281,10 @@
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
 
-  let baseuri = 'http://127.0.0.1:5002/?' + datalist
+  //let baseuri = 'http://127.0.0.1:5002/?' + datalist
+  let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
-  });
+    });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
@@ -279,6 +298,18 @@
     return plotfp
   }
   let plotfname = plotfunc();
+
+  function selectionChanged () {
+    let msg = "in submit routine"
+    console.log(msg)
+    console.log("selectionChanged" + this.vsel1)
+    }
+
+  function submitform () {
+    let msg = "in submit routine"
+    console.log(msg)
+    console.log("selectionChanged" + this.vsel1)
+    }
 
   function submitfiles () {
     ;(async () => {
@@ -296,6 +327,7 @@
   }
   export default {
     data: () => ({
+      valid: true,
       givenNumber,
       inSupply,
       initsupply,
@@ -312,6 +344,8 @@
     methods: {
       newfunc,
       submitfiles,
+      submitform,
+      selectionChanged,
     },
   }
 
