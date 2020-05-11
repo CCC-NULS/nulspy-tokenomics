@@ -60,7 +60,6 @@
             id="form"
             ref="form"
             v-model="valid"
-            :lazy-validation="lazy"
           >
             <v-container
               id="vcontain"
@@ -94,8 +93,8 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel1"
-                      v-model="vsel1"
+                      id="vselone"
+                      v-model="vmodsel1"
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
@@ -103,7 +102,7 @@
                       placeholder="100,000"
                       @:change="selectionChanged"
                     />
-                    <span>Selected:  </span>
+                    <span>b: {{ vmodsel1 }} </span>
                   </v-col>
 
 
@@ -114,8 +113,8 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel2"
-                      v-model="vsel2"
+                      id="vseltwo"
+                      v-model="vmodsel2"
 
                       type="string"
                       label="Annual Inflation"
@@ -132,8 +131,8 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel3"
-                      v-model="vsel3"
+                      id="vselthree"
+                      v-model="vmodsel3"
 
                       type="string"
                       label="Inflation Interval"
@@ -148,8 +147,8 @@
                     md="4"
                   >
                     <v-select
-                      id="vsel4"
-                      v-model="vsel4"
+                      id="vselfour"
+                      v-model="vmodsel4"
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
@@ -162,8 +161,8 @@
                     md="3"
                   >
                     <v-select
-                      id="vsel5"
-                      v-model="vsel5"
+                      id="vselfive"
+                      v-model="vmodsel5"
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
@@ -281,7 +280,6 @@
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
 
-  //let baseuri = 'http://127.0.0.1:5002/?' + datalist
   let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
@@ -300,15 +298,14 @@
   let plotfname = plotfunc();
 
   function selectionChanged () {
-    let msg = "in submit routine"
+    let msg = "in selectionChanged routine"
     console.log(msg)
-    console.log("selectionChanged" + this.vsel1)
-    }
+    console.log("selectionChanged: " + vmodsel1)
+   }
 
   function submitform () {
-    let msg = "in submit routine"
-    console.log(msg)
-    console.log("selectionChanged" + this.vsel1)
+    alert("vmodsel1: " + this.vmodsel1)
+    console.log("selectionChanged: " + this.vmodsel2)
     }
 
   function submitfiles () {
@@ -328,6 +325,11 @@
   export default {
     data: () => ({
       valid: true,
+      vmodsel1: '',
+      vmodsel2: '',
+      vmodsel3: '',
+      vmodsel4: '',
+      vmodsel5: '',
       givenNumber,
       inSupply,
       initsupply,
