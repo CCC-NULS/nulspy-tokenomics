@@ -256,17 +256,19 @@
         cols="12"
         md="12"
       >
-        <v-card
+        <base-material-card
           color="success"
+          class="v-card-profile"
         >
+          <span>
+            card starts here
+          </span>
           <v-slide-y-transition>
             <v-card-text v-show="showdata">
-              {{ m1 }}
-              {{ m2 }}
-              {{ m3 }}
+              vmodsel1
             </v-card-text>
           </v-slide-y-transition>
-        </v-card>
+        </base-material-card>
       </v-col>
     </v-row>
 
@@ -362,11 +364,11 @@
   let e = '&disinf=' + disinf
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
-  let vmodsel1: ''
-  let  vmodsel2: ''
-  let vmodsel3: ''
-  let  vmodsel4: ''
-  let vmodsel5: ''
+  let vmodsel1 = ''
+  let vmodsel2 = ''
+  let vmodsel3 = ''
+  let vmodsel4 = ''
+  let vmodsel5 = ''
   let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
@@ -383,10 +385,6 @@
     }
 
   function submitform () {
-    m1 = "vmodsel1: " + this.vmodsel1 +  " vmodsel2: " + this.vmodsel2
-    m2 = " vmodsel3: " + this.vmodsel3 +  " vmodsel4: " + this.vmodsel4
-    m3 = " vmodsel5: " + this.vmodsel5
-    alert(m1 + m2 + m3)
     showdata = true
     console.log("selectionChanged: " + this.vmodsel2)
     }
