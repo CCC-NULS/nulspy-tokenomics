@@ -250,12 +250,73 @@
         </base-material-card>
       </v-col>
     </v-row>
+    <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
+    <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
+    <v-row>
+      <v-col
+        cols="12"
+        md="10"
+      >
+        <v-card
+          color="warning lighten-2"
+          class="ml-2 mr-2 mt-3 pa-2"
+          elevation-24
+          raised
+        >
+          <v-card-title
+            display-3
+            color="white!important"
+          >
+            Your Plot
+          </v-card-title>
+          <v-card
+            class="m2-3 mr-2 mt-3 pa-2 plotcenter"
+            elevation-24
+            raised
+            color="success"
+          >
+            <pyplot
+              width="90%"
+              height="90%"
+            />
+          </v-card>
+          <v-card-actions>
+            <v-btn>
+              Redo
+            </v-btn>
+            <v-btn
+              color="purple"
+            >
+              Save
+            </v-btn>
+            <v-spacer />
+
+            <v-btn
+              icon
+              @click="show = !show"
+            >
+              <v-icon>
+                {{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
+
+          <v-slide-y-transition>
+            <v-card-text v-show="show">
+              I'm a thing. But, like most politicians,
+              he promised more than he could deliver.
+            </v-card-text>
+          </v-slide-y-transition>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-  import axios from 'axios'
+  import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
 
+  import axios from 'axios'
   const { exec } = require('child_process')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
@@ -288,20 +349,11 @@
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
-  function plotfunc () {
-    let plot_name = 'plot' + timestp + '.svg'
-    let plotsdir = 'plotfiles'
-    let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-    let plotfp =  app_root + plotsdir + plot_name
-    return plotfp
-  }
-  let plotfname = plotfunc();
-
   function selectionChanged () {
     let msg = "in selectionChanged routine"
     console.log(msg)
     console.log("selectionChanged: " + vmodsel1)
-   }
+    }
 
   function submitform () {
     alert("vmodsel1: " + this.vmodsel1)
@@ -322,8 +374,13 @@
     alert('howdy')
     exec('ls -la')
   }
+
   export default {
+    components: {
+      pyplot,
+    },
     data: () => ({
+      show: true,
       valid: true,
       vmodsel1: '',
       vmodsel2: '',
@@ -350,7 +407,6 @@
       selectionChanged,
     },
   }
-
 </script>
 
 <style>
@@ -383,7 +439,7 @@
     padding-right: 22px;
     padding-bottom: 14px;
     padding-top: 14px;
-}
+  }
   .v-card__title {
     font-size: 22px;
     font-weight: 300;
@@ -392,5 +448,10 @@
     padding-left: 22px;
     margin-right: 22px;
     text-align: center;
+  }
+  .plotcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>

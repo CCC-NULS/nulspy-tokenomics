@@ -10,8 +10,13 @@ module.exports = {
       locale: 'en',
       fallbackLocale: 'en',
       localeDir: 'locales',
-      enableInSFC: false,
+      enableInSFC: false
     },
+    svgLoader: {
+      svgo: {
+        plugins: []
+      }
+    }
   },
 
   runtimeCompiler: true
