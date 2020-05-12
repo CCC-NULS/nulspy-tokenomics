@@ -250,8 +250,30 @@
         </base-material-card>
       </v-col>
     </v-row>
+    <!-- card: submitted vals # # # #  # # # #  card: # # # # # # # # -->
+    <v-row>
+      <v-col
+        cols="12"
+        md="12"
+      >
+        <v-card
+          color="success"
+        >
+          <v-slide-y-transition>
+            <v-card-text v-show="showdata">
+              {{ m1 }}
+              {{ m2 }}
+              {{ m3 }}
+            </v-card-text>
+          </v-slide-y-transition>
+        </v-card>
+      </v-col>
+    </v-row>
+
+
     <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
-    <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
+
+
     <v-row>
       <v-col
         cols="12"
@@ -340,7 +362,11 @@
   let e = '&disinf=' + disinf
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
-
+  let vmodsel1: ''
+  let  vmodsel2: ''
+  let vmodsel3: ''
+  let  vmodsel4: ''
+  let vmodsel5: ''
   let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
@@ -348,6 +374,7 @@
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  let showdata = false
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
@@ -356,7 +383,11 @@
     }
 
   function submitform () {
-    alert("vmodsel1: " + this.vmodsel1)
+    m1 = "vmodsel1: " + this.vmodsel1 +  " vmodsel2: " + this.vmodsel2
+    m2 = " vmodsel3: " + this.vmodsel3 +  " vmodsel4: " + this.vmodsel4
+    m3 = " vmodsel5: " + this.vmodsel5
+    alert(m1 + m2 + m3)
+    showdata = true
     console.log("selectionChanged: " + this.vmodsel2)
     }
 
@@ -381,12 +412,13 @@
     },
     data: () => ({
       show: true,
+      showdata,
       valid: true,
-      vmodsel1: '',
-      vmodsel2: '',
-      vmodsel3: '',
-      vmodsel4: '',
-      vmodsel5: '',
+      vmodsel1,
+      vmodsel2,
+      vmodsel3,
+      vmodsel4,
+      vmodsel5,
       givenNumber,
       inSupply,
       initsupply,
