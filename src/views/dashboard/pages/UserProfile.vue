@@ -189,25 +189,23 @@
                   >
                     <v-btn
                       id="chgbtn1"
-                      @:click="selectFalse"
+                      @:click="setshowtrue"
                     >
-                      Turn on card
+                      Turn off card
                     </v-btn>
                     <v-btn
                       id="chgbtn"
-                      @:click="selectFalse"
+                      @:click="setshowfalse"
                     >
                       Turn off card
                     </v-btn>
 
                     <v-card
                       id="choicechip"
-                      v-model="cardyesno"
-                      color="violet"
-                      :class="cflex"
+                      color="show"
                     >
                       <v-card-text
-                        color="blue"
+                        color="red"
                       >
                         <p> {{ vmodsel1 }} </p>
                         <p> {{ vmodsel2 }} </p>
@@ -418,21 +416,22 @@
   let showdata = false
   let choiceChipActive = false
   let cardyesno = false
-  cflex="d-flex"
+  let displayVal="d-flex"
+  let colorval="blue"
+  let show = true
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
-    console.log(msg)
+    show = true
     console.log("selectionChanged: " + vmodsel1)
     }
 
-  function selectFalse () {
-    let msg = "in selectAlternate routine"
-    cflex="d-none"
-    console.log(msg)
-    console.log("selectionChanged: " + vmodsel1)
+  function setshowtrue () {
+    show=true
     }
-
+  function setshowfalse () {
+    show=false
+    }
   function submitform () {
     tshowdata = "true"
     console.log("selection Changed submitform showdata: " + showdata)
@@ -465,9 +464,11 @@
     },
     data: () => ({
       cardclass: "d-none",
+      displayVal,
       formvmodel: '',
       cardyesno,
-      show: true,
+      colorval,
+      show,
       isHidden: false,
       vmodsel1,
       vmodsel2,
@@ -492,8 +493,8 @@
       submitfiles,
       submitform,
       selectionChanged,
-      selectFalse,
-      cflex,
+      setshowfalse,
+      setshowtrue,
     },
   }
 </script>
