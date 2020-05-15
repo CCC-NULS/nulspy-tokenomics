@@ -27,6 +27,8 @@ node_modules
  
 sh.exe.stackdump
 src/views/dashboard/pages/extras.txt
+python_code/
+src/assets/plots/
 
 
 

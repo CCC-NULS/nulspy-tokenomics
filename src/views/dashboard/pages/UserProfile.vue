@@ -59,7 +59,8 @@
           <v-form
             id="form"
             ref="form"
-            v-model="valid"
+            v-model="formvmodel"
+            @submit.prevent
           >
             <v-container
               id="vcontain"
@@ -92,6 +93,8 @@
                     cols="12"
                     md="4"
                   >
+                    <!-- choice chip:  # # # #  # # # #  # # # #  -->
+
                     <v-select
                       id="vselone"
                       v-model="vmodsel1"
@@ -102,7 +105,6 @@
                       placeholder="100,000"
                       @:change="selectionChanged"
                     />
-                    <span>b: {{ vmodsel1 }} </span>
                   </v-col>
 
 
@@ -115,11 +117,11 @@
                     <v-select
                       id="vseltwo"
                       v-model="vmodsel2"
-
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
                       placeholder="100,000"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
@@ -138,6 +140,7 @@
                       label="Inflation Interval"
                       class="margleft"
                       :items="inflatervals"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                   <!-- stop inflation:  # # # #  # # # #  # # # #  -->
@@ -152,6 +155,7 @@
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                   <!-- disinflation:  # # # #  # # # #  # # # #  -->
@@ -167,6 +171,7 @@
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
@@ -182,6 +187,37 @@
                     cols="12"
                     md="4"
                   >
+                    <v-btn
+                      id="chgbtn1"
+                      @:click="selectFalse"
+                    >
+                      Turn on card
+                    </v-btn>
+                    <v-btn
+                      id="chgbtn"
+                      @:click="selectFalse"
+                    >
+                      Turn off card
+                    </v-btn>
+
+                    <v-card
+                      id="choicechip"
+                      v-model="cardyesno"
+                      color="violet"
+                      :class="cflex"
+                    >
+                      <v-card-text
+                        color="blue"
+                      >
+                        <p> {{ vmodsel1 }} </p>
+                        <p> {{ vmodsel2 }} </p>
+                        <p> {{ vmodsel3 }} </p>
+                        <p> {{ vmodsel4 }} </p>
+                        <p> {{ vmodsel5 }} </p>
+                      </v-card-text>
+                    </v-card>
+                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                     <v-btn
                       id="submitbtn"
                       align="center"
@@ -254,20 +290,23 @@
     <v-row>
       <v-col
         cols="12"
-        md="12"
+        md="6"
       >
         <base-material-card
+          id="basematcard"
           color="success"
           class="v-card-profile"
         >
           <span>
-            card starts here
+            Card starts here
           </span>
-          <v-slide-y-transition>
-            <v-card-text v-show="showdata">
-              vmodsel1
-            </v-card-text>
-          </v-slide-y-transition>
+          <template v-show="!isHidden">
+            <span> {{ vmodsel1 }} </span>
+            <span> {{ vmodsel2 }} </span>
+            <span> {{ vmodsel3 }} </span>
+            <span> {{ vmodsel4 }} </span>
+            <span> {{ vmodsel4 }} </span>
+          </template>
         </base-material-card>
       </v-col>
     </v-row>
@@ -377,6 +416,9 @@
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   let showdata = false
+  let choiceChipActive = false
+  let cardyesno = false
+  cflex="d-flex"
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
@@ -384,9 +426,22 @@
     console.log("selectionChanged: " + vmodsel1)
     }
 
+  function selectFalse () {
+    let msg = "in selectAlternate routine"
+    cflex="d-none"
+    console.log(msg)
+    console.log("selectionChanged: " + vmodsel1)
+    }
+
   function submitform () {
-    showdata = true
-    console.log("selectionChanged: " + this.vmodsel2)
+    tshowdata = "true"
+    console.log("selection Changed submitform showdata: " + showdata)
+    return tshowdata
+    }
+
+  function resetform () {
+    tshowdata = "false"
+    console.log("selection Changed resetform showdata: " + showdata)
     }
 
   function submitfiles () {
@@ -409,9 +464,11 @@
       pyplot,
     },
     data: () => ({
+      cardclass: "d-none",
+      formvmodel: '',
+      cardyesno,
       show: true,
-      showdata,
-      valid: true,
+      isHidden: false,
       vmodsel1,
       vmodsel2,
       vmodsel3,
@@ -435,6 +492,8 @@
       submitfiles,
       submitform,
       selectionChanged,
+      selectFalse,
+      cflex,
     },
   }
 </script>
