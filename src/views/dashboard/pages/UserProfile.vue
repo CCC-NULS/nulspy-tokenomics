@@ -213,12 +213,18 @@
                     </v-btn>
 
                     <v-card
-                      id="choicechip"
+                      id="showcard"
+                      color="yellow"
+                      outline
                     >
                       <v-card-text
+                        v-show="myshow"
+                        v-model="myshow"
                         color="red"
                       >
-                        yes
+                        Here are your Selections
+                        If you like them press Submit
+                        {{ vmodsel1 }}
                       </v-card-text>
                     </v-card>
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
