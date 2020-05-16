@@ -217,14 +217,17 @@
                       color="yellow"
                       outline
                     >
+                      <!--  v-show works like v-if  -->
                       <v-card-text
-                        v-show="myshow"
+                        v-if="myshow"
                         v-model="myshow"
                         color="red"
                       >
                         Here are your Selections
                         If you like them press Submit
                         {{ vmodsel1 }}
+                        {{ vmodsel2 }}
+                        {{ vmodsel3 }}
                       </v-card-text>
                     </v-card>
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
