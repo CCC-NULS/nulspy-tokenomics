@@ -188,10 +188,21 @@
                     md="4"
                   >
                     <v-btn
-                      id="chgbtn1"
-                      @:click="setshowtrue"
+                      v-model="mycolor"
+                      :color="mycolor"
                     >
-                      Turn off card
+                      new button
+                    </v-btn>
+
+                    <v-btn
+                      id="chgbtn1"
+                      :key="keybtn1"
+                      v-model="vmmy1"
+                      :color="thecolor"
+                      @:click="setbtncolor"
+                    >
+                      Change Color to Green
+                      color is {{ thecolor }}
                     </v-btn>
                     <v-btn
                       id="chgbtn"
@@ -202,16 +213,11 @@
 
                     <v-card
                       id="choicechip"
-                      color="show"
                     >
                       <v-card-text
                         color="red"
                       >
-                        <p> {{ vmodsel1 }} </p>
-                        <p> {{ vmodsel2 }} </p>
-                        <p> {{ vmodsel3 }} </p>
-                        <p> {{ vmodsel4 }} </p>
-                        <p> {{ vmodsel5 }} </p>
+                        yes
                       </v-card-text>
                     </v-card>
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
@@ -222,7 +228,7 @@
                       type="submit"
                       size="large"
                       color="warning"
-                      @click="submitform"
+                      @:click="submitform"
                     >
                       submitform
                     </v-btn>
@@ -354,16 +360,16 @@
 
             <v-btn
               icon
-              @click="show = !show"
+              @click="showx = !showx"
             >
               <v-icon>
-                {{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+                {{ showx ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
               </v-icon>
             </v-btn>
           </v-card-actions>
 
           <v-slide-y-transition>
-            <v-card-text v-show="show">
+            <v-card-text v-show="showx">
               I'm a thing. But, like most politicians,
               he promised more than he could deliver.
             </v-card-text>
@@ -418,22 +424,23 @@
   let cardyesno = false
   let displayVal="d-flex"
   let colorval="blue"
-  let show = true
+  let thecolor="primary"
+  let keybtn1 = 0
+  let showx = true
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
-    show = true
+    this.showx = true
     console.log("selectionChanged: " + vmodsel1)
     }
 
-  function setshowtrue () {
-    show=true
-    }
   function setshowfalse () {
-    show=false
+    this.showx = false
     }
+
   function submitform () {
     tshowdata = "true"
+    this.showx = true
     console.log("selection Changed submitform showdata: " + showdata)
     return tshowdata
     }
@@ -458,6 +465,8 @@
     exec('ls -la')
   }
 
+
+
   export default {
     components: {
       pyplot,
@@ -468,7 +477,6 @@
       formvmodel: '',
       cardyesno,
       colorval,
-      show,
       isHidden: false,
       vmodsel1,
       vmodsel2,
@@ -487,6 +495,8 @@
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
+      showx,
+      mycolor: "red",
     }),
     methods: {
       newfunc,
@@ -494,7 +504,10 @@
       submitform,
       selectionChanged,
       setshowfalse,
-      setshowtrue,
+      setbtncolor: function () {
+        this.keybtn1 += 1;
+        this.thecolor="success";
+        }
     },
   }
 </script>
@@ -520,6 +533,7 @@
   }
   .v-chip {
     padding: 19px;
+
     margin-bottom: 10px!important;
   }
   .v-chip__content {
