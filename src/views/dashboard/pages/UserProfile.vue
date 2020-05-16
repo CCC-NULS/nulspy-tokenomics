@@ -194,12 +194,22 @@
                     >
                       new button
                     </v-btn>
+                    <!-- showbutton:  # # # #  # # # - -  # # # # # # # # -->
+                    <v-btn
+                      v-show="myshow"
+                      v-model="myshow"
+                      color="orange"
+                      @click="setmyshow"
+                    >
+                      new setmyshow button
+                    </v-btn>
+
 
                     <v-btn
                       id="chgbtn"
                       @click="setshowfalse"
                     >
-                      Turn off card
+                      Hide button
                     </v-btn>
 
                     <v-card
@@ -420,6 +430,7 @@
   let showx = true
   let successcolor = 'success'
   let mycolor = 'red'
+  let myshow = true
 
 
   function selectionChanged () {
@@ -491,6 +502,7 @@
       disinflation: ['3', '4', '5'],
       showx,
       mycolor,
+      myshow,
     }),
     methods: {
       newfunc,
@@ -499,9 +511,14 @@
       selectionChanged,
       setshowfalse,
       setbtncolor: function () {
-        console.log("just pressed button")
+        console.log("just pressed chg color button")
         this.mycolor="purple"
         return this.mycolor
+        },
+      setmyshow: function () {
+        console.log("just pressed setmyshow button")
+        this.myshow=false
+        return this.myshow
         }
     },
   }
