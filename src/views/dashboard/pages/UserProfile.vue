@@ -190,23 +190,14 @@
                     <v-btn
                       v-model="mycolor"
                       :color="mycolor"
+                      @click="setbtncolor"
                     >
                       new button
                     </v-btn>
 
                     <v-btn
-                      id="chgbtn1"
-                      :key="keybtn1"
-                      v-model="vmmy1"
-                      :color="thecolor"
-                      @:click="setbtncolor"
-                    >
-                      Change Color to Green
-                      color is {{ thecolor }}
-                    </v-btn>
-                    <v-btn
                       id="chgbtn"
-                      @:click="setshowfalse"
+                      @click="setshowfalse"
                     >
                       Turn off card
                     </v-btn>
@@ -427,6 +418,9 @@
   let thecolor="primary"
   let keybtn1 = 0
   let showx = true
+  let successcolor = 'success'
+  let mycolor = 'red'
+
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
@@ -496,7 +490,7 @@
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
       showx,
-      mycolor: "red",
+      mycolor,
     }),
     methods: {
       newfunc,
@@ -505,8 +499,9 @@
       selectionChanged,
       setshowfalse,
       setbtncolor: function () {
-        this.keybtn1 += 1;
-        this.thecolor="success";
+        console.log("just pressed button")
+        this.mycolor="purple"
+        return this.mycolor
         }
     },
   }
