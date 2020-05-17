@@ -243,7 +243,7 @@
         <v-card
           v-if="finalshow"
           id="infocard"
-          class="gradnew"
+          class="gradneww"
           elevation-24
           raised
           pb-5
@@ -257,7 +257,7 @@
               md="10"
             >
               <v-card-title
-                :class="whitetxt"
+                :class="orangetxt"
               >
                 Your Selections
               </v-card-title>
@@ -477,6 +477,8 @@
       showx: true,
       mycolor: 'red',
       whitetxt: 'white--text',
+      orangetxt: 'orange--text',
+      heavy: 500,
       margbott: '16px',
       myshow: true,
     }),
