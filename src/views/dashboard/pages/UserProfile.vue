@@ -212,24 +212,6 @@
                       Hide button
                     </v-btn>
 
-                    <v-card
-                      id="showcard"
-                      color="yellow"
-                      outline
-                    >
-                      <!--  v-show works like v-if  -->
-                      <v-card-text
-                        v-if="myshow"
-                        v-model="myshow"
-                        color="red"
-                      >
-                        Here are your Selections
-                        If you like them press Submit
-                        {{ vmodsel1 }}
-                        {{ vmodsel2 }}
-                        {{ vmodsel3 }}
-                      </v-card-text>
-                    </v-card>
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                     <v-btn
@@ -238,7 +220,7 @@
                       type="submit"
                       size="large"
                       color="warning"
-                      @:click="submitform"
+                      @:click.prevent="submitform"
                     >
                       submitform
                     </v-btn>
@@ -249,8 +231,36 @@
           </v-form>
         </base-material-card>
       </v-col>
-      <!-- profilecard  component  profilecard avatar  # # # #  # # # #  template: # # # # # # # # -->
-
+    </v-row>          <!--  v-show works like v-if  -->
+    <v-row>
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          id="showcard"
+          v-if:
+          color="yellow"
+          outline
+        >
+          <v-card-text
+            v-if="finalshow"
+            v-model="myshow"
+            color="red"
+          >
+            Here are your Selections
+            If you like them press Submit
+            <p> {{ vmodsel1 }} </p>
+            <p> {{ vmodsel2 }} </p>
+            <p> {{ vmodsel3 }} </p>
+            <p> {{ vmodsel4 }} </p>
+            <p> {{ vmodsel5 }} </p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <!-- profilecard  component  profilecard avatar  # # # #  # # # #  template: # # # # # # # # -->
+    <v-row>
       <v-col
         cols="12"
         md="4"
@@ -399,7 +409,7 @@
   let successcolor = 'success'
   let mycolor = 'red'
   let myshow = true
-
+  let finalshow = false
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
@@ -412,10 +422,10 @@
     }
 
   function submitform () {
-    tshowdata = "true"
+    this.finalshow = "true"
     this.showx = true
-    console.log("selection Changed submitform showdata: " + showdata)
-    return tshowdata
+    console.log("selection Changed submitform this.finalshow: " + this.finalshow)
+    return this.finalshow
     }
 
   function resetform () {
@@ -447,6 +457,7 @@
     },
     data: () => ({
       cardclass: "d-none",
+      finalshow,
       displayVal,
       formvmodel: '',
       cardyesno,
