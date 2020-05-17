@@ -59,7 +59,8 @@
           <v-form
             id="form"
             ref="form"
-            v-model="valid"
+            v-model="formvmodel"
+            @submit.prevent
           >
             <v-container
               id="vcontain"
@@ -92,6 +93,8 @@
                     cols="12"
                     md="4"
                   >
+                    <!-- choice chip:  # # # #  # # # #  # # # #  -->
+
                     <v-select
                       id="vselone"
                       v-model="vmodsel1"
@@ -102,7 +105,6 @@
                       placeholder="100,000"
                       @:change="selectionChanged"
                     />
-                    <span>b: {{ vmodsel1 }} </span>
                   </v-col>
 
 
@@ -115,11 +117,11 @@
                     <v-select
                       id="vseltwo"
                       v-model="vmodsel2"
-
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
                       placeholder="100,000"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
@@ -138,6 +140,7 @@
                       label="Inflation Interval"
                       class="margleft"
                       :items="inflatervals"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                   <!-- stop inflation:  # # # #  # # # #  # # # #  -->
@@ -152,6 +155,7 @@
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                   <!-- disinflation:  # # # #  # # # #  # # # #  -->
@@ -167,6 +171,7 @@
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
+                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
@@ -183,12 +188,57 @@
                     md="4"
                   >
                     <v-btn
+                      v-model="mycolor"
+                      :color="mycolor"
+                      @click="setbtncolor"
+                    >
+                      new button
+                    </v-btn>
+                    <!-- showbutton:  # # # #  # # # - -  # # # # # # # # -->
+                    <v-btn
+                      v-show="myshow"
+                      v-model="myshow"
+                      color="orange"
+                      @click="setmyshow"
+                    >
+                      new setmyshow button
+                    </v-btn>
+
+
+                    <v-btn
+                      id="chgbtn"
+                      @click="setshowfalse"
+                    >
+                      Hide button
+                    </v-btn>
+
+                    <v-card
+                      id="showcard"
+                      color="yellow"
+                      outline
+                    >
+                      <!--  v-show works like v-if  -->
+                      <v-card-text
+                        v-if="myshow"
+                        v-model="myshow"
+                        color="red"
+                      >
+                        Here are your Selections
+                        If you like them press Submit
+                        {{ vmodsel1 }}
+                        {{ vmodsel2 }}
+                        {{ vmodsel3 }}
+                      </v-card-text>
+                    </v-card>
+                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                    <v-btn
                       id="submitbtn"
                       align="center"
                       type="submit"
                       size="large"
                       color="warning"
-                      @click="submitform"
+                      @:click="submitform"
                     >
                       submitform
                     </v-btn>
@@ -199,63 +249,110 @@
           </v-form>
         </base-material-card>
       </v-col>
+      <!-- profilecard  component  profilecard avatar  # # # #  # # # #  template: # # # # # # # # -->
+
       <v-col
         cols="12"
         md="4"
       >
+        <profilecard />
+      </v-col>
+    </v-row>
+
+    <!-- card: submitted vals # # # #  # # # #  card: # # # # # # # # -->
+    <v-row>
+      <v-col
+        cols="12"
+        md="6"
+      >
         <base-material-card
+          id="basematcard"
+          color="success"
           class="v-card-profile"
-          avatar="http://westteam.nulstar.com/nms/artws/Social_Telegram_G.svg"
         >
-          <v-row>
-            <v-col
-              cols="12"
-              md="12"
-            >
-              <v-card-text class="text-center">
-                <h6 class="display-2 mb-1 grey--text">
-                  Tryout Values
-                </h6>
-
-                <h4
-                  class="display-2 font-weight-light mb-3 black--text"
-                  :value="dataone"
-                />
-
-                <p
-                  class="font-weight-light grey--text"
-                  :value="dataoneb"
-                />
-
-                <p
-                  class="font-weight-light grey--text"
-                  :value="datatwo + datathree"
-                />
-
-                <v-btn
-                  color="success"
-                  rounded
-                  class="mr-0"
-                >
-                  Continue
-                </v-btn>
-                <v-btn
-                  @click="submitfiles"
-                >
-                  try submit
-                </v-btn>
-              </v-card-text>
-            </v-col>
-          </v-row>
+          <span>
+            Card starts here
+          </span>
+          <template v-show="!isHidden">
+            <span> {{ vmodsel1 }} </span>
+            <span> {{ vmodsel2 }} </span>
+            <span> {{ vmodsel3 }} </span>
+            <span> {{ vmodsel4 }} </span>
+            <span> {{ vmodsel4 }} </span>
+          </template>
         </base-material-card>
+      </v-col>
+    </v-row>
+
+
+    <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
+
+
+    <v-row>
+      <v-col
+        cols="12"
+        md="10"
+      >
+        <v-card
+          color="warning lighten-2"
+          class="ml-2 mr-2 mt-3 pa-2"
+          elevation-24
+          raised
+        >
+          <v-card-title
+            display-3
+            color="white!important"
+          >
+            Your Plot
+          </v-card-title>
+          <v-card
+            class="m2-3 mr-2 mt-3 pa-2 plotcenter"
+            elevation-24
+            raised
+            color="success"
+          >
+            <pyplot
+              width="90%"
+              height="90%"
+            />
+          </v-card>
+          <v-card-actions>
+            <v-btn>
+              Redo
+            </v-btn>
+            <v-btn
+              color="purple"
+            >
+              Save
+            </v-btn>
+            <v-spacer />
+
+            <v-btn
+              icon
+              @click="showx = !showx"
+            >
+              <v-icon>
+                {{ showx ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
+
+          <v-slide-y-transition>
+            <v-card-text v-show="showx">
+              I'm a thing. But, like most politicians,
+              he promised more than he could deliver.
+            </v-card-text>
+          </v-slide-y-transition>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+  import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
+  import profilecard from '@/views/dashboard/componentsns/profilecardns'
   import axios from 'axios'
-
   const { exec } = require('child_process')
   const givenNumber = 100000000
   const inSupply = givenNumber.toLocaleString('en-US')
@@ -279,7 +376,11 @@
   let e = '&disinf=' + disinf
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
-
+  let vmodsel1 = ''
+  let vmodsel2 = ''
+  let vmodsel3 = ''
+  let vmodsel4 = ''
+  let vmodsel5 = ''
   let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
@@ -287,25 +388,39 @@
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  let showdata = false
+  let choiceChipActive = false
+  let cardyesno = false
+  let displayVal="d-flex"
+  let colorval="blue"
+  let thecolor="primary"
+  let keybtn1 = 0
+  let showx = true
+  let successcolor = 'success'
+  let mycolor = 'red'
+  let myshow = true
 
-  function plotfunc () {
-    let plot_name = 'plot' + timestp + '.svg'
-    let plotsdir = 'plotfiles'
-    let app_root = 'E:\\PycharmProjects\\CCC\\nulspy-tokenomics'
-    let plotfp =  app_root + plotsdir + plot_name
-    return plotfp
-  }
-  let plotfname = plotfunc();
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
-    console.log(msg)
+    this.showx = true
     console.log("selectionChanged: " + vmodsel1)
-   }
+    }
+
+  function setshowfalse () {
+    this.showx = false
+    }
 
   function submitform () {
-    alert("vmodsel1: " + this.vmodsel1)
-    console.log("selectionChanged: " + this.vmodsel2)
+    tshowdata = "true"
+    this.showx = true
+    console.log("selection Changed submitform showdata: " + showdata)
+    return tshowdata
+    }
+
+  function resetform () {
+    tshowdata = "false"
+    console.log("selection Changed resetform showdata: " + showdata)
     }
 
 <<<<<<< HEAD
@@ -351,14 +466,26 @@
     alert('howdy')
     exec('ls -la')
   }
+
+
+
   export default {
+    components: {
+      pyplot,
+      profilecard,
+    },
     data: () => ({
-      valid: true,
-      vmodsel1: '',
-      vmodsel2: '',
-      vmodsel3: '',
-      vmodsel4: '',
-      vmodsel5: '',
+      cardclass: "d-none",
+      displayVal,
+      formvmodel: '',
+      cardyesno,
+      colorval,
+      isHidden: false,
+      vmodsel1,
+      vmodsel2,
+      vmodsel3,
+      vmodsel4,
+      vmodsel5,
       givenNumber,
       inSupply,
       initsupply,
@@ -371,15 +498,28 @@
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
+      showx,
+      mycolor,
+      myshow,
     }),
     methods: {
       newfunc,
       submitfiles,
       submitform,
       selectionChanged,
+      setshowfalse,
+      setbtncolor: function () {
+        console.log("just pressed chg color button")
+        this.mycolor="purple"
+        return this.mycolor
+        },
+      setmyshow: function () {
+        console.log("just pressed setmyshow button")
+        this.myshow=false
+        return this.myshow
+        }
     },
   }
-
 </script>
 
 <style>
@@ -403,6 +543,7 @@
   }
   .v-chip {
     padding: 19px;
+
     margin-bottom: 10px!important;
   }
   .v-chip__content {
@@ -412,7 +553,7 @@
     padding-right: 22px;
     padding-bottom: 14px;
     padding-top: 14px;
-}
+  }
   .v-card__title {
     font-size: 22px;
     font-weight: 300;
@@ -421,5 +562,10 @@
     padding-left: 22px;
     margin-right: 22px;
     text-align: center;
+  }
+  .plotcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
