@@ -238,28 +238,65 @@
     >
       <v-col
         cols="12"
-        md="12"
+        md="7"
       >
         <v-card
           v-if="finalshow"
-          id="yellowcard"
-          v-model="finalshowvmm"
-          color="orange"
-          outline
+          id="infocard"
+          class="gradnew"
+          elevation-24
+          raised
+          pb-5
         >
-          <v-card-text
-            color="blue-grey"
+          <v-row
+            justify="center"
+            align="center"
           >
-            Here are your Selections
-            If you like them press Submit
-            <div>
-              <p> {{ vmodsel1 }} </p>
-              <p> {{ vmodsel2 }} </p>
-              <p> {{ vmodsel3 }} </p>
-              <p> {{ vmodsel4 }} </p>
-              <p> {{ vmodsel5 }} </p>
-            </div>
-          </v-card-text>
+            <v-col
+              cols="12"
+              md="10"
+            >
+              <v-card-title
+                :class="whitetxt"
+              >
+                Your Selections
+              </v-card-title>
+
+              <v-card-text
+                :class="whitetxt"
+              >
+                <p>&nbsp;</p>
+                <v-spacer />
+                <p> Initial Tokens:  {{ vmodsel1 }} </p>
+                <p> Inflation begins: {{ vmodsel2 }} </p>
+                <p> Inflation tokens per 12 intervals: {{ vmodsel3 }} </p>
+                <p> Inflation is turned off at: {{ vmodsel4 }} </p>
+                <p> Dis-inflation ratio: {{ vmodsel5 }} </p>
+              </v-card-text>
+            </v-col>
+          </v-row>
+          <div
+            justify="center"
+            align="center"
+            mb-5
+            pb-5
+          >
+            <v-btn
+              id="sub"
+              align="center"
+              size="medium"
+              elevation-24
+              raised
+              color="cyan darken-4"
+              :class="margbott"
+              @click="subfiles"
+            >
+              Make Plot
+            </v-btn>
+          </div>
+          <div>
+            <br>
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -439,6 +476,8 @@
       disinflation: ['3', '4', '5'],
       showx: true,
       mycolor: 'red',
+      whitetxt: 'white--text',
+      margbott: '16px',
       myshow: true,
     }),
     methods: {
@@ -460,6 +499,11 @@
         console.log("just pressed setmyshow button")
         this.myshow=false
         return this.myshow
+        },
+      subfiles: function () {
+        console.log("just pressed subfiles button")
+        this.finalshow = "true"
+        return this.finalshow
         }
     },
   }
