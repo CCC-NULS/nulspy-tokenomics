@@ -46,3 +46,20 @@
     </v-row>
   </base-material-card>
 </template>
+
+<script>
+  export default {
+    name: 'ProfileCard',
+    data: () => ({
+      dataone: 'Try different values and view a plot of how they play out over time.',
+      dataoneb: 'Intervals can be thought of as months or 30/day increments.',
+      datatwo: 'For this blockchain, the following values are set: ',
+      datathree: 'Initial Supply:  100,000,000',
+    }),
+    methods: {
+      submitfiles: function () {
+        console.log("submitfiles called")
+      },
+    },
+  }
+</script>

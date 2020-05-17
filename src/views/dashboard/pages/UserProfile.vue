@@ -215,12 +215,12 @@
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                     <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                     <v-btn
-                      id="submitbtn"
+                      id="submit"
                       align="center"
                       type="submit"
                       size="large"
                       color="warning"
-                      @:click.prevent="submitform"
+                      @click="submitform"
                     >
                       submitform
                     </v-btn>
@@ -232,29 +232,33 @@
         </base-material-card>
       </v-col>
     </v-row>          <!--  v-show works like v-if  -->
-    <v-row>
+    <v-row
+      justify="center"
+      align="center"
+    >
       <v-col
         cols="12"
-        md="4"
+        md="12"
       >
         <v-card
-          id="showcard"
-          v-if:
-          color="yellow"
+          v-if="finalshow"
+          id="yellowcard"
+          v-model="finalshowvmm"
+          color="orange"
           outline
         >
           <v-card-text
-            v-if="finalshow"
-            v-model="myshow"
-            color="red"
+            color="blue-grey"
           >
             Here are your Selections
             If you like them press Submit
-            <p> {{ vmodsel1 }} </p>
-            <p> {{ vmodsel2 }} </p>
-            <p> {{ vmodsel3 }} </p>
-            <p> {{ vmodsel4 }} </p>
-            <p> {{ vmodsel5 }} </p>
+            <div>
+              <p> {{ vmodsel1 }} </p>
+              <p> {{ vmodsel2 }} </p>
+              <p> {{ vmodsel3 }} </p>
+              <p> {{ vmodsel4 }} </p>
+              <p> {{ vmodsel5 }} </p>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -265,7 +269,7 @@
         cols="12"
         md="4"
       >
-        <profilecard />
+        <ProfileCard />
       </v-col>
     </v-row>
 
@@ -281,7 +285,7 @@
           class="v-card-profile"
         >
           <span>
-            Card starts here
+            Second Card starts here
           </span>
           <template v-show="!isHidden">
             <span> {{ vmodsel1 }} </span>
@@ -360,13 +364,11 @@
 </template>
 
 <script>
-  import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
-  import profilecard from '@/views/dashboard/componentsns/profilecardns'
+  //import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
+  import pyplot from '@/assets/plots/plot1589179263048.svg'
+  import ProfileCard from '@/views/dashboard/componentsns/ProfileCardNs'
   import axios from 'axios'
-  const { exec } = require('child_process')
-  const givenNumber = 100000000
-  const inSupply = givenNumber.toLocaleString('en-US')
-  const initsupply = ['100,000', '200,000', '500,000', '1,000,000']
+
   const chipprops = {
     class: 'v_chip_small',
     small: true,
@@ -378,7 +380,6 @@
   const stopinf = '210000000'
   const disinf = '6'
   let timestp = + new Date()
-
   let a = '&initsup=' + initsup
   let b = '&anninf=' + anninf
   let c = '&startinf=' + startinf
@@ -386,11 +387,7 @@
   let e = '&disinf=' + disinf
   let ts = '&timestp=' + timestp
   let datalist = a + b + c + d + e + ts
-  let vmodsel1 = ''
-  let vmodsel2 = ''
-  let vmodsel3 = ''
-  let vmodsel4 = ''
-  let vmodsel5 = ''
+
   let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
@@ -398,18 +395,7 @@
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  let showdata = false
-  let choiceChipActive = false
-  let cardyesno = false
-  let displayVal="d-flex"
-  let colorval="blue"
-  let thecolor="primary"
-  let keybtn1 = 0
-  let showx = true
-  let successcolor = 'success'
-  let mycolor = 'red'
-  let myshow = true
-  let finalshow = false
+
 
   function selectionChanged () {
     let msg = "in selectionChanged routine"
@@ -421,75 +407,50 @@
     this.showx = false
     }
 
-  function submitform () {
-    this.finalshow = "true"
-    this.showx = true
-    console.log("selection Changed submitform this.finalshow: " + this.finalshow)
-    return this.finalshow
-    }
-
-  function resetform () {
-    tshowdata = "false"
-    console.log("selection Changed resetform showdata: " + showdata)
-    }
-
-  function submitfiles () {
-    ;(async () => {
-      const response = await axiosi({
-        url: baseuri,
-        method: 'get'
-      })
-      console.log(response)
-    })()
-  }
-
-  function newfunc () {
-    alert('howdy')
-    exec('ls -la')
-  }
-
-
+  // function submitfiles () {
+  //   ;(async () => {
+  //     const response = await axiosi({
+  //       url: baseuri,
+  //       method: 'get'
+  //     })
+  //     console.log(response)
+  //   })()
+  // }
 
   export default {
     components: {
       pyplot,
-      profilecard,
+      ProfileCard,
     },
     data: () => ({
-      cardclass: "d-none",
-      finalshow,
-      displayVal,
-      formvmodel: '',
-      cardyesno,
-      colorval,
-      isHidden: false,
-      vmodsel1,
-      vmodsel2,
-      vmodsel3,
-      vmodsel4,
-      vmodsel5,
-      givenNumber,
-      inSupply,
-      initsupply,
       chipprops,
-      dataone: 'Try different values and view a plot of how they play out over time.',
-      dataoneb: 'Intervals can be thought of as months or 30/day increments.',
-      datatwo: 'For this blockchain, the following values are set: ',
-      datathree: 'Initial Supply:  100,000,000',
+      formvmodel: '',
+      isHidden: false,
+      finalshow: '',
+      vmodsel1: '',
+      vmodsel2: '',
+      vmodsel3: '',
+      vmodsel4: '',
+      vmodsel5: '',
+      initsupply: ['100,000', '200,000', '500,000', '1,000,000'],
       aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
-      showx,
-      mycolor,
-      myshow,
+      showx: true,
+      mycolor: 'red',
+      myshow: true,
     }),
     methods: {
-      newfunc,
-      submitfiles,
-      submitform,
+      submitform: function () {
+        this.finalshow = "true"
+        console.log("selection Changed submitform this.finalshow: " + this.finalshow)
+        return this.finalshow
+        },
       selectionChanged,
-      setshowfalse,
+      setshowfalse: function () {
+        this.showx = false
+        },
       setbtncolor: function () {
         console.log("just pressed chg color button")
         this.mycolor="purple"
@@ -525,7 +486,6 @@
   }
   .v-chip {
     padding: 19px;
-
     margin-bottom: 10px!important;
   }
   .v-chip__content {
