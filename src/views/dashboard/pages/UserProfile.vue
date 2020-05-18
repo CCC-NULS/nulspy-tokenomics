@@ -18,39 +18,7 @@
               shaped
               class="displaynms font-weight-light"
             >
-              <v-chip
-                medium
-                dark
-                color="tertiary"
-              >
-                DEFAULT / PRESET VALUES
-              </v-chip>
-              <br>
-              <ul>
-                <li>
-                  Initial Token Supply: &nbsp; 100,000,000<br>
-                </li>
-                <li>
-                  Inflation begins in how many intervals? &nbsp; 24 = 2 yrs
-                  <br>
-                </li>
-                <li>
-                  Inflation tokens per 12 intervals? &nbsp;5,000,000 /12 (416,666.66) <br>
-                </li>
-                <li>
-                  Inflation is turned off at: &emsp;&emsp; 210,000,000<br>
-                </li>
-                <li>
-                  De-inflation ratio: &emsp;&emsp; 0.004 ( 0.01 = 1% )  <br><br>
-                </li>
-              </ul>
-              <v-chip
-                color="info"
-                medium
-                raised
-              >
-                Inflation and de-inflation begin at the same time
-              </v-chip>
+              <TopWords />
             </div>
           </template>
 
@@ -67,6 +35,7 @@
               class="py-4"
             >
               <v-card
+                id="vcardform"
                 align="center"
                 pr-5
                 pl-5
@@ -106,8 +75,6 @@
                       placeholder="100,000"
                     />
                   </v-col>
-
-
 
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
                   <v-col
@@ -171,41 +138,6 @@
                   </v-col>
                 </v-row>
 
-                <!--
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="5"
-                  />
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <v-btn
-                      v-model="mycolor"
-                      :color="mycolor"
-                      @click="setbtncolor"
-                    >
-                      new button
-                    </v-btn>
-                    <v-btn
-                      v-show="myshow"
-                      v-model="myshow"
-                      color="orange"
-                      @click="setmyshow"
-                    >
-                      new setmyshow button
-                    </v-btn>
-
-                    <v-btn
-                      id="chgbtn"
-                      @click="setshowfalse"
-                    >
-                      Hide button
-                    </v-btn>
-                  -->
-                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
-                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <v-btn
                   id="submit"
                   v-model="submitPlot"
@@ -218,7 +150,8 @@
                 >
                   submitform
                 </v-btn>
-                <div> <br>
+                <div>
+                  <br>
                 </div>
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
@@ -285,7 +218,8 @@
               raised
               color="cyan darken-4"
               :class="margbott"
-              @click="subfiles"
+              gtime="makeGTimestamp"
+              @click="makePlot"
             >
               Make Plot
             </v-btn>
@@ -296,111 +230,22 @@
         </v-card>
       </v-col>
     </v-row>
-    <!-- profilecard  component  profilecard avatar  # # # #  # # # #  template: # # # # # # # # -->
-    <v-row>
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <ProfileCard />
-      </v-col>
-    </v-row>
 
-    <!-- card: submitted vals # # # #  # # # #  card: # # # # # # # # -->
-    <v-row>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <base-material-card
-          id="basematcard"
-          color="success"
-          class="v-card-profile"
-        >
-          <span>
-            Second Card starts here
-          </span>
-          <template v-show="!isHidden">
-            <span> {{ vmodsel1 }} </span>
-            <span> {{ vmodsel2 }} </span>
-            <span> {{ vmodsel3 }} </span>
-            <span> {{ vmodsel4 }} </span>
-            <span> {{ vmodsel4 }} </span>
-          </template>
-        </base-material-card>
-      </v-col>
-    </v-row>
+    <ProfileCard />
 
+    <SecondCard />
 
-    <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
-
-  <template>
-    <v-row>
-      <v-col
-        cols="12"
-        md="10"
-      >
-        <v-card
-          color="warning lighten-2"
-          class="ml-2 mr-2 mt-3 pa-2"
-          elevation-24
-          raised
-        >
-          <v-card-title
-            display-3
-            color="white!important"
-          >
-            Your Plot
-          </v-card-title>
-          <v-card
-            class="m2-3 mr-2 mt-3 pa-2 plotcenter"
-            elevation-24
-            raised
-            color="success"
-          >
-            <pyplot
-              width="90%"
-              height="90%"
-            />
-          </v-card>
-          <v-card-actions>
-            <v-btn>
-              Redo
-            </v-btn>
-            <v-btn
-              color="purple"
-            >
-              Save
-            </v-btn>
-            <v-spacer />
-
-            <v-btn
-              icon
-              @click="showx = !showx"
-            >
-              <v-icon>
-                {{ showx ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-
-          <v-slide-y-transition>
-            <v-card-text v-show="showx">
-              I'm a thing. But, like most politicians,
-              he promised more than he could deliver.
-            </v-card-text>
-          </v-slide-y-transition>
-        </v-card>
-      </v-col>
-    </v-row>
-  </template>
+    <PlotView />
   </v-container>
 </template>
 
+    <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
+
 <script>
   //import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
-  import pyplot from '@/assets/plots/plot1589179263048.svg'
   import ProfileCard from '@/views/dashboard/componentsns/ProfileCardNs'
+  import PlotView from '@/views/dashboard/componentsns/PlotView'
+  import SecondCard from '@/views/dashboard/componentsns/SecondCard'
   import axios from 'axios'
 
   const chipprops = {
@@ -413,16 +258,12 @@
   const startinf = '26'
   const stopinf = '210000000'
   const disinf = '6'
-  let timestp = + new Date()
   let a = '&initsup=' + initsup
   let b = '&anninf=' + anninf
   let c = '&startinf=' + startinf
   let d = '&stopinf=' + stopinf
   let e = '&disinf=' + disinf
-  let ts = '&timestp=' + timestp
-  let datalist = a + b + c + d + e + ts
 
-  let baseuri = 'http://localhost:5002/getpy?' + datalist
   const axiosi = axios.create({
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
@@ -432,7 +273,6 @@
 
   export default {
     components: {
-      pyplot,
       ProfileCard,
     },
     data: () => ({
@@ -457,93 +297,67 @@
       heavy: 500,
       margbott: '16px',
       myshow: true,
+      gdate: '',
+      gtime: '',
+      pname: "plot" + this.gtime + ".svg"
     }),
+
     methods: {
       submitform: function () {
         this.finalshow = "true"
         console.log("selection Changed submitform this.finalshow: " + this.finalshow)
         return this.finalshow
         },
-      setshowfalse: function () {
-        this.showx = false
-        },
-      setbtncolor: function () {
-        console.log("just pressed chg color button")
-        this.mycolor="purple"
-        return this.mycolor
-        },
-      setmyshow: function () {
-        console.log("just pressed setmyshow button")
-        this.myshow=false
-        return this.myshow
-        },
-      subfiles: function () {
-        console.log("just pressed subfiles button")
-        this.finalshow = "true"
-        return this.finalshow
-        },
-      selectionChanged: function () {
-        let msg = "in selectionChanged routine"
-        this.showx = true
-        console.log("selectionChanged: " + vmodsel1)
-        },
-      submitPlot: function  () {
+
+      // setshowfalse: function () {
+      //   this.showx = false
+      //   },
+      // setbtncolor: function () {
+      //   console.log("just pressed chg color button")
+      //   this.mycolor="purple"
+      //   return this.mycolor
+      //   },
+      // setmyshow: function () {
+      //   console.log("just pressed setmyshow button")
+      //   this.myshow=false
+      //   return this.myshow
+      //   },
+      // selectionChanged: function () {
+      //   let msg = "in selectionChanged routine"
+      //   this.showx = true
+      //   console.log("selectionChanged: " + vmodsel1)
+      //   },
+      // subfiles: function () {
+      //   console.log("just pressed subfiles button")
+      //   this.finalshow = "true"
+      //   return this.finalshow
+      //   },
+
+      makeGTimestamp: function () {
+        return + new Date()
+      },
+      getPlotName: function (grtime) {
+        return ("plot" + grtime + ".svg")
+      },
+      getPlotUrl: function (gggtime) {
+        let tsText = '&timestp=' + gggtime
+        let requestVars = a + b + c + d + e + tsText
+        return 'http://localhost:5002/getpy?' + requestVars
+      },
+      makePlot: function  (ggtime) {
+        let baseurl = getPlotUrl(ggtime)
         ;(async () => {
           console.log("inside submitPlot")
           const response = await axiosi({
-            url: baseuri,
+            url: baseurl,
             method: 'get'
-      })
-      console.log(response)
-    })()
-  }
+          })
+        console.log(response)
+        })()
+      },
     },
   }
 </script>
 
-<style>
-  .margleft {
-    margin-left:12px!important;
-  }
-  .margright {
-    margin-right:29px!important;
-  }
-  .displaynms {
-    line-height: 1.7em;
-    font-size: 24px!important;
-    padding-left: 26px!important;
-  }
-  .v_chip_small {
-    padding: 2px;
-    margin-bottom: 10px!important;
-    font-size: 16px!important;
-    font-weight: 300;
-    text-align: center;
-  }
-  .v-chip {
-    padding: 19px;
-    margin-bottom: 10px!important;
-  }
-  .v-chip__content {
-    font-size: 19px;
-    font-weight: 300;
-    padding-left: 22px;
-    padding-right: 22px;
-    padding-bottom: 14px;
-    padding-top: 14px;
-  }
-  .v-card__title {
-    font-size: 22px;
-    font-weight: 300;
-    padding-top: 12px;
-    padding-bottom: 14px;
-    padding-left: 22px;
-    margin-right: 22px;
-    text-align: center;
-  }
-  .plotcenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+<style src="@/assets/styles/mystyle.css">
 </style>
