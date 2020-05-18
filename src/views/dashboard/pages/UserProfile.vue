@@ -67,6 +67,7 @@
               class="py-4"
             >
               <v-card
+                align="center"
                 pr-5
                 pl-5
                 elevation-15
@@ -103,7 +104,6 @@
                       label="Initial Token Supply"
                       :items="initsupply"
                       placeholder="100,000"
-                      @:change="selectionChanged"
                     />
                   </v-col>
 
@@ -121,7 +121,6 @@
                       label="Annual Inflation"
                       :items="aninflation"
                       placeholder="100,000"
-                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
@@ -135,12 +134,10 @@
                     <v-select
                       id="vselthree"
                       v-model="vmodsel3"
-
                       type="string"
                       label="Inflation Interval"
                       class="margleft"
                       :items="inflatervals"
-                      @:change="selectionChanged"
                     />
                   </v-col>
                   <!-- stop inflation:  # # # #  # # # #  # # # #  -->
@@ -155,15 +152,14 @@
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
-                      @:change="selectionChanged"
                     />
                   </v-col>
-                  <!-- disinflation:  # # # #  # # # #  # # # #  -->
 
                   <v-col
                     cols="12"
                     md="3"
                   >
+                    <!-- disinflation # select # five five:  # # # #  # # # #  # # # #  -->
                     <v-select
                       id="vselfive"
                       v-model="vmodsel5"
@@ -171,18 +167,16 @@
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
-                      @:change="selectionChanged"
                     />
                   </v-col>
                 </v-row>
+
+                <!--
                 <v-row>
                   <v-col
                     cols="12"
                     md="5"
                   />
-                  <!-- submit:  # # # #  # # # #  submit: # # # # # # # # -->
-                  <!--   @click="submit" # # # # # -->
-
                   <v-col
                     cols="12"
                     md="4"
@@ -194,7 +188,6 @@
                     >
                       new button
                     </v-btn>
-                    <!-- showbutton:  # # # #  # # # - -  # # # # # # # # -->
                     <v-btn
                       v-show="myshow"
                       v-model="myshow"
@@ -204,28 +197,31 @@
                       new setmyshow button
                     </v-btn>
 
-
                     <v-btn
                       id="chgbtn"
                       @click="setshowfalse"
                     >
                       Hide button
                     </v-btn>
-
-                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
-                    <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
-                    <v-btn
-                      id="submit"
-                      align="center"
-                      type="submit"
-                      size="large"
-                      color="warning"
-                      @click="submitform"
-                    >
-                      submitform
-                    </v-btn>
-                  </v-col>
-                </v-row>
+                  -->
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                <v-btn
+                  id="submit"
+                  v-model="submitPlot"
+                  justify-center
+                  align="center"
+                  type="submit"
+                  size="large"
+                  color="warning"
+                  @click="submitPlot"
+                >
+                  submitform
+                </v-btn>
+                <div> <br>
+                </div>
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
               </v-card>
             </v-container>
           </v-form>
@@ -338,7 +334,7 @@
 
     <!-- card:  # # # #  # # # #  card: # # # # # # # # -->
 
-
+  <template>
     <v-row>
       <v-col
         cols="12"
@@ -397,6 +393,7 @@
         </v-card>
       </v-col>
     </v-row>
+  </template>
   </v-container>
 </template>
 
@@ -430,29 +427,8 @@
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
-  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, PATCH, DELETE'
+  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, DELETE'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-
-
-  function selectionChanged () {
-    let msg = "in selectionChanged routine"
-    this.showx = true
-    console.log("selectionChanged: " + vmodsel1)
-    }
-
-  function setshowfalse () {
-    this.showx = false
-    }
-
-  // function submitfiles () {
-  //   ;(async () => {
-  //     const response = await axiosi({
-  //       url: baseuri,
-  //       method: 'get'
-  //     })
-  //     console.log(response)
-  //   })()
-  // }
 
   export default {
     components: {
@@ -488,7 +464,6 @@
         console.log("selection Changed submitform this.finalshow: " + this.finalshow)
         return this.finalshow
         },
-      selectionChanged,
       setshowfalse: function () {
         this.showx = false
         },
@@ -506,7 +481,22 @@
         console.log("just pressed subfiles button")
         this.finalshow = "true"
         return this.finalshow
-        }
+        },
+      selectionChanged: function () {
+        let msg = "in selectionChanged routine"
+        this.showx = true
+        console.log("selectionChanged: " + vmodsel1)
+        },
+      submitPlot: function  () {
+        ;(async () => {
+          console.log("inside submitPlot")
+          const response = await axiosi({
+            url: baseuri,
+            method: 'get'
+      })
+      console.log(response)
+    })()
+  }
     },
   }
 </script>
