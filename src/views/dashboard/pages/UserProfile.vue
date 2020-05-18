@@ -218,7 +218,6 @@
               raised
               color="cyan darken-4"
               :class="margbott"
-              gtime="makeGTimestamp"
               @click="makePlot"
             >
               Make Plot
@@ -235,16 +234,68 @@
 
     <SecondCard />
 
-    <PlotView />
+    <base-material-card
+      v-if="finalshow"
+      id="plotmatcard"
+      v-model="currentPlotPath"
+    >
+      <v-row>
+        <v-col
+          cols="12"
+          md="10"
+        >
+          <v-card
+            id="vcardone"
+            color="warning lighten-2"
+            class="ml-2 mr-2 mt-3 pa-2"
+            elevation-24
+            raised
+          >
+            <v-card-title
+              display-3
+              color="white!important"
+            >
+              Your Plot
+            </v-card-title>
+            <v-card
+              id="vcardtwo"
+              class="m2-3 mr-2 mt-3 pa-2 plotcenter"
+              elevation-24
+              raised
+              color="success"
+            >
+              <div
+                :html="currentPlotPath"
+                width="90%"
+                height="90%"
+              >
+                Plot is Here
+              </div>
+
+              <v-card-actions>
+                <v-btn id="redobtn">
+                  Redo
+                </v-btn>
+                <v-btn
+                  id="savebtn"
+                  color="purple"
+                >
+                  Save
+                </v-btn>
+                <v-spacer />
+              </v-card-actions>
+            </v-card>
+          </v-card>
+        </v-col>
+      </v-row>
+    </base-material-card>
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  //import pyplot from 'E:\\wsvue\\vuetify-material-dashboard-master\\src\\assets\\plots\\plot1589179263048.svg'
   import ProfileCard from '@/views/dashboard/componentsns/ProfileCardNs'
-  import PlotView from '@/views/dashboard/componentsns/PlotView'
   import SecondCard from '@/views/dashboard/componentsns/SecondCard'
   import axios from 'axios'
 
@@ -263,7 +314,7 @@
   let c = '&startinf=' + startinf
   let d = '&stopinf=' + stopinf
   let e = '&disinf=' + disinf
-
+  let pname = 'empty'
   const axiosi = axios.create({
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
@@ -274,6 +325,7 @@
   export default {
     components: {
       ProfileCard,
+      SecondCard,
     },
     data: () => ({
       chipprops,
@@ -297,9 +349,8 @@
       heavy: 500,
       margbott: '16px',
       myshow: true,
-      gdate: '',
-      gtime: '',
-      pname: "plot" + this.gtime + ".svg"
+      pname,
+      currentPlotPath: '@/views/dashboard/componentsns/' + pname,
     }),
 
     methods: {
@@ -309,43 +360,11 @@
         return this.finalshow
         },
 
-      // setshowfalse: function () {
-      //   this.showx = false
-      //   },
-      // setbtncolor: function () {
-      //   console.log("just pressed chg color button")
-      //   this.mycolor="purple"
-      //   return this.mycolor
-      //   },
-      // setmyshow: function () {
-      //   console.log("just pressed setmyshow button")
-      //   this.myshow=false
-      //   return this.myshow
-      //   },
-      // selectionChanged: function () {
-      //   let msg = "in selectionChanged routine"
-      //   this.showx = true
-      //   console.log("selectionChanged: " + vmodsel1)
-      //   },
-      // subfiles: function () {
-      //   console.log("just pressed subfiles button")
-      //   this.finalshow = "true"
-      //   return this.finalshow
-      //   },
-
-      makeGTimestamp: function () {
-        return + new Date()
-      },
-      getPlotName: function (grtime) {
-        return ("plot" + grtime + ".svg")
-      },
-      getPlotUrl: function (gggtime) {
-        let tsText = '&timestp=' + gggtime
-        let requestVars = a + b + c + d + e + tsText
-        return 'http://localhost:5002/getpy?' + requestVars
-      },
-      makePlot: function  (ggtime) {
-        let baseurl = getPlotUrl(ggtime)
+      makePlot: function  () {
+        ggtime = '"+ new Date()"'
+        pname = 'plot' + ggtime + '.svg'
+        let requestVars = a + b + c + d + e + '&timestp=' + ggtime
+        let baseurl = 'http://localhost:5002/getpy?' + requestVars
         ;(async () => {
           console.log("inside submitPlot")
           const response = await axiosi({
