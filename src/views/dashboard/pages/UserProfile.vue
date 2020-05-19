@@ -161,6 +161,8 @@
         </base-material-card>
       </v-col>
     </v-row>          <!--  v-show works like v-if  -->
+
+    <!--
     <v-row
       justify="center"
       align="center"
@@ -229,74 +231,22 @@
         </v-card>
       </v-col>
     </v-row>
+-->
+    <ProfileCardNs />
 
-    <ProfileCard />
-
-    <SecondCard />
-
-    <base-material-card
-      v-if="finalshow"
-      id="plotmatcard"
-      v-model="currentPlotPath"
-    >
-      <v-row>
-        <v-col
-          cols="12"
-          md="10"
-        >
-          <v-card
-            id="vcardone"
-            color="warning lighten-2"
-            class="ml-2 mr-2 mt-3 pa-2"
-            elevation-24
-            raised
-          >
-            <v-card-title
-              display-3
-              color="white!important"
-            >
-              Your Plot
-            </v-card-title>
-            <v-card
-              id="vcardtwo"
-              class="m2-3 mr-2 mt-3 pa-2 plotcenter"
-              elevation-24
-              raised
-              color="success"
-            >
-              <div
-                :html="currentPlotPath"
-                width="90%"
-                height="90%"
-              >
-                Plot is Here
-              </div>
-
-              <v-card-actions>
-                <v-btn id="redobtn">
-                  Redo
-                </v-btn>
-                <v-btn
-                  id="savebtn"
-                  color="purple"
-                >
-                  Save
-                </v-btn>
-                <v-spacer />
-              </v-card-actions>
-            </v-card>
-          </v-card>
-        </v-col>
-      </v-row>
-    </base-material-card>
+    <SecondCard v-if="secondcardshow" />
+    <LastCard v-if="lastcardshow" />
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  import ProfileCard from '@/views/dashboard/componentsns/ProfileCardNs'
+  import ProfileCardNs from '@/views/dashboard/componentsns/ProfileCardNs'
   import SecondCard from '@/views/dashboard/componentsns/SecondCard'
+  import TopWords from '@/views/dashboard/componentsns/TopWords'
+  import LastCard from '@/views/dashboard/componentsns/LastCard'
+
   import axios from 'axios'
 
   const chipprops = {
@@ -324,14 +274,16 @@
 
   export default {
     components: {
-      ProfileCard,
+      ProfileCardNs,
       SecondCard,
+      TopWords,
+      LastCard,
     },
     data: () => ({
       chipprops,
       formvmodel: '',
       isHidden: false,
-      finalshow: '',
+      finalshow: false,
       vmodsel1: '',
       vmodsel2: '',
       vmodsel3: '',
@@ -349,17 +301,17 @@
       heavy: 500,
       margbott: '16px',
       myshow: true,
+      secondcardshow: false,
+      lastcardshow: false,
       pname,
-      currentPlotPath: '@/views/dashboard/componentsns/' + pname,
+      currentPlotPath: '@/assests/plots/' + pname,
     }),
 
     methods: {
-      submitform: function () {
-        this.finalshow = "true"
-        console.log("selection Changed submitform this.finalshow: " + this.finalshow)
-        return this.finalshow
-        },
-
+      // submitform: function () {
+      //   finalshow = true
+      //   console.log("selection Changed submitform finalshow: " + finalshow)
+      //   },
       makePlot: function  () {
         ggtime = '"+ new Date()"'
         pname = 'plot' + ggtime + '.svg'
@@ -372,6 +324,7 @@
             method: 'get'
           })
         console.log(response)
+
         })()
       },
     },

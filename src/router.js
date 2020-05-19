@@ -50,6 +50,11 @@ export default new Router({
           path: 'maps/google-maps',
           component: () => import('@/views/dashboard/maps/GoogleMaps'),
         },
+        // {
+        //   name: 'Profile Card',
+        //   path: 'componentsns',
+        //   component: () => import('@/views/dashboard/componentsns/ProfileCardNs'),
+        // },
         // Upgrade
         // {
         //   name: 'Upgrade',
