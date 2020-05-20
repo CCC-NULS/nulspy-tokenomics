@@ -140,9 +140,6 @@
 
                 <v-btn
                   id="submit"
-                  v-model="makePlot"
-                  justify-center
-                  align="center"
                   type="submit"
                   size="large"
                   color="warning"
@@ -150,9 +147,10 @@
                 >
                   submitform
                 </v-btn>
-                <div>
-                  <br>
-                </div>
+                <div>  <br>  </div>
+
+                <!--
+
                 <v-btn
                   color="green lighten-1"
                   @click="showPlotNow(true)"
@@ -160,8 +158,11 @@
                   Show Plot
                 </v-btn>
                 <div> <br> </div>
-                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
-                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+
+                <   -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
+                <  -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
+
+
                 <v-btn
                   color="purple lighten-1"
                   @click="changeToTrue(false)"
@@ -183,6 +184,8 @@
                 >
                   HIDE THIS BUTTON
                 </v-btn>
+                -->
+
                 <div> <br> </div>
               </v-card>
             </v-container>
@@ -191,9 +194,6 @@
       </v-col>
     </v-row>
 
-    <ProfileCardNs />
-
-    <SecondCard v-if="secondcardshow" />
     <LastCard v-show="showPlot" />
   </v-container>
 </template>
@@ -201,8 +201,8 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  import ProfileCardNs from '@/views/dashboard/components/ProfileCardNs'
-  import SecondCard from '@/views/dashboard/components/SecondCard'
+  // import ProfileCardNs from '@/views/dashboard/components/ProfileCardNs'
+  // import SecondCard from '@/views/dashboard/components/SecondCard'
   import TopWords from '@/views/dashboard/components/TopWords'
   import LastCard from '@/views/dashboard/components/LastCard'
   import store from '@/store'
@@ -234,8 +234,8 @@
 
   export default {
     components: {
-      ProfileCardNs,
-      SecondCard,
+      // ProfileCardNs,
+      // SecondCard,
       TopWords,
       LastCard,
     },
@@ -282,6 +282,7 @@
         return ggtime
       },
       makePlot: function  () {
+        this.$store.dispatch('showPlotAct', true)
         pname = 'plot' + ggtime + '.svg'
         let requestVars = a + b + c + d + e + '&timestp=' + ggtime
         let baseurl = 'http://localhost:5002/getpy?' + requestVars
