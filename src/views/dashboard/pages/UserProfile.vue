@@ -153,6 +153,13 @@
                 <div>
                   <br>
                 </div>
+                <v-btn
+                  color="green lighten-1"
+                  @click="showPlotNow(true)"
+                >
+                  Show Plot
+                </v-btn>
+                <div> <br> </div>
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <v-btn
@@ -161,13 +168,14 @@
                 >
                   Hide Card
                 </v-btn>
+                <div> <br> </div>
                 <v-btn
-                  color="green lighten-1"
+                  color="green darken-1"
                   @click="changeToTrue(true)"
                 >
                   Show Card
                 </v-btn>
-                <div> <br> </div>                <div> <br> </div>
+                <div> <br> </div>
                 <v-btn
                   v-show="showButton"
                   id="nmscardid"
@@ -183,92 +191,20 @@
       </v-col>
     </v-row>
 
-    <!--  v-show works like v-if  -->
-
-    <!--
-    <v-row
-      justify="center"
-      align="center"
-    >
-      <v-col
-        cols="12"
-        md="7"
-      >
-        <v-card
-          v-if="finalshow"
-          id="infocard"
-          class="gradneww"
-          elevation-24
-          raised
-          pb-5
-        >
-          <v-row
-            justify="center"
-            align="center"
-          >
-            <v-col
-              cols="12"
-              md="10"
-            >
-              <v-card-title
-                :class="orangetxt"
-              >
-                Your Selections
-              </v-card-title>
-
-              <v-card-text
-                :class="whitetxt"
-              >
-                <p>&nbsp;</p>
-                <v-spacer />
-                <p> Initial Tokens:  {{ vmodsel1 }} </p>
-                <p> Inflation begins: {{ vmodsel2 }} </p>
-                <p> Inflation tokens per 12 intervals: {{ vmodsel3 }} </p>
-                <p> Inflation is turned off at: {{ vmodsel4 }} </p>
-                <p> Dis-inflation ratio: {{ vmodsel5 }} </p>
-              </v-card-text>
-            </v-col>
-          </v-row>
-          <div
-            justify="center"
-            align="center"
-            mb-5
-            pb-5
-          >
-            <v-btn
-              id="sub"
-              align="center"
-              size="medium"
-              elevation-24
-              raised
-              color="cyan darken-4"
-              :class="margbott"
-              @click="makePlot"
-            >
-              Make Plot
-            </v-btn>
-          </div>
-          <div>
-            <br>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
--->
     <ProfileCardNs />
 
     <SecondCard v-if="secondcardshow" />
-    <LastCard v-if="lastcardshow" />
+    <LastCard v-show="showPlot" />
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  import ProfileCardNs from '@/views/dashboard/components/core/ProfileCardNs'
-  import SecondCard from '@/views/dashboard/components/core/SecondCard'
-  import TopWords from '@/views/dashboard/components/core/TopWords'
-  import LastCard from '@/views/dashboard/components/core/LastCard'
+  import ProfileCardNs from '@/views/dashboard/components/ProfileCardNs'
+  import SecondCard from '@/views/dashboard/components/SecondCard'
+  import TopWords from '@/views/dashboard/components/TopWords'
+  import LastCard from '@/views/dashboard/components/LastCard'
   import store from '@/store'
   import axios from 'axios'
   import { mapState } from 'vuex'
@@ -328,17 +264,24 @@
       secondcardshow: false,
       lastcardshow: false,
       pname,
+      ggtime: '',
       currentPlotPath: '@/assets/plots/' + pname,
     }),
     computed: {
-      ...mapState(['showButton']),
+      ...mapState(['showButton', 'showPlot']),
     },
     methods: {
       changeToTrue: function (theval) {
-        this.$store.dispatch('changebuttonAct', theval);
+        this.$store.dispatch('showButtonAct', theval)
+      },
+      showPlotNow: function (theval) {
+        this.$store.dispatch('showPlotAct', theval)
+      },
+      getTimestamp: function () {
+        ggtime = '"+ new Date()"'
+        return ggtime
       },
       makePlot: function  () {
-        ggtime = '"+ new Date()"'
         pname = 'plot' + ggtime + '.svg'
         let requestVars = a + b + c + d + e + '&timestp=' + ggtime
         let baseurl = 'http://localhost:5002/getpy?' + requestVars

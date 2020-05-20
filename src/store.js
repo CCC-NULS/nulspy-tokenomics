@@ -9,6 +9,7 @@ export default new Vuex.Store({
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
     showButton: false,
+    showPlot: false,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -17,16 +18,27 @@ export default new Vuex.Store({
     SET_DRAWER (state, payload) {
       state.drawer = payload
     },
-    changebuttonMut(state, theval) {
+    showButtonMut(state, theval) {
       state.showButton = theval
     },
+    showPlotMut(state, theval) {
+      state.showPlot = theval
+    },
   },
-  getters: {
-    showButton: state => state.showButton
-  },
+  // getters: {
+  //   getShowButton: state => state.showButton,
+  //   getShowPlot: state => state.showPlot
+  // },
+  // setters: {
+  //   setShowButton: state.showButton = true,
+  //   setShowPlot: state.showPlot = true
+  // },
   actions: {
-    changebuttonAct (context, theval) {
-        context.commit('changebuttonMut', theval)
+    showButtonAct (context, theval) {
+        context.commit('showButtonMut', theval)
+    },
+    showPlotAct (context, theval) {
+      context.commit('showPlotMut', theval)
     }
   }
 
