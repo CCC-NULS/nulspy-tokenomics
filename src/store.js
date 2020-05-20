@@ -8,6 +8,7 @@ export default new Vuex.Store({
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
+    showButton: false,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_DRAWER (state, payload) {
       state.drawer = payload
+    },
+    changebutton(state) {
+      state.showButton = true
     },
   },
   actions: {

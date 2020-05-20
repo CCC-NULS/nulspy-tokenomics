@@ -140,13 +140,13 @@
 
                 <v-btn
                   id="submit"
-                  v-model="submitPlot"
+                  v-model="makePlot"
                   justify-center
                   align="center"
                   type="submit"
                   size="large"
                   color="warning"
-                  @click="submitPlot"
+                  @click="makePlot"
                 >
                   submitform
                 </v-btn>
@@ -155,12 +155,26 @@
                 </div>
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                <v-btn
+                  color="info"
+                  @click="changeTrue"
+                >
+                  Show Card
+                </v-btn>
+                <v-btn
+                  v-show="nmscard"
+                  id="nmscardid"
+                >
+                  Test hidden-lg-only
+                </v-btn>
               </v-card>
             </v-container>
           </v-form>
         </base-material-card>
       </v-col>
-    </v-row>          <!--  v-show works like v-if  -->
+    </v-row>
+
+    <!--  v-show works like v-if  -->
 
     <!--
     <v-row
@@ -242,12 +256,13 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  import ProfileCardNs from '@/views/dashboard/componentsns/ProfileCardNs'
-  import SecondCard from '@/views/dashboard/componentsns/SecondCard'
-  import TopWords from '@/views/dashboard/componentsns/TopWords'
-  import LastCard from '@/views/dashboard/componentsns/LastCard'
-
+  import ProfileCardNs from '@/views/dashboard/components/core/ProfileCardNs'
+  import SecondCard from '@/views/dashboard/components/core/SecondCard'
+  import TopWords from '@/views/dashboard/components/core/TopWords'
+  import LastCard from '@/views/dashboard/components/core/LastCard'
+  import store from '@/store'
   import axios from 'axios'
+  import { mapState } from 'vuex'
 
   const chipprops = {
     class: 'v_chip_small',
@@ -304,14 +319,16 @@
       secondcardshow: false,
       lastcardshow: false,
       pname,
-      currentPlotPath: '@/assests/plots/' + pname,
+      currentPlotPath: '@/assets/plots/' + pname,
     }),
+    computed: {
+      ...mapState(['nmscard']),
 
+    },
     methods: {
-      // submitform: function () {
-      //   finalshow = true
-      //   console.log("selection Changed submitform finalshow: " + finalshow)
-      //   },
+      changeTrue: function () {
+        this.$store.commit('changebutton');
+      },
       makePlot: function  () {
         ggtime = '"+ new Date()"'
         pname = 'plot' + ggtime + '.svg'
@@ -328,6 +345,7 @@
         })()
       },
     },
+
   }
 </script>
 
