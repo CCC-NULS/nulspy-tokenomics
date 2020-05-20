@@ -22,6 +22,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-
+    changebuttonAct(context) {
+          context.commit('changebutton ')
+      }
   },
 })
