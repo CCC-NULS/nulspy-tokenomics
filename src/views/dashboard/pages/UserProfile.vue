@@ -156,17 +156,26 @@
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
                 <v-btn
-                  color="info"
-                  @click="changeTrue"
+                  color="purple lighten-1"
+                  @click="changeToTrue(false)"
+                >
+                  Hide Card
+                </v-btn>
+                <v-btn
+                  color="green lighten-1"
+                  @click="changeToTrue(true)"
                 >
                   Show Card
                 </v-btn>
+                <div> <br> </div>                <div> <br> </div>
                 <v-btn
-                  v-show="nmscard"
+                  v-show="showButton"
                   id="nmscardid"
+                  color="orange"
                 >
-                  Test hidden-lg-only
+                  HIDE THIS BUTTON
                 </v-btn>
+                <div> <br> </div>
               </v-card>
             </v-container>
           </v-form>
@@ -322,12 +331,11 @@
       currentPlotPath: '@/assets/plots/' + pname,
     }),
     computed: {
-      ...mapState(['nmscard']),
-
+      ...mapState(['showButton']),
     },
     methods: {
-      changeTrue: function () {
-        this.$store.commit('changebutton');
+      changeToTrue: function (theval) {
+        this.$store.dispatch('changebuttonAct', theval);
       },
       makePlot: function  () {
         ggtime = '"+ new Date()"'

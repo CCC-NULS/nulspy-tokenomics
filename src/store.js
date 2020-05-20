@@ -17,11 +17,17 @@ export default new Vuex.Store({
     SET_DRAWER (state, payload) {
       state.drawer = payload
     },
-    changebutton(state) {
-      state.showButton = true
+    changebuttonMut(state, theval) {
+      state.showButton = theval
     },
   },
-  actions: {
-
+  getters: {
+    showButton: state => state.showButton
   },
+  actions: {
+    changebuttonAct (context, theval) {
+        context.commit('changebuttonMut', theval)
+    }
+  }
+
 })
