@@ -134,7 +134,6 @@
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
-                      @click="makeTimeStamp"
                     />
                   </v-col>
                 </v-row>
@@ -144,6 +143,7 @@
                   type="submit"
                   size="large"
                   color="warning"
+                  @click="makeTimeStamp(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
                   submitform
                 </v-btn>
@@ -171,17 +171,40 @@
   import store from '@/store'
   import axios from 'axios'
   import { mapState } from 'vuex'
-  let gtimestr = ''
+  let gtimestr = '';
 
-  function makeTimeStamp () {
+  function makeTimeStamp (a, b, c, d, e) {
     console.log("inside timestring method");
     let tss = new Date()
     let ts = tss.valueOf();
     let timestr = ts.toString().substring(5,13);
     this.$store.dispatch('gTimeStampAct', timestr);
     console.log('timestr: ' + timestr);
-    gtimestr = timestr; 
+    gtimestr = timestr;
+    this.makePlot(a, b, c, d, e, timestr) 
     };
+
+  function makePlot (aa, bb, c, dd, e, timestp) {
+    const self = this
+    let a = aa.replace(',', '')
+    let b = bb.replace(',', '')
+    let d = dd.replace(',', '')
+    let aw = '&initsup=' + a
+    let bw = '&anninf=' + b
+    let cw = '&startinf=' + c
+    let dw = '&stopinf=' + d
+    let ew = '&disinf=' + e
+    console.log("gtime is: " + timestp)
+    let timestpLong = '&timestp=' + timestp
+    let requestVars = aw + bw + cw + dw + ew + timestpLong
+    let baseurl = 'http://localhost:5002/getpy?' + requestVars
+    console.log("baseurl is: " + baseurl)
+    let plname = 'plot' + timestp + '.svg'
+    let locPlotPath = '@/assets/plots/' + plname
+    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
+    self.makePlotTwo(baseurl, locPlotPath);
+  };
+
   const rexw = {
     intsup: '&initsup=',
     annif: '&anninf=',
@@ -221,7 +244,6 @@
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      gtimestr: null,
       initsupply: ['100,000', '200,000', '500,000', '1,000,000'],
       aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
@@ -233,17 +255,16 @@
     },
     methods: {
       makeTimeStamp,
+      makePlot,
       changeToTrue: function (theval) {
         this.$store.dispatch('showButtonAct', theval)
       },
       showPlotNow: function (theval) {
         this.$store.dispatch('showPlotAct', theval)
       },
-      getLocalPlotPath: function (timestp) {
-        let plname = 'plot' + timestp + '.svg'
-        let locPlotPath = '@/assets/plots/' + plname
-        this.$store.dispatch('gLocPlotPathAct', locPlotPath)
-      },
+      // storeLocalPlotPath: function (locPlotPath) {
+      //   this.$store.dispatch('gLocPlotPathAct', locPlotPath)
+      // },
       waitForFileCreate: function (createdFile) {
         ;(async () => {
           console.log("inside waitForFileCreate")
@@ -254,22 +275,8 @@
         console.log('found new file ' + createdFile + ' at ' + nowtime)
         this.$store.dispatch('showPlotAct', true)
       },
-      makePlot: function  (aa, bb, c, dd , e) {
-        let gtime = this.makeTimeStamp();
-        let a = aa.replace(',', '')
-        let b = bb.replace(',', '')
-        let d = dd.replace(',', '')
-        let aw = '&initsup=' + a
-        let bw = '&anninf=' + b
-        let cw = '&startinf=' + c
-        let dw = '&stopinf=' + d
-        let ew = '&disinf=' + e
-        console.log("gtime is: " + gtime)
-        let tw = '&timestp=' + gtime
-        let requestVars = aw + bw + cw + dw + ew + tw
-        let baseurl = 'http://localhost:5002/getpy?' + requestVars
-        console.log("baseurl is: " + baseurl)
-
+      makePlotTwo: function (baseurl, locFileName) {
+        var ref = this
         ;(async () => {
           console.log('inside submitPlot')
           const response = await axiosi({
@@ -277,8 +284,7 @@
             method: 'get'
           })
         console.log(response)
-        let fNameNew = this.getLocalPlotPath(gtime)
-        this.waitForFileCreate(fNameNew)
+        this.waitForFileCreate(locFileName)
         })()
       },
     },
