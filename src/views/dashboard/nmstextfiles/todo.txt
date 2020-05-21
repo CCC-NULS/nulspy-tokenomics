@@ -1,0 +1,8 @@
+1) change plot name later:
+2) show hide graph with button
+3) show hide graph with submit button
+4) send data from submit to python
+5) have python make plotone.svg
+
+   
+

@@ -1,0 +1,71 @@
+<template id="plottemplate">
+  <base-material-card
+    id="plotmatcard"
+  >
+    <v-row>
+      <v-col
+        cols="12"
+        md="10"
+      >
+        <v-card
+          id="vcardone"
+          color="warning lighten-2"
+          class="ml-2 mr-2 mt-3 pa-2"
+          elevation-24
+          raised
+        >
+          <v-card-title
+            display-3
+            color="white!important"
+          >
+            Your Plot
+          </v-card-title>
+          <v-card
+            id="vcardtwo"
+            class="m2-3 mr-2 mt-3 pa-2 plotcenter"
+            elevation-24
+            raised
+            color="success"
+          >
+            <pyplot
+              width="90%"
+              height="90%"
+              @is="pyplot"
+            />
+
+            <v-card-actions>
+              <v-btn id="redobtn">
+                Redo
+              </v-btn>
+              <v-btn
+                id="savebtn"
+                color="purple"
+              >
+                Save
+              </v-btn>
+              <v-spacer />
+            </v-card-actions>
+          </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
+  </base-material-card>
+</template>
+
+<script>
+  // import pyplot2 from '@/assets/plots/plot1589179263048.svg'
+  import currentPlotPath from UserProfile
+  import pyplot from "currentPlotPath"
+
+  export default {
+    name: 'PlotView',
+    data: () => ({
+      pyplot,
+    }),
+    methods: {
+      conlog: function () {
+        console.log("in PlotView")
+      },
+    },
+  }
+</script>

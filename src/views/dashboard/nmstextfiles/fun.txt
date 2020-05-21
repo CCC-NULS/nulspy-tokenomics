@@ -1,0 +1,109 @@
+
+                <!--
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="5"
+                  />
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-btn
+                      v-model="mycolor"
+                      :color="mycolor"
+                      @click="setbtncolor"
+                    >
+                      new button
+                    </v-btn>
+                    <v-btn
+                      v-show="myshow"
+                      v-model="myshow"
+                      color="orange"
+                      @click="setmyshow"
+                    >
+                      new setmyshow button
+                    </v-btn>
+
+                    <v-btn
+                      id="chgbtn"
+                      @click="setshowfalse"
+                    >
+                      Hide button
+                    </v-btn>
+                  -->
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+                <!--   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # # -->
+
+
+
+                
+      // setshowfalse: function () {
+      //   this.showx = false
+      //   },
+      // setbtncolor: function () {
+      //   console.log("just pressed chg color button")
+      //   this.mycolor="purple"
+      //   return this.mycolor
+      //   },
+      // setmyshow: function () {
+      //   console.log("just pressed setmyshow button")
+      //   this.myshow=false
+      //   return this.myshow
+      //   },
+      // selectionChanged: function () {
+      //   let msg = "in selectionChanged routine"
+      //   this.showx = true
+      //   console.log("selectionChanged: " + vmodsel1)
+      //   },
+      // subfiles: function () {
+      //   console.log("just pressed subfiles button")
+      //   this.finalshow = "true"
+      //   return this.finalshow
+      //   },
+
+      // makeGTimestamp: function () {
+      //   return + new Date()
+      // },
+      // getPlotName: function (grtime) {
+      //   return ("plot" + grtime + ".svg")
+      // },
+
+
+
+                    <!--
+
+                <v-btn
+                  color="green lighten-1"
+                  @click="showPlotNow(true)"
+                >
+                  Show Plot
+                </v-btn>
+                <div> <br> </div>
+
+                <   -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
+                <  -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
+
+
+                <v-btn
+                  color="purple lighten-1"
+                  @click="changeToTrue(false)"
+                >
+                  Hide Card
+                </v-btn>
+                <div> <br> </div>
+                <v-btn
+                  color="green darken-1"
+                  @click="changeToTrue(true)"
+                >
+                  Show Card
+                </v-btn>
+                <div> <br> </div>
+                <v-btn
+                  v-show="showButton"
+                  id="nmscardid"
+                  color="orange"
+                >
+                  HIDE THIS BUTTON
+                </v-btn>
+                -->
