@@ -12,7 +12,7 @@
         <base-material-card color="primary">
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
-              Vuetify Material Dashboard
+              NULS Tokenlife
             </div>
 
             <div class="subtitle-1 font-weight-light">

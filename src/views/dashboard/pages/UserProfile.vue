@@ -67,7 +67,7 @@
 
                     <v-select
                       id="vselone"
-                      v-model="vmodsel1"
+                      v-model="vmd1"
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
@@ -83,7 +83,7 @@
                   >
                     <v-select
                       id="vseltwo"
-                      v-model="vmodsel2"
+                      v-model="vmd2"
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
@@ -100,7 +100,7 @@
                   >
                     <v-select
                       id="vselthree"
-                      v-model="vmodsel3"
+                      v-model="vmd3"
                       type="string"
                       label="Inflation Interval"
                       class="margleft"
@@ -115,7 +115,7 @@
                   >
                     <v-select
                       id="vselfour"
-                      v-model="vmodsel4"
+                      v-model="vmd4"
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
@@ -129,11 +129,12 @@
                     <!-- disinflation # select # five five:  # # # #  # # # #  # # # #  -->
                     <v-select
                       id="vselfive"
-                      v-model="vmodsel5"
+                      v-model="vmd5"
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
+                      @click="makeTimeStamp"
                     />
                   </v-col>
                 </v-row>
@@ -143,50 +144,10 @@
                   type="submit"
                   size="large"
                   color="warning"
-                  @click="makePlot"
                 >
                   submitform
                 </v-btn>
                 <div>  <br>  </div>
-
-                <!--
-
-                <v-btn
-                  color="green lighten-1"
-                  @click="showPlotNow(true)"
-                >
-                  Show Plot
-                </v-btn>
-                <div> <br> </div>
-
-                <   -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
-                <  -   click=submit BUTTON  # # #BUTTON # # # BUTTON  # # # BUTTON  # # # # #
-
-
-                <v-btn
-                  color="purple lighten-1"
-                  @click="changeToTrue(false)"
-                >
-                  Hide Card
-                </v-btn>
-                <div> <br> </div>
-                <v-btn
-                  color="green darken-1"
-                  @click="changeToTrue(true)"
-                >
-                  Show Card
-                </v-btn>
-                <div> <br> </div>
-                <v-btn
-                  v-show="showButton"
-                  id="nmscardid"
-                  color="orange"
-                >
-                  HIDE THIS BUTTON
-                </v-btn>
-                -->
-
-                <div> <br> </div>
               </v-card>
             </v-container>
           </v-form>
@@ -201,6 +162,8 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
+//  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
+
   // import ProfileCardNs from '@/views/dashboard/components/ProfileCardNs'
   // import SecondCard from '@/views/dashboard/components/SecondCard'
   import TopWords from '@/views/dashboard/components/TopWords'
@@ -208,28 +171,35 @@
   import store from '@/store'
   import axios from 'axios'
   import { mapState } from 'vuex'
+  let gtimestr = ''
 
+  function makeTimeStamp () {
+    console.log("inside timestring method");
+    let tss = new Date()
+    let ts = tss.valueOf();
+    let timestr = ts.toString().substring(5,13);
+    this.$store.dispatch('gTimeStampAct', timestr);
+    console.log('timestr: ' + timestr);
+    gtimestr = timestr; 
+    };
+  const rexw = {
+    intsup: '&initsup=',
+    annif: '&anninf=',
+    stinf: '&startinf=',
+    stpin: '&stopinf=',
+    disin: '&disinf=',
+  };
   const chipprops = {
     class: 'v_chip_small',
     small: true,
     dark: false,
-  }
-  const initsup = '100000000'
-  const anninf = '6000000'
-  const startinf = '26'
-  const stopinf = '210000000'
-  const disinf = '6'
-  // let a = '&initsup=' + initsup
-  // let b = '&anninf=' + anninf
-  // let c = '&startinf=' + startinf
-  // let d = '&stopinf=' + stopinf
-  // let e = '&disinf=' + disinf
-  let fa = '&initsup='
-  let fb = '&anninf='
-  let fc = '&startinf='
-  let fd = '&stopinf='
-  let fe = '&disinf='
-  let pname = 'empty'
+  };
+  // const initsup = '100000000'
+  // const anninf = '6000000'
+  // const startinf = '26'
+  // const stopinf = '210000000'
+  // const disinf = '6'
+
   const axiosi = axios.create({
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
@@ -239,75 +209,79 @@
 
   export default {
     components: {
-      // ProfileCardNs,
-      // SecondCard,
       TopWords,
       LastCard,
     },
     data: () => ({
       chipprops,
+      gtimestr,
       formvmodel: '',
-      isHidden: false,
-      finalshow: false,
-      vmodsel1: '',
-      vmodsel2: '',
-      vmodsel3: '',
-      vmodsel4: '',
-      vmodsel5: '',
+      vmd1: '',
+      vmd2: '',
+      vmd3: '',
+      vmd4: '',
+      vmd5: '',
+      gtimestr: null,
       initsupply: ['100,000', '200,000', '500,000', '1,000,000'],
       aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
-      showx: true,
-      mycolor: 'red',
-      whitetxt: 'white--text',
-      orangetxt: 'orange--text',
-      heavy: 500,
-      margbott: '16px',
-      myshow: true,
-      secondcardshow: false,
-      lastcardshow: false,
-      pname,
-      currentPlotPath: '@/assets/plots/' + pname,
     }),
     computed: {
-      ...mapState(['showButton', 'showPlot']),
+      ...mapState(['showButton', 'showPlot', 'gTimeStamp', 'gLocPlotPath']),
     },
     methods: {
+      makeTimeStamp,
       changeToTrue: function (theval) {
         this.$store.dispatch('showButtonAct', theval)
       },
       showPlotNow: function (theval) {
         this.$store.dispatch('showPlotAct', theval)
       },
-      getTimestamp: function () {
-        let timestr = new Date().valueOf().toString().substring(5,13)
-        return timestr
+      getLocalPlotPath: function (timestp) {
+        let plname = 'plot' + timestp + '.svg'
+        let locPlotPath = '@/assets/plots/' + plname
+        this.$store.dispatch('gLocPlotPathAct', locPlotPath)
       },
-      getLocalPlotPath: function (plotname) {
-        let timestr = '@/assets/plots/' + plotname
-        return plotname
-      },
-      makePlot: function  (a, b, c, d , e) {
-        this.$store.dispatch('showPlotAct', true)
-        ggtime = "this.getTimestamp()"
-        pname = 'plot' + ggtime + '.svg'
-        //let requestVars = a + b + c + d + e + '&timestp=' + ggtime
-        let requestVars = a + b + c + d + e + '&timestp=' + ggtime
-        let baseurl = 'http://localhost:5002/getpy?' + requestVars
+      waitForFileCreate: function (createdFile) {
         ;(async () => {
-          console.log("inside submitPlot")
+          console.log("inside waitForFileCreate")
+          let fs = require(createdFile)
+          })
+        console.log(response)
+        let nowtime = new Date()
+        console.log('found new file ' + createdFile + ' at ' + nowtime)
+        this.$store.dispatch('showPlotAct', true)
+      },
+      makePlot: function  (aa, bb, c, dd , e) {
+        let gtime = this.makeTimeStamp();
+        let a = aa.replace(',', '')
+        let b = bb.replace(',', '')
+        let d = dd.replace(',', '')
+        let aw = '&initsup=' + a
+        let bw = '&anninf=' + b
+        let cw = '&startinf=' + c
+        let dw = '&stopinf=' + d
+        let ew = '&disinf=' + e
+        console.log("gtime is: " + gtime)
+        let tw = '&timestp=' + gtime
+        let requestVars = aw + bw + cw + dw + ew + tw
+        let baseurl = 'http://localhost:5002/getpy?' + requestVars
+        console.log("baseurl is: " + baseurl)
+
+        ;(async () => {
+          console.log('inside submitPlot')
           const response = await axiosi({
             url: baseurl,
             method: 'get'
           })
         console.log(response)
-
+        let fNameNew = this.getLocalPlotPath(gtime)
+        this.waitForFileCreate(fNameNew)
         })()
       },
     },
-
   }
 </script>
 
