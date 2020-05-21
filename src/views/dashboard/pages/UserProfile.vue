@@ -219,11 +219,16 @@
   const startinf = '26'
   const stopinf = '210000000'
   const disinf = '6'
-  let a = '&initsup=' + initsup
-  let b = '&anninf=' + anninf
-  let c = '&startinf=' + startinf
-  let d = '&stopinf=' + stopinf
-  let e = '&disinf=' + disinf
+  // let a = '&initsup=' + initsup
+  // let b = '&anninf=' + anninf
+  // let c = '&startinf=' + startinf
+  // let d = '&stopinf=' + stopinf
+  // let e = '&disinf=' + disinf
+  let fa = '&initsup='
+  let fb = '&anninf='
+  let fc = '&startinf='
+  let fd = '&stopinf='
+  let fe = '&disinf='
   let pname = 'empty'
   const axiosi = axios.create({
     });
@@ -264,7 +269,6 @@
       secondcardshow: false,
       lastcardshow: false,
       pname,
-      ggtime: '',
       currentPlotPath: '@/assets/plots/' + pname,
     }),
     computed: {
@@ -278,12 +282,18 @@
         this.$store.dispatch('showPlotAct', theval)
       },
       getTimestamp: function () {
-        ggtime = '"+ new Date()"'
-        return ggtime
+        let timestr = new Date().valueOf().toString().substring(5,13)
+        return timestr
       },
-      makePlot: function  () {
+      getLocalPlotPath: function (plotname) {
+        let timestr = '@/assets/plots/' + plotname
+        return plotname
+      },
+      makePlot: function  (a, b, c, d , e) {
         this.$store.dispatch('showPlotAct', true)
+        ggtime = "this.getTimestamp()"
         pname = 'plot' + ggtime + '.svg'
+        //let requestVars = a + b + c + d + e + '&timestp=' + ggtime
         let requestVars = a + b + c + d + e + '&timestp=' + ggtime
         let baseurl = 'http://localhost:5002/getpy?' + requestVars
         ;(async () => {
