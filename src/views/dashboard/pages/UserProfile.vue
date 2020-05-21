@@ -183,10 +183,11 @@
     gtimestr = timestr;
     this.makePlot(a, b, c, d, e, timestr) 
     };
-
+  // need to remove comma's twice from a
   function makePlot (aa, bb, c, dd, e, timestp) {
     const self = this
-    let a = aa.replace(',', '')
+    let aaa = aa.replace(',', '')
+    let a = aaa.replace(',', '') 
     let b = bb.replace(',', '')
     let d = dd.replace(',', '')
     let aw = '&initsup=' + a
@@ -244,7 +245,7 @@
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      initsupply: ['100,000', '200,000', '500,000', '1,000,000'],
+      initsupply: ['100,000', '200,000', '500,000', '1000,000'],
       aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
@@ -262,33 +263,33 @@
       showPlotNow: function (theval) {
         this.$store.dispatch('showPlotAct', theval)
       },
-      // storeLocalPlotPath: function (locPlotPath) {
-      //   this.$store.dispatch('gLocPlotPathAct', locPlotPath)
-      // },
       waitForFileCreate: function (createdFile) {
         ;(async () => {
-          console.log("inside waitForFileCreate")
-          let fs = require(createdFile)
+          const resps = await require(createdFile)
+          }).then(() => {
+              console.log('got this far')
           })
-        console.log(response)
         let nowtime = new Date()
         console.log('found new file ' + createdFile + ' at ' + nowtime)
         this.$store.dispatch('showPlotAct', true)
       },
       makePlotTwo: function (baseurl, locFileName) {
-        var ref = this
         ;(async () => {
-          console.log('inside submitPlot')
           const response = await axiosi({
             url: baseurl,
-            method: 'get'
+            method: 'get',
           })
-        console.log(response)
-        this.waitForFileCreate(locFileName)
         })()
+        const myref = this
+        myref.waitForFileCreate(locFileName)
       },
     },
   }
+// async onChange(product) {
+//       await this.productBasedListings( product.id ).then(() => {
+//       console.log('LIST:', this.listingContracts); 
+//       })
+// },
 </script>
 
 <style src="@/assets/styles/mystyle.css">

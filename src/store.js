@@ -11,7 +11,7 @@ export default new Vuex.Store({
     showButton: false,
     showPlot: false,
     gTimeStamp: null,
-    gLogPlotPath: null,
+    gLocPlotPath: null,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
