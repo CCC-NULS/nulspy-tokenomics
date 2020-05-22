@@ -261,35 +261,24 @@
         this.$store.dispatch('showButtonAct', theval)
       },
       showPlotNow: function (theval) {
-        this.$store.dispatch('showPlotAct', theval)
-      },
-      waitForFileCreate: function (createdFile) {
-        ;(async () => {
-          const resps = await require(createdFile)
-          }).then(() => {
-              console.log('got this far')
-          })
-        let nowtime = new Date()
-        console.log('found new file ' + createdFile + ' at ' + nowtime)
-        this.$store.dispatch('showPlotAct', true)
+        this.$store.dispatch('showPlotAct', theval);
       },
       makePlotTwo: function (baseurl, locFileName) {
         ;(async () => {
-          const response = await axiosi({
+          let response = await axiosi({
             url: baseurl,
             method: 'get',
           })
-        })()
-        const myref = this
-        myref.waitForFileCreate(locFileName)
+        })(),
+        this.checkfile();
+        },
+      checkfile: async () => {
+        const promise1Result = await fetch(locFileName);
+        console.log('found new file ' + locFileName + ' at ' + (new Date()));
+        this.$store.dispatch('showPlotAct', true);
       },
     },
   }
-// async onChange(product) {
-//       await this.productBasedListings( product.id ).then(() => {
-//       console.log('LIST:', this.listingContracts); 
-//       })
-// },
 </script>
 
 <style src="@/assets/styles/mystyle.css">

@@ -24,6 +24,11 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
         // {
+        //   name: 'LastCard',
+        //   path: 'components',
+        //   component: () => import('@/views/dashboard/components/LastCard'),
+        // },
+        // {
         //   name: 'Inflation',
         //   path: 'components/notifications',
         //   component: () => import('@/views/dashboard/component/Notifications'),

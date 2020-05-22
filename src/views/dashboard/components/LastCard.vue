@@ -1,6 +1,7 @@
 <template>
   <div>
     <base-material-card
+      id="plotcardlast"
       name="LastCard"
       color="warning lighten-1"
       text="Your Plot"
@@ -13,7 +14,7 @@
         raised
         color="success"
       >
-        <plotOne />
+        <plottwo />
       </v-card>
 
       <v-card class="padbot">
@@ -33,19 +34,24 @@
 
 <script>
   import store from '@/store'
-  import { mapState } from 'vuex'  // get plot name from store
-  plotpath = $store.gLocPlotPath
-  import { plotOne } from 'plotpath'
+  import vuex from 'vuex'
 
+  import { mapState } from 'vuex'  // get plot name from store
+  var self = this
+  let filename = self.store.state.gLocPlotPath
+  import { plottwo } from "self.store.state.gLocPlotPath"
+ 
   export default {
     name: 'LastCard',
     components: {
-      plotOne,
+      plottwo,
     },
     data: () => ({
       placehold: 'placeholder',
     }),
   }
+  // function have their own 'this' instance so when you call this you get the instance of the function your inside in and not the vue instance. The typical solution to this in vanilla javascript is to create a temporary variable outside the function then use it inside the function. 
+  //e.g var self = this; register: function () { self.$store.commit(); }
 </script>
 
 <style>
