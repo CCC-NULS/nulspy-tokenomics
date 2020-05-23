@@ -35,8 +35,8 @@ def index():
 
 
 @cross_origin()
-@application.route('/', methods=["GET", "POST", "UPDATE", "HEAD"])
-def rootdir():
+@application.route('/getpy', methods=["GET", "POST", "UPDATE", "HEAD"])
+def getpy():
     # if request.method == 'POST':
     #     print('Incoming POST')
 
@@ -59,22 +59,24 @@ def rootdir():
 
     tk_obj.main(args_dict)
 
-    chk_file = chk_for_file(args_dict.get('plotfilepath'))
+    # chk_file = chk_for_file(args_dict.get('plotfilepath'))
     print("got this far! file should be there")
-    return chk_file  # true or false
-
+    return '200 OK'
 
 def make_names(args_dict):
     if os.name == 'nt':
-        app_root = "E:/PycharmProjects/CCC/nulspy-tokenomics"
+        app_root = "E:/wsvue/vuetify-material-dashboard-master/src/assets"
         # app_root = os.path.abspath(os.curdir)
     else:
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
         app_root = '/usr/share/nginx/html/tokenlife'
 
     timestp = args_dict.get("timestp")
-    plot_name = "plot" + timestp + ".svg"
-    plotsdir = 'plotfiles'
+    plot_nameTS = "plot" + timestp + ".svg"
+    plot_name = "plotmain.svg"
+
+    plotsdir = 'plots'
+    plotsdirTS = 'plotsTS'
     plotfilesdir = os.path.join(app_root, plotsdir)
     plotfp = os.path.join(plotfilesdir, plot_name)
     plotfilepath = os.path.normpath(plotfp)

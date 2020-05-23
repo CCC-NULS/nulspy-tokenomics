@@ -33,7 +33,7 @@ class AppSupport:
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))
+        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
