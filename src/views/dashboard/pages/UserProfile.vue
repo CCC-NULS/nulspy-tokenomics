@@ -87,7 +87,7 @@
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
-                      placeholder="100,000"
+                      placeholder="1,000"
                     />
                   </v-col>
                 </v-row>
@@ -154,7 +154,23 @@
         </base-material-card>
       </v-col>
     </v-row>
-    <component :is="getImage" />
+    <v-row>
+      <v-col
+        cols="12"
+        md="11"
+      >
+        <base-material-card
+          id="plotbase"
+        >
+          <PlotMainComp
+            v-show="lastcardactive"
+            v-model="lastcardactive"
+            width="99%"
+            plotbase
+          />
+        </base-material-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -162,12 +178,12 @@
 
 <script>
   import TopWords from '@/views/dashboard/components/TopWords'
-  // import LastCard2 from '@/views/dashboard/components/LastCard2'
   import store from '@/store'
   import axios from 'axios'
   import { mapState } from 'vuex'
-  let gtimestr = '';
-  let globalPlot = 'empty';
+  import PlotMainComp from '@/assets/plots/plotmain.svg'
+  let formvmodel = ''
+  let lastcardactive = false
 
   function makeTimeStamp (a, b, c, d, e) {
     console.log("inside timestring method");
@@ -176,9 +192,9 @@
     let timestr = ts.toString().substring(5,13);
     this.$store.dispatch('gTimeStampAct', timestr);
     console.log('timestr: ' + timestr);
-    gtimestr = timestr;
     this.makePlot(a, b, c, d, e, timestr) 
     };
+
   // need to remove comma's twice from a
   function makePlot (aa, bb, c, dd, e, timestp) {
     const self = this
@@ -197,24 +213,17 @@
     let baseurl = 'http://localhost:5002/getpy?' + requestVars
     console.log("baseurl is: " + baseurl)
     let plname = 'plot' + timestp + '.svg'
-    let locPlotPath = '@/assets/plots/' + plname
+    let locPlotPath = '@/assets/plots/plotmain.svg'
+
     this.$store.dispatch('gLocPlotPathAct', locPlotPath)
     self.makePlotTwo(baseurl, locPlotPath);
-    this.globalPlot = locPlotPath
   };
 
-  const rexw = {
-    intsup: '&initsup=',
-    annif: '&anninf=',
-    stinf: '&startinf=',
-    stpin: '&stopinf=',
-    disin: '&disinf=',
-  };
   const chipprops = {
     class: 'v_chip_small',
     small: true,
     dark: false,
-  };
+  }
 
   const axiosi = axios.create({
     });
@@ -226,40 +235,37 @@
   export default {
     components: {
       TopWords,
+      PlotMainComp,
     },
     data: () => ({
       chipprops,
-      globalPlot,
-      gtimestr,
-      formvmodel: '',
+      formvmodel,
+      lastcardactive,
       vmd1: '',
       vmd2: '',
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      // lastcardactive: false,
-      initsupply: ['100,000', '200,000', '500,000', '1000,000'],
-      aninflation: ['400,000', '450,000', '500,000', '600,000'],
-      inflatervals: ['12', '24', '36', '48'],
+      initsupply: ['100,000,000', '700,000', '500,000', '300,000'],
+      aninflation: ['200,000', '300,000', '400,000', '500,000'],
+      inflatervals: ['12', '18', '24', '36', '48'],
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
     }),
     computed: {
-      ...mapState(['showButton', 'showPlot', 'gTimeStamp', 'gLocPlotPath']),
-      dynamicValue: function (globalPlot) {
-        return require(`./${globalPlot}`);
-      }
+      ...mapState(['showButton', 'showPlot', 'gTimeStamp']),
     },
     methods: {
       makeTimeStamp,
       makePlot,
       getImage: function () {
-        return '<img svg-inline svg-sprite src="@/assets/plots/plot6.svg" />'
+        return '<img svg-inline svg-sprite src="@/assets/plots/plotmain.svg" />'
         },
       changeToTrue: function (theval) {
         this.$store.dispatch('showButtonAct', theval)
       },
       showPlotNow: function (theval) {
+        lastcardactive = true
         this.$store.dispatch('showPlotAct', theval);
       },
       makePlotTwo: function (baseurl) {
@@ -269,8 +275,8 @@
             method: 'get',
           })
         })()
-        // lastcardactive = true;
-      }
+        setTimeout(console.log("yes"), 1500);
+      },
     }
   }
 </script>
