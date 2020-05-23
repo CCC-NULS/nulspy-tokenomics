@@ -17,8 +17,9 @@
         <div 
           class="align-center" 
         >
-          title
-          <LastCard2 fname="plottwo.svg" />
+          <LastCard2 
+            is="LastCard2" 
+          /> 
         </div>
       </v-card>
 
@@ -40,23 +41,26 @@
 <script>
   import store from '@/store'
   import vuex from 'vuex'
-  import LastCard2 from 'LastCard2'
-  import { mapState } from 'vuex'  // get plot name from store
-  var self = this;
- 
-  // function dothisnow () {
-  //   import myplot from gLocPlotPathGet
+  // import LastCard2 from '@/views/dashboard/components/LastCard2'
+  import { mapState } from 'vuex';  // get plot name from store
 
+  // iconPath(dynamicValue) {
+  //   return require(`./${dynamicValue}.svg`)
   // }
 
-  export default {
-    name: 'LastCard',
-    components: {
-      LastCard2,
-    },
-    data: () => ({
-      placehold: 'placeholder',
-    }),
+  // export default {
+  //   name: 'LastCard',
+  //   props: {
+  //     fname: {
+  //       type: String,
+  //       default: 'PLOTNAME GOES HERE',
+  //     },
+  //   },
+  //   data: () => ({
+  //     ffname: 'plottwo.svg',
+  //     placehold: 'placeholder',
+  //   }),
+
    
     // watch: {
     //   gLocPlotGet () {

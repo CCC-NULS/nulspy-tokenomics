@@ -154,24 +154,20 @@
         </base-material-card>
       </v-col>
     </v-row>
-
-    <LastCard v-show="showPlot" />
+    <component :is="getImage" />
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-//  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
-
-  // import ProfileCardNs from '@/views/dashboard/components/ProfileCardNs'
-  // import SecondCard from '@/views/dashboard/components/SecondCard'
   import TopWords from '@/views/dashboard/components/TopWords'
-  import LastCard from '@/views/dashboard/components/LastCard'
+  // import LastCard2 from '@/views/dashboard/components/LastCard2'
   import store from '@/store'
   import axios from 'axios'
   import { mapState } from 'vuex'
   let gtimestr = '';
+  let globalPlot = 'empty';
 
   function makeTimeStamp (a, b, c, d, e) {
     console.log("inside timestring method");
@@ -204,6 +200,7 @@
     let locPlotPath = '@/assets/plots/' + plname
     this.$store.dispatch('gLocPlotPathAct', locPlotPath)
     self.makePlotTwo(baseurl, locPlotPath);
+    this.globalPlot = locPlotPath
   };
 
   const rexw = {
@@ -218,11 +215,6 @@
     small: true,
     dark: false,
   };
-  // const initsup = '100000000'
-  // const anninf = '6000000'
-  // const startinf = '26'
-  // const stopinf = '210000000'
-  // const disinf = '6'
 
   const axiosi = axios.create({
     });
@@ -234,10 +226,10 @@
   export default {
     components: {
       TopWords,
-      LastCard,
     },
     data: () => ({
       chipprops,
+      globalPlot,
       gtimestr,
       formvmodel: '',
       vmd1: '',
@@ -245,6 +237,7 @@
       vmd3: '',
       vmd4: '',
       vmd5: '',
+      // lastcardactive: false,
       initsupply: ['100,000', '200,000', '500,000', '1000,000'],
       aninflation: ['400,000', '450,000', '500,000', '600,000'],
       inflatervals: ['12', '24', '36', '48'],
@@ -253,31 +246,32 @@
     }),
     computed: {
       ...mapState(['showButton', 'showPlot', 'gTimeStamp', 'gLocPlotPath']),
+      dynamicValue: function (globalPlot) {
+        return require(`./${globalPlot}`);
+      }
     },
     methods: {
       makeTimeStamp,
       makePlot,
+      getImage: function () {
+        return '<img svg-inline svg-sprite src="@/assets/plots/plot6.svg" />'
+        },
       changeToTrue: function (theval) {
         this.$store.dispatch('showButtonAct', theval)
       },
       showPlotNow: function (theval) {
         this.$store.dispatch('showPlotAct', theval);
       },
-      makePlotTwo: function (baseurl, locFileName) {
+      makePlotTwo: function (baseurl) {
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
             method: 'get',
           })
-        })(),
-        this.checkfile();
-        },
-      checkfile: async () => {
-        const promise1Result = await fetch(locFileName);
-        console.log('found new file ' + locFileName + ' at ' + (new Date()));
-        this.$store.dispatch('showPlotAct', true);
-      },
-    },
+        })()
+        // lastcardactive = true;
+      }
+    }
   }
 </script>
 

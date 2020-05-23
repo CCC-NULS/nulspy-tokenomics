@@ -74,8 +74,11 @@
 
 <script>
   // import { vmodsel1, vmodsel2, vmodsel3, vmodsel4, vmodsel5 } from '@/views/dashboard/pages/UserProfile'
+
   export default {
     name: 'OtherCard',
+    components: {
+    },
     data: () => ({
       placehold: 'placeholder',
       tshowing: true,
