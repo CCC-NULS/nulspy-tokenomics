@@ -9,7 +9,7 @@ export default new Vuex.Store({
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
     showButton: false,
-    showPlot: false,
+    gShowPlot: false,
     gTimeStamp: null,
     gLocPlotPath: null,
   },
@@ -23,8 +23,8 @@ export default new Vuex.Store({
     showButtonMut(state, theval) {
       state.showButton = theval
     },
-    showPlotMut(state, theval) {
-      state.showPlot = theval
+    gShowPlotMut(state, theval) {
+      state.gShowPlot = theval
     },
     gTimeStampMut(state, theval) {
       state.gTimeStamp = theval
@@ -34,8 +34,10 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    gLocPlotPathGet: state => state.gLocPlotPath
+    gLocPlotPathGet: state => state.gLocPlotPath,
+    gShowPlotGet: state => state.gShowPlot,
   },
+
     // getters: {
   //   getShowButton: state => state.showButton,
   //   getShowPlot: state => state.showPlot
@@ -52,8 +54,8 @@ export default new Vuex.Store({
     showButtonAct (context, theval) {
       context.commit('showButtonMut', theval)
     },
-    showPlotAct (context, theval) {
-      context.commit('showPlotMut', theval)
+    gShowPlotAct (context, theval) {
+      context.commit('gShowPlotMut', theval)
     },
     gTimeStampAct (context, theval) {
       context.commit('gTimeStampMut', theval)

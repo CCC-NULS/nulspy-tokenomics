@@ -160,14 +160,11 @@
         md="11"
       >
         <base-material-card
+          v-if="myShowPlot"
           id="plotbase"
+          width="99%"
         >
-          <PlotMainComp
-            v-show="lastcardactive"
-            v-model="lastcardactive"
-            width="99%"
-            plotbase
-          />
+          <PlotMainComp />
         </base-material-card>
       </v-col>
     </v-row>
@@ -180,17 +177,20 @@
   import TopWords from '@/views/dashboard/components/TopWords'
   import store from '@/store'
   import axios from 'axios'
-  import { mapState } from 'vuex'
+  import state from '@/store'
+  import { mapState} from 'vuex'
   import PlotMainComp from '@/assets/plots/plotmain.svg'
   let formvmodel = ''
   let lastcardactive = false
+  let myShowPlot = false
 
   function makeTimeStamp (a, b, c, d, e) {
     console.log("inside timestring method");
     let tss = new Date()
     let ts = tss.valueOf();
     let timestr = ts.toString().substring(5,13);
-    this.$store.dispatch('gTimeStampAct', timestr);
+    store.dispatch('gTimeStampAct', timestr);
+
     console.log('timestr: ' + timestr);
     this.makePlot(a, b, c, d, e, timestr) 
     };
@@ -198,15 +198,21 @@
   // need to remove comma's twice from a
   function makePlot (aa, bb, c, dd, e, timestp) {
     const self = this
-    let aaa = aa.replace(',', '')
-    let a = aaa.replace(',', '') 
-    let b = bb.replace(',', '')
-    let d = dd.replace(',', '')
-    let aw = '&initsup=' + a
-    let bw = '&anninf=' + b
-    let cw = '&startinf=' + c
-    let dw = '&stopinf=' + d
-    let ew = '&disinf=' + e
+    // let aaa = aa.replace(',', '')
+    // let a = aaa.replace(',', '') 
+    // let b = bb.replace(',', '')
+    // let d = dd.replace(',', '')
+    // let aw = '&initsup=' + a
+    // let bw = '&anninf=' + b
+    // let cw = '&startinf=' + c
+    // let dw = '&stopinf=' + d
+    // let ew = '&disinf=' + e
+    let aw = '&initsup=100000000'
+    let bw = '&anninf=500000' 
+    let cw = '&startinf=24'
+    let dw = '&stopinf=500000'
+    let ew = '&disinf=5'    
+    
     console.log("gtime is: " + timestp)
     let timestpLong = '&timestp=' + timestp
     let requestVars = aw + bw + cw + dw + ew + timestpLong
@@ -215,8 +221,11 @@
     let plname = 'plot' + timestp + '.svg'
     let locPlotPath = '@/assets/plots/plotmain.svg'
 
-    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
+    store.dispatch('gLocPlotPathAct', locPlotPath)
     self.makePlotTwo(baseurl, locPlotPath);
+    setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
+    store.dispatch('gShowPlotAct', true)
+    console.log("state.gShowplot: " + state.gShowPlot )
   };
 
   const chipprops = {
@@ -253,21 +262,27 @@
       disinflation: ['3', '4', '5'],
     }),
     computed: {
-      ...mapState(['showButton', 'showPlot', 'gTimeStamp']),
+      myShowPlot: state.gShowPlot,
+      // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
+     // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
+      // ...mapGetters(['gShowPlotGet', 'gLocPlotPathGet']),
+      // ...mapActions(['gTimeStampAct', 'gLocPlotPathAct', 'gShowPlotAct']),
     },
     methods: {
       makeTimeStamp,
       makePlot,
-      getImage: function () {
-        return '<img svg-inline svg-sprite src="@/assets/plots/plotmain.svg" />'
-        },
+      // getImage: function () {
+      //   return '<img svg-inline svg-sprite src="@/assets/plots/plotmain.svg" />'
+      //   },
       changeToTrue: function (theval) {
-        this.$store.dispatch('showButtonAct', theval)
+        store.dispatch(gShowButtonAct, theval)
       },
-      showPlotNow: function (theval) {
-        lastcardactive = true
-        this.$store.dispatch('showPlotAct', theval);
-      },
+    //   showPlotNow: function (theval) {
+    //     lastcardactive = theval
+    //     this.$store.dispatch('gShowPlotAct', theval);
+    //     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
+    //     console.log("state.gShowplot: " + state.gShowPlot )
+    //  },
       makePlotTwo: function (baseurl) {
         ;(async () => {
           let response = await axiosi({
@@ -275,7 +290,6 @@
             method: 'get',
           })
         })()
-        setTimeout(console.log("yes"), 1500);
       },
     }
   }
