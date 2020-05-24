@@ -224,6 +224,9 @@
     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
     this.$store.dispatch('gShowPlotAct', true)
     console.log("state.gShowplot: " + this.$store.state.gShowPlot )
+    console.log("state.gLocPlotPath: " + this.$store.state.gLocPlotPath )
+    console.log("state.gTimeStamp: " + this.$store.state.gTimeStamp )
+
   };
 
   const chipprops = {
