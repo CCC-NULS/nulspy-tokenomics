@@ -175,13 +175,11 @@
 
 <script>
   import TopWords from '@/views/dashboard/components/TopWords'
-  import store from '@/store'
+  // import store from '@/store'
   import axios from 'axios'
-  import state from '@/store'
-  import { mapState} from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
   import PlotMainComp from '@/assets/plots/plotmain.svg'
   let formvmodel = ''
-  let lastcardactive = false
   let myShowPlot = false
 
   function makeTimeStamp (a, b, c, d, e) {
@@ -189,8 +187,8 @@
     let tss = new Date()
     let ts = tss.valueOf();
     let timestr = ts.toString().substring(5,13);
-    store.dispatch('gTimeStampAct', timestr);
-
+    this.$store.dispatch('gTimeStampAct', timestr);
+    this.myShowPlot = true
     console.log('timestr: ' + timestr);
     this.makePlot(a, b, c, d, e, timestr) 
     };
@@ -221,11 +219,11 @@
     let plname = 'plot' + timestp + '.svg'
     let locPlotPath = '@/assets/plots/plotmain.svg'
 
-    store.dispatch('gLocPlotPathAct', locPlotPath)
+    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
     self.makePlotTwo(baseurl, locPlotPath);
     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
-    store.dispatch('gShowPlotAct', true)
-    console.log("state.gShowplot: " + state.gShowPlot )
+    this.$store.dispatch('gShowPlotAct', true)
+    console.log("state.gShowplot: " + this.$store.state.gShowPlot )
   };
 
   const chipprops = {
@@ -247,9 +245,9 @@
       PlotMainComp,
     },
     data: () => ({
+      myShowPlot,
       chipprops,
       formvmodel,
-      lastcardactive,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -262,7 +260,7 @@
       disinflation: ['3', '4', '5'],
     }),
     computed: {
-      myShowPlot: state.gShowPlot,
+      // myShowPlot: this.$store.state.gShowPlot,
       // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
      // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
       // ...mapGetters(['gShowPlotGet', 'gLocPlotPathGet']),
@@ -274,11 +272,10 @@
       // getImage: function () {
       //   return '<img svg-inline svg-sprite src="@/assets/plots/plotmain.svg" />'
       //   },
-      changeToTrue: function (theval) {
-        store.dispatch(gShowButtonAct, theval)
-      },
+      // changeToTrue: function (theval) {
+      //   this.$store.dispatch('gShowButtonAct', theval)
+      // },
     //   showPlotNow: function (theval) {
-    //     lastcardactive = theval
     //     this.$store.dispatch('gShowPlotAct', theval);
     //     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
     //     console.log("state.gShowplot: " + state.gShowPlot )
