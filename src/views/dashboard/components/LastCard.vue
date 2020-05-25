@@ -39,10 +39,10 @@
 </template>
 
 <script>
-  import store from '@/store'
-  import vuex from 'vuex'
-  // import LastCard2 from '@/views/dashboard/components/LastCard2'
-  import { mapState } from 'vuex';  // get plot name from store
+  // import store from '@/store'
+  // import vuex from 'vuex'
+  // // import LastCard2 from '@/views/dashboard/components/LastCard2'
+  // import { mapState } from 'vuex';  // get plot name from store
 
   // iconPath(dynamicValue) {
   //   return require(`./${dynamicValue}.svg`)
@@ -70,7 +70,7 @@
     //   ...mapGetters(['gLocPlotPathGet']),
     //   import myplot from gLocPlotPathGet
     // },
-  }
+ 
   // function have their own 'this' instance so when you call this you get the instance of the function your inside in and not the vue instance. The typical solution to this in vanilla javascript is to create a temporary variable outside the function then use it inside the function. 
   //e.g var self = this; register: function () { self.$store.commit(); }
 </script>

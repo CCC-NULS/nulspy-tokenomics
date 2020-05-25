@@ -159,13 +159,17 @@
         cols="12"
         md="11"
       >
-        <base-material-card
-          v-if="myShowPlot"
-          id="plotbase"
-          width="99%"
+        <div
+          v-show="myShowPlot"
+          id="plotdiv"
+          name="plotdiv"
+          width="92%"
         >
-          <PlotMainComp />
-        </base-material-card>
+          <LastCard2 
+            id="lastcard2"
+            class="width=90%"
+          /> 
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -174,11 +178,10 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 
 <script>
-  import TopWords from '@/views/dashboard/components/TopWords'
-  // import store from '@/store'
   import axios from 'axios'
   import { mapState, mapMutations } from 'vuex'
-  import PlotMainComp from '@/assets/plots/plotmain.svg'
+  import LastCard2 from '@/views/dashboard/components/LastCard2'
+  import TopWords from '@/views/dashboard/components/TopWords'
   let formvmodel = ''
   let myShowPlot = false
 
@@ -217,7 +220,8 @@
     let baseurl = 'http://localhost:5002/getpy?' + requestVars
     console.log("baseurl is: " + baseurl)
     let plname = 'plot' + timestp + '.svg'
-    let locPlotPath = '@/assets/plots/plotmain.svg'
+    let locPlotPath = '@/assets/plots/plotmain.svg' // for testing
+    let locPlotPathTS = '@/assets/plots/' + plname + '.svg'
 
     this.$store.dispatch('gLocPlotPathAct', locPlotPath)
     self.makePlotTwo(baseurl, locPlotPath);
@@ -226,7 +230,6 @@
     console.log("state.gShowplot: " + this.$store.state.gShowPlot )
     console.log("state.gLocPlotPath: " + this.$store.state.gLocPlotPath )
     console.log("state.gTimeStamp: " + this.$store.state.gTimeStamp )
-
   };
 
   const chipprops = {
@@ -245,7 +248,7 @@
   export default {
     components: {
       TopWords,
-      PlotMainComp,
+      LastCard2,
     },
     data: () => ({
       myShowPlot,
@@ -265,24 +268,10 @@
     computed: {
       // myShowPlot: this.$store.state.gShowPlot,
       // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
-     // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
-      // ...mapGetters(['gShowPlotGet', 'gLocPlotPathGet']),
-      // ...mapActions(['gTimeStampAct', 'gLocPlotPathAct', 'gShowPlotAct']),
     },
     methods: {
       makeTimeStamp,
       makePlot,
-      // getImage: function () {
-      //   return '<img svg-inline svg-sprite src="@/assets/plots/plotmain.svg" />'
-      //   },
-      // changeToTrue: function (theval) {
-      //   this.$store.dispatch('gShowButtonAct', theval)
-      // },
-    //   showPlotNow: function (theval) {
-    //     this.$store.dispatch('gShowPlotAct', theval);
-    //     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
-    //     console.log("state.gShowplot: " + state.gShowPlot )
-    //  },
       makePlotTwo: function (baseurl) {
         ;(async () => {
           let response = await axiosi({
