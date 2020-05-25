@@ -159,7 +159,7 @@
         cols="12"
         md="11"
       >
-        <div
+        <base-material-card
           v-show="myShowPlot"
           id="plotdiv"
           name="plotdiv"
@@ -168,8 +168,26 @@
           <LastCard2 
             id="lastcard2"
             class="width=90%"
+            :plotname="newplot"
           /> 
-        </div>
+          <v-card 
+            color="success"
+            class="padbotcard"
+            elevation-24
+            raised
+          >
+            <v-btn id="redobtn">
+              Redo
+            </v-btn>
+            <v-btn
+              id="savebtn"
+              color="purple"
+              @click="keepplot"
+            >
+              Save
+            </v-btn>
+          </v-card>
+        </base-material-card>
       </v-col>
     </v-row>
   </v-container>
@@ -184,6 +202,16 @@
   import TopWords from '@/views/dashboard/components/TopWords'
   let formvmodel = ''
   let myShowPlot = false
+  const plotsSaved = []
+
+
+  function keepplot() {
+    let pname = this.$store.state.gLocPlotPath
+    const count = plotsSaved.push(pname);
+    this.$store.dispatch('gPlotListAct', plotsSaved);
+    console.log("Inside keepplot. Plots pushed: " + count)
+    console.log(plotsSaved)
+  }
 
   function makeTimeStamp (a, b, c, d, e) {
     console.log("inside timestring method");
@@ -220,10 +248,10 @@
     let baseurl = 'http://localhost:5002/getpy?' + requestVars
     console.log("baseurl is: " + baseurl)
     let plname = 'plot' + timestp + '.svg'
-    let locPlotPath = '@/assets/plots/plotmain.svg' // for testing
-    let locPlotPathTS = '@/assets/plots/' + plname + '.svg'
+    let locPlotPath = '@/assets/plots/' + plname
 
-    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
+    // let locPlotPathTemp = '@/assets/plots/plotmain.svg' // for testing
+    this.$store.dispatch('gLocPlotPathAct', plname)
     self.makePlotTwo(baseurl, locPlotPath);
     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
     this.$store.dispatch('gShowPlotAct', true)
@@ -248,9 +276,12 @@
   export default {
     components: {
       TopWords,
-      LastCard2,
+      LastCard2: {
+        plotname: "feather.svg"
+      },
     },
     data: () => ({
+      newplot: 'newplot',
       myShowPlot,
       chipprops,
       formvmodel,
@@ -270,6 +301,7 @@
       // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
     },
     methods: {
+      keepplot,
       makeTimeStamp,
       makePlot,
       makePlotTwo: function (baseurl) {
@@ -285,4 +317,12 @@
 </script>
 
 <style src="@/assets/styles/mystyle.css">
+  .padbotcard {
+    margin-top: 1px!important;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    display: flex;
+    align: top;
+    justify-content: center;
+  }
 </style>

@@ -12,6 +12,7 @@ export default new Vuex.Store({
     gShowPlot: false,
     gTimeStamp: null,
     gLocPlotPath: null,
+    gPlotList: null,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -32,24 +33,15 @@ export default new Vuex.Store({
     gLocPlotPathMut(state, theval) {
       state.gLocPlotPath = theval
     },
+    gPlotListMut(state, theval) {
+      state.gPlotList = theval
+    },
   },
   getters: {
     gLocPlotPathGet: state => state.gLocPlotPath,
     gShowPlotGet: state => state.gShowPlot,
+    gPlotListGet: state => state.gPlotList,
   },
-
-    // getters: {
-  //   getShowButton: state => state.showButton,
-  //   getShowPlot: state => state.showPlot
-  // },
-  // getters: {
-  //   getShowButton: state => state.showButton,
-  //   getShowPlot: state => state.showPlot
-  // },
-  // setters: {
-  //   setShowButton: state.showButton = true,
-  //   setShowPlot: state.showPlot = true
-  // },
   actions: {
     showButtonAct (context, theval) {
       context.commit('showButtonMut', theval)
@@ -62,6 +54,9 @@ export default new Vuex.Store({
     },
     gLocPlotPathAct (context, theval) {
       context.commit('gLocPlotPathMut', theval)
+    },
+    gPlotListAct (context, theval) {
+      context.commit('gPlotListMut', theval)
     }
   }
 
