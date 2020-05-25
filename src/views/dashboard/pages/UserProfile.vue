@@ -168,8 +168,9 @@
           <LastCard2 
             id="lastcard2"
             class="width=90%"
-            :plotname="newplot"
-          /> 
+            plotname="plotmain.svg"
+          />
+          
           <v-card 
             color="success"
             class="padbotcard"
@@ -252,8 +253,10 @@
 
     // let locPlotPathTemp = '@/assets/plots/plotmain.svg' // for testing
     this.$store.dispatch('gLocPlotPathAct', plname)
-    self.makePlotTwo(baseurl, locPlotPath);
+    self.makePlotTwo(baseurl);
     setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
+
+
     this.$store.dispatch('gShowPlotAct', true)
     console.log("state.gShowplot: " + this.$store.state.gShowPlot )
     console.log("state.gLocPlotPath: " + this.$store.state.gLocPlotPath )
@@ -277,11 +280,11 @@
     components: {
       TopWords,
       LastCard2: {
-        plotname: "feather.svg"
+        plotname: "plotmain.svg"
       },
     },
     data: () => ({
-      newplot: 'newplot',
+      plotname: 'plotmain.svg',
       myShowPlot,
       chipprops,
       formvmodel,
