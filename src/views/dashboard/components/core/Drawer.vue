@@ -32,8 +32,8 @@
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            src="@/assets/nulsWhiteLogo40.jpg"
+            max-height="45"
           />
         </v-list-item-avatar>
 
@@ -94,10 +94,7 @@
 <script>
   // Utilities
 
-  import {
-    mapState,
-  } from 'vuex'
-
+  import {  mapState  } from 'vuex'
   export default {
     name: 'DashboardCoreDrawer',
     props: {

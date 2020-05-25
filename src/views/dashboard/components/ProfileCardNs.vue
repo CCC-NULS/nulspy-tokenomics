@@ -8,7 +8,7 @@
         <base-material-card
           id="profilecardsub"
           class="v-card-profile"
-          avatar="http://westteam.nulstar.com/nms/artws/Social_Telegram_G.svg"
+          avatar="@/assets/avatar.svg"
         >
           <v-row>
             <v-col
