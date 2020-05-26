@@ -237,6 +237,14 @@
         this.$store.dispatch('gLocPlotNameAct', plotNameLoc)
         console.log("just ran storePlotName")
       },
+      makePlotTwo: function (baseurl) {
+        ;(async () => {
+          let response = await axiosi({
+            url: baseurl,
+            method: "get",
+          })
+        })()
+      },
       makePlot: function (aa, bb, c, dd, e, timestp) {
         console.log('inside makePlot function');
         const self = this
@@ -272,7 +280,7 @@
         console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
         console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
         console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
-        makePlotTwo(baseurl);
+        this.makePlotTwo(baseurl);
         this.myShowPlot = true;
        },
       makeTimeStamp: function (a, b, c, d, e) {
@@ -292,14 +300,6 @@
         this.$store.dispatch('gPlotListAct', plotsSaved);
         console.log('Inside keepplot. Plots pushed: ' + count)
         console.log(plotsSaved)
-      },
-      makePlotTwo: function (baseurl) {
-        ;(async () => {
-          let response = await axiosi({
-            url: baseurl,
-            method: "get",
-          })
-        })()
       },
     }
   }
