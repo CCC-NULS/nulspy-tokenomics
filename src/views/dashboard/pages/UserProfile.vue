@@ -23,11 +23,11 @@
           </template>
 
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
+          <!--             v-model="formvmodel"   -->
 
           <v-form
-            id="form"
-            ref="form"
-            v-model="formvmodel"
+            id="mainform"
+            ref="formref"
             @submit.prevent
           >
             <v-container
@@ -139,7 +139,7 @@
                 </v-row>
 
                 <v-btn
-                  id="submit"
+                  id="submitmain"
                   type="submit"
                   size="large"
                   color="warning"
@@ -192,73 +192,8 @@
 
 <script>
   import axios from 'axios'
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-
-  let formvmodel = ''
-  let myShowPlot = false
-  const plotsSaved = []
-
-  function keepplot() {
-    let pname = this.$store.state.gLocPlotPath
-    const count = plotsSaved.push(pname);
-    this.$store.dispatch('gPlotListAct', plotsSaved);
-    console.log('Inside keepplot. Plots pushed: ' + count)
-    console.log(plotsSaved)
-  }
-
-  function makeTimeStamp (a, b, c, d, e) {
-    console.log('inside timestring method');
-    let tss = new Date();
-    let ts = tss.valueOf();
-    const timestr = ts.toString().substring(5,13);
-    this.$store.dispatch('gTimeStampAct', timestr);
-    console.log('timestr: ' + timestr);
-    makePlot(a, b, c, d, e, timestr);
-    };
-
-
-  // need to remove comma's twice from a
-  function makePlot (aa, bb, c, dd, e, timestp) {
-    const self = this
-    // let aaa = aa.replace(',', '')
-    // let a = aaa.replace(',', '') 
-    // let b = bb.replace(',', '')
-    // let d = dd.replace(',', '')
-    // let aw = '&initsup=' + a
-    // let bw = '&anninf=' + b
-    // let cw = '&startinf=' + c
-    // let dw = '&stopinf=' + d
-    // let ew = '&disinf=' + e
-    let aw = '&initsup=100000000'
-    let bw = '&anninf=500000' 
-    let cw = '&startinf=24'
-    let dw = '&stopinf=500000'
-    let ew = '&disinf=5'    
-    
-    console.log('gtime is: ' + timestp)
-    let timestpLong = '&timestp=' + timestp
-    let requestVars = aw + bw + cw + dw + ew + timestpLong
-    let baseurl = 'http://localhost:5002/getpy?' + requestVars
-    console.log('baseurl is: ' + baseurl)
-    let plname = 'plot' + timestp + '.svg'
-    let locPlotPath = '@/assets/plots/' + plname
-    this.$store.dispatch('gLocPlotNameAct', plname)
-    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
-    this.$store.dispatch('gShowPlotAct', true)
-    console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
-    console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
-    console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
-    makePlotTwo(baseurl);
-    myShowPlot = true;
-
-  };
-
-  const chipprops = {
-    class: 'v_chip_small',
-    small: true,
-    dark: false,
-  }
 
   const axiosi = axios.create({
     });
@@ -268,33 +203,101 @@
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
   export default {
+    name: 'UserProfilePage',
     components: {
       TopWords,
     },
     data: () => ({
-      myShowPlot,
-      chipprops,
-      formvmodel,
+      // formvmodel: '',
+      myShowPlot: '',  // must be this to be "reactive"
+      plotsSaved: [],
+      chipprops: {
+        class: "v_chip_small",
+        small: true,
+        dark: false,
+      },
       vmd1: '',
       vmd2: '',
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      initsupply: ['100,000,000', '700,000', '500,000', '300,000'],
-      aninflation: ['200,000', '300,000', '400,000', '500,000'],
-      inflatervals: ['12', '18', '24', '36', '48'],
-      stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
-      disinflation: ['3', '4', '5'],
+      initsupply: ["100,000,000", "700,000", "500,000", "300,000"],
+      aninflation: ["200,000", "300,000", "400,000", "500,000"],
+      inflatervals: ["12", "18", "24", "36", "48"],
+      stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
+      disinflation: ["3", "4", "5"],
     }),
+    mounted () {
+      console.log("value of gShowPlot in store: ")
+      console.log(this.$store.state.gShowPlot);
+      myShowPlot: false;
+      },
     methods: {
-      keepplot,
-      makePlot,
-      makeTimeStamp,
+      storePlotName: function (plotNameLoc) {
+        this.$store.dispatch('gLocPlotNameAct', plotNameLoc)
+        console.log("just ran storePlotName")
+      },
+      makePlot: function (aa, bb, c, dd, e, timestp) {
+        console.log('inside makePlot function');
+        const self = this
+        // let aaa = aa.replace(',', '')
+        // let aw = '&initsup=' + aaa.replace(',', '')
+        // let bw = '&anninf=' + bb.replace(',', '')
+        // let cw = '&startinf=' + c
+        // let dw = '&stopinf=' + dd..replace(',', '')
+        // let ew = '&disinf=' + e
+        let aw = "&initsup=100000000"
+        let bw = "&anninf=500000" 
+        let cw = "&startinf=24"
+        let dw = "&stopinf=500000"
+        let ew = "&disinf=5"    
+        console.log("gtime is: " + timestp)
+        let timestpLong = "&timestp=" + timestp
+        let requestVars = aw + bw + cw + dw + ew + timestpLong
+        let baseurl = "http://localhost:5002/getpy?" + requestVars
+        console.log("baseurl is: " + baseurl)
+        let plname = "plot" + timestp + ".svg"
+        let locPlotPath = "@/assets/plots/" + plname
+        console.log("!!!locPlotPath: " + locPlotPath )
+        console.log("!!!gLocPlotNameAct: " + plname + "  !!!plname: " + plname)
+        console.log("!!!baseurl: " + baseurl + "  !!!myShowPlot: " + this.myShowPlot)
+        this.storePlotName(plname)
+
+        self.$store.dispatch('gLocPlotNameAct', plname)
+        console.log("!!!herenow: line 251")
+        self.$store.dispatch('gLocPlotPathAct', locPlotPath)
+        console.log("!!!herenow: line 254")
+
+        this.$store.dispatch('gShowPlotAct', true)
+        console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
+        console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
+        console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
+        makePlotTwo(baseurl);
+        this.myShowPlot = true;
+       },
+      makeTimeStamp: function (a, b, c, d, e) {
+        console.log('inside timestring function');
+        const timestr = Date.now().toString().substring(5,13);
+        this.$store.dispatch("gTimeStampAct", timestr);
+        console.log("timestr: " + timestr);
+        this.makePlot(a, b, c, d, e, timestr);
+      },
+      // need to remove comma's twice from a
+     
+       
+
+      keepplot: function () {
+        let pname = this.$store.state.gLocPlotPath
+        const count = plotsSaved.push(pname);
+        this.$store.dispatch('gPlotListAct', plotsSaved);
+        console.log('Inside keepplot. Plots pushed: ' + count)
+        console.log(plotsSaved)
+      },
       makePlotTwo: function (baseurl) {
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
-            method: 'get',
+            method: "get",
           })
         })()
       },
