@@ -23,17 +23,17 @@ export default new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
-        {
-          name: 'LastCard2',
-          path: 'components',
-          component: () => import('@/views/dashboard/components/LastCard2'),
-          props: {
-            plotname: {
-              type: String,
-              default: 'defaultplot',
-            },
-          },
-        },
+        // {
+        //   name: 'LastCard2',
+        //   path: 'components',
+        //   component: () => import('@/views/dashboard/components/LastCard2'),
+        //   props: {
+        //     plotname: {
+        //       type: String,
+        //       default: 'plotmain.svg',
+        //     },
+        //   },
+        // },
         // {
         //   name: 'Inflation',
         //   path: 'components/notifications',

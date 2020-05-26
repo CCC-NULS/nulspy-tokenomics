@@ -34,6 +34,7 @@
     "fd-slicer": "^1.1.0",
     "flask": "^0.2.10",
     "graphql": "^15.0.0",
+    "gulp": "^4.0.2",
     "has": "^1.0.3",
     "jest-message-util": "^26.0.1",
     "jest-serializer": "^26.0.0",

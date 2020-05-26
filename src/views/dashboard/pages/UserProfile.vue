@@ -165,12 +165,6 @@
           name="plotdiv"
           width="92%"
         >
-          <LastCard2 
-            id="lastcard2"
-            class="width=90%"
-            plotname="plotmain.svg"
-          />
-          
           <v-card 
             color="success"
             class="padbotcard"
@@ -199,12 +193,19 @@
 <script>
   import axios from 'axios'
   import { mapState, mapMutations } from 'vuex'
-  import LastCard2 from '@/views/dashboard/components/LastCard2'
   import TopWords from '@/views/dashboard/components/TopWords'
+  import MyObserver from './observer'
+  var myobserv = new MyObserver();
+  const folderr = '@/assets/plots';
+
+  myobserv.on('file-added', log => {
+    console.log(log.message);
+  });
+  myobserv.watchFolder(folderr);
+
   let formvmodel = ''
   let myShowPlot = false
   const plotsSaved = []
-
 
   function keepplot() {
     let pname = this.$store.state.gLocPlotPath
@@ -224,6 +225,7 @@
     console.log('timestr: ' + timestr);
     this.makePlot(a, b, c, d, e, timestr) 
     };
+
 
   // need to remove comma's twice from a
   function makePlot (aa, bb, c, dd, e, timestp) {
@@ -251,12 +253,8 @@
     let plname = 'plot' + timestp + '.svg'
     let locPlotPath = '@/assets/plots/' + plname
 
-    // let locPlotPathTemp = '@/assets/plots/plotmain.svg' // for testing
     this.$store.dispatch('gLocPlotPathAct', plname)
     self.makePlotTwo(baseurl);
-    setTimeout(console.log("timeout 1.5 seconds for chart to be made"), 1500);
-
-
     this.$store.dispatch('gShowPlotAct', true)
     console.log("state.gShowplot: " + this.$store.state.gShowPlot )
     console.log("state.gLocPlotPath: " + this.$store.state.gLocPlotPath )
@@ -279,12 +277,8 @@
   export default {
     components: {
       TopWords,
-      LastCard2: {
-        plotname: "plotmain.svg"
-      },
     },
     data: () => ({
-      plotname: 'plotmain.svg',
       myShowPlot,
       chipprops,
       formvmodel,
@@ -299,14 +293,9 @@
       stopinflation: ['400,000', '450,000', '500,000', '600,000', '700,000'],
       disinflation: ['3', '4', '5'],
     }),
-    computed: {
-      // myShowPlot: this.$store.state.gShowPlot,
-      // ...mapState(['gLocPlotPath', 'gShowPlot', 'gTimeStamp']),
-    },
     methods: {
       keepplot,
       makeTimeStamp,
-      makePlot,
       makePlotTwo: function (baseurl) {
         ;(async () => {
           let response = await axiosi({

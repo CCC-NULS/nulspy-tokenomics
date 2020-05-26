@@ -38,9 +38,9 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    gLocPlotPathGet: state => state.gLocPlotPath,
+    // gLocPlotPathGet: state => state.gLocPlotPath,
     gShowPlotGet: state => state.gShowPlot,
-    gPlotListGet: state => state.gPlotList,
+    // gPlotListGet: state => state.gPlotList,
   },
   actions: {
     showButtonAct (context, theval) {
