@@ -12,6 +12,7 @@ export default new Vuex.Store({
     gShowPlot: false,
     gTimeStamp: null,
     gLocPlotPath: null,
+    gLocPlotName: null,
     gPlotList: null,
   },
   mutations: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     gPlotListMut(state, theval) {
       state.gPlotList = theval
     },
+    gLocPlotNameMut(state, theval) {
+      state.gLocPlotName = theval
+    },
   },
   getters: {
     // gLocPlotPathGet: state => state.gLocPlotPath,
@@ -57,6 +61,9 @@ export default new Vuex.Store({
     },
     gPlotListAct (context, theval) {
       context.commit('gPlotListMut', theval)
+    },
+    gLocPlotNameAct (context, theval) {
+      context.commit('gLocPlotNameMut', theval)
     }
   }
 

@@ -160,7 +160,7 @@
         md="11"
       >
         <base-material-card
-          v-show="myShowPlot"
+          v-if="myShowPlot"
           id="plotdiv"
           name="plotdiv"
           width="92%"
@@ -194,14 +194,6 @@
   import axios from 'axios'
   import { mapState, mapMutations } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-  import MyObserver from './observer'
-  var myobserv = new MyObserver();
-  const folderr = '@/assets/plots';
-
-  myobserv.on('file-added', log => {
-    console.log(log.message);
-  });
-  myobserv.watchFolder(folderr);
 
   let formvmodel = ''
   let myShowPlot = false
@@ -211,19 +203,18 @@
     let pname = this.$store.state.gLocPlotPath
     const count = plotsSaved.push(pname);
     this.$store.dispatch('gPlotListAct', plotsSaved);
-    console.log("Inside keepplot. Plots pushed: " + count)
+    console.log('Inside keepplot. Plots pushed: ' + count)
     console.log(plotsSaved)
   }
 
   function makeTimeStamp (a, b, c, d, e) {
-    console.log("inside timestring method");
-    let tss = new Date()
+    console.log('inside timestring method');
+    let tss = new Date();
     let ts = tss.valueOf();
-    let timestr = ts.toString().substring(5,13);
+    const timestr = ts.toString().substring(5,13);
     this.$store.dispatch('gTimeStampAct', timestr);
-    this.myShowPlot = true
     console.log('timestr: ' + timestr);
-    this.makePlot(a, b, c, d, e, timestr) 
+    makePlot(a, b, c, d, e, timestr);
     };
 
 
@@ -245,20 +236,22 @@
     let dw = '&stopinf=500000'
     let ew = '&disinf=5'    
     
-    console.log("gtime is: " + timestp)
+    console.log('gtime is: ' + timestp)
     let timestpLong = '&timestp=' + timestp
     let requestVars = aw + bw + cw + dw + ew + timestpLong
     let baseurl = 'http://localhost:5002/getpy?' + requestVars
-    console.log("baseurl is: " + baseurl)
+    console.log('baseurl is: ' + baseurl)
     let plname = 'plot' + timestp + '.svg'
     let locPlotPath = '@/assets/plots/' + plname
-
-    this.$store.dispatch('gLocPlotPathAct', plname)
-    self.makePlotTwo(baseurl);
+    this.$store.dispatch('gLocPlotNameAct', plname)
+    this.$store.dispatch('gLocPlotPathAct', locPlotPath)
     this.$store.dispatch('gShowPlotAct', true)
-    console.log("state.gShowplot: " + this.$store.state.gShowPlot )
-    console.log("state.gLocPlotPath: " + this.$store.state.gLocPlotPath )
-    console.log("state.gTimeStamp: " + this.$store.state.gTimeStamp )
+    console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
+    console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
+    console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
+    makePlotTwo(baseurl);
+    myShowPlot = true;
+
   };
 
   const chipprops = {
@@ -271,7 +264,7 @@
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
-  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT, DELETE'
+  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
   export default {
@@ -295,6 +288,7 @@
     }),
     methods: {
       keepplot,
+      makePlot,
       makeTimeStamp,
       makePlotTwo: function (baseurl) {
         ;(async () => {
