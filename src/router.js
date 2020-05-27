@@ -24,6 +24,11 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
         // {
+        //   path: '@/assets/plots/plotmain.svg',
+        //   name: 'plotmain',
+        //   component: user,
+        // },
+        // {
         //   name: 'LastCard2',
         //   path: 'components',
         //   component: () => import('@/views/dashboard/components/LastCard2'),

@@ -159,6 +159,9 @@
         cols="12"
         md="11"
       >
+        <tplot 
+          v-show="false"
+        />
         <base-material-card
           v-if="myShowPlot"
           id="plotdiv"
@@ -194,6 +197,16 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
+  import chokidar from 'chokidar'
+  const chokida = require('chokidar');
+  import  EventEmitter from 'events.EventEmitter'
+  const EventEmitte = require('events').EventEmitter;
+  import fsExtra from 'fs-extra'
+  const fsExtr = require('fs-extra');
+  const ckfile = '@/assets/plots/plotmain.svg';
+  // const ckfile2 = '@/assets/plots/plotmain.svg';
+  import tplot from '@/assets/plots/plotmain.svg'
+
 
   const axiosi = axios.create({
     });
@@ -206,7 +219,9 @@
     name: 'UserProfilePage',
     components: {
       TopWords,
-    },
+      tplot,
+    },    
+
     data: () => ({
       // formvmodel: '',
       myShowPlot: '',  // must be this to be "reactive"
@@ -227,15 +242,24 @@
       stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
       disinflation: ["3", "4", "5"],
     }),
+    watch: {
+      tplot: {
+        deep: true,
+        immediate: true,
+        handler: console.log("filechg")
+        }
+      },
+ 
     mounted () {
       console.log("value of gShowPlot in store: ")
       console.log(this.$store.state.gShowPlot);
       myShowPlot: false;
       },
+
     methods: {
       storePlotName: function (plotNameLoc) {
         this.$store.dispatch('gLocPlotNameAct', plotNameLoc)
-        console.log("just ran storePlotName")
+        console.log('just ran storePlotName')
       },
       makePlotTwo: function (baseurl) {
         ;(async () => {
@@ -283,6 +307,7 @@
         this.makePlotTwo(baseurl);
         this.myShowPlot = true;
        },
+          
       makeTimeStamp: function (a, b, c, d, e) {
         console.log('inside timestring function');
         const timestr = Date.now().toString().substring(5,13);
@@ -291,8 +316,6 @@
         this.makePlot(a, b, c, d, e, timestr);
       },
       // need to remove comma's twice from a
-     
-       
 
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
@@ -301,7 +324,7 @@
         console.log('Inside keepplot. Plots pushed: ' + count)
         console.log(plotsSaved)
       },
-    }
+    },
   }
 </script>
 
