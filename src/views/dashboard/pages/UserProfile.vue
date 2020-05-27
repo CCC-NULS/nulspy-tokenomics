@@ -159,15 +159,18 @@
         cols="12"
         md="11"
       >
-        <tplot 
-          v-show="false"
-        />
         <base-material-card
           v-if="myShowPlot"
           id="plotdiv"
           name="plotdiv"
           width="92%"
         >
+          <tplotdefault 
+            v-show="!{myShowPlot}"
+          />
+          <AsyncComponent 
+            v-show="myShowPlot"
+          />       
           <v-card 
             color="success"
             class="padbotcard"
@@ -197,16 +200,14 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-  // import chokidar from 'chokidar'
-  // const chokida = require('chokidar');
-  // import  EventEmitter from 'events.EventEmitter'
-  // const EventEmitte = require('events').EventEmitter;
-  // import fsExtra from 'fs-extra'
-  // const fsExtr = require('fs-extra');
-  // const ckfile = '@/assets/plots/plotmain.svg';
-  // // const ckfile2 = '@/assets/plots/plotmain.svg';
-  import tplot from '@/assets/plots/plotmain.svg'
+  import tplotdefault from '@/assets/plots/plotmain.svg'
+  
+  var tplotnew = ''
 
+  const plotnewprom = new Promise(function (resolve, reject) {
+    resolve: { import(tplotnew) }
+    reject: { }
+    });
 
   const axiosi = axios.create({
     });
@@ -215,11 +216,27 @@
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
+  const AsyncComponent = () => ({
+    // The component to load (should be a Promise)
+    component: import(plotnewprom),
+    // A component to use while the async component is loading
+    loading: tplotdefault,
+    // A component to use if the load fails
+    error: tplotdefault,
+    // Delay before showing the loading component. Default: 200ms.
+    delay: 200,
+    // The error component will be displayed if a timeout is
+    // provided and exceeded. Default: Infinity.
+    timeout: 3000,
+  })
+
+
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
-      tplot,
+      tplotdefault,
+      AsyncComponent,
     },    
 
     data: () => ({
@@ -243,11 +260,15 @@
       disinflation: ["3", "4", "5"],
     }),
     watch: {
-      tplot: {
+      tplotdefault: {
         deep: true,
-        handler: console.log("filechg")
-        }
-      },
+        handler: function () {
+          console.log("file chg!!")
+          // console.log("value of state.gLocPlotPath: ", this.$store.state.gLocPlotPath)
+          myShowPlot: true
+        },
+      }
+    },
  
     mounted () {
       console.log("value of gShowPlot in store: ")
@@ -305,6 +326,7 @@
         console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
         this.makePlotTwo(baseurl);
         this.myShowPlot = true;
+        tplotnew = this.$store.state.gLocPlotPath
        },
           
       makeTimeStamp: function (a, b, c, d, e) {
