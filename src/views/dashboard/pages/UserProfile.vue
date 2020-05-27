@@ -197,14 +197,14 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-  import chokidar from 'chokidar'
-  const chokida = require('chokidar');
-  import  EventEmitter from 'events.EventEmitter'
-  const EventEmitte = require('events').EventEmitter;
-  import fsExtra from 'fs-extra'
-  const fsExtr = require('fs-extra');
-  const ckfile = '@/assets/plots/plotmain.svg';
-  // const ckfile2 = '@/assets/plots/plotmain.svg';
+  // import chokidar from 'chokidar'
+  // const chokida = require('chokidar');
+  // import  EventEmitter from 'events.EventEmitter'
+  // const EventEmitte = require('events').EventEmitter;
+  // import fsExtra from 'fs-extra'
+  // const fsExtr = require('fs-extra');
+  // const ckfile = '@/assets/plots/plotmain.svg';
+  // // const ckfile2 = '@/assets/plots/plotmain.svg';
   import tplot from '@/assets/plots/plotmain.svg'
 
 
@@ -245,7 +245,6 @@
     watch: {
       tplot: {
         deep: true,
-        immediate: true,
         handler: console.log("filechg")
         }
       },
