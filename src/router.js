@@ -24,12 +24,9 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
         {
-          name: 'plotmain',
-          id: 'pmid',
-          pfilename: 'tempPlotmain.vue',
+          name: 'plotrt',
           path: 'assets/plots',
-          tpath: '@/assets/plots/:pfilename', 
-          component: () => import(tpath),
+          component: () => import('@/assets/plots/plotnone.vue'),
         },
         // {
         //   name: 'LastCard2',

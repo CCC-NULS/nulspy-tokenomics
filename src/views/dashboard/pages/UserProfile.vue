@@ -164,11 +164,6 @@
           name="plotdiv"
           width="92%"
         >
-          <tplotmain />    
-          <tplotWatchme
-            v-show="false"
-          />    
-
           <v-card 
             color="success"
             class="padbotcard"
@@ -189,6 +184,7 @@
         </base-material-card>
       </v-col>
     </v-row>
+    <wplot v-show="false" />
   </v-container>
 </template>
 
@@ -198,9 +194,7 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-  // import tplotmain from '@/assets/plots/tempPlotmain.vue'  //temp placeholder
-  import tplotWatchme from '@/assets/plots/plotmain.svg'
-  // import tplotmain from $router
+  import wplot from '@/assets/plots/plotmain.svg'
 
   const axiosi = axios.create({
     });
@@ -213,8 +207,7 @@
     name: 'UserProfilePage',
     components: {
       TopWords,
-      tplotmain,
-      tplotWatchme,
+      wplot,
     },
 
     data: () => ({
@@ -238,17 +231,25 @@
       stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
       disinflation: ["3", "4", "5"],
     }),
-
+    watch: {
+      wplot: {
+        deep: true,
+        immediate: true,
+        handler: function(val, oldVal) {
+            // this.foo(); // call it in the context of your component object
+            console.log("-- --  --  !!    --  --  file changed!!");
+          }
+        },
+    },
     mounted () {
-      console.log("val gShowPlot in store: " + this.$store.state.gShowPlot);
+      console.log("mounted: gShowPlot in store: " + this.$store.state.gShowPlot);
       myShowPlot: false;
       },
-
     methods: {
       storePlotNames: function (plotNameLocc, locPlotPathe) {
         this.$store.dispatch('gLocPlotNameAct', plotNameLocc)
         this.$store.dispatch('gLocPlotPathAct', locPlotPathe)
-        this.$store.dispatch('gShowPlotAct', true)
+        // this.$store.dispatch('gShowPlotAct', true)
         console.log('just ran storePlotName and path')
 
         console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
@@ -257,21 +258,17 @@
         console.log("!!! local locPlotPath: " + locPlotPathe )
         console.log("!!! local plname: " + plotNameLocc)
       },
-      repl: function (pfilename) {
-        // pfilename: 'plotmain2.svg',
-        this.$router.replace({ 
-          name: 'plotmain',
-          id: 'pmid',
-          pfilename: pfilename,
-          // // path: 'assets/plots',
-          // tpath: '@/assets/plots/:pfilename', 
-          // component: () => import(tpath),
-        })
-      console.log("here")
+      repl: function () {
+        this.$router.push({ 
+          name: "plotrt", 
+          params: { 
+            path: 'assets/plots',
+            component: () => import('@/assets/plots/plotmain.svg'), 
+          }})
+        console.log("done with router replace ")
       },       
       makePlotTwo: function (baseurl) {
         console.log('inside makePlotTwo')
-
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
@@ -301,7 +298,6 @@
         this.storePlotNames(plname, locPlotPath)
         console.log("!!!baseurl: " + baseurl)   
         this.makePlotTwo(baseurl); 
-        this.repl('plotmain2.svg')
       },
 
       getStarted: function (a, b, c, d, e) {
@@ -316,10 +312,9 @@
 
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
-        const count = plotsSaved.push(pname);
+        let count = plotsSaved.push(pname);
         this.$store.dispatch('gPlotListAct', plotsSaved);
-        console.log('Inside keepplot. Plots pushed: ' + count)
-        console.log(plotsSaved)
+        console.log('keepplot plots: ' + count + " " + plotsSaved)
       },
     },
   }
