@@ -24,9 +24,9 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
         {
-          name: 'plotrt',
+          name: 'plotrtt',
           path: 'assets/plots',
-          component: () => import('@/assets/plots/plotnone.vue'),
+          component: () => import('@/assets/plots/nuls2.svg'),
         },
         // {
         //   name: 'LastCard2',

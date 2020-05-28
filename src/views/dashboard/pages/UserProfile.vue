@@ -159,32 +159,40 @@
         cols="12"
         md="11"
       >
-        <base-material-card
-          id="plotdiv"
-          name="plotdiv"
-          width="92%"
+        <div 
+          v-if="showplot"
+          key="1"
         >
-          <v-card 
-            color="success"
-            class="padbotcard"
-            elevation-24
-            raised
+          <wplot />
+        </div>
+
+        <div 
+          v-else
+          key="2"
+        >
+          <plotnone />
+        </div>
+
+
+        <v-card 
+          color="success"
+          class="padbotcard"
+          elevation-24
+          raised
+        >
+          <v-btn id="redobtn">
+            Redo
+          </v-btn>
+          <v-btn
+            id="savebtn"
+            color="purple"
+            @click="keepplot"
           >
-            <v-btn id="redobtn">
-              Redo
-            </v-btn>
-            <v-btn
-              id="savebtn"
-              color="purple"
-              @click="keepplot"
-            >
-              Save
-            </v-btn>
-          </v-card>
-        </base-material-card>
+            Save
+          </v-btn>
+        </v-card>
       </v-col>
     </v-row>
-    <wplot v-show="false" />
   </v-container>
 </template>
 
@@ -195,6 +203,8 @@
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
   import wplot from '@/assets/plots/plotmain.svg'
+  import plotnone from '@/assets/plots/plotnone.vue'
+  var showplot = false
 
   const axiosi = axios.create({
     });
@@ -208,12 +218,10 @@
     components: {
       TopWords,
       wplot,
+      plotnone,
     },
-
     data: () => ({
-      // formvmodel: '',
-      // componentKey: 0, 
-      myShowPlot: '',  // must be this to be "reactive"
+      showplot,               // must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
         class: "v_chip_small",
@@ -231,42 +239,27 @@
       stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
       disinflation: ["3", "4", "5"],
     }),
-    watch: {
+    watch: {   // watch for it to get written over by python
       wplot: {
         deep: true,
         immediate: true,
-        handler: function(val, oldVal) {
-            // this.foo(); // call it in the context of your component object
-            console.log("-- --  --  !!    --  --  file changed!!");
-          }
+        handler: function() {
+          console.log(" -- file changed! ")
+          showplot = true;
+            }
         },
     },
     mounted () {
-      console.log("mounted: gShowPlot in store: " + this.$store.state.gShowPlot);
-      myShowPlot: false;
+      // this.myShowPlot = false;
       },
     methods: {
       storePlotNames: function (plotNameLocc, locPlotPathe) {
         this.$store.dispatch('gLocPlotNameAct', plotNameLocc)
         this.$store.dispatch('gLocPlotPathAct', locPlotPathe)
-        // this.$store.dispatch('gShowPlotAct', true)
-        console.log('just ran storePlotName and path')
-
         console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
-        console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
-        console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
         console.log("!!! local locPlotPath: " + locPlotPathe )
         console.log("!!! local plname: " + plotNameLocc)
       },
-      repl: function () {
-        this.$router.push({ 
-          name: "plotrt", 
-          params: { 
-            path: 'assets/plots',
-            component: () => import('@/assets/plots/plotmain.svg'), 
-          }})
-        console.log("done with router replace ")
-      },       
       makePlotTwo: function (baseurl) {
         console.log('inside makePlotTwo')
         ;(async () => {
@@ -347,3 +340,7 @@
     //     timeout: 5000
     //   }),
     // },    
+  // const AsyncComponent = new Promise((resolve, reject) => {
+  //   import('@/assets/plots/plotmain.svg') 
+  //   }) 
+  
