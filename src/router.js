@@ -23,11 +23,14 @@ export default new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
-        // {
-        //   path: '@/assets/plots/plotmain.svg',
-        //   name: 'plotmain',
-        //   component: user,
-        // },
+        {
+          name: 'plotmain',
+          id: 'pmid',
+          pfilename: 'tempPlotmain.vue',
+          path: 'assets/plots',
+          tpath: '@/assets/plots/:pfilename', 
+          component: () => import(tpath),
+        },
         // {
         //   name: 'LastCard2',
         //   path: 'components',

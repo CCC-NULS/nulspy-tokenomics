@@ -11,8 +11,8 @@ export default new Vuex.Store({
     showButton: false,
     gShowPlot: false,
     gTimeStamp: null,
-    gLocPlotPath: null,
-    gLocPlotName: null,
+    gLocPlotPath: '@/assets/plots/tempPlotmain.vue',
+    gLocPlotName: 'tempPlotmain.vue',
     gPlotList: null,
   },
   mutations: {

@@ -143,7 +143,7 @@
                   type="submit"
                   size="large"
                   color="warning"
-                  @click="makeTimeStamp(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                  @click="getStarted(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
                   submitform
                 </v-btn>
@@ -160,17 +160,15 @@
         md="11"
       >
         <base-material-card
-          v-if="myShowPlot"
           id="plotdiv"
           name="plotdiv"
           width="92%"
         >
-          <tplotdefault 
-            v-show="!{myShowPlot}"
-          />
-          <AsyncComponent 
-            v-show="myShowPlot"
-          />       
+          <tplotmain />    
+          <tplotWatchme
+            v-show="false"
+          />    
+
           <v-card 
             color="success"
             class="padbotcard"
@@ -200,14 +198,9 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-  import tplotdefault from '@/assets/plots/plotmain.svg'
-  
-  var tplotnew = ''
-
-  const plotnewprom = new Promise(function (resolve, reject) {
-    resolve: { import(tplotnew) }
-    reject: { }
-    });
+  // import tplotmain from '@/assets/plots/tempPlotmain.vue'  //temp placeholder
+  import tplotWatchme from '@/assets/plots/plotmain.svg'
+  // import tplotmain from $router
 
   const axiosi = axios.create({
     });
@@ -216,31 +209,17 @@
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
-  const AsyncComponent = () => ({
-    // The component to load (should be a Promise)
-    component: import(plotnewprom),
-    // A component to use while the async component is loading
-    loading: tplotdefault,
-    // A component to use if the load fails
-    error: tplotdefault,
-    // Delay before showing the loading component. Default: 200ms.
-    delay: 200,
-    // The error component will be displayed if a timeout is
-    // provided and exceeded. Default: Infinity.
-    timeout: 3000,
-  })
-
-
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
-      tplotdefault,
-      AsyncComponent,
-    },    
+      tplotmain,
+      tplotWatchme,
+    },
 
     data: () => ({
       // formvmodel: '',
+      // componentKey: 0, 
       myShowPlot: '',  // must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
@@ -259,29 +238,40 @@
       stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
       disinflation: ["3", "4", "5"],
     }),
-    watch: {
-      tplotdefault: {
-        deep: true,
-        handler: function () {
-          console.log("file chg!!")
-          // console.log("value of state.gLocPlotPath: ", this.$store.state.gLocPlotPath)
-          myShowPlot: true
-        },
-      }
-    },
- 
+
     mounted () {
-      console.log("value of gShowPlot in store: ")
-      console.log(this.$store.state.gShowPlot);
+      console.log("val gShowPlot in store: " + this.$store.state.gShowPlot);
       myShowPlot: false;
       },
 
     methods: {
-      storePlotName: function (plotNameLoc) {
-        this.$store.dispatch('gLocPlotNameAct', plotNameLoc)
-        console.log('just ran storePlotName')
+      storePlotNames: function (plotNameLocc, locPlotPathe) {
+        this.$store.dispatch('gLocPlotNameAct', plotNameLocc)
+        this.$store.dispatch('gLocPlotPathAct', locPlotPathe)
+        this.$store.dispatch('gShowPlotAct', true)
+        console.log('just ran storePlotName and path')
+
+        console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
+        console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
+        console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
+        console.log("!!! local locPlotPath: " + locPlotPathe )
+        console.log("!!! local plname: " + plotNameLocc)
       },
+      repl: function (pfilename) {
+        // pfilename: 'plotmain2.svg',
+        this.$router.replace({ 
+          name: 'plotmain',
+          id: 'pmid',
+          pfilename: pfilename,
+          // // path: 'assets/plots',
+          // tpath: '@/assets/plots/:pfilename', 
+          // component: () => import(tpath),
+        })
+      console.log("here")
+      },       
       makePlotTwo: function (baseurl) {
+        console.log('inside makePlotTwo')
+
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
@@ -289,54 +279,40 @@
           })
         })()
       },
-      makePlot: function (aa, bb, c, dd, e, timestp) {
+      makePlot: function (aa, bb, c, dd, e, plname, timestpLong) {
         console.log('inside makePlot function');
-        const self = this
+        // const self = this
         // let aaa = aa.replace(',', '')
         // let aw = '&initsup=' + aaa.replace(',', '')
         // let bw = '&anninf=' + bb.replace(',', '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + dd..replace(',', '')
         // let ew = '&disinf=' + e
+        // need to remove comma's twice from a
+
         let aw = "&initsup=100000000"
         let bw = "&anninf=500000" 
         let cw = "&startinf=24"
         let dw = "&stopinf=500000"
         let ew = "&disinf=5"    
-        console.log("gtime is: " + timestp)
-        let timestpLong = "&timestp=" + timestp
         let requestVars = aw + bw + cw + dw + ew + timestpLong
         let baseurl = "http://localhost:5002/getpy?" + requestVars
-        console.log("baseurl is: " + baseurl)
-        let plname = "plot" + timestp + ".svg"
         let locPlotPath = "@/assets/plots/" + plname
-        console.log("!!!locPlotPath: " + locPlotPath )
-        console.log("!!!gLocPlotNameAct: " + plname + "  !!!plname: " + plname)
-        console.log("!!!baseurl: " + baseurl + "  !!!myShowPlot: " + this.myShowPlot)
-        this.storePlotName(plname)
+        this.storePlotNames(plname, locPlotPath)
+        console.log("!!!baseurl: " + baseurl)   
+        this.makePlotTwo(baseurl); 
+        this.repl('plotmain2.svg')
+      },
 
-        self.$store.dispatch('gLocPlotNameAct', plname)
-        console.log("!!!herenow: line 251")
-        self.$store.dispatch('gLocPlotPathAct', locPlotPath)
-        console.log("!!!herenow: line 254")
-
-        this.$store.dispatch('gShowPlotAct', true)
-        console.log('state.gShowplot: ' + this.$store.state.gShowPlot )
-        console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
-        console.log('state.gTimeStamp: ' + this.$store.state.gTimeStamp )
-        this.makePlotTwo(baseurl);
-        this.myShowPlot = true;
-        tplotnew = this.$store.state.gLocPlotPath
-       },
-          
-      makeTimeStamp: function (a, b, c, d, e) {
+      getStarted: function (a, b, c, d, e) {
         console.log('inside timestring function');
         const timestr = Date.now().toString().substring(5,13);
         this.$store.dispatch("gTimeStampAct", timestr);
         console.log("timestr: " + timestr);
-        this.makePlot(a, b, c, d, e, timestr);
+        const timestpLg = "&timestp=" + timestr
+        let plname = "plot" + timestr + ".svg"
+        this.makePlot(a, b, c, d, e, plname, timestpLg);
       },
-      // need to remove comma's twice from a
 
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
@@ -359,3 +335,20 @@
     justify-content: center;
   }
 </style>
+
+    //   AsyncComponent: () => ({
+    //     // The component we want to load.
+    //     component: AsyncComponent,
+    //     // The component to use as a placeholder while the
+    //     // async component is loading.
+    //     loading: AsyncLoading,
+    //     // The component to render instead if there is an error
+    //     // loading the async component.
+    //     error: AsyncLoadError,
+    //     // The delay before the loading component is shown.
+    //     delay: 100,
+    //     // If this timeout is reached, the async component is considered
+    //     // to have failed loading.
+    //     timeout: 5000
+    //   }),
+    // },    
