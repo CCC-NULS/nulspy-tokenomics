@@ -71,10 +71,10 @@ class AppSupport:
 
     def write_to_watchfile(self, plotfilepath_watch):
         datetime_str = str(datetime.now())
-        last_int = datetime_str[-2]
+        last_int = int(datetime_str[-2:])
         if last_int < 1:
             last_int = 22
-        print("last_int: ", last_int)
+        print("last_int: ", str(last_int))
         print(datetime_str)
         with open(plotfilepath_watch, "w") as file1:
             # Writing data to a file
