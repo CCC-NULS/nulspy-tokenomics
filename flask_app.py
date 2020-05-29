@@ -79,7 +79,7 @@ def make_names(args_dict):
 
     # main real plot is time or _t
     plot_name_t = "plot" + timestp + ".svg"
-    plot_name_w = "plotwatch.svg"
+    plot_name_w = "plotwatch.txt"
     plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
 
     plotfp_t = os.path.join(plotfilesdir, plot_name_t)

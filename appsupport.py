@@ -10,7 +10,7 @@ from math import floor
 # import matplotlib.lines as lines
 # import matplotlib.text as text
 from matplotlib.ticker import StrMethodFormatter
-import time
+from datetime import datetime
 import os
 import shutil
 
@@ -41,8 +41,8 @@ class AppSupport:
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath_t = args_dict.get("plotfilepath_t")
-        plotfilepath_w = args_dict.get("plotfilepath_w")
         plotfilepath_r = args_dict.get("plotfilepath_r")
+        plotfilepath_w = args_dict.get("plotfilepath_w")
 
         tstamp = args_dict.get("timestp")
 
@@ -66,14 +66,21 @@ class AppSupport:
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
-        tresult = self.plot_graph(plotfilepath_t, plotfilepath_w, plotfilepath_r, tstamp)
+        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r, plotfilepath_w, tstamp)
         return tresult
 
-    def cpfile(self, efile, mfile):
-        if os.path.exists(efile):
-            shutil.copyfile(efile, mfile)
-        else:
-            print("remfile says the efile file does not exist")
+    def write_to_watchfile(self, plotfilepath_watch):
+        datetime_str = str(datetime.now())
+        last_int = datetime_str[-2]
+        if last_int < 1:
+            last_int = 22
+        print("last_int: ", last_int)
+        print(datetime_str)
+        with open(plotfilepath_watch, "w") as file1:
+            # Writing data to a file
+            for x in range(last_int):
+                file1.write(datetime_str)
+
 
     def rounddown(self, nm):
         num = int(nm)
@@ -88,7 +95,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath_t, plotfilepath_w, plotfilepath_r, astamp):
+    def plot_graph(self, plotfilepath_t, plotfilepath_r, plotfilepath_w, astamp):
         plt.ioff()
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
@@ -160,10 +167,10 @@ class AppSupport:
 
         plt.plot(self.token_count_list_y, color='yellow', linestyle='-', linewidth=3)
 
-        plt.savefig(plotfilepath_r,  dpi=150, format='svg')
-        plt.savefig(plotfilepath_w,  dpi=150, format='svg')  # to trigger :key update
+        plt.savefig(plotfilepath_r,  dpi=300, format='svg')
+        # plt.savefig(plotfilepath_w,  dpi=150, format='svg')  # to trigger :key update
         plt.savefig(plotfilepath_t,  dpi=300, format='svg') # to get vue to update - change the file size
-
+        self.write_to_watchfile(plotfilepath_w)
         #plt.show()
         return True
 
