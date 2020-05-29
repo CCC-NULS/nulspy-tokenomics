@@ -159,13 +159,12 @@
         cols="12"
         md="11"
       >
-        <v-card 
-          :key="dkey"
+        <v-card
+          v-if="showplot"
+          :key="dky"
         >
-          <plotmainWatched />
-          <plotmainreal />
+          <plotreal />
         </v-card>
-
 
         <v-card 
           color="success"
@@ -190,29 +189,14 @@
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
-function writeFile (filename, data, options, callback) {
-
 <script>
-  import TopWords from '@/views/dashboard/components/TopWords'
-  import writeFile from 'write-file-atomic'
-  const write = require('write')  // must set up date and empty plotmain first
-  const timestr = Date.now().toString().substring(5,13);
-  const plname = "plot" + timestr + ".svg"
-  const locPlotPath = "@/assets/plots/" + plname
-
-  var svgcontent = "<svg><rect fill='grey' height='1' width='1'></svg>"
-  const plotmainWatched =  '@/assets/plots/plotmain.svg'  // this just gets watched
-  const plotmainReal =  '@/assets/plots/plotmainreal.svg'  // this just gets watched
-  writeFile(plotmainReal, svgcontent, ); // doing asap
-  writeFile(plotmainWatched, svgcontent, ); // fill with nothing
   import axios from 'axios'
-  import { mapState, mapMutations, mapActions } from 'vuex'
-
-  this.storePlotNames(plname, locPlotPath)
-  this.$store.dispatch("gTimeStampAct", timestr);
-  
-  var showplot = false
-  var dkey = 0;
+  import { mapState, mapMutations, mapActions } from 'vuex'  
+  import TopWords from '@/views/dashboard/components/TopWords'
+  import plotreal from '@/assets/plots/plotreal.svg'  // componentvar fs = require('graceful-fs')
+  const watchFile = '@/assets/plots/plotwatch.txt'
+  const watchDir = '@/assets/plots'
+  // these are the two components that update themselve via :key
 
   const axiosi = axios.create({
     });
@@ -220,18 +204,27 @@ function writeFile (filename, data, options, callback) {
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  import plotmain from '@/assets/plots/plotmain.svg'
+  var showplot = false
+  
+  function savefalse_store () {
+    this.$store.dispatch('gShowPlotAct', false)
+    }
+  savefalse_store
+  const timestr = Date.now().toString().substring(9,12)
+  var dkey = parseInt(timestr);
+  var dky = parseInt(timestr);
+ // -- -- --  --  --  --  --  --  --  --   // 
 
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
-      plotmainreal,
-      plotmainWatched,
+      plotreal,
     },
     data: () => ({
-      dkey,
-      showplot,               // '' must be this to be "reactive"
+      showplot,
+      dkey: 0,
+      dky: 0,                // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
         class: "v_chip_small",
@@ -250,37 +243,55 @@ function writeFile (filename, data, options, callback) {
       disinflation: ["3", "4", "5"],
     }),
     watch: {   // watch for it to get written over by python
-      plotmain: {
+      watchFile: {
         deep: true,
         immediate: true,
         handler: function() {
-          this.dkey =+ 1;
-          if (this.dkey > 1) {
-            this.showplot = true
-            this.svgplot = import(this.$store.state.gLocPlotPath)
+          dkey = this.$store.state.gDkey
+          dky = this.$store.state.gDky
+          dkey++
+          this.$store.dispatch('dkeyAct', dkey)
+
+          if (dkey > 1 ) {    // skip the first time during mount
+            dky++
+            this.$store.dispatch('dkyAct', dky)
+            showplot = true
+            this.savetrue
+            }
+            console.log(" -- file changed! " + dkey + ' ' + dky)
           }
-          console.log(" -- file changed! " + this.dkey)
-        }
+        },      
+      watchDir: {
+        deep: true,
+        immediate: true,
+        handler: function() {
+          console.log(" -- dir changed! " + this.dkey)
+          dkey++
+          if (dkey > 1 ) {    // skip the first time during mount
+            dky++
+            // showplot = true
+
+          }
         },
+      },
     },
-    mounted () {
-      setUpTimeString; 
+    mount () {
+      showplot = false
+      this.$store.dispatch('gShowPlotAct', false)
     },
     methods: {
-      loadnew: function (locPlotPathe) {
-        newcp = import (locPlotPathe)
+      savetrue: function () {
+        this.$store.dispatch('gShowPlotAct', true)
       },
-      storePlotNames: function (plotNameLocc, locPlotPathe) {
-        this.$store.dispatch('gLocPlotNameAct', plotNameLocc)
-        this.$store.dispatch('gLocPlotPathAct', locPlotPathe)
-        console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
-        console.log("!!! local locPlotPath: " + locPlotPathe )
-        console.log("!!! local plname: " + plotNameLocc)
-        this.loadnew(locPlotPathe)
+      storePlotNames: function (plot_name, plot_name_path) {
+        this.$store.dispatch('gLocPlotNameAct', plot_name)
+        this.$store.dispatch('gLocPlotPathAct', plot_name_path)
+        console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
+        console.log("!!! local plot_name_path: " + plot_name_path )
+        console.log("!!! local plot_name: " + plot_name)
       },
       runAsyncGet: function (baseurl) {
         console.log('inside runAsyncGet')
-
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
@@ -289,9 +300,11 @@ function writeFile (filename, data, options, callback) {
         })()
       },
       makePlot: function (aa, bb, c, dd, e) {
-        console.log('inside makePlot function');
-        let plname = this.$store.state.gLocPlotName
-        // const self = this
+        const timestr = Date.now().toString().substring(5,13);
+        let plotname_t = "plot" + timestr + ".svg"
+        let plotname_t_path = "@/assets/plots/" + plotname_t
+        storePlotNames(plotname_t, plotname_t_path)
+
         // let aaa = aa.replace(',', '')
         // let aw = '&initsup=' + aaa.replace(',', '')
         // let bw = '&anninf=' + bb.replace(',', '')
@@ -299,27 +312,16 @@ function writeFile (filename, data, options, callback) {
         // let dw = '&stopinf=' + dd..replace(',', '')
         // let ew = '&disinf=' + e
         // need to remove comma's twice from a
-        const timestpLong = "&timestp=" + this.$store.state.gTimeStamp
 
         let aw = "&initsup=100000000"
         let bw = "&anninf=500000" 
         let cw = "&startinf=24"
         let dw = "&stopinf=500000"
         let ew = "&disinf=5"    
-        let requestVars = aw + bw + cw + dw + ew + timestpLong
+        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let baseurl = "http://localhost:5002/getpy?" + requestVars
-        console.log("!!!baseurl: " + baseurl)   
         this.runAsyncGet(baseurl); 
-      },
-        // let locPlotPath = "@/assets/plots/" + plname
-        // this.storePlotNames(plname, locPlotPath)
-
-      setUpTimeString: function () {    // done in very beginning after mount or refresh
-        const timestr = Date.now().toString().substring(5,13);
-        this.$store.dispatch("gTimeStampAct", timestr);
-        let plname = "plot" + timestr + ".svg"
-        let locPlotPath = "@/assets/plots/" + plname
-        this.storePlotNames(plname, locPlotPath)
+        console.log("!!!baseurl: " + baseurl)   
       },
 
       keepplot: function () {
@@ -328,7 +330,7 @@ function writeFile (filename, data, options, callback) {
         this.$store.dispatch('gPlotListAct', plotsSaved);
         console.log('keepplot plots: ' + count + " " + plotsSaved)
       },
-    },
+    }
   }
 </script>
 

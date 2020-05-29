@@ -23,11 +23,7 @@ export default new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
-        {
-          name: 'plotrtt',
-          path: 'assets/plots',
-          // component: () => import('@/assets/plots/nuls.svg'),
-        },
+
         // {
         //   name: 'LastCard2',
         //   path: 'components',

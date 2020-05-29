@@ -10,9 +10,10 @@ export default new Vuex.Store({
     drawer: null,
     showButton: false,
     gShowPlot: false,
-    gTimeStamp: null,
-    gLocPlotPath: '@/assets/plots/empty.svg',
-    gLocPlotName: 'empty.svg',
+    gDkey: 0,
+    gDky: 0,
+    gLocPlotPath: '@/assets/plots/plotreal.svg',
+    gLocPlotName: 'plotreal.svg',
     gPlotList: null,
   },
   mutations: {
@@ -28,8 +29,11 @@ export default new Vuex.Store({
     gShowPlotMut(state, theval) {
       state.gShowPlot = theval
     },
-    gTimeStampMut(state, theval) {
-      state.gTimeStamp = theval
+    gDkeyMut(state, theval) {
+      state.gDkey = theval
+    },
+    gDkyMut(state, theval) {
+      state.gDky = theval
     },
     gLocPlotPathMut(state, theval) {
       state.gLocPlotPath = theval
@@ -53,8 +57,11 @@ export default new Vuex.Store({
     gShowPlotAct (context, theval) {
       context.commit('gShowPlotMut', theval)
     },
-    gTimeStampAct (context, theval) {
-      context.commit('gTimeStampMut', theval)
+    gDkeyAct (context, theval) {
+      context.commit('gDkeyMut', theval)
+    },
+    gDkyAct (context, theval) {
+      context.commit('gDkyMut', theval)
     },
     gLocPlotPathAct (context, theval) {
       context.commit('gLocPlotPathMut', theval)
