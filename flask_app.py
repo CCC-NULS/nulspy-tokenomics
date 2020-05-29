@@ -6,7 +6,7 @@ from flask import Flask, request, render_template, jsonify
 from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
-
+import os
 
 application = Flask(__name__)
 CORS(application, resources={r"/*": {"origins": "*"}})
@@ -63,6 +63,7 @@ def getpy():
     print("got this far! file should be there")
     return '200 OK'
 
+
 def make_names(args_dict):
     if os.name == 'nt':
         app_root = "E:/wsvue/vuetify-material-dashboard-master/src/assets"
@@ -72,17 +73,34 @@ def make_names(args_dict):
         app_root = '/usr/share/nginx/html/tokenlife'
 
     timestp = args_dict.get("timestp")
-    plot_nameTS = "plot" + timestp + ".svg"
-    plot_name = "plotmain.svg"
+    plot_name = "plot" + timestp + ".svg"
+    plot_name_m = "plotmain.svg"
+    plot_name_r = "plotmainreal.svg"
+    plot_name_e = "empty.svg"
 
     plotsdir = 'plots'
-    plotsdirTS = 'plotsTS'
     plotfilesdir = os.path.join(app_root, plotsdir)
+
     plotfp = os.path.join(plotfilesdir, plot_name)
+    plotfp_m = os.path.join(plotfilesdir, plot_name_m)
+    plotfp_e = os.path.join(plotfilesdir, plot_name_e)
+    plotfp_r = os.path.join(plotfilesdir, plot_name_r)
+
     plotfilepath = os.path.normpath(plotfp)
+    plotfilepath_m = os.path.normpath(plotfp_m)
+    plotfilepath_e = os.path.normpath(plotfp_e)
+    plotfilepath_r = os.path.normpath(plotfp_r)
+
     args_dict.update({"timestp": timestp})
     args_dict.update({"plotfilepath": plotfilepath})
-    args_dict.update({"plotsvg": plot_name})
+    args_dict.update({"plot_name": plot_name})
+    args_dict.update({"plotfilepath_m": plotfilepath_m})
+    args_dict.update({"plot_name_m": plot_name_m})
+    args_dict.update({"plotfilepath_e": plotfilepath_e})
+    args_dict.update({"plot_name_e": plot_name_e})
+    args_dict.update({"plotfilepath_r": plotfilepath_r})
+    args_dict.update({"plot_name_r": plotfp_r})
+
     return args_dict
 
 

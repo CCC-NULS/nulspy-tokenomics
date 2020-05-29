@@ -10,6 +10,9 @@ from math import floor
 # import matplotlib.lines as lines
 # import matplotlib.text as text
 from matplotlib.ticker import StrMethodFormatter
+import time
+import os
+import shutil
 
 
 class AppSupport:
@@ -38,6 +41,14 @@ class AppSupport:
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath = args_dict.get("plotfilepath")
+        plotfilepath_e = args_dict.get("plotfilepath_e")
+        plotfilepath_m = args_dict.get("plotfilepath_m")
+        plotfilepath_r = args_dict.get("plotfilepath_r")
+
+        self.cpfile(plotfilepath_e, plotfilepath_m)  # this is just to wake up vue.js
+
+        tstamp = args_dict.get("timestp")
+
         start_inflation = start_inflation / 1000
 
         tokens = self.initial_supply_y
@@ -46,9 +57,9 @@ class AppSupport:
         interval_count = 1
 
         while interval_count <= self.interval_limit_x:
-            deflation = False
+            # deflation = False
             if (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation):
-                deflation = True
+                # deflation = True
                 monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
                 tokens = tokens + monthly_inflation
 
@@ -58,8 +69,14 @@ class AppSupport:
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
-        tresult = self.plot_graph(plotfilepath)
+        tresult = self.plot_graph(plotfilepath, plotfilepath_m, plotfilepath_r, tstamp)
         return tresult
+
+    def cpfile(self, efile, mfile):
+        if os.path.exists(efile):
+            shutil.copyfile(efile, mfile)
+        else:
+            print("remfile says the efile file does not exist")
 
     def rounddown(self, nm):
         num = int(nm)
@@ -74,7 +91,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath):
+    def plot_graph(self, plotfilepath, plotfilepath_m, plotfilepath_r, astamp):
         plt.ioff()
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
@@ -104,9 +121,9 @@ class AppSupport:
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-        plt.margins(y=1.2, tight=False)
+        plt.margins(y=.01, tight=False)
 
-        plt.figtext(0.01, 0, 'Hit Back Button to Start Over',  color='b',  size='medium')
+        plt.figtext(0.01, 0, astamp,  color='b',  size=7)
 
         # -------- TICKS
 
@@ -144,9 +161,14 @@ class AppSupport:
 
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
-        plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
+        plt.plot(self.token_count_list_y, color='yellow', linestyle='-', linewidth=3)
 
+        plt.savefig(plotfilepath,  dpi=300, format='svg') # to get vue to update - change the file size
+        time.sleep(1)
         plt.savefig(plotfilepath,  dpi=150, format='svg')
+        plt.savefig(plotfilepath_m,  dpi=150, format='svg')
+        plt.savefig(plotfilepath_r,  dpi=150, format='svg')
+
         #plt.show()
         return True
 
