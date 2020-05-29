@@ -26,7 +26,7 @@ export default new Router({
         {
           name: 'plotrtt',
           path: 'assets/plots',
-          component: () => import('@/assets/plots/nuls2.svg'),
+          // component: () => import('@/assets/plots/nuls2.svg'),
         },
         // {
         //   name: 'LastCard2',

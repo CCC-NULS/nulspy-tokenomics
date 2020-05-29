@@ -159,19 +159,11 @@
         cols="12"
         md="11"
       >
-        <div 
-          v-if="showplot"
-          key="1"
+        <v-card 
+          :key="dkey"
         >
           <wplot />
-        </div>
-
-        <div 
-          v-else
-          key="2"
-        >
-          <plotnone />
-        </div>
+        </v-card>
 
 
         <v-card 
@@ -203,8 +195,8 @@
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
   import wplot from '@/assets/plots/plotmain.svg'
-  import plotnone from '@/assets/plots/plotnone.vue'
   var showplot = false
+  var watchstart = false
 
   const axiosi = axios.create({
     });
@@ -218,10 +210,11 @@
     components: {
       TopWords,
       wplot,
-      plotnone,
     },
     data: () => ({
-      showplot,               // must be this to be "reactive"
+      dkey: 0,
+      watchstart,
+      showplot,               // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
         class: "v_chip_small",
@@ -244,13 +237,18 @@
         deep: true,
         immediate: true,
         handler: function() {
-          console.log(" -- file changed! ")
-          showplot = true;
-            }
+          this.dkey =+ 1;
+          // if (this.watchstart) {
+          this.showplot = true
+          console.log(" -- file changed! " + this.dkey)
+            // }
+        }
         },
     },
     mounted () {
-      // this.myShowPlot = false;
+      this.watchstart = true;
+      console.log("made watchstart true")
+      this.showplot = false;
       },
     methods: {
       storePlotNames: function (plotNameLocc, locPlotPathe) {
@@ -262,6 +260,7 @@
       },
       makePlotTwo: function (baseurl) {
         console.log('inside makePlotTwo')
+
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
