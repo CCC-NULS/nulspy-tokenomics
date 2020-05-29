@@ -143,7 +143,7 @@
                   type="submit"
                   size="large"
                   color="warning"
-                  @click="getStarted(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
                   submitform
                 </v-btn>
@@ -163,6 +163,7 @@
           :key="dkey"
         >
           <wplot />
+          <svgplot />
         </v-card>
 
 
@@ -195,8 +196,16 @@
   import { mapState, mapMutations, mapActions } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
   import wplot from '@/assets/plots/plotmain.svg'
+  // var svg2 = require("svg")
+  const write = require('write')
+  var ttext = "<svg><rect fill='grey' height='1' width='1'></svg>"
+ 
+  let rplot =  '@/assets/plots/'
+  let rplot2 = ''
+  write.sync('foo.txt', 'some data...', { newline: true }); 
+
   var showplot = false
-  var watchstart = false
+  var dkey = 0;
 
   const axiosi = axios.create({
     });
@@ -210,10 +219,10 @@
     components: {
       TopWords,
       wplot,
+      svgplot,
     },
     data: () => ({
-      dkey: 0,
-      watchstart,
+      dkey,
       showplot,               // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
@@ -238,25 +247,28 @@
         immediate: true,
         handler: function() {
           this.dkey =+ 1;
-          // if (this.watchstart) {
-          this.showplot = true
+          if (this.dkey > 1) {
+            this.showplot = true
+            this.svgplot = import(this.$store.state.gLocPlotPath)
+          }
           console.log(" -- file changed! " + this.dkey)
-            // }
         }
         },
     },
     mounted () {
-      this.watchstart = true;
-      console.log("made watchstart true")
-      this.showplot = false;
-      },
+      setUpTimeString   
+    },
     methods: {
+      loadnew: function (locPlotPathe) {
+        newcp = import (locPlotPathe)
+      },
       storePlotNames: function (plotNameLocc, locPlotPathe) {
         this.$store.dispatch('gLocPlotNameAct', plotNameLocc)
         this.$store.dispatch('gLocPlotPathAct', locPlotPathe)
         console.log('state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
         console.log("!!! local locPlotPath: " + locPlotPathe )
         console.log("!!! local plname: " + plotNameLocc)
+        this.loadnew(locPlotPathe)
       },
       makePlotTwo: function (baseurl) {
         console.log('inside makePlotTwo')
@@ -268,8 +280,9 @@
           })
         })()
       },
-      makePlot: function (aa, bb, c, dd, e, plname, timestpLong) {
+      makePlot: function (aa, bb, c, dd, e, plname) {
         console.log('inside makePlot function');
+        let plname = this.$store.state.gLocPlotName
         // const self = this
         // let aaa = aa.replace(',', '')
         // let aw = '&initsup=' + aaa.replace(',', '')
@@ -278,6 +291,7 @@
         // let dw = '&stopinf=' + dd..replace(',', '')
         // let ew = '&disinf=' + e
         // need to remove comma's twice from a
+        const timestpLong = "&timestp=" + this.$store.state.gTimeStamp
 
         let aw = "&initsup=100000000"
         let bw = "&anninf=500000" 
@@ -286,20 +300,18 @@
         let ew = "&disinf=5"    
         let requestVars = aw + bw + cw + dw + ew + timestpLong
         let baseurl = "http://localhost:5002/getpy?" + requestVars
-        let locPlotPath = "@/assets/plots/" + plname
-        this.storePlotNames(plname, locPlotPath)
+        // let locPlotPath = "@/assets/plots/" + plname
+        // this.storePlotNames(plname, locPlotPath)
         console.log("!!!baseurl: " + baseurl)   
         this.makePlotTwo(baseurl); 
       },
 
-      getStarted: function (a, b, c, d, e) {
-        console.log('inside timestring function');
+      setUpTimeString: function () {
         const timestr = Date.now().toString().substring(5,13);
         this.$store.dispatch("gTimeStampAct", timestr);
-        console.log("timestr: " + timestr);
-        const timestpLg = "&timestp=" + timestr
         let plname = "plot" + timestr + ".svg"
-        this.makePlot(a, b, c, d, e, plname, timestpLg);
+        let locPlotPath = "@/assets/plots/" + plname
+        this.storePlotNames(plname, locPlotPath)
       },
 
       keepplot: function () {

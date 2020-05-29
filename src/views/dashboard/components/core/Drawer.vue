@@ -32,7 +32,7 @@
           contain
         >
           <v-img
-            src="@/assets/nulsWhiteLogo40.jpg"
+            src="@/assets/images/nulsWhiteLogo40.jpg"
             max-height="45"
           />
         </v-list-item-avatar>
