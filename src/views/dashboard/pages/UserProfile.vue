@@ -162,8 +162,8 @@
         <v-card 
           :key="dkey"
         >
-          <wplot />
-          <svgplot />
+          <plotmainWatched />
+          <plotmainreal />
         </v-card>
 
 
@@ -190,20 +190,27 @@
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
+function writeFile (filename, data, options, callback) {
 
 <script>
+  import TopWords from '@/views/dashboard/components/TopWords'
+  import writeFile from 'write-file-atomic'
+  const write = require('write')  // must set up date and empty plotmain first
+  const timestr = Date.now().toString().substring(5,13);
+  const plname = "plot" + timestr + ".svg"
+  const locPlotPath = "@/assets/plots/" + plname
+
+  var svgcontent = "<svg><rect fill='grey' height='1' width='1'></svg>"
+  const plotmainWatched =  '@/assets/plots/plotmain.svg'  // this just gets watched
+  const plotmainReal =  '@/assets/plots/plotmainreal.svg'  // this just gets watched
+  writeFile(plotmainReal, svgcontent, ); // doing asap
+  writeFile(plotmainWatched, svgcontent, ); // fill with nothing
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'
-  import TopWords from '@/views/dashboard/components/TopWords'
-  import wplot from '@/assets/plots/plotmain.svg'
-  // var svg2 = require("svg")
-  const write = require('write')
-  var ttext = "<svg><rect fill='grey' height='1' width='1'></svg>"
- 
-  let rplot =  '@/assets/plots/'
-  let rplot2 = ''
-  write.sync('foo.txt', 'some data...', { newline: true }); 
 
+  this.storePlotNames(plname, locPlotPath)
+  this.$store.dispatch("gTimeStampAct", timestr);
+  
   var showplot = false
   var dkey = 0;
 
@@ -213,13 +220,14 @@
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  import plotmain from '@/assets/plots/plotmain.svg'
 
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
-      wplot,
-      svgplot,
+      plotmainreal,
+      plotmainWatched,
     },
     data: () => ({
       dkey,
@@ -242,7 +250,7 @@
       disinflation: ["3", "4", "5"],
     }),
     watch: {   // watch for it to get written over by python
-      wplot: {
+      plotmain: {
         deep: true,
         immediate: true,
         handler: function() {
@@ -256,7 +264,7 @@
         },
     },
     mounted () {
-      setUpTimeString   
+      setUpTimeString; 
     },
     methods: {
       loadnew: function (locPlotPathe) {
@@ -270,8 +278,8 @@
         console.log("!!! local plname: " + plotNameLocc)
         this.loadnew(locPlotPathe)
       },
-      makePlotTwo: function (baseurl) {
-        console.log('inside makePlotTwo')
+      runAsyncGet: function (baseurl) {
+        console.log('inside runAsyncGet')
 
         ;(async () => {
           let response = await axiosi({
@@ -280,7 +288,7 @@
           })
         })()
       },
-      makePlot: function (aa, bb, c, dd, e, plname) {
+      makePlot: function (aa, bb, c, dd, e) {
         console.log('inside makePlot function');
         let plname = this.$store.state.gLocPlotName
         // const self = this
@@ -300,13 +308,13 @@
         let ew = "&disinf=5"    
         let requestVars = aw + bw + cw + dw + ew + timestpLong
         let baseurl = "http://localhost:5002/getpy?" + requestVars
+        console.log("!!!baseurl: " + baseurl)   
+        this.runAsyncGet(baseurl); 
+      },
         // let locPlotPath = "@/assets/plots/" + plname
         // this.storePlotNames(plname, locPlotPath)
-        console.log("!!!baseurl: " + baseurl)   
-        this.makePlotTwo(baseurl); 
-      },
 
-      setUpTimeString: function () {
+      setUpTimeString: function () {    // done in very beginning after mount or refresh
         const timestr = Date.now().toString().substring(5,13);
         this.$store.dispatch("gTimeStampAct", timestr);
         let plname = "plot" + timestr + ".svg"
