@@ -40,12 +40,9 @@ class AppSupport:
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
-        plotfilepath = args_dict.get("plotfilepath")
-        plotfilepath_e = args_dict.get("plotfilepath_e")
-        plotfilepath_m = args_dict.get("plotfilepath_m")
+        plotfilepath_t = args_dict.get("plotfilepath_t")
+        plotfilepath_w = args_dict.get("plotfilepath_w")
         plotfilepath_r = args_dict.get("plotfilepath_r")
-
-        self.cpfile(plotfilepath_e, plotfilepath_m)  # this is just to wake up vue.js
 
         tstamp = args_dict.get("timestp")
 
@@ -69,7 +66,7 @@ class AppSupport:
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
 
-        tresult = self.plot_graph(plotfilepath, plotfilepath_m, plotfilepath_r, tstamp)
+        tresult = self.plot_graph(plotfilepath_t, plotfilepath_w, plotfilepath_r, tstamp)
         return tresult
 
     def cpfile(self, efile, mfile):
@@ -91,7 +88,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath, plotfilepath_m, plotfilepath_r, astamp):
+    def plot_graph(self, plotfilepath_t, plotfilepath_w, plotfilepath_r, astamp):
         plt.ioff()
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
@@ -163,11 +160,9 @@ class AppSupport:
 
         plt.plot(self.token_count_list_y, color='yellow', linestyle='-', linewidth=3)
 
-        plt.savefig(plotfilepath,  dpi=300, format='svg') # to get vue to update - change the file size
-        time.sleep(1)
-        plt.savefig(plotfilepath,  dpi=150, format='svg')
-        plt.savefig(plotfilepath_m,  dpi=150, format='svg')
         plt.savefig(plotfilepath_r,  dpi=150, format='svg')
+        plt.savefig(plotfilepath_w,  dpi=150, format='svg')  # to trigger :key update
+        plt.savefig(plotfilepath_t,  dpi=300, format='svg') # to get vue to update - change the file size
 
         #plt.show()
         return True

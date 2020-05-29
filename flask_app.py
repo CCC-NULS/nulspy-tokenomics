@@ -72,34 +72,32 @@ def make_names(args_dict):
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
         app_root = '/usr/share/nginx/html/tokenlife'
 
-    timestp = args_dict.get("timestp")
-    plot_name = "plot" + timestp + ".svg"
-    plot_name_m = "plotmain.svg"
-    plot_name_r = "plotmainreal.svg"
-    plot_name_e = "empty.svg"
-
     plotsdir = 'plots'
     plotfilesdir = os.path.join(app_root, plotsdir)
+    timestp = args_dict.get("timestp")
+    args_dict.update({"timestp": timestp})
 
-    plotfp = os.path.join(plotfilesdir, plot_name)
-    plotfp_m = os.path.join(plotfilesdir, plot_name_m)
-    plotfp_e = os.path.join(plotfilesdir, plot_name_e)
+    # main real plot is time or _t
+    plot_name_t = "plot" + timestp + ".svg"
+    plot_name_w = "plotwatch.svg"
+    plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
+
+    plotfp_t = os.path.join(plotfilesdir, plot_name_t)
+    plotfp_w = os.path.join(plotfilesdir, plot_name_w)
     plotfp_r = os.path.join(plotfilesdir, plot_name_r)
 
-    plotfilepath = os.path.normpath(plotfp)
-    plotfilepath_m = os.path.normpath(plotfp_m)
-    plotfilepath_e = os.path.normpath(plotfp_e)
+    plotfilepath_t = os.path.normpath(plotfp_t)
+    plotfilepath_w = os.path.normpath(plotfp_w)
     plotfilepath_r = os.path.normpath(plotfp_r)
 
-    args_dict.update({"timestp": timestp})
-    args_dict.update({"plotfilepath": plotfilepath})
-    args_dict.update({"plot_name": plot_name})
-    args_dict.update({"plotfilepath_m": plotfilepath_m})
-    args_dict.update({"plot_name_m": plot_name_m})
-    args_dict.update({"plotfilepath_e": plotfilepath_e})
-    args_dict.update({"plot_name_e": plot_name_e})
+    args_dict.update({"plotfilepath_t": plotfilepath_t})
+    args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
+
+    args_dict.update({"plotfilepath_w": plotfilepath_w})
+    args_dict.update({"plot_name_w": plotfp_w})  # w = watched
+
+    args_dict.update({"plot_name_r": plot_name_r})  # real or two
     args_dict.update({"plotfilepath_r": plotfilepath_r})
-    args_dict.update({"plot_name_r": plotfp_r})
 
     return args_dict
 
