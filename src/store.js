@@ -10,7 +10,7 @@ export default new Vuex.Store({
     drawer: null,
     showButton: false,
     gShowPlot: false,
-    gDkey: "0",
+    gCounter: 0,
     gDky: "0",
     gLocPlotPath: '@/assets/plots/plotreal.svg',
     gLocPlotName: 'plotreal.svg',
@@ -29,8 +29,8 @@ export default new Vuex.Store({
     gShowPlotMut(state, theval) {
       state.gShowPlot = theval
     },
-    gDkeyMut(state, theval) {
-      state.gDkey = theval
+    gCounterMut(state, theval) {
+      state.gCounter = theval
     },
     gDkyMut(state, theval) {
       state.gDky = theval
@@ -57,8 +57,8 @@ export default new Vuex.Store({
     gShowPlotAct (context, theval) {
       context.commit('gShowPlotMut', theval)
     },
-    gDkeyAct (context, theval) {
-      context.commit('gDkeyMut', theval)
+    gCounterAct (context, theval) {
+      context.commit('gCounterMut', theval)
     },
     gDkyAct (context, theval) {
       context.commit('gDkyMut', theval)

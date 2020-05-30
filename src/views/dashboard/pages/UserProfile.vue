@@ -159,17 +159,17 @@
         cols="12"
         md="11"
       >
-        <v-card>
-          <plotempty />
-        </v-card>
-
         <v-card
-          v-show="$store.state.gShowPlot"
+          v-show="$store.state.gCounter > 1"
+          id="plotcard"
         >
-          <plotreal />
+          <plotreal 
+            v-show="$store.state.gCounter > 1"
+          />
         </v-card>
 
         <v-card 
+          id="buttoncard"
           color="success"
           class="padbotcard"
           elevation-24
@@ -197,7 +197,6 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
   import plotreal from '@/assets/plots/comps/plotreal.svg'
-  import plotempty from '@/assets/plots/comps/plotempty.svg'  
   
   const axiosi = axios.create({
     });
@@ -214,7 +213,7 @@
     components: {
       TopWords,
       plotreal,
-      plotempty,
+      // plotempty,
     },
     data: () => ({
                   // '' must be this to be "reactive"
@@ -230,19 +229,35 @@
       vmd4: '',
       vmd5: '',
       initsupply: ["100,000,000", "700,000", "500,000", "300,000"],
-      aninflation: ["2000", "3000", "40,000", "50,000"],
+      aninflation: ["2000000", "3000000", "4000000", "4000000"],
       inflatervals: ["12", "18", "24", "36", "48"],
-      stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
+      stopinflation: ["210000000", "110000000", "50000000", "5000000", "1000000"],
       disinflation: ["3", "4", "5"],
     }),
     watch: {
-      plotdir: function() {
-        console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
-      },
-      plotreal: function() {
-        console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
+      plotdir:  {
+        deep: true,
+        immediate: true,
+        handler () {
+          console.log("!!! &&&&  &&&&  saw plotdir route change!!  ---------  ")
+          let ct = this.$store.state.gCounter
+          console.log("!!! &&&&  &&&&  saw ct: " + ct)
+
+          let ctt = ct + 1
+          this.$store.dispatch('gCounterAct', ctt)
+
+        }         
       },
     },
+    //   plotreal:  {
+    //     deep: true,
+    //     immediate: true,
+    //     handler () {
+    //       console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
+    //       this.$store.dispatch('gShowPlotAct', true)
+    //     }         
+    //   },
+    // },
     //   $route: function() {
     //     if (this.$route.path === "assets/plots/comps") {
     //       console.log("!!!  saw route change!!  ---------  ")
@@ -263,7 +278,6 @@
         console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
         console.log("!!! local plot_name_path: " + plot_name_path )
         console.log("!!! local plot_name: " + plot_name)
-        this.$store.dispatch('gShowPlotAct', true)
       },
       runAsyncGet: function (baseurl) {
         console.log('inside runAsyncGet')
@@ -293,10 +307,10 @@
         // need to remove comma's twice from a
 
         let aw = "&initsup=100000000"
-        let bw = "&anninf=5000" 
+        let bw = "&anninf=5000000" 
         let cw = "&startinf=24"
-        let dw = "&stopinf=50000"
-        let ew = "&disinf=5"    
+        let dw = "&stopinf=210000000"
+        let ew = "&disinf=4"    
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let baseurl = "http://localhost:5002/getpy?" + requestVars
         this.runAsyncGet(baseurl); 
