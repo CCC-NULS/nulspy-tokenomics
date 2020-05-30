@@ -159,9 +159,15 @@
         cols="12"
         md="11"
       >
-        <div>
+        <v-card>
+          <plotempty />
+        </v-card>
+
+        <v-card
+          v-show="$store.state.gShowPlot"
+        >
           <plotreal />
-        </div>
+        </v-card>
 
         <v-card 
           color="success"
@@ -190,7 +196,9 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-  import plotreal from '@/assets/plots/comps/plotreal.svg'  
+  import plotreal from '@/assets/plots/comps/plotreal.svg'
+  import plotempty from '@/assets/plots/comps/plotempty.svg'  
+  
   const axiosi = axios.create({
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
@@ -198,18 +206,18 @@
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const timestr = Date.now().toString().substring(9,12)
-  // var dkey = parseInt(timestr);
-  // var dky = parseInt(timestr);
-  // -- -- --  --  --  --  --  --  --  --   // 
+  const plotdir = '@/assets/plots/comps/'
+
 
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
       plotreal,
+      plotempty,
     },
     data: () => ({
-      // dky: 0,                // '' must be this to be "reactive"
+                  // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
         class: "v_chip_small",
@@ -228,19 +236,26 @@
       disinflation: ["3", "4", "5"],
     }),
     watch: {
+      plotdir: function() {
+        console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
+      },
       plotreal: function() {
         console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
       },
-      $route: function() {
-        if (this.$route.path === "assets/plots/comps") {
-          console.log("!!!  saw route change!!  ---------  ")
-            //   this.$refs.page1expantion.show();
-            //   } else  {
-            // this.$refs.page1expantion.hide();
-          }
-        }
-      },
+    },
+    //   $route: function() {
+    //     if (this.$route.path === "assets/plots/comps") {
+    //       console.log("!!!  saw route change!!  ---------  ")
+    //         //   this.$refs.page1expantion.show();
+    //         //   } else  {
+    //         // this.$refs.page1expantion.hide();
+    //       }
+    //     }
+    //   },
 
+    mount () {
+      this.$store.dispatch('gShowPlotAct', false)
+    },
     methods: {
       storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gLocPlotNameAct', plot_name)
@@ -248,6 +263,7 @@
         console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
         console.log("!!! local plot_name_path: " + plot_name_path )
         console.log("!!! local plot_name: " + plot_name)
+        this.$store.dispatch('gShowPlotAct', true)
       },
       runAsyncGet: function (baseurl) {
         console.log('inside runAsyncGet')
