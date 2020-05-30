@@ -159,12 +159,9 @@
         cols="12"
         md="11"
       >
-        <v-card
-          v-if="showplot"
-          :key="dky"
-        >
+        <div>
           <plotreal />
-        </v-card>
+        </div>
 
         <v-card 
           color="success"
@@ -193,27 +190,17 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-  import plotreal from '@/assets/plots/plotreal.svg'  // componentvar fs = require('graceful-fs')
-  const watchFile = '@/assets/plots/plotwatch.txt'
-  const watchDir = '@/assets/plots'
-  // these are the two components that update themselve via :key
-
+  import plotreal from '@/assets/plots/comps/plotreal.svg'  
   const axiosi = axios.create({
     });
   axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axiosi.defaults.headers.post['Content-Type'] = 'application/json'
   axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
   axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  var showplot = false
-  
-  function savefalse_store () {
-    this.$store.dispatch('gShowPlotAct', false)
-    }
-  savefalse_store
   const timestr = Date.now().toString().substring(9,12)
-  var dkey = parseInt(timestr);
-  var dky = parseInt(timestr);
- // -- -- --  --  --  --  --  --  --  --   // 
+  // var dkey = parseInt(timestr);
+  // var dky = parseInt(timestr);
+  // -- -- --  --  --  --  --  --  --  --   // 
 
   export default {
     name: 'UserProfilePage',
@@ -222,9 +209,7 @@
       plotreal,
     },
     data: () => ({
-      showplot,
-      dkey: 0,
-      dky: 0,                // '' must be this to be "reactive"
+      // dky: 0,                // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
         class: "v_chip_small",
@@ -237,53 +222,27 @@
       vmd4: '',
       vmd5: '',
       initsupply: ["100,000,000", "700,000", "500,000", "300,000"],
-      aninflation: ["200,000", "300,000", "400,000", "500,000"],
+      aninflation: ["2000", "3000", "40,000", "50,000"],
       inflatervals: ["12", "18", "24", "36", "48"],
       stopinflation: ["400,000", "450,000", "500,000", "600,000", "700,000"],
       disinflation: ["3", "4", "5"],
     }),
-    watch: {   // watch for it to get written over by python
-      watchFile: {
-        deep: true,
-        immediate: true,
-        handler: function() {
-          dkey = this.$store.state.gDkey
-          dky = this.$store.state.gDky
-          dkey++
-          this.$store.dispatch('dkeyAct', dkey)
-
-          if (dkey > 1 ) {    // skip the first time during mount
-            dky++
-            this.$store.dispatch('dkyAct', dky)
-            showplot = true
-            this.savetrue
-            }
-            console.log(" -- file changed! " + dkey + ' ' + dky)
-          }
-        },      
-      watchDir: {
-        deep: true,
-        immediate: true,
-        handler: function() {
-          console.log(" -- dir changed! " + this.dkey)
-          dkey++
-          if (dkey > 1 ) {    // skip the first time during mount
-            dky++
-            // showplot = true
-
-          }
-        },
+    watch: {
+      plotreal: function() {
+        console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
       },
-    },
-    mount () {
-      showplot = false
-      this.$store.dispatch('gShowPlotAct', false)
-    },
+      $route: function() {
+        if (this.$route.path === "assets/plots/comps") {
+          console.log("!!!  saw route change!!  ---------  ")
+            //   this.$refs.page1expantion.show();
+            //   } else  {
+            // this.$refs.page1expantion.hide();
+          }
+        }
+      },
+
     methods: {
-      savetrue: function () {
-        this.$store.dispatch('gShowPlotAct', true)
-      },
-      storePlotNames: function (plot_name, plot_name_path) {
+      storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gLocPlotNameAct', plot_name)
         this.$store.dispatch('gLocPlotPathAct', plot_name_path)
         console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
@@ -300,23 +259,27 @@
         })()
       },
       makePlot: function (aa, bb, c, dd, e) {
+        console.log("aa: ", aa)
+        console.log("bb: ", bb)
+        console.log("dd: ", dd)
+
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = "@/assets/plots/" + plotname_t
-        storePlotNames(plotname_t, plotname_t_path)
+        this.storeTimedPlotNames(plotname_t, plotname_t_path)
 
         // let aaa = aa.replace(',', '')
         // let aw = '&initsup=' + aaa.replace(',', '')
         // let bw = '&anninf=' + bb.replace(',', '')
         // let cw = '&startinf=' + c
-        // let dw = '&stopinf=' + dd..replace(',', '')
+        // let dw = '&stopinf=' + dd.replace(',', '')
         // let ew = '&disinf=' + e
         // need to remove comma's twice from a
 
         let aw = "&initsup=100000000"
-        let bw = "&anninf=500000" 
+        let bw = "&anninf=5000" 
         let cw = "&startinf=24"
-        let dw = "&stopinf=500000"
+        let dw = "&stopinf=50000"
         let ew = "&disinf=5"    
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let baseurl = "http://localhost:5002/getpy?" + requestVars

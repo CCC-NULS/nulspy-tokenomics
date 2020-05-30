@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { realpath } from 'fs'
 
 Vue.use(Router)
+
+const plotreal = {
+  template: '<div>User</div>'
+}
 
 export default new Router({
   mode: 'hash',
@@ -18,12 +23,26 @@ export default new Router({
           component: () => import('@/views/dashboard/Dashboard'),
         },
         // Pages
+     
         {
           name: 'Create Graph',
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
+        }, 
+        {
+          name: 'plotreal',
+          path: 'assets/plots/comps',
+          component: () => import('@/assets/plots/comps/plotreal.svg'),
         },
-
+        
+        //   children: [
+        //     {
+        //       name: 'plotreal',
+        //       path: 'assets/plots/comps',
+        //       component: () => import('@/assets/plots/comps/plotreal.svg'),
+        //     },   
+        //   ],
+        // },
         // {
         //   name: 'LastCard2',
         //   path: 'components',
@@ -62,6 +81,8 @@ export default new Router({
           path: 'maps/google-maps',
           component: () => import('@/views/dashboard/maps/GoogleMaps'),
         },
+
+        // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
         // {
         //   name: 'Profile Card',
         //   path: 'componentsns',
