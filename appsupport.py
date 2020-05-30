@@ -36,13 +36,12 @@ class AppSupport:
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000
+        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/10000
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath_t = args_dict.get("plotfilepath_t")
         plotfilepath_r = args_dict.get("plotfilepath_r")
-        plotfilepath_w = args_dict.get("plotfilepath_w")
 
         tstamp = args_dict.get("timestp")
 
@@ -65,22 +64,14 @@ class AppSupport:
             self.token_interval_list.append(interval_count)
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
-
-        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r, plotfilepath_w, tstamp)
+        stamp_string = self.make_long_stamp()  # the make each file unique for vue router
+        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r)
         return tresult
 
-    def write_to_watchfile(self, plotfilepath_watch):
+    def make_long_stamp(self):
         datetime_str = str(datetime.now())
-        last_int = int(datetime_str[-2:])
-        if last_int < 1:
-            last_int = 22
-        print("last_int: ", str(last_int))
         print(datetime_str)
-        with open(plotfilepath_watch, "w") as file1:
-            # Writing data to a file
-            for x in range(last_int):
-                file1.write(datetime_str)
-
+        return datetime_str
 
     def rounddown(self, nm):
         num = int(nm)
@@ -95,7 +86,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath_t, plotfilepath_r, plotfilepath_w, astamp):
+    def plot_graph(self, plotfilepath_t, plotfilepath_r):
         plt.ioff()
         font = {'size': 12}
         disinflation_ratio = self.disinflation_ratio
@@ -126,8 +117,9 @@ class AppSupport:
                  weight='bold')
 
         plt.margins(y=.01, tight=False)
-
-        plt.figtext(0.01, 0, astamp,  color='b',  size=7)
+        dt = str(datetime.now())
+        # plt.figtext(0.01, 0.1, stamp_string,  color='b',  size=7)
+        plt.figtext(0.01, 0, dt,  color='b',  size=7)
 
         # -------- TICKS
 
@@ -167,10 +159,8 @@ class AppSupport:
 
         plt.plot(self.token_count_list_y, color='yellow', linestyle='-', linewidth=3)
 
-        plt.savefig(plotfilepath_r,  dpi=300, format='svg')
-        # plt.savefig(plotfilepath_w,  dpi=150, format='svg')  # to trigger :key update
-        plt.savefig(plotfilepath_t,  dpi=300, format='svg') # to get vue to update - change the file size
-        self.write_to_watchfile(plotfilepath_w)
+        plt.savefig(plotfilepath_r,  dpi=150, format='svg')
+        plt.savefig(plotfilepath_t,  dpi=150, format='svg')  # to get vue to update - change the file size
         #plt.show()
         return True
 

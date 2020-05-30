@@ -73,28 +73,24 @@ def make_names(args_dict):
         app_root = '/usr/share/nginx/html/tokenlife'
 
     plotsdir = 'plots'
+    plotsdir_comps = 'plots/comps'
     plotfilesdir = os.path.join(app_root, plotsdir)
+    plotcompsdir = os.path.join(app_root, plotsdir_comps)
     timestp = args_dict.get("timestp")
     args_dict.update({"timestp": timestp})
 
     # main real plot is time or _t
     plot_name_t = "plot" + timestp + ".svg"
-    plot_name_w = "plotwatch.txt"
     plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
 
     plotfp_t = os.path.join(plotfilesdir, plot_name_t)
-    plotfp_w = os.path.join(plotfilesdir, plot_name_w)
-    plotfp_r = os.path.join(plotfilesdir, plot_name_r)
+    plotfp_r = os.path.join(plotcompsdir, plot_name_r)  # put real one in components so router can update
 
     plotfilepath_t = os.path.normpath(plotfp_t)
-    plotfilepath_w = os.path.normpath(plotfp_w)
     plotfilepath_r = os.path.normpath(plotfp_r)
 
     args_dict.update({"plotfilepath_t": plotfilepath_t})
     args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
-
-    args_dict.update({"plotfilepath_w": plotfilepath_w})
-    args_dict.update({"plot_name_w": plotfp_w})  # w = watched
 
     args_dict.update({"plot_name_r": plot_name_r})  # real or two
     args_dict.update({"plotfilepath_r": plotfilepath_r})
