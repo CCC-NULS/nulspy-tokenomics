@@ -64,6 +64,7 @@
                     md="4"
                   >
                     <!-- choice chip:  # # # #  # # # #  # # # #  -->
+                    <!--:items="initsupply" -->
 
                     <v-select
                       id="vselone"
@@ -71,6 +72,7 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
+
                       :items="initsupply"
                       placeholder="100,000"
                     />
@@ -160,11 +162,12 @@
         md="11"
       >
         <v-card
-          v-show="$store.state.gCounter > 1"
           id="plotcard"
+          class="padplot"
         >
           <plotreal 
             v-show="$store.state.gCounter > 1"
+            :pkey="plotkey"
           />
         </v-card>
 
@@ -175,7 +178,10 @@
           elevation-24
           raised
         >
-          <v-btn id="redobtn">
+          <v-btn 
+            id="redobtn"
+            @click="resetc"
+          >
             Redo
           </v-btn>
           <v-btn
@@ -197,41 +203,46 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
   import plotreal from '@/assets/plots/comps/plotreal.svg'
-  
-  const axiosi = axios.create({
+  var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
+  const axiosi = axios.create({ 
+    defaults: {
+      headers: {
+        post: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+         'Content-Type': 'application/json' },
+        common: { 'Access-Control-Allow-Origin':  '*'}
+      } }
     });
-  axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-  axiosi.defaults.headers.post['Content-Type'] = 'application/json'
-  axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, POST, HEAD, UPDATE, PUT'
-  axiosi.defaults.headers.post['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  // axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  // axiosi.defaults.headers.post['Content-Type'] = 'application/json'
+  // axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = restTypes
+  // axiosi.defaults.headers.post['Accept'] = acceptStr
   const timestr = Date.now().toString().substring(9,12)
   const plotdir = '@/assets/plots/comps/'
-
+  var plotkey = 0
 
   export default {
     name: 'UserProfilePage',
     components: {
       TopWords,
       plotreal,
-      // plotempty,
     },
     data: () => ({
                   // '' must be this to be "reactive"
       plotsSaved: [],
       chipprops: {
-        class: "v_chip_small",
-        small: true,
-        dark: false,
+        class: "v_chip_small", small: true, dark: false,
       },
+      plotkey,
       vmd1: '',
       vmd2: '',
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      initsupply: ["100,000,000", "700,000", "500,000", "300,000"],
-      aninflation: ["2000000", "3000000", "4000000", "4000000"],
+      initsupply: ["500,000,000","200,000,000","100,000,000", "700,000", "500,000", "300,000", "300,000"],
+      aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
       inflatervals: ["12", "18", "24", "36", "48"],
-      stopinflation: ["210000000", "110000000", "50000000", "5000000", "1000000"],
+      stopinflation: ["610,000,000","510,000,000","210,000,000", "110,000,000", "50,000,000", "5,000,000", "1,000,000"],
       disinflation: ["3", "4", "5"],
     }),
     watch: {
@@ -240,38 +251,35 @@
         immediate: true,
         handler () {
           console.log("!!! &&&&  &&&&  saw plotdir route change!!  ---------  ")
-          let ct = this.$store.state.gCounter
-          console.log("!!! &&&&  &&&&  saw ct: " + ct)
-
-          let ctt = ct + 1
-          this.$store.dispatch('gCounterAct', ctt)
-
+          let myCounter = this.$store.state.gCounter
+          console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
+          ++myCounter
+          this.$store.dispatch('gCounterAct', myCounter)
+          console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
         }         
       },
-    },
-    //   plotreal:  {
+    //   redobtn:  {
     //     deep: true,
     //     immediate: true,
     //     handler () {
-    //       console.log("!!! &&&&  &&&&  saw plotreal route change!!  ---------  ")
-    //       this.$store.dispatch('gShowPlotAct', true)
-    //     }         
-    //   },
+    //       ++plotkey
+    //       this.$store.dispatch('gCounterAct', 0)
+    //   }         
     // },
-    //   $route: function() {
-    //     if (this.$route.path === "assets/plots/comps") {
-    //       console.log("!!!  saw route change!!  ---------  ")
-    //         //   this.$refs.page1expantion.show();
-    //         //   } else  {
-    //         // this.$refs.page1expantion.hide();
-    //       }
-    //     }
-    //   },
-
+    },
     mount () {
-      this.$store.dispatch('gShowPlotAct', false)
     },
     methods: {
+      resetc: function () {
+        let myCounter = this.$store.state.gCounter
+        console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
+        console.log("setting myCounter to zero 1 ")
+        this.$store.dispatch('gCounterAct', 1)  // start over
+        let myCounter2 = this.$store.state.gCounter
+        console.log("!!! &&&&  &&&&  myCounter: " + myCounter2)
+        ++plotkey
+
+      },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gLocPlotNameAct', plot_name)
         this.$store.dispatch('gLocPlotPathAct', plot_name_path)
@@ -279,8 +287,8 @@
         console.log("!!! local plot_name_path: " + plot_name_path )
         console.log("!!! local plot_name: " + plot_name)
       },
-      runAsyncGet: function (baseurl) {
-        console.log('inside runAsyncGet')
+      asyncRequestPlot: function (baseurl) {
+        console.log('inside asyncRequestPlot')
         ;(async () => {
           let response = await axiosi({
             url: baseurl,
@@ -288,33 +296,27 @@
           })
         })()
       },
-      makePlot: function (aa, bb, c, dd, e) {
-        console.log("aa: ", aa)
-        console.log("bb: ", bb)
-        console.log("dd: ", dd)
+      makePlot: function (a, b, c, d, e) {
+
+        console.log("a: " + a + "b: " + b+ "d: " + d)
 
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = "@/assets/plots/" + plotname_t
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
 
-        // let aaa = aa.replace(',', '')
-        // let aw = '&initsup=' + aaa.replace(',', '')
-        // let bw = '&anninf=' + bb.replace(',', '')
-        // let cw = '&startinf=' + c
-        // let dw = '&stopinf=' + dd.replace(',', '')
-        // let ew = '&disinf=' + e
-        // need to remove comma's twice from a
+        let aw = '&initsup=' + a.replace(/,/g, '')
+        let bw = '&anninf=' + b.replace(/,/g, '')
+        let cw = '&startinf=' + c
+        let dw = '&stopinf=' + d.replace(/,/g, '')
+        let ew = '&disinf=' + e
+        // need to remove comma's twice from a, b, d
 
-        let aw = "&initsup=100000000"
-        let bw = "&anninf=5000000" 
-        let cw = "&startinf=24"
-        let dw = "&stopinf=210000000"
-        let ew = "&disinf=4"    
+        // let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
-        let baseurl = "http://localhost:5002/getpy?" + requestVars
-        this.runAsyncGet(baseurl); 
-        console.log("!!!baseurl: " + baseurl)   
+        let pythonUrl = "http://localhost:5002/getpy?" + requestVars
+        this.asyncRequestPlot(pythonUrl); 
+        console.log("!!! pythonUrl: " + pythonUrl)   
       },
 
       keepplot: function () {
@@ -322,39 +324,11 @@
         let count = plotsSaved.push(pname);
         this.$store.dispatch('gPlotListAct', plotsSaved);
         console.log('keepplot plots: ' + count + " " + plotsSaved)
+        this.$store.dispatch('gCounterAct', 0)  // start over
       },
     }
   }
 </script>
 
 <style src="@/assets/styles/mystyle.css">
-  .padbotcard {
-    margin-top: 1px!important;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    display: flex;
-    align: top;
-    justify-content: center;
-  }
 </style>
-
-    //   AsyncComponent: () => ({
-    //     // The component we want to load.
-    //     component: AsyncComponent,
-    //     // The component to use as a placeholder while the
-    //     // async component is loading.
-    //     loading: AsyncLoading,
-    //     // The component to render instead if there is an error
-    //     // loading the async component.
-    //     error: AsyncLoadError,
-    //     // The delay before the loading component is shown.
-    //     delay: 100,
-    //     // If this timeout is reached, the async component is considered
-    //     // to have failed loading.
-    //     timeout: 5000
-    //   }),
-    // },    
-  // const AsyncComponent = new Promise((resolve, reject) => {
-  //   import('@/assets/plots/plotmain.svg') 
-  //   }) 
-  
