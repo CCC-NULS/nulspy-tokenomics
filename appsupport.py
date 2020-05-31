@@ -36,7 +36,7 @@ class AppSupport:
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/10000
+        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
@@ -117,11 +117,13 @@ class AppSupport:
                  weight='bold')
 
         plt.margins(y=.01, tight=False)
-        dt = str(datetime.now())
-        # plt.figtext(0.01, 0.1, stamp_string,  color='b',  size=7)
-        plt.figtext(0.01, 0, dt,  color='b',  size=7)
+        init_str = "          Initial Supply: " + str(self.initial_supply_y)
+        stop_str = "   Stop Inflation: " + str(self.stop_inflation_y)
+        dt = str(datetime.now()) + init_str + stop_str
+        plt.figtext(0.01, 0, dt,  color='b',  size=12)
 
-        # -------- TICKS
+
+        # -- -- -- -- TICKS -- -- -- -- -- -- --  #
 
         gx = int(top_x / 10)
         major_x_gaps = self.round_up_to_multiple(gx, 100)
@@ -157,7 +159,7 @@ class AppSupport:
 
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
-        plt.plot(self.token_count_list_y, color='yellow', linestyle='-', linewidth=3)
+        plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
 
         plt.savefig(plotfilepath_r,  dpi=150, format='svg')
         plt.savefig(plotfilepath_t,  dpi=150, format='svg')  # to get vue to update - change the file size
