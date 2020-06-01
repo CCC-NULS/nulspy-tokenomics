@@ -162,12 +162,14 @@
         md="11"
       >
         <v-card
+          v-show="$store.state.gCounter > 1"
           id="plotcard"
           class="padplot"
         >
           <plotreal 
             v-show="$store.state.gCounter > 1"
             :pkey="plotkey"
+            plotcard
           />
         </v-card>
 
@@ -213,10 +215,6 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  // axiosi.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-  // axiosi.defaults.headers.post['Content-Type'] = 'application/json'
-  // axiosi.defaults.headers.post['Access-Control-Allow-Methods'] = restTypes
-  // axiosi.defaults.headers.post['Accept'] = acceptStr
   const timestr = Date.now().toString().substring(9,12)
   const plotdir = '@/assets/plots/comps/'
   var plotkey = 0
@@ -239,10 +237,10 @@
       vmd3: '',
       vmd4: '',
       vmd5: '',
-      initsupply: ["500,000,000","200,000,000","100,000,000", "700,000", "500,000", "300,000", "300,000"],
+      initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
       aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
       inflatervals: ["12", "18", "24", "36", "48"],
-      stopinflation: ["610,000,000","510,000,000","210,000,000", "110,000,000", "50,000,000", "5,000,000", "1,000,000"],
+      stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
     watch: {
@@ -258,14 +256,6 @@
           console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
         }         
       },
-    //   redobtn:  {
-    //     deep: true,
-    //     immediate: true,
-    //     handler () {
-    //       ++plotkey
-    //       this.$store.dispatch('gCounterAct', 0)
-    //   }         
-    // },
     },
     mount () {
     },
@@ -297,9 +287,7 @@
         })()
       },
       makePlot: function (a, b, c, d, e) {
-
-        console.log("a: " + a + "b: " + b+ "d: " + d)
-
+        console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = "@/assets/plots/" + plotname_t
@@ -318,7 +306,6 @@
         this.asyncRequestPlot(pythonUrl); 
         console.log("!!! pythonUrl: " + pythonUrl)   
       },
-
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
         let count = plotsSaved.push(pname);
@@ -329,6 +316,5 @@
     }
   }
 </script>
-
 <style src="@/assets/styles/mystyle.css">
 </style>
