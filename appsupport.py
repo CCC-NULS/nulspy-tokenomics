@@ -17,7 +17,7 @@ import shutil
 
 class AppSupport:
     def __init__(self):
-        self.TOKEN_SYMBOL = "VKG"  # 3 characters, all caps.  e.g SET = Space Exploration
+        self.TOKEN_SYMBOL = "NULS"  # 3 characters, all caps.  e.g SET = Space Exploration
         self.initial_supply_y = 0
         self.stop_inflation_y = 0
         self.disinflation_ratio = 0
@@ -44,7 +44,7 @@ class AppSupport:
         plotfilepath_r = args_dict.get("plotfilepath_r")
         plotfilepath_g = args_dict.get("plotfilepath_g")
 
-        tstamp = args_dict.get("timestp")
+        # tstamp = args_dict.get("timestp")
 
         start_inflation = start_inflation / 1000
 
@@ -63,9 +63,7 @@ class AppSupport:
             self.token_count_list_y.append(round(tokens))
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
-            # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
-        stamp_string = self.make_long_stamp()  # the make each file unique for vue router
         tresult = self.plot_graph(plotfilepath_t, plotfilepath_r, plotfilepath_g)
         return tresult
 
@@ -91,7 +89,8 @@ class AppSupport:
         plt.ioff()
         font = {'size': 12}
         stp_inf = self.stop_inflation_y
-        dt = str(datetime.now())
+        dtt = str(datetime.now())
+        dt = dtt[0:-7]
 
         disinflation_ratio = self.disinflation_ratio
         disinflation = "{:.1%}".format(disinflation_ratio)
@@ -101,10 +100,9 @@ class AppSupport:
         max_text = 'Max Supply = ' + str(stp_inf_formatted)
         init_str = "               Initial Supply: " + initial_sup_formatted
         stop_str = "   Stop Inflation: " + str(stp_inf_formatted)
-        plt.title('Life Span for Token', pad=20, color="purple", size=30)
         bigstr = init_str + stop_str
 
-        plt.margins(y=.001, tight=False)
+        plt.margins(x=.07, y=.001, tight=False)
 
         top_x = int(self.interval_limit_x)
         bottom_y = self.initial_supply_y
@@ -112,23 +110,22 @@ class AppSupport:
         top_y = int(top_count)
         vpadding = top_y / 22
         text_loc = self.stop_inflation_y + (vpadding/5)
-        ylocation = self.initial_supply_y + vpadding
+        ylocation = bottom_y + vpadding
 
         if self.stop_inflation_y > top_y:
             top_y = self.stop_inflation_y
 
         matplotlib.rc('font', **font)
-        fig, ax = plt.subplots(figsize=(12, 9))
+        fig, ax = plt.subplots(figsize=(12, 7))
 
-        fig.subplots_adjust(bottom=0.1)
-
+        plt.subplots_adjust(left=0.15, bottom=0.19)  # controls amount of room left and below
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
         plt.text(100, text_loc, max_text, color='r', size='large', weight='bold')
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=14, weight='bold')
-        plt.figtext(0.007, 0.007, dt,  color='b',  size=7)
+        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=14, weight='bold')  # bottom lines
+        plt.figtext(0.007, 0.007, dt,  color='b',  size=7)   # datestamp left bottom
 
         # -- -- -- -- TICKS -- -- -- -- -- -- --  #
 
@@ -157,11 +154,12 @@ class AppSupport:
         xlabel_str = "30 day Intervals, " + an_infl + part2 + disinflation
         ylabel_str = 'Total Supply'
 
-        plt.ylabel(ylabel_str, size=18, color="green", labelpad=7)
+        plt.ylabel(ylabel_str, size=18, color="green", labelpad=9)
         plt.xlabel(xlabel_str, size=18, labelpad=20, color="blue", weight="bold")
 
         plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))  # No decimal places
 
+        plt.title('Life Span for Token', pad=20, color="purple", size=30)
         plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)

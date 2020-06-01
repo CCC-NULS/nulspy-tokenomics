@@ -6,4 +6,6 @@ old
 
 __pycache__/*
 __pycache__/appsupport.cpython-37.pyc
- 
+/static
+/static/plots
+

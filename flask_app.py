@@ -1,12 +1,12 @@
 
 
-import os
 from time import sleep
 from flask import Flask, request, render_template, jsonify
 from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
 import os
+
 
 application = Flask(__name__)
 CORS(application, resources={r"/*": {"origins": "*"}})
@@ -65,7 +65,7 @@ def getpy():
 
 
 @cross_origin()
-@application.route('/gplots', methods=["GET", "POST", "UPDATE", "HEAD"])
+@application.route('/', methods=["GET", "POST", "UPDATE", "HEAD"])
 def gplots():
     if request.method == 'GET':
         # message = {'greeting': 'Hello from Flask!'}
@@ -76,7 +76,7 @@ def make_names(args_dict):
     if os.name == 'nt':
         app_root = "E:/wsvue/vuetify-material-dashboard-master/src/assets"
 
-        app_rootg = "E:/wsvue/public"
+        app_rootg = "static/plots"
         # app_root = os.path.abspath(os.curdir)
     else:
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
@@ -88,14 +88,14 @@ def make_names(args_dict):
     plotcompsdir = os.path.join(app_root, plotsdir_comps)
 
     timestp = args_dict.get("timestp")
-    args_dict.update({"timestp": timestp})
+    # args_dict.update({"timestp": timestp})
 
     # main real plot is time or _t
-    plot_name_t = "plot" + timestp + ".svg"
     plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
+    plot_name_t = "plot" + timestp + ".svg"
 
-    plotfp_t = os.path.join(plotfilesdir, plot_name_t)
     plotfp_r = os.path.join(plotcompsdir, plot_name_r)  # put real one in components so router can update
+    plotfp_t = os.path.join(plotfilesdir, plot_name_t)
     plotfp_g = os.path.join(app_rootg, plot_name_t)
 
     plotfilepath_t = os.path.normpath(plotfp_t)
@@ -105,8 +105,9 @@ def make_names(args_dict):
     args_dict.update({"plotfilepath_t": plotfilepath_t})
     args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
 
-    args_dict.update({"plot_name_r": plot_name_r})  # real or two
     args_dict.update({"plotfilepath_r": plotfilepath_r})
+    args_dict.update({"plot_name_r": plot_name_r})  # real or two
+
     args_dict.update({"plotfilepath_g": plotfilepath_g})
 
     return args_dict
