@@ -17,14 +17,14 @@ env = Environment(    # jinja2
 
 
 def chk_for_file(tfile):
-    sleep(1.5)
+    sleep(.4)
     while True:
         try:
             x = os.path.isfile(tfile)
             if x:
                 return True
             else:
-                sleep(1)
+                sleep(.3)
         except FileNotFoundError:
             continue
 
@@ -64,9 +64,19 @@ def getpy():
     return '200 OK'
 
 
+@cross_origin()
+@application.route('/gplots', methods=["GET", "POST", "UPDATE", "HEAD"])
+def gplots():
+    if request.method == 'GET':
+        # message = {'greeting': 'Hello from Flask!'}
+        print("Incoming GET")
+
+
 def make_names(args_dict):
     if os.name == 'nt':
         app_root = "E:/wsvue/vuetify-material-dashboard-master/src/assets"
+
+        app_rootg = "E:/wsvue/public"
         # app_root = os.path.abspath(os.curdir)
     else:
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
@@ -76,6 +86,7 @@ def make_names(args_dict):
     plotsdir_comps = 'plots/comps'
     plotfilesdir = os.path.join(app_root, plotsdir)
     plotcompsdir = os.path.join(app_root, plotsdir_comps)
+
     timestp = args_dict.get("timestp")
     args_dict.update({"timestp": timestp})
 
@@ -85,15 +96,18 @@ def make_names(args_dict):
 
     plotfp_t = os.path.join(plotfilesdir, plot_name_t)
     plotfp_r = os.path.join(plotcompsdir, plot_name_r)  # put real one in components so router can update
+    plotfp_g = os.path.join(app_rootg, plot_name_t)
 
     plotfilepath_t = os.path.normpath(plotfp_t)
     plotfilepath_r = os.path.normpath(plotfp_r)
+    plotfilepath_g = os.path.normpath(plotfp_g)
 
     args_dict.update({"plotfilepath_t": plotfilepath_t})
     args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
 
     args_dict.update({"plot_name_r": plot_name_r})  # real or two
     args_dict.update({"plotfilepath_r": plotfilepath_r})
+    args_dict.update({"plotfilepath_g": plotfilepath_g})
 
     return args_dict
 

@@ -42,6 +42,7 @@ class AppSupport:
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath_t = args_dict.get("plotfilepath_t")
         plotfilepath_r = args_dict.get("plotfilepath_r")
+        plotfilepath_g = args_dict.get("plotfilepath_g")
 
         tstamp = args_dict.get("timestp")
 
@@ -65,7 +66,7 @@ class AppSupport:
             # print(tokens, monthly_inflation, deflation, interval_count)
             interval_count += 1
         stamp_string = self.make_long_stamp()  # the make each file unique for vue router
-        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r)
+        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r, plotfilepath_g)
         return tresult
 
     def make_long_stamp(self):
@@ -86,48 +87,54 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath_t, plotfilepath_r):
+    def plot_graph(self, plotfilepath_t, plotfilepath_r, plotfilepath_g):
         plt.ioff()
         font = {'size': 12}
+        stp_inf = self.stop_inflation_y
+        dt = str(datetime.now())
+
         disinflation_ratio = self.disinflation_ratio
-        bottom_x = 0
+        disinflation = "{:.1%}".format(disinflation_ratio)
+        initial_sup_formatted = "{:,}".format(self.initial_supply_y)
+        stp_inf_formatted = "{:,}".format(self.stop_inflation_y)
+
+        max_text = 'Max Supply = ' + str(stp_inf_formatted)
+        init_str = "               Initial Supply: " + initial_sup_formatted
+        stop_str = "   Stop Inflation: " + str(stp_inf_formatted)
+        plt.title('Life Span for Token', pad=20, color="purple", size=30)
+        bigstr = init_str + stop_str
+
+        plt.margins(y=.001, tight=False)
+
         top_x = int(self.interval_limit_x)
-
         bottom_y = self.initial_supply_y
-
         top_count = self.token_count_list_y[-1]
         top_y = int(top_count)
+        vpadding = top_y / 22
+        text_loc = self.stop_inflation_y + (vpadding/5)
+        ylocation = self.initial_supply_y + vpadding
 
         if self.stop_inflation_y > top_y:
             top_y = self.stop_inflation_y
 
-        disinflation = "{:.1%}".format(disinflation_ratio)
         matplotlib.rc('font', **font)
+        fig, ax = plt.subplots(figsize=(12, 9))
 
-        fig, ax = plt.subplots(figsize=(14, 9))
+        fig.subplots_adjust(bottom=0.1)
 
-        stp_inf = self.stop_inflation_y
-        vpadding = top_y / 22
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
-        text_loc = self.stop_inflation_y + (vpadding/5)
-
-        plt.text(100, text_loc, 'Max Supply', color='r', size='large', weight='bold')
-        ylocation = self.initial_supply_y + vpadding
+        plt.text(100, text_loc, max_text, color='r', size='large', weight='bold')
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-        plt.margins(y=.01, tight=False)
-        init_str = "          Initial Supply: " + str(self.initial_supply_y)
-        stop_str = "   Stop Inflation: " + str(self.stop_inflation_y)
-        dt = str(datetime.now()) + init_str + stop_str
-        plt.figtext(0.01, 0, dt,  color='b',  size=12)
-
+        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=14, weight='bold')
+        plt.figtext(0.007, 0.007, dt,  color='b',  size=7)
 
         # -- -- -- -- TICKS -- -- -- -- -- -- --  #
 
         gx = int(top_x / 10)
         major_x_gaps = self.round_up_to_multiple(gx, 100)
-        major_ticks_x = np.arange(bottom_x, top_x, major_x_gaps)
+        major_ticks_x = np.arange(0, top_x, major_x_gaps)
 
         gy = int(top_y / 10)
         major_y_gaps = self.round_up_to_multiple(gy, 1000000)
@@ -145,8 +152,6 @@ class AppSupport:
 
         ax.grid(which='both')
 
-        plt.title('Life Span for Token', pad=20, color="purple", size=30)
-
         an_infl = str("{:,}".format(round(self.annual_inflation / 12)))
         part2 = " Inflation, and Disinflation Ratio: "
         xlabel_str = "30 day Intervals, " + an_infl + part2 + disinflation
@@ -163,6 +168,7 @@ class AppSupport:
 
         plt.savefig(plotfilepath_r,  dpi=150, format='svg')
         plt.savefig(plotfilepath_t,  dpi=150, format='svg')  # to get vue to update - change the file size
+        plt.savefig(plotfilepath_g,  dpi=150, format='svg')  # local dir for 5002
         #plt.show()
         return True
 
