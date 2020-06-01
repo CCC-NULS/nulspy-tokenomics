@@ -165,6 +165,11 @@
           v-show="$store.state.gCounter > 1"
           id="plotcard"
           class="padplot"
+          pl-2
+          elevation-24
+          raised
+          margin-top="16px!important"
+          margin-bottom="9px!important"
         >
           <plotreal 
             v-show="$store.state.gCounter > 1"
@@ -210,7 +215,7 @@
   const axiosi = axios.create({ 
     defaults: {
       headers: {
-        post: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+        get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
          'Content-Type': 'application/json' },
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
@@ -225,9 +230,7 @@
       TopWords,
       plotreal,
     },
-    data: () => ({
-                  // '' must be this to be "reactive"
-      plotsSaved: [],
+    data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
@@ -268,7 +271,6 @@
         let myCounter2 = this.$store.state.gCounter
         console.log("!!! &&&&  &&&&  myCounter: " + myCounter2)
         ++plotkey
-
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gLocPlotNameAct', plot_name)
@@ -278,13 +280,18 @@
         console.log("!!! local plot_name: " + plot_name)
       },
       asyncRequestPlot: function (baseurl) {
-        console.log('inside asyncRequestPlot')
-        ;(async () => {
-          let response = await axiosi({
-            url: baseurl,
-            method: "get",
-          })
-        })()
+        try { 
+          console.log('inside asyncRequestPlot')
+          ;(async () => {
+            let response = await axiosi({
+              url: baseurl,
+              method: "get",
+              })
+            })()
+        }
+        catch (e) {
+          console.log(e)
+        }
       },
       makePlot: function (a, b, c, d, e) {
         console.log("a: " + a + "b: " + b + "d: " + d)
@@ -303,15 +310,22 @@
         // let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
-        this.asyncRequestPlot(pythonUrl); 
+        try {
+          this.asyncRequestPlot(pythonUrl); 
+        }
+        catch (e) {
+          console.log(e)
+        }
         console.log("!!! pythonUrl: " + pythonUrl)   
       },
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
-        let count = plotsSaved.push(pname);
-        this.$store.dispatch('gPlotListAct', plotsSaved);
-        console.log('keepplot plots: ' + count + " " + plotsSaved)
-        this.$store.dispatch('gCounterAct', 0)  // start over
+        let plotslist = this.$store.state.gPlotList
+
+        let pscount = plotslist.push(pname);
+        this.$store.dispatch('gPlotListAct', plotslist);
+        console.log('keepplot plots: ' + pscount + " " + plotslist)
+        this.$store.dispatch('gCounterAct', 1)  // start mostly over
       },
     }
   }

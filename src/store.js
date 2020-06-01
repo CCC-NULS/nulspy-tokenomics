@@ -27,39 +27,18 @@ export default new Vuex.Store({
       state.gLocPlotPath = theval
     },
     gPlotListMut(state, theval) {
-      state.gPlotListpush(theval)
+      state.gPlotList = theval
     },
     gLocPlotNameMut(state, theval) {
       state.gLocPlotName = theval
     },
-    
-    // showButtonMut(state, theval) {
-    //   state.showButton = theval
-    // },
-    // gShowPlotMut(state, theval) {
-    //   state.gShowPlot = theval
-    // },
-
-    // gDkyMut(state, theval) {
-    //   state.gDky = theval
-    // },
   },
   getters: {
     gShowPlotGet: state => state.gShowPlot,
-   
     gLocPlotPathGet: state => state.gLocPlotPath,
     gPlotListGet: state => state.gPlotList,
   },
-  actions: {
-    // showButtonAct (context, theval) {
-    //   context.commit('showButtonMut', theval)
-    // },
-    // gShowPlotAct (context, theval) {
-    //   context.commit('gShowPlotMut', theval)
-    // },
-    // gDkyAct (context, theval) {
-    //   context.commit('gDkyMut', theval)
-    // },    
+  actions: {  
     gCounterAct (context, theval) {
       context.commit('gCounterMut', theval)
     },
