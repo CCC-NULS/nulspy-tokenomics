@@ -5,27 +5,6 @@
     tag="section"
   >
     <v-row>
-      <v-col cols="12">
-        <base-material-card
-          color="success"
-          title="Graph"
-          class="px-5 py-3"
-        >
-          <v-card-text class="px-0 pb-0">
-            <v-sheet>
-              <iframe
-                src="http://westteam.nulstar.com/tokenlife/plotfiles/plot23132050.svg"
-                width="100%"
-                height="450"
-                frameborder="0"
-                style="border:0"
-                allowfullscreen
-              />
-            </v-sheet>
-          </v-card-text>
-        </base-material-card>
-      </v-col>
-
       <v-col
         cols="12"
         md="6"
@@ -38,7 +17,7 @@
           <v-card-text class="px-0 pb-0">
             <v-sheet>
               <iframe
-                src="http://westteam.nulstar.com/tokenlife/plotfiles/plot23132050.svg"
+                :src="secondsrc"
                 width="100%"
                 height="450"
                 frameborder="0"
@@ -62,7 +41,7 @@
           <v-card-text class="px-0 pb-0">
             <v-sheet>
               <iframe
-                src="http://westteam.nulstar.com/tokenlife/plotfiles/plot23140347.svg"
+                :src="thirdsrc"
                 width="100%"
                 height="450"
                 frameborder="0"
@@ -76,3 +55,42 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+  import plotreal from '@/assets/plots/comps/plotreal.svg'
+  const plotdirr = '@/assets/plots/'
+
+  var mymodule
+  var plotkey1 = 0
+
+export default {
+  components: {
+    },
+  data: () => ({
+    plotkey1,
+  }),
+  watch: {
+    plotdirr:  {
+      deep: true,
+      immediate: true,
+      handler () {
+        console.log("!!! &&&&  &&&&  saw plotdirr route change!!  ---------  ")
+        }         
+      },
+  },  
+  mount () {
+    ++this.plotkey1
+  },
+  beforeUpdate() {
+    console.log() // Logs the counter value every second, before the DOM updates.
+  },
+  afterUpdate() {
+    this.async2()
+  },
+
+  methods: {
+    }
+  }
+</script>
+<style src="@/assets/styles/mystyle.css">
+</style>

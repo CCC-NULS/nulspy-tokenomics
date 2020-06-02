@@ -225,7 +225,7 @@
   var plotkey = 0
 
   export default {
-    name: 'UserProfilePage',
+    name: 'UserProfile',
     components: {
       TopWords,
       plotreal,
@@ -321,11 +321,16 @@
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
         let plotslist = this.$store.state.gPlotList
+        console.log('keepplot pname: ' + pname + " " + plotslist)
 
-        let pscount = plotslist.push(pname);
+        let pscount = plotslist.push(pname)
+        this.$store.dispatch('gSaveOneAct', pname);
         this.$store.dispatch('gPlotListAct', plotslist);
         console.log('keepplot plots: ' + pscount + " " + plotslist)
         this.$store.dispatch('gCounterAct', 1)  // start mostly over
+        console.log('checking our worked- gSaveOne = ')
+        console.log(this.$store.state.gSaveOne)
+
       },
     }
   }

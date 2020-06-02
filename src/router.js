@@ -36,24 +36,6 @@ export default new Router({
         },
         
         //   children: [
-        //     {
-        //       name: 'plotreal',
-        //       path: 'assets/plots/comps',
-        //       component: () => import('@/assets/plots/comps/plotreal.svg'),
-        //     },   
-        //   ],
-        // },
-        // {
-        //   name: 'LastCard2',
-        //   path: 'components',
-        //   component: () => import('@/views/dashboard/components/LastCard2'),
-        //   props: {
-        //     plotname: {
-        //       type: String,
-        //       default: 'plotmain.svg',
-        //     },
-        //   },
-        // },
         // {
         //   name: 'Inflation',
         //   path: 'components/notifications',
@@ -81,7 +63,11 @@ export default new Router({
           path: 'maps/google-maps',
           component: () => import('@/views/dashboard/maps/GoogleMaps'),
         },
-
+        {
+          name: 'Saved Graphs',
+          path: 'pages/graphs',
+          component: () => import('@/views/dashboard/pages/SavedGraphs'),
+        },
         // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
         // {
         //   name: 'Profile Card',

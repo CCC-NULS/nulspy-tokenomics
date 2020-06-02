@@ -9,9 +9,11 @@ export default new Vuex.Store({
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
     gCounter: 0,
+    sCounter: 0,
     gLocPlotPath: '@/assets/plots/plotreal.svg',
     gLocPlotName: 'plotreal.svg',
     gPlotList: [],
+    gSaveOne: '@/assets/plots/plotreal.svg',
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -22,6 +24,9 @@ export default new Vuex.Store({
     },
     gCounterMut(state, theval) {
       state.gCounter = theval
+    },   
+    sCounterMut(state, theval) {
+      state.sCounter = theval
     },    
     gLocPlotPathMut(state, theval) {
       state.gLocPlotPath = theval
@@ -32,15 +37,23 @@ export default new Vuex.Store({
     gLocPlotNameMut(state, theval) {
       state.gLocPlotName = theval
     },
+    gSaveOneMut(state, theval) {
+      state.gSaveOne = theval
+    },
   },
   getters: {
     gShowPlotGet: state => state.gShowPlot,
     gLocPlotPathGet: state => state.gLocPlotPath,
     gPlotListGet: state => state.gPlotList,
+    gSaveOneGet: state => state.gSaveOne,
+
   },
   actions: {  
     gCounterAct (context, theval) {
       context.commit('gCounterMut', theval)
+    },
+    sCounterAct (context, theval) {
+      context.commit('sCounterMut', theval)
     },
     gLocPlotPathAct (context, theval) {
       context.commit('gLocPlotPathMut', theval)
@@ -50,6 +63,9 @@ export default new Vuex.Store({
     },
     gLocPlotNameAct (context, theval) {
       context.commit('gLocPlotNameMut', theval)
+    },
+    gSaveOneAct (context, theval) {
+      context.commit('gSaveOneMut', theval)
     }
   }
 

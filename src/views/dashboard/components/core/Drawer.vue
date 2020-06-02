@@ -131,10 +131,15 @@
         //   icon: 'mdi-chart-bubble',
         //   to: '/components/icons',
         // },
-        {
+        {     
           title: 'google',
-          icon: 'mdi-map-marker',
+          icon: 'mdi-bookmark',
           to: '/maps/google-maps',
+        },
+        {
+          title: 'graphs',
+          icon: 'mdi-bookmark',
+          to: '/pages/graphs',
         },
         // {
         //   title: 'notifications',

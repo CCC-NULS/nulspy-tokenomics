@@ -41,5 +41,8 @@
   "user": "Create Graph",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
-  "wizard": "Wizard"
+  "wizard": "Wizard",
+  "graphs": "Saved Graphs",
+  "Saved Graphs": "graphs"
+
 }
