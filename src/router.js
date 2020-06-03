@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import { realpath } from 'fs'
+import store from './store'
 
 Vue.use(Router)
 
 const plotreal = {
   template: '<div>User</div>'
 }
+const plist = store.state.gPlotList
 
 export default new Router({
   mode: 'hash',
@@ -16,19 +17,19 @@ export default new Router({
       path: '/',
       component: () => import('@/views/dashboard/Index'),
       children: [
+        // Pages
+        {
+          name: 'Create Graph',
+          path: '',
+          component: () => import('@/views/dashboard/pages/UserProfile'),
+        }, 
         // Dashboard
         {
           name: 'Dashboard',
-          path: '',
+          path: 'dashboard',
           component: () => import('@/views/dashboard/Dashboard'),
         },
-        // Pages
-     
-        {
-          name: 'Create Graph',
-          path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
-        }, 
+
         {
           name: 'plotreal',
           path: 'assets/plots/comps',
@@ -80,6 +81,12 @@ export default new Router({
         //   path: 'upgrade',
         //   component: () => import('@/views/dashboard/Upgrade'),
         // },
+        {
+          name: 'plotonecomp',
+          path: 'assets/plots',
+          tplot: plist[1],
+          component: () => import(tplot),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
+        },
       ],
     },
   ],

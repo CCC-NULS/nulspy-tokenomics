@@ -5,7 +5,7 @@
     tag="section"
   >
     <base-v-component
-      heading="NULS"
+      heading="About Tokenomics"
       link="styles/typography"
     />
 

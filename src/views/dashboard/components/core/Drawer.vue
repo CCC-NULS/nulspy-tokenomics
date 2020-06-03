@@ -116,6 +116,11 @@
           title: 'user',
           to: '/pages/user',
         },
+        {
+          title: 'graphs',
+          icon: 'mdi-chart-areaspline',
+          to: '/pages/graphs',
+        },        
         // {
         //   title: 'rtables',
         //   icon: 'mdi-clipboard-outline',
@@ -123,7 +128,7 @@
         // },
         {
           title: 'typography',
-          icon: 'mdi-format-font',
+          icon: 'mdi-electron-framework',
           to: '/components/typography',
         },
         // {
@@ -131,16 +136,13 @@
         //   icon: 'mdi-chart-bubble',
         //   to: '/components/icons',
         // },
-        {     
-          title: 'google',
-          icon: 'mdi-bookmark',
-          to: '/maps/google-maps',
-        },
-        {
-          title: 'graphs',
-          icon: 'mdi-bookmark',
-          to: '/pages/graphs',
-        },
+        // {     
+        //   title: 'google',
+        //   icon: 'mdi-bookmark',
+        //   to: '/maps/google-maps',
+        // },
+        // mdi-electron-framework
+
         // {
         //   title: 'notifications',
         //   icon: 'mdi-bell',

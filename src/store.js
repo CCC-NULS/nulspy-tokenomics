@@ -12,8 +12,9 @@ export default new Vuex.Store({
     sCounter: 0,
     gLocPlotPath: '@/assets/plots/plotreal.svg',
     gLocPlotName: 'plotreal.svg',
-    gPlotList: [],
+    gPlotList: ['@/assets/plots/plotempty.svg'],
     gSaveOne: '@/assets/plots/plotreal.svg',
+    sWhichPlot: 0,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -34,11 +35,17 @@ export default new Vuex.Store({
     gPlotListMut(state, theval) {
       state.gPlotList = theval
     },
+    gPlotListMutZero(state, theval) {
+      state.gPlotList[0] = theval
+    },
     gLocPlotNameMut(state, theval) {
       state.gLocPlotName = theval
     },
     gSaveOneMut(state, theval) {
       state.gSaveOne = theval
+    },
+    sWhichPlotMut(state, theval) {
+      state.sWhichPlot = theval
     },
   },
   getters: {
@@ -46,6 +53,7 @@ export default new Vuex.Store({
     gLocPlotPathGet: state => state.gLocPlotPath,
     gPlotListGet: state => state.gPlotList,
     gSaveOneGet: state => state.gSaveOne,
+    sWhichPlotGet: state => state.sWhichPlot,
 
   },
   actions: {  
@@ -61,11 +69,17 @@ export default new Vuex.Store({
     gPlotListAct (context, theval) {
       context.commit('gPlotListMut', theval)
     },
+    gPlotListActZero (context, theval) {
+      context.commit('gPlotListMutZero', theval)
+    },
     gLocPlotNameAct (context, theval) {
       context.commit('gLocPlotNameMut', theval)
     },
     gSaveOneAct (context, theval) {
       context.commit('gSaveOneMut', theval)
+    },
+    sWhichPlotAct (context, theval) {
+      context.commit('sWhichPlotMut', theval)
     }
   }
 

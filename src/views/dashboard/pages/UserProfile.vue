@@ -319,22 +319,26 @@
         console.log(`!!! pythonUrl: $pythonUrl`)   
       },
       keepplot: function () {
-        let pname = this.$store.state.gLocPlotPath
-        let plotslist = this.$store.state.gPlotList
+        let pscount = 0
+        let locCounter = this.$store.state.gCounter
+        const pname = this.$store.state.gLocPlotPath
+        var plotslist = this.$store.state.gPlotList
+        if (locCounter < 5) {
+          console.log('!!  ##  replacing the list item with: ' + pname)
+          this.$store.dispatch('gPlotListActZero', pname); 
+          pscount++
+        } 
+        else {
+          pscount = plotslist.push(pname)
+        }
+
+        console.log('keepplot pname & list: ' + pname + ': ' + plotslist)
         console.log('keepplot list len: ' + plotslist.length)
 
-        console.log(`keepplot pname: $pname $plotslist`)
-
-        let pscount = plotslist.push(pname)
         this.$store.dispatch('gSaveOneAct', pname);
-        this.$store.dispatch('gPlotListAct', plotslist);
         console.log('keepplot plots: ' + pscount + " " + plotslist)
         this.$store.dispatch('gCounterAct', 1)  // start mostly over
-        console.log('checking our worked- gSaveOne = ')
-        console.log(this.$store.state.gSaveOne)
-        let plotsvg = "test"
-        let savonecompname = `@/assets/plots/${plotsvg}`
-        console.log("savonecompname: " + savonecompname)
+        console.log('checking our worked- gSaveOne = ' + this.$store.state.gSaveOne)
       },
     }
   }
