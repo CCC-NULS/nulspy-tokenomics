@@ -1,0 +1,15 @@
+.idea
+.venv
+src/__pycache__
+old
+/plotfiles/*
+
+__pycache__/*
+__pycache__/appsupport.cpython-37.pyc
+/static
+/static/plots
+__pycache__/*
+src/assets/images/pb.svg
+src/assets/images/pbb.svg
+
+

@@ -223,7 +223,7 @@
   const timestr = Date.now().toString().substring(9,12)
   const plotdir = '@/assets/plots/comps/'
   var plotkey = 0
-
+  
   export default {
     name: 'UserProfile',
     components: {
@@ -300,14 +300,14 @@
         let plotname_t_path = "@/assets/plots/" + plotname_t
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
 
-        let aw = '&initsup=' + a.replace(/,/g, '')
+        //let aw = '&initsup=' + a.replace(/,/g, '')
         let bw = '&anninf=' + b.replace(/,/g, '')
         let cw = '&startinf=' + c
         let dw = '&stopinf=' + d.replace(/,/g, '')
         let ew = '&disinf=' + e
         // need to remove comma's twice from a, b, d
 
-        // let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
+        let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
@@ -316,12 +316,14 @@
         catch (e) {
           console.log(e)
         }
-        console.log("!!! pythonUrl: " + pythonUrl)   
+        console.log(`!!! pythonUrl: $pythonUrl`)   
       },
       keepplot: function () {
         let pname = this.$store.state.gLocPlotPath
         let plotslist = this.$store.state.gPlotList
-        console.log('keepplot pname: ' + pname + " " + plotslist)
+        console.log('keepplot list len: ' + plotslist.length)
+
+        console.log(`keepplot pname: $pname $plotslist`)
 
         let pscount = plotslist.push(pname)
         this.$store.dispatch('gSaveOneAct', pname);
@@ -330,7 +332,9 @@
         this.$store.dispatch('gCounterAct', 1)  // start mostly over
         console.log('checking our worked- gSaveOne = ')
         console.log(this.$store.state.gSaveOne)
-
+        let plotsvg = "test"
+        let savonecompname = `@/assets/plots/${plotsvg}`
+        console.log("savonecompname: " + savonecompname)
       },
     }
   }

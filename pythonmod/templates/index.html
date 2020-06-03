@@ -1,0 +1,184 @@
+<!doctype html>
+
+<html lang="en-US">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" >
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content=0 >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Nancy Schorr">
+<meta name="date" content="2020-02-09" scheme="YYYY-MM-DD">
+
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+<meta property="og:title" content="Token Life" >
+<meta property="og:url" content="https://nuls.io/" >
+<meta property="og:image" content="vikinglogo.jpg" >
+
+<meta property="og:description" content="This will query the NULS Chain Factory blockchain. Written by Kathy Norman,
+Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
+
+<link rel=stylesheet href="../static/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Hind|Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
+<!--font-family: 'Hind', sans-serif;-->
+<!--font-family: 'Lato', sans-serif;-->
+<!--font-family: 'Roboto', sans-serif;-->
+<!--font-family: 'Open Sans', sans-serif;-->
+<style>
+
+.maintitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42!important;
+  font-weight: 700;
+  color:white;
+  text-shadow: 3px 4px 4px #darkblue;
+}
+
+.maindiv {  margin-top:5px; padding:1px;
+      background: linear-gradient(to bottom right,#a98975, #ffcccc, # 100%);
+}
+.row {
+  display: flex;            /* equal height of the children */
+}
+.col {
+  flex: 2;                        /* additionally, equal width */
+  padding: 2em;
+}
+.chind { font-family: Hind,sans-serif; line-height:22; }
+.mont { 'Montserrat',sans-serif; line-height:22; }
+
+
+.simple-linear {
+  background: linear-gradient(blue, pink);
+}
+.rady {
+ background: radial-gradient(circle at 28% 93%, rgba(2, 2, 2,0.04) 0%, rgba(2, 2, 2,0.04) 50%,rgba(223, 223, 223,0.04) 50%, rgba(223, 223, 223,0.04) 100%),radial-gradient(circle at 13% 75%, rgba(185, 185, 185,0.04) 0%, rgba(185, 185, 185,0.04) 50%,rgba(25, 25, 25,0.04) 50%, rgba(25, 25, 25,0.04) 100%),radial-gradient(circle at 79% 39%, rgba(34, 34, 34,0.04) 0%, rgba(34, 34, 34,0.04) 50%,rgba(57, 57, 57,0.04) 50%, rgba(57, 57, 57,0.04) 100%),linear-gradient(56deg, rgb(39, 37, 178),rgb(169, 88, 194))
+}
+
+
+</style>
+
+
+
+    <title>Token Life</title>
+</head>
+
+<body>
+
+<div class="rady">
+<div style="font-family:'Hind',serif;font-size:18px;">
+
+<div class="row">
+
+  <div class="col">
+      <img src="../static/vikinglogo.jpg" alt="VikingChain"
+           style="border-radius:5px;margin-left:-10px;margin-top:-10px;">
+  </div>
+
+
+  <div style="font-size:32px;margin-top:5px;" class="col maintitle">Welcome to Token Life
+  </div>
+
+</div>            <!-- end row -->
+
+
+
+
+
+<div class="maindiv">
+
+
+<div id="textbody" class="textbody" style="padding: 1px 3em .4em 1.5em; margin:.2em; font-size: 20px;
+   line-spacing:1.5">
+
+
+<div id="inset" style="margin:1em; padding: 1.2em 1em 1em 5em; background:white;
+    border-radius:7px;box-shadow: 6px 6px grey;">
+
+   <h3 class="hind">Try different values and view a plot of how they play out over time. </h3>
+
+<h4 class="hind" style="color:#26386b">Intervals can be thought of as months or 30/day increments.</h4>
+
+
+<h5 class="hind" style="margin-block-start: 1em;margin-block-end: 10px;">
+
+    &emsp;&emsp;For this blockchain, the following values are set:   </h5>
+
+
+<div class="hind" style="left-margin:2em;">
+
+
+Initial Supply:  &emsp;&emsp; 100,000,000 VKG/NULS<br>
+
+Inflation begins in intervals: &emsp;&emsp; 24 (2 years)<br>
+
+Inflation tokens per 12 intervals: &emsp;&emsp; 5,000,000 / 12 (416,666.66) VKG/NULS<br>
+
+Inflation is turned off when inflation reaches: &emsp;&emsp; 210,000,000  VKG/NULS<br>
+
+Disinflation ratio is: &emsp;&emsp; 0.004       ( 0.01 = 1% )  <br>
+<p style="line-height:4px;"></p>
+&emsp;&emsp;&emsp;Inflation and disinflation begin at the same time.<br>
+</div>
+
+  <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+<style>
+.inputc {
+    font-size:22px;
+    font-family: 'Lato', sans-serif;
+    color:blue;
+    }
+.parspace {
+     margin-bottom: 4px;
+    }
+</style>
+
+
+  <h3>Enter Adjustments</h3>
+
+<span style="margin-bottom: 4px;"> </span>
+
+<form action="/plotfiles" method ="POST"  >
+
+Initial Supply:
+<input type="number" value="100000000" name="initial_supply_y" class="inputc"><p class="parspace"></p>
+
+    Inflation tokens per 12 intervals:
+<input type="number"  value="5000000" name="annual_inflation" class="inputc">&nbsp;<p class="parspace"></p>
+
+Inflation begins in how many intervals:
+  <input type="number"  name="start_inflation" value="24" class="inputc"><p class="parspace"></p>
+
+Inflation stops at:
+  <input type="number" value="210000000" name="stop_inflation_y" class="inputc">&nbsp;<p class="parspace"></p>
+
+
+    Disinflation ratio ( .01 = 1% ):
+  <input type="text" size="20" value="0.004" name="disinflation_ratio" class="inputc"><p class="parspace"></p>
+
+
+<input type="submit" value=" Plot Me "
+       style="width:7em; min-width:7em;  background: #dd6b20;
+       color:white; text-shadow: 3px 2px 5px #a98975; padding: 5px; margin-left:7em;
+       margin-top:12px; font-size: 21px;
+        font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
+
+</form>
+    </div> <!-- inset -->
+</div>  <!-- text -->
+<br>
+
+</div>  <!-- main -->
+
+</div>
+</div>
+</div>
+</body>
+</html>
