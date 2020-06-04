@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from './store'
+// import store from './store'
 
 Vue.use(Router)
 
 const plotreal = {
   template: '<div>User</div>'
 }
-const plist = store.state.gPlotList
+// const plist = store.state.gPlotList
 
 export default new Router({
   mode: 'hash',
@@ -34,6 +34,11 @@ export default new Router({
           name: 'plotreal',
           path: 'assets/plots/comps',
           component: () => import('@/assets/plots/comps/plotreal.svg'),
+        },
+        {
+          name: 'plotdirnew',
+          path: 'assets/plots/comps',
+          
         },
         
         //   children: [
@@ -81,12 +86,12 @@ export default new Router({
         //   path: 'upgrade',
         //   component: () => import('@/views/dashboard/Upgrade'),
         // },
-        {
-          name: 'plotonecomp',
-          path: 'assets/plots',
-          tplot: plist[1],
-          component: () => import(tplot),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
-        },
+        // {
+        //   name: 'plotonecomp',
+        //   path: 'assets/plots',
+        //   tplot: plist[1],
+        //   component: () => import(tplot),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
+        // },
       ],
     },
   ],

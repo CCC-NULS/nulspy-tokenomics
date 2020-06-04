@@ -25,6 +25,8 @@
             elevation-24
             raised
           >
+            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
+
             <testcomp 
               v-show="true"
               :key="splotkeyone"
@@ -33,7 +35,6 @@
           </v-card>
         </base-material-card>
       </v-col>
-      <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PLOT TWO  -->
       <v-col
         cols="12"
         md="6"
@@ -55,8 +56,9 @@
             >
               Load TWO Now
             </v-btn>
+            <!-- %%%%%%%%%%%%%%%%% TWO %%%%%%%%%%%%%%%%%%%  PLOT TWO  -->
 
-            <testcomp 
+            <testcomptwo 
               v-if="showtwocomp" 
               ptwowrap
             />
@@ -73,7 +75,7 @@
           title="Inflation / Deflation"
           class="px-5 py-3"
         >
-          <testcomp />
+          <testcomptwo />
 
           <v-card-text class="px-0 pb-0">
             this is ptemp
@@ -86,7 +88,6 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
-  var plotslist = this.$store.state.gPlotList
 
   var showonecomp = true
   var showtwocomp = false
@@ -97,20 +98,16 @@
   var myplotnametwo = '@/assets/plots/plote.svg'
     // return require('@/assets/icons/icon_${name}.svg).default;
   
-  if (plotslist.length > 0) {
-    myplotnewone = plotlist[0]
-    if (plotslist.length > 1) {
-      myplotnametwo = plotslist[1]
-    }
-  }
+  const self = this
 
   const testcomp = require(myplotnewone).default;
+  const testcomptwo = require(myplotnewone).default;
 
   export default {
     name: "SavedGraphs",
-
     components: {
       testcomp,
+      testcomptwo,
     },
     data: () => ({
       showonecomp,
@@ -127,6 +124,19 @@
           console.log("!!! runonebtn change in watch !!  ---------  ")
           }         
         },
+    },
+    created () {
+      var plotslist = self.$store.state.gPlotList
+      if (plotslist.length > 0) {
+        myplotnewone = plotlist[0]
+        testcomp = require(myplotnewone).default;
+
+        if (plotslist.length > 1) {
+          myplotnametwo = plotslist[1]
+          testcomptwo = require(myplotnametwo).default;
+
+        }
+      }
     },
     
     methods: {

@@ -162,17 +162,14 @@
         md="11"
       >
         <v-card
-          v-show="$store.state.gCounter > 1"
           id="plotcard"
           class="padplot"
           pl-2
           elevation-24
           raised
-          margin-top="16px!important"
-          margin-bottom="9px!important"
         >
+          <!--             v-if="newestCounter > 1" -->
           <plotreal 
-            v-show="$store.state.gCounter > 1"
             :pkey="plotkey"
             plotcard
           />
@@ -210,6 +207,7 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
   import plotreal from '@/assets/plots/comps/plotreal.svg'
+  
   var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -220,9 +218,18 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
+  // const plotdirnew = '@/assets/plots/comps/'
+  // const plotdirneww = this.$router.afterEach((to, from) => {
+  //   // to and from are both route objects.
+  // })
+  // const pnn = this.$router.plotdirnew
+  const self = this
   const plotdir = '@/assets/plots/comps/'
+
+  var newestCounter = 0
   var plotkey = 0
-  
+
+
   export default {
     name: 'UserProfile',
     components: {
@@ -234,6 +241,7 @@
         class: "v_chip_small", small: true, dark: false,
       },
       plotkey,
+      newestCounter,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -245,25 +253,31 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
+
     watch: {
       plotdir:  {
         deep: true,
         immediate: true,
         handler () {
           console.log("!!! &&&&  &&&&  saw plotdir route change!!  ---------  ")
-          let myCounter = this.$store.state.gCounter
-          console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
-          ++myCounter
-          this.$store.dispatch('gCounterAct', myCounter)
-          console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
+          // let myCounter = self.$store.gCounter
+          newestCounter = 2
+          ++plotkey
+          console.log("!--newestCounter: " + newestCounter + ': '+ plotkey)
+          // ++myCounter
+          // self.$store.dispatch('gCounterAct', myCounter)
+          // console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
+          return newestCounter
         }         
       },
     },
     methods: {
       resetc: function () {
-        console.log("myCounter: " +  this.$store.state.gCounter)
-        this.$store.dispatch('gCounterAct', 1)  // start over
-        console.log("myCounter now: " + this.$store.state.gCounter)
+        let mct  =  self.$store.state.gCounter
+        console.log("myCounter: " +  mct )
+        self.$store.dispatch('gCounterAct', '1')  // start over
+        let mctt  =  self.$store.state.gCounter
+        console.log("myCounter now: " + mctt)
         ++plotkey
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
