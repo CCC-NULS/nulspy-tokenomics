@@ -220,7 +220,6 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  const timestr = Date.now().toString().substring(9,12)
   const plotdir = '@/assets/plots/comps/'
   var plotkey = 0
   
@@ -260,24 +259,18 @@
         }         
       },
     },
-    mount () {
-    },
     methods: {
       resetc: function () {
-        let myCounter = this.$store.state.gCounter
-        console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
-        console.log("setting myCounter to zero 1 ")
+        console.log("myCounter: " +  this.$store.state.gCounter)
         this.$store.dispatch('gCounterAct', 1)  // start over
-        let myCounter2 = this.$store.state.gCounter
-        console.log("!!! &&&&  &&&&  myCounter: " + myCounter2)
+        console.log("myCounter now: " + this.$store.state.gCounter)
         ++plotkey
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gLocPlotNameAct', plot_name)
         this.$store.dispatch('gLocPlotPathAct', plot_name_path)
         console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
-        console.log("!!! local plot_name_path: " + plot_name_path )
-        console.log("!!! local plot_name: " + plot_name)
+        console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
       },
       asyncRequestPlot: function (baseurl) {
         try { 
@@ -299,8 +292,6 @@
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = "@/assets/plots/" + plotname_t
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
-
-        //let aw = '&initsup=' + a.replace(/,/g, '')
         let bw = '&anninf=' + b.replace(/,/g, '')
         let cw = '&startinf=' + c
         let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -319,26 +310,10 @@
         console.log(`!!! pythonUrl: $pythonUrl`)   
       },
       keepplot: function () {
-        let pscount = 0
-        let locCounter = this.$store.state.gCounter
-        const pname = this.$store.state.gLocPlotPath
-        var plotslist = this.$store.state.gPlotList
-        if (locCounter < 5) {
-          console.log('!!  ##  replacing the list item with: ' + pname)
-          this.$store.dispatch('gPlotListActZero', pname); 
-          pscount++
-        } 
-        else {
-          pscount = plotslist.push(pname)
-        }
-
-        console.log('keepplot pname & list: ' + pname + ': ' + plotslist)
-        console.log('keepplot list len: ' + plotslist.length)
-
-        this.$store.dispatch('gSaveOneAct', pname);
-        console.log('keepplot plots: ' + pscount + " " + plotslist)
+        let locPlotyPath = this.$store.state.gLocPlotPath
+        this.$store.dispatch('gPlotListAct', locPlotyPath);
         this.$store.dispatch('gCounterAct', 1)  // start mostly over
-        console.log('checking our worked- gSaveOne = ' + this.$store.state.gSaveOne)
+        console.log('checking store gPlotList: ' + this.$store.state.gPlotList)
       },
     }
   }

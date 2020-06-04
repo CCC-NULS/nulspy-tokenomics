@@ -25,7 +25,7 @@
             elevation-24
             raised
           >
-            <plotonecomp 
+            <testcomp 
               v-show="true"
               :key="splotkeyone"
               ponewrap
@@ -56,7 +56,7 @@
               Load TWO Now
             </v-btn>
 
-            <plottwocomp 
+            <testcomp 
               v-if="showtwocomp" 
               ptwowrap
             />
@@ -86,86 +86,83 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
-  import plotonecomp from '@/assets/plots/plotone.svg'
-  import plottwocomp from '@/assets/plots/plotempty.svg'
+  var plotslist = this.$store.state.gPlotList
 
   var showonecomp = true
   var showtwocomp = false
   var splotkeyone = 0
-  var extraword = 'plote.svg'
-  const testcomp = require('@/assets/plots/' + extraword).default;
-    // return require('@/assets/icons/icon_${name}.svg).default;
-   
 
-export default {
-  name: "SavedGraphs",
-  components: {
-    testcomp,
-    plotonecomp,
-    plottwocomp,
-    // asyncLoad: function () {
-    //   var modone
-    //   (async () => {
-    //     const moduleSpecifier = '@/assets/plots/plotempty.svg';
-    //     modone = (await import(moduleSpecifier))
-    //     })();
-    //   return modone
-    // },
-  },
-  data: () => ({
-    showonecomp,
-    showtwocomp,
-    splotkeyone,
-    secondsrc: "http://localhost:5002/static/plots/plot00910117.svg",
-    thirdsrc: "http://localhost:5002/static/plots/plot00910117.svg",
-  }),
-  watch: {
-    runonebtn:  {
-      deep: true,
-      immediate: true,
-      handler () {
-        console.log("!!! runonebtn change in watch !!  ---------  ")
-        }         
-      },
-  },
+  var pltone = 'plote.svg'
+  var myplotnewone = '@/assets/plots/plote.svg'
+  var myplotnametwo = '@/assets/plots/plote.svg'
+    // return require('@/assets/icons/icon_${name}.svg).default;
   
-  methods: {
-    asyncLoadtwo: function () {
-      (async () => {
-        const moduleSpecifier = './plotempty.svg';
-        const modone = (await import(moduleSpecifier)).default()
-        })();
-      return modone
+  if (plotslist.length > 0) {
+    myplotnewone = plotlist[0]
+    if (plotslist.length > 1) {
+      myplotnametwo = plotslist[1]
+    }
+  }
+
+  const testcomp = require(myplotnewone).default;
+
+  export default {
+    name: "SavedGraphs",
+
+    components: {
+      testcomp,
     },
-    loadonenow: function () {
-      this.$store.dispatch('sWhichPlotAct', 1);
-      console.log("!!! beginning splotkeyone: " + splotkeyone)
-      console.log("clicked loadonenow. ")
-      let locsplotslist = this.$store.state.gPlotList
-      let savonecompname = locsplotslist[1]
-      // plotonecomp: () => import(savonecompname),  // async dynamic load works
-      console.log("!!! &&&& savonecompname: " + savonecompname)
-      showonecomp: true
-      ++splotkeyone
-      console.log("!!! splotkeyone: " + splotkeyone)
+    data: () => ({
+      showonecomp,
+      showtwocomp,
+      splotkeyone,
+      secondsrc: "http://localhost:5002/static/plots/plot00910117.svg",
+      thirdsrc: "http://localhost:5002/static/plots/plot00910117.svg",
+    }),
+    watch: {
+      runonebtn:  {
+        deep: true,
+        immediate: true,
+        handler () {
+          console.log("!!! runonebtn change in watch !!  ---------  ")
+          }         
+        },
     },
-    loadtwonow: function () {
-      console.log("clicked loadtwonow. ")
-      // let locsplotslist = this.$store.state.gPlotList
-      // let savtwocompname = locsplotslist[1]
-      console.log("!!! &&&& still in loadtwonow: ")
-      showtwocomp: true
-    },
-    getvals: function () {
-      let splotslist = this.$store.state.gPlotList
-      let splotslen = splotslist.length
-      console.log("!!! &&&& -- splotslist.length: " + splotslen)
-    },
-  },  
-  mount () {
-    console.log("mounted")
-  },
-}
+    
+    methods: {
+      loadonenow: function () {
+        this.$store.dispatch('sWhichPlotAct', 1);
+        let locsplotslist = this.$store.state.gPlotList
+        let savonecompname = locsplotslist[1]      
+        console.log("!!! beginning splotkeyone: " + splotkeyone)
+        console.log("!!! savonecompname: " + savonecompname)
+        showonecomp: true
+        ++splotkeyone
+        console.log("!!! splotkeyone: " + splotkeyone)
+      },
+      loadtwonow: function () {
+        console.log("clicked loadtwonow. ")
+        showtwocomp: true
+      },
+    },  
+  }
+  //  <v-lazy
+  //           v-model="isActive"
+  //           :options="{
+  //             threshold: .5
+  //           }"
+  //           min-height="200"
+  //           transition="fade-transition"
+  //         >
+
+  // reset everything:
+  //
+
+
+// Call router.go() or this.$router.go()
+// That will refresh the page and your state will be reset to how it was when the user first loaded the app.
+
+
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>

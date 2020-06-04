@@ -12,7 +12,7 @@ export default new Vuex.Store({
     sCounter: 0,
     gLocPlotPath: '@/assets/plots/plotreal.svg',
     gLocPlotName: 'plotreal.svg',
-    gPlotList: ['@/assets/plots/plotempty.svg'],
+    gPlotList: [],
     gSaveOne: '@/assets/plots/plotreal.svg',
     sWhichPlot: 0,
   },
@@ -36,13 +36,13 @@ export default new Vuex.Store({
       state.gPlotList = theval
     },
     gPlotListMutZero(state, theval) {
-      state.gPlotList[0] = theval
+      state.gPlotList[0] = theval  //replaces a val
     },
     gLocPlotNameMut(state, theval) {
       state.gLocPlotName = theval
     },
     gSaveOneMut(state, theval) {
-      state.gSaveOne = theval
+      state.gSaveOne.push(theval)
     },
     sWhichPlotMut(state, theval) {
       state.sWhichPlot = theval
