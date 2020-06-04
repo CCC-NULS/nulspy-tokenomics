@@ -74,18 +74,18 @@ def gplots():
 
 def make_names(args_dict):
     if os.name == 'nt':
-        app_root = "E:/wsvue/vuetify-material-dashboard-master/src/assets"
+        plotfilesdir = "E:/wsvue/vuetify-material-dashboard-master/src/assets/plots"
 
-        app_rootg = "static/plots"
+        # app_rootg = "static/plots"
         # app_root = os.path.abspath(os.curdir)
     else:
         # app_root = '/home/jetgal/psucalc'  # pythonanywhere
-        app_root = '/usr/share/nginx/html/tokenlife'
+        plotfilesdir = '/usr/share/nginx/html/tokenlife'
 
-    plotsdir = 'plots'
-    plotsdir_comps = 'plots/comps'
-    plotfilesdir = os.path.join(app_root, plotsdir)
-    plotcompsdir = os.path.join(app_root, plotsdir_comps)
+    # plotsdir = 'plots'
+    # plotsdir_comps = 'plots/comps'
+    # plotfilesdir = os.path.join(plot_dir, plotsdir)
+    # plotcompsdir = os.path.join(app_root, plotsdir)
 
     timestp = args_dict.get("timestp")
     # args_dict.update({"timestp": timestp})
@@ -94,13 +94,13 @@ def make_names(args_dict):
     plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
     plot_name_t = "plot" + timestp + ".svg"
 
-    plotfp_r = os.path.join(plotcompsdir, plot_name_r)  # put real one in components so router can update
+    plotfp_r = os.path.join(plotfilesdir, plot_name_r)  # put real one in components so router can update
     plotfp_t = os.path.join(plotfilesdir, plot_name_t)
-    plotfp_g = os.path.join(app_rootg, plot_name_t)
+    # plotfp_g = os.path.join(app_rootg, plot_name_t)
 
     plotfilepath_t = os.path.normpath(plotfp_t)
     plotfilepath_r = os.path.normpath(plotfp_r)
-    plotfilepath_g = os.path.normpath(plotfp_g)
+    # plotfilepath_g = os.path.normpath(plotfp_g)
 
     args_dict.update({"plotfilepath_t": plotfilepath_t})
     args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
@@ -108,7 +108,7 @@ def make_names(args_dict):
     args_dict.update({"plotfilepath_r": plotfilepath_r})
     args_dict.update({"plot_name_r": plot_name_r})  # real or two
 
-    args_dict.update({"plotfilepath_g": plotfilepath_g})
+    # args_dict.update({"plotfilepath_g": plotfilepath_g})
 
     return args_dict
 

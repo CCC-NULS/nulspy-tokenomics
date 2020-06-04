@@ -4,10 +4,10 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const plotreal = {
-  template: '<div>User</div>'
-}
-// const plist = store.state.gPlotList
+// const plotreal = {
+//   template: '<div>User</div>'
+// }
+// const plist = store.state.gTimeNAMEonly
 
 export default new Router({
   mode: 'hash',
@@ -29,29 +29,6 @@ export default new Router({
           path: 'dashboard',
           component: () => import('@/views/dashboard/Dashboard'),
         },
-
-        // {
-        //   name: 'plotreal',
-        //   path: 'assets/plots/comps',
-        //   component: () => import('@/assets/plots/comps/plotreal.svg'),
-        // },
-        // {
-        //   name: 'plotdirnew',
-        //   path: 'assets/plots/comps',
-          
-        // },
-        
-        //   children: [
-        // {
-        //   name: 'Inflation',
-        //   path: 'components/notifications',
-        //   component: () => import('@/views/dashboard/component/Notifications'),
-        // },
-        // {
-        //   name: 'Nodes',
-        //   path: 'components/icons',
-        //   component: () => import('@/views/dashboard/component/Icons'),
-        // },
         {
           name: 'Staking',
           path: 'components/typography',
@@ -86,12 +63,11 @@ export default new Router({
         //   path: 'upgrade',
         //   component: () => import('@/views/dashboard/Upgrade'),
         // },
-        // {
-        //   name: 'plotonecomp',
-        //   path: 'assets/plots',
-        //   tplot: plist[1],
-        //   component: () => import(tplot),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
-        // },
+        {
+          name: 'plotreal',
+          path: 'assets/plots',
+          component: () => import('@/assets/plots/plotreal.svg'),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
+        },
       ],
     },
   ],

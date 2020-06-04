@@ -126,6 +126,7 @@
         },
     },
     created () {
+      // this.$router.go()
       var plotslist = self.$store.state.gPlotList
       if (plotslist.length > 0) {
         myplotnewone = plotlist[0]

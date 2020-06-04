@@ -162,17 +162,18 @@
         md="11"
       >
         <v-card
+          v-if="true"
           id="plotcard"
+          :key="$store.state.gCounter"
           class="padplot"
           pl-2
           elevation-24
           raised
         >
-          <!--             v-if="newestCounter > 1" -->
+          This is the wrapper card
+
           <plotreal 
-            v-if="showyes"
-            :key="plotkey"
-            plotcard
+            :key="$store.state.gCounter"
           />
         </v-card>
 
@@ -207,7 +208,7 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-  import plotreal from '@/assets/plots/comps/plotreal.svg'
+  import plotrealv from '@/assets/plots/plotreal.svg'
   
   var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
@@ -221,25 +222,22 @@
     });
 
   const self = this
-  const plotcompsdir = '@/assets/plots/comps'
-
-  var newestCounter = 0
-  var plotkey = 0
-
+  var localKey
+  var showme
+  var plotreal
 
   export default {
     name: 'UserProfile',
     components: {
       TopWords,
-      plotreal,
+      plotreal: require('@/assets/plots/plotreal.svg'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      plotkey,
-      showyes: false,
-      newestCounter,
+      showme: false,
+      localKey: 0,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -253,27 +251,53 @@
     }),
 
     watch: {
-      plotcompsdir:  {
+      plotreal:  {
         deep: true,
         immediate: true,
         handler () {
           console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
-          showyes = true
-          ++newestCounter
-          ++plotkey
-          console.log("!--newestCounter: " + newestCounter + ': '+ plotkey)
-          return newestCounter, plotkey
+          let gct  =  this.$store.state.gCounter
+          console.log("In watch: gCounter: " +  gct )
+          gct += 1
+          this.$store.dispatch('gCounterAct', gct)
+
+          let check_gct  =  this.$store.state.gCounter
+          console.log("In watch: gCounter now: " + check_gct)
+
+          this.$store.dispatch('showmeAct', true)
+          this.showme = true
+          console.log("value of showme in handler: " + this.showme)
+
+          this.localKey += 1
+          console.log("value of localKey in handler: " + this.localKey)
         }         
       },
     },
+
+    created () {
+      // this.$router.go()
+      console.log("in created" )
+      this.$store.dispatch('showmeAct', false)
+    },
+    mount () {
+      // this.$router.go()
+      console.log("in mount" )
+      this.$store.dispatch('showmeAct', false)
+    },
+    updated () {
+      console.log("in updated" )
+    },
+    activated () {
+      console.log("in activated" )
+    },
     methods: {
       resetc: function () {
-        let mct  =  self.$store.state.gCounter
-        console.log("myCounter: " +  mct )
-        self.$store.dispatch('gCounterAct', '1')  // start over
+        let gctt  =  self.$store.state.gCounter
+        console.log("In resetc: myCounter: " +  gctt )
+        ++gctt
+        self.$store.dispatch('gCounterAct', gctt)  // start over
         let mctt  =  self.$store.state.gCounter
-        console.log("myCounter now: " + mctt)
-        ++plotkey
+        console.log("In resetc:  myCounter now: " + mctt)
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
         this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
@@ -301,13 +325,16 @@
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = "@/assets/plots/" + plotname_t
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
-        let bw = '&anninf=' + b.replace(/,/g, '')
-        let cw = '&startinf=' + c
-        let dw = '&stopinf=' + d.replace(/,/g, '')
+        // let bw = '&anninf=' + b.replace(/,/g, '')
+        // let cw = '&startinf=' + c
+        // let dw = '&stopinf=' + d.replace(/,/g, '')
         let ew = '&disinf=' + e
         // need to remove comma's twice from a, b, d
 
         let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
+        let bw = "&anninf=5000000" 
+        let cw = "&startinf=24" 
+        let dw = "&stopinf=210000000" 
         let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
@@ -319,9 +346,9 @@
         console.log(`!!! pythonUrl: $pythonUrl`)   
       },
       keepplot: function () {
-        let timedPlotPath = this.$store.state.gTimedPlotPath
-        this.$store.dispatch('gPlotPATHARRAYAct', locPlotyPath);
-        this.$store.dispatch('gCounterAct', 1)  // start mostly over
+        let timePlotPath = this.$store.state.gTimedPlotPath
+        this.$store.dispatch('gPlotPATHARRAYAct', timePlotPath);
+        this.$store.dispatch('gCounterAct', 1)  // reset start mostly over
         console.log('stored gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
       },
     }

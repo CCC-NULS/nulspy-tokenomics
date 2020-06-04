@@ -42,7 +42,7 @@ class AppSupport:
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotfilepath_t = args_dict.get("plotfilepath_t")
         plotfilepath_r = args_dict.get("plotfilepath_r")
-        plotfilepath_g = args_dict.get("plotfilepath_g")
+        # plotfilepath_g = args_dict.get("plotfilepath_g")
 
         # tstamp = args_dict.get("timestp")
 
@@ -64,7 +64,7 @@ class AppSupport:
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             interval_count += 1
-        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r, plotfilepath_g)
+        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r)
         return tresult
 
     def make_long_stamp(self):
@@ -85,7 +85,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath_t, plotfilepath_r, plotfilepath_g):
+    def plot_graph(self, plotfilepath_t, plotfilepath_r):
         plt.ioff()
         font = {'size': 12}
         stp_inf = self.stop_inflation_y
@@ -166,7 +166,7 @@ class AppSupport:
 
         plt.savefig(plotfilepath_r,  dpi=150, format='svg')
         plt.savefig(plotfilepath_t,  dpi=150, format='svg')  # to get vue to update - change the file size
-        plt.savefig(plotfilepath_g,  dpi=150, format='svg')  # local dir for 5002
+        # plt.savefig(plotfilepath_g,  dpi=150, format='svg')  # local dir for 5002
         #plt.show()
         return True
 

@@ -13,7 +13,7 @@ export default new Vuex.Store({
     gTimeNAMEonly: '',
     gTimedPlotPath: '',
     gPlotPATHARRAY: [],
-    // gSaveOne: '@/assets/plots/plotreal.svg',
+    showme: false,
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -40,9 +40,9 @@ export default new Vuex.Store({
     gTimeNAMEonlyMut(state, theval) {
       state.gTimeNAMEonly = theval
     },
-    // gSaveOneMut(state, theval) {
-    //   state.gSaveOne.push(theval)
-    // },
+    showmeMut(state, theval) {
+      state.showme = theval
+    },
     // sWhichPlotMut(state, theval) {
     //   state.sWhichPlot = theval
     // },
@@ -74,9 +74,9 @@ export default new Vuex.Store({
     gTimeNAMEonlyAct (context, theval) {
       context.commit('gTimeNAMEonlyMut', theval)
     },
-    // gSaveOneAct (context, theval) {
-    //   context.commit('gSaveOneMut', theval)
-    // },
+    showmeAct (context, theval) {
+      context.commit('showmeMut', theval)
+    },
     // sWhichPlotAct (context, theval) {
     //   context.commit('sWhichPlotMut', theval)
     // }
