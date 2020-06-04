@@ -30,16 +30,16 @@ export default new Router({
           component: () => import('@/views/dashboard/Dashboard'),
         },
 
-        {
-          name: 'plotreal',
-          path: 'assets/plots/comps',
-          component: () => import('@/assets/plots/comps/plotreal.svg'),
-        },
-        {
-          name: 'plotdirnew',
-          path: 'assets/plots/comps',
+        // {
+        //   name: 'plotreal',
+        //   path: 'assets/plots/comps',
+        //   component: () => import('@/assets/plots/comps/plotreal.svg'),
+        // },
+        // {
+        //   name: 'plotdirnew',
+        //   path: 'assets/plots/comps',
           
-        },
+        // },
         
         //   children: [
         // {

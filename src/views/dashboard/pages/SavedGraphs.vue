@@ -100,13 +100,13 @@
   
   const self = this
 
-  const testcomp = require(myplotnewone).default;
+  //const testcomp = require(myplotnewone).default;
   const testcomptwo = require(myplotnewone).default;
 
   export default {
     name: "SavedGraphs",
     components: {
-      testcomp,
+      testcomp: require(myplotnewone),
       testcomptwo,
     },
     data: () => ({
@@ -167,7 +167,10 @@
 
   // reset everything:
   //
-
+    // created () {
+    //   this.$vuetify.rtl = true
+    //   this.$i18n.locale = 'ar'
+    // },
 
 // Call router.go() or this.$router.go()
 // That will refresh the page and your state will be reset to how it was when the user first loaded the app.

@@ -170,7 +170,8 @@
         >
           <!--             v-if="newestCounter > 1" -->
           <plotreal 
-            :pkey="plotkey"
+            v-if="showyes"
+            :key="plotkey"
             plotcard
           />
         </v-card>
@@ -218,13 +219,9 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  // const plotdirnew = '@/assets/plots/comps/'
-  // const plotdirneww = this.$router.afterEach((to, from) => {
-  //   // to and from are both route objects.
-  // })
-  // const pnn = this.$router.plotdirnew
+
   const self = this
-  const plotdir = '@/assets/plots/comps/'
+  const plotcompsdir = '@/assets/plots/comps'
 
   var newestCounter = 0
   var plotkey = 0
@@ -241,6 +238,7 @@
         class: "v_chip_small", small: true, dark: false,
       },
       plotkey,
+      showyes: false,
       newestCounter,
       vmd1: '',
       vmd2: '',
@@ -255,19 +253,16 @@
     }),
 
     watch: {
-      plotdir:  {
+      plotcompsdir:  {
         deep: true,
         immediate: true,
         handler () {
-          console.log("!!! &&&&  &&&&  saw plotdir route change!!  ---------  ")
-          // let myCounter = self.$store.gCounter
-          newestCounter = 2
+          console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
+          showyes = true
+          ++newestCounter
           ++plotkey
           console.log("!--newestCounter: " + newestCounter + ': '+ plotkey)
-          // ++myCounter
-          // self.$store.dispatch('gCounterAct', myCounter)
-          // console.log("!!! &&&&  &&&&  myCounter: " + myCounter)
-          return newestCounter
+          return newestCounter, plotkey
         }         
       },
     },
@@ -281,9 +276,9 @@
         ++plotkey
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
-        this.$store.dispatch('gLocPlotNameAct', plot_name)
-        this.$store.dispatch('gLocPlotPathAct', plot_name_path)
-        console.log('checking store: state.gLocPlotPath: ' + this.$store.state.gLocPlotPath )
+        this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
+        this.$store.dispatch('gTimedPlotPathAct', plot_name_path)
+        console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
         console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
       },
       asyncRequestPlot: function (baseurl) {
@@ -324,13 +319,24 @@
         console.log(`!!! pythonUrl: $pythonUrl`)   
       },
       keepplot: function () {
-        let locPlotyPath = this.$store.state.gLocPlotPath
-        this.$store.dispatch('gPlotListAct', locPlotyPath);
+        let timedPlotPath = this.$store.state.gTimedPlotPath
+        this.$store.dispatch('gPlotPATHARRAYAct', locPlotyPath);
         this.$store.dispatch('gCounterAct', 1)  // start mostly over
-        console.log('checking store gPlotList: ' + this.$store.state.gPlotList)
+        console.log('stored gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
       },
     }
   }
+  //    gTimeNAMEonly: '',
+    // gTimedPlotPath: '',
+    // gPlotPATHARRAY: [],
+// Before create
+// Created
+// Before mount
+// Mounted
+// Before update
+// Updated
+// Before destroy
+// Destroyed
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>

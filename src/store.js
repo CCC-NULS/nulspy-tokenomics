@@ -10,11 +10,10 @@ export default new Vuex.Store({
     drawer: null,
     gCounter: 0,
     sCounter: 0,
-    gLocPlotPath: '@/assets/plots/plotreal.svg',
-    gLocPlotName: 'plotreal.svg',
-    gPlotList: [],
-    gSaveOne: '@/assets/plots/plotreal.svg',
-    sWhichPlot: 0,
+    gTimeNAMEonly: '',
+    gTimedPlotPath: '',
+    gPlotPATHARRAY: [],
+    // gSaveOne: '@/assets/plots/plotreal.svg',
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -29,31 +28,31 @@ export default new Vuex.Store({
     sCounterMut(state, theval) {
       state.sCounter = theval
     },    
-    gLocPlotPathMut(state, theval) {
-      state.gLocPlotPath = theval
+    gTimedPlotPathMut(state, theval) {
+      state.gTimedPlotPath = theval
     },
-    gPlotListMut(state, theval) {
-      state.gPlotList = theval
+    gPlotPATHARRAYMut(state, theval) {
+      state.gPlotPATHARRAY.push(theval)
     },
-    gPlotListMutZero(state, theval) {
-      state.gPlotList[0] = theval  //replaces a val
+    // gPlotPATHARRAYMutZero(state, theval) {
+    //   state.gPlotPATHARRAY[0] = theval  //replaces a val
+    // },
+    gTimeNAMEonlyMut(state, theval) {
+      state.gTimeNAMEonly = theval
     },
-    gLocPlotNameMut(state, theval) {
-      state.gLocPlotName = theval
-    },
-    gSaveOneMut(state, theval) {
-      state.gSaveOne.push(theval)
-    },
-    sWhichPlotMut(state, theval) {
-      state.sWhichPlot = theval
-    },
+    // gSaveOneMut(state, theval) {
+    //   state.gSaveOne.push(theval)
+    // },
+    // sWhichPlotMut(state, theval) {
+    //   state.sWhichPlot = theval
+    // },
   },
   getters: {
     gShowPlotGet: state => state.gShowPlot,
-    gLocPlotPathGet: state => state.gLocPlotPath,
-    gPlotListGet: state => state.gPlotList,
-    gSaveOneGet: state => state.gSaveOne,
-    sWhichPlotGet: state => state.sWhichPlot,
+    gTimedPlotPathGet: state => state.gTimedPlotPath,
+    gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
+    // gSaveOneGet: state => state.gSaveOne,
+    // sWhichPlotGet: state => state.sWhichPlot,
 
   },
   actions: {  
@@ -63,24 +62,24 @@ export default new Vuex.Store({
     sCounterAct (context, theval) {
       context.commit('sCounterMut', theval)
     },
-    gLocPlotPathAct (context, theval) {
-      context.commit('gLocPlotPathMut', theval)
+    gTimedPlotPathAct (context, theval) {
+      context.commit('gTimedPlotPathMut', theval)
     },
-    gPlotListAct (context, theval) {
-      context.commit('gPlotListMut', theval)
+    gPlotPATHARRAYAct (context, theval) {
+      context.commit('gPlotPATHARRAYMut', theval)
     },
-    gPlotListActZero (context, theval) {
-      context.commit('gPlotListMutZero', theval)
+    // gPlotPATHARRAYActZero (context, theval) {
+    //   context.commit('gPlotPATHARRAYMutZero', theval)
+    // },
+    gTimeNAMEonlyAct (context, theval) {
+      context.commit('gTimeNAMEonlyMut', theval)
     },
-    gLocPlotNameAct (context, theval) {
-      context.commit('gLocPlotNameMut', theval)
-    },
-    gSaveOneAct (context, theval) {
-      context.commit('gSaveOneMut', theval)
-    },
-    sWhichPlotAct (context, theval) {
-      context.commit('sWhichPlotMut', theval)
-    }
+    // gSaveOneAct (context, theval) {
+    //   context.commit('gSaveOneMut', theval)
+    // },
+    // sWhichPlotAct (context, theval) {
+    //   context.commit('sWhichPlotMut', theval)
+    // }
   }
 
 })
