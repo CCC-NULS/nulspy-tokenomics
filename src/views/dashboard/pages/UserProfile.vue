@@ -172,7 +172,8 @@
         >
           This is the wrapper card
 
-          <plotreal 
+          <plotreal
+            v-if="$store.state.gCounter > 1"
             :key="$store.state.gCounter"
           />
         </v-card>
@@ -230,7 +231,7 @@
     name: 'UserProfile',
     components: {
       TopWords,
-      plotreal: require('@/assets/plots/plotreal.svg'),
+      plotreal: () => import('@/assets/plots/plotreal.svg'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
@@ -249,7 +250,17 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-
+    computed: {
+        computeshowval () {
+          let theretval = false
+          let check_gctc =  this.$store.state.gCounter
+          console.log('In computeshowval: gCounter now: ' + check_gctc)
+          if (check_gctc > 1)
+            theretval = true         
+          console.log('value of theretval in computeshowval: ' + theretval)
+          return theretval
+        },
+      },
     watch: {
       plotreal:  {
         deep: true,
@@ -262,14 +273,11 @@
           this.$store.dispatch('gCounterAct', gct)
 
           let check_gct  =  this.$store.state.gCounter
-          console.log("In watch: gCounter now: " + check_gct)
+          console.log('In watch: gCounter now: ' + check_gct)
 
-          this.$store.dispatch('showmeAct', true)
-          this.showme = true
+          this.showme = computeshowval();
+
           console.log("value of showme in handler: " + this.showme)
-
-          this.localKey += 1
-          console.log("value of localKey in handler: " + this.localKey)
         }         
       },
     },
@@ -290,6 +298,7 @@
     activated () {
       console.log("in activated" )
     },
+   
     methods: {
       resetc: function () {
         let gctt  =  self.$store.state.gCounter
