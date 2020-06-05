@@ -34,6 +34,7 @@
       color="info"
       medium
       raised
+      style="font-size=17px!important"
     >
       Inflation and de-inflation begin at the same time
     </v-chip>
@@ -45,7 +46,7 @@
   export default {
     name: 'TopWords',
     data: () => ({
-      titlewords: 'DEFAULT / PRESET VALUES',
+      titlewords: 'Example Values',
     })
   }
 </script>

@@ -20,37 +20,38 @@ export default new Router({
         // Pages
         {
           name: 'Create Graph',
-          path: '#',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
+          path: 'pages/creategraph',
+          component: () => import('@/views/dashboard/pages/CreateGraph'),
         }, 
-        // Dashboard
-        {
-          name: 'Dashboard',
-          path: 'dashboard',
-          component: () => import('@/views/dashboard/Dashboard'),
-        },
-        {
-          name: 'Staking',
-          path: 'components/typography',
-          component: () => import('@/views/dashboard/component/Typography'),
-        },
-        // Tables
-        {
-          name: 'Blockchain',
-          path: 'tables/regular-tables',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
-        },
-        // Maps
-        {
-          name: 'View Maps',
-          path: 'maps/google-maps',
-          component: () => import('@/views/dashboard/maps/GoogleMaps'),
-        },
         {
           name: 'Saved Graphs',
-          path: 'pages/graphs',
+          path: 'pages/SavedGraphs',
           component: () => import('@/views/dashboard/pages/SavedGraphs'),
         },
+        {
+          name: 'Tokenomics',
+          path: 'components/tokenomics',
+          component: () => import('@/views/dashboard/component/Tokenomics'),
+        },
+        // Dashboard
+        // {
+        //   name: 'Dashboard',
+        //   path: 'dashboard',
+        //   component: () => import('@/views/dashboard/Dashboard'),
+        // },        
+        // Tables
+        // {
+        //   name: 'Blockchain',
+        //   path: 'tables/regular-tables',
+        //   component: () => import('@/views/dashboard/tables/RegularTables'),
+        // },
+        // Maps
+        // {
+        //   name: 'View Maps',
+        //   path: 'maps/google-maps',
+        //   component: () => import('@/views/dashboard/maps/GoogleMaps'),
+        // },
+ 
         // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
         // {
         //   name: 'Profile Card',

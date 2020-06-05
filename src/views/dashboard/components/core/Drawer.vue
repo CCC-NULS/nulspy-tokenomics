@@ -106,31 +106,33 @@
 
     data: () => ({
       items: [
+
+        {
+          title: 'creategraph',
+          icon: 'mdi-chart-areaspline',
+          to: '/pages/creategraph',
+        },           
+        {
+          title: 'SavedGraphs',
+          icon: 'mdi-poll',
+          to: '/pages/SavedGraphs',
+        },
+        {
+          title: 'Tokenomics',
+          icon: 'mdi-electron-framework',
+          to: '/component/Tokenomics',
+        },
+
         // {
         //   icon: 'mdi-view-dashboard',
         //   title: 'dashboard',
         //   to: '/',
         // },
-        {
-          icon: 'mdi-poll',
-          title: 'user',
-          to: '/pages/user',
-        },
-        {
-          title: 'graphs',
-          icon: 'mdi-chart-areaspline',
-          to: '/',
-        },        
         // {
         //   title: 'rtables',
         //   icon: 'mdi-clipboard-outline',
         //   to: '/tables/regular-tables',
-        // },
-        {
-          title: 'typography',
-          icon: 'mdi-electron-framework',
-          to: '/components/typography',
-        },
+        // },        
         // {
         //   title: 'icons',
         //   icon: 'mdi-chart-bubble',

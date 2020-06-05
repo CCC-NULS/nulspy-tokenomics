@@ -6,8 +6,8 @@
 }
 .displaynms {
   line-height: 1.7em;
-  font-size: 24px!important;
-  padding-left: 26px!important;
+  font-size: 22px!important;
+  padding-left: 9px!important;
 }
 .v_chip_small {
   padding: 2px;
@@ -17,14 +17,22 @@
   text-align: center;
 }
 .v-chip {
-  padding: 19px;
+  padding: 12px;
   margin-bottom: 10px!important;
 }
 .v-chip__content {
-  font-size: 19px;
+  font-size: 24px;
   font-weight: 300;
-  padding-left: 22px;
-  padding-right: 22px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+.v-chip__content_small {
+  font-size: 17px;
+  font-weight: 300;
+  padding-left: 14px;
+  padding-right: 14px;
   padding-bottom: 14px;
   padding-top: 14px;
 }
