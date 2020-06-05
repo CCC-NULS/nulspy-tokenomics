@@ -139,6 +139,8 @@
     },
 
     created () {
+      console.log("in created2" )
+
       // cgPATHARRAY = self.$store.state.gPlotPATHARRAY
       // cgName_One = cgPATHARRAY[0]
       // cgName_Two = cgPATHARRAY[1]
