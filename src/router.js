@@ -20,7 +20,7 @@ export default new Router({
         // Pages
         {
           name: 'Create Graph',
-          path: '',
+          path: '#',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         }, 
         // Dashboard
@@ -42,7 +42,7 @@ export default new Router({
         },
         // Maps
         {
-          name: 'View Graph',
+          name: 'View Maps',
           path: 'maps/google-maps',
           component: () => import('@/views/dashboard/maps/GoogleMaps'),
         },
@@ -65,8 +65,9 @@ export default new Router({
         // },
         {
           name: 'plotreal',
-          path: 'assets/plots',
-          component: () => import('@/assets/plots/plotreal.svg'),  // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
+          path: 'assets/plots',  
+          component: () => import('@/assets/plots/plotreal.svg'),  
+          // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
         },
       ],
     },

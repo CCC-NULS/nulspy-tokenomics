@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import plotreal from '@/assets/plots/comps/plotreal.svg'
+  import plotreal from '@/assets/plots/plotreal.svg'
   const plotdirr = '@/assets/plots/'
 
   var mymodule

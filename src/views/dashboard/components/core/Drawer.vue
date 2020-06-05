@@ -119,7 +119,7 @@
         {
           title: 'graphs',
           icon: 'mdi-chart-areaspline',
-          to: '/pages/graphs',
+          to: '/',
         },        
         // {
         //   title: 'rtables',

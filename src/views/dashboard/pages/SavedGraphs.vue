@@ -27,10 +27,9 @@
           >
             <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
 
-            <testcomp 
-              v-show="true"
-              :key="splotkeyone"
-              ponewrap
+            <plotonecomp
+              v-if="$store.state.sCounter > 1"
+              :key="$store.state.sCounter"
             />
           </v-card>
         </base-material-card>
@@ -75,7 +74,10 @@
           title="Inflation / Deflation"
           class="px-5 py-3"
         >
-          <testcomptwo />
+          <plottwocomp
+            v-if="$store.state.sCounter > 1"
+            :key="$store.state.sCounter"
+          />
 
           <v-card-text class="px-0 pb-0">
             this is ptemp
@@ -88,72 +90,107 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
-
-  var showonecomp = true
-  var showtwocomp = false
-  var splotkeyone = 0
-
-  var pltone = 'plote.svg'
-  var myplotnewone = '@/assets/plots/plote.svg'
-  var myplotnametwo = '@/assets/plots/plote.svg'
     // return require('@/assets/icons/icon_${name}.svg).default;
-  
   const self = this
-
-  //const testcomp = require(myplotnewone).default;
-  const testcomptwo = require(myplotnewone).default;
+  var plotonecomp
+  var plottwocomp
+  // plottwocomp = () => import('@/assets/plots/plotempty.svg')
 
   export default {
     name: "SavedGraphs",
     components: {
-      testcomp: require(myplotnewone),
-      testcomptwo,
+      plotonecomp: () => import(this.$store.state.gPlotPATHARRAY[0]),
+      plottwocomp: loadtwo(),
     },
     data: () => ({
-      showonecomp,
       showtwocomp,
-      splotkeyone,
       secondsrc: "http://localhost:5002/static/plots/plot00910117.svg",
       thirdsrc: "http://localhost:5002/static/plots/plot00910117.svg",
     }),
-    watch: {
-      runonebtn:  {
-        deep: true,
-        immediate: true,
-        handler () {
-          console.log("!!! runonebtn change in watch !!  ---------  ")
-          }         
-        },
+    computed: {
+      loadtwo () {
+        plottwocomp: () => import('@/assets/plots/plotempty.svg')
+        let parry = this.$store.state.gPlotPATHARRAY
+        if (parry.length > 1)
+          plottwocomp: () => import( this.$store.state.gPlotPATHARRAY[1] )
+        return plottwocomp
+      },
     },
+      //   compute_showval () {
+      //     let ret_val = false
+      //     let check_s_ct =  this.$store.state.sCounter
+      //     console.log('In computeshowvcompute_showvalal: gCounter now: ' + check_s_ct)
+      //     if (check_s_ct > 1)
+      //       ret_val = true         
+      //     console.log('value of theretval in compute_showval: ' + ret_val)
+      //     return ret_val
+      //   },
+      // },
+    watch: {
+      // plotreal:  {
+      //   deep: true,
+      //   immediate: true,
+      //   handler () {
+      //     console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
+      //     let gct  =  this.$store.state.gCounter
+      //     console.log("In watch: gCounter: " +  gct )
+      //     gct += 1
+      //     this.$store.dispatch('gCounterAct', gct)
+
+      //     let check_gct  =  this.$store.state.gCounter
+      //     console.log('In watch: gCounter now: ' + check_gct)
+
+      //     this.showme = computeshowval();
+
+      //     console.log("value of showme in handler: " + this.showme)
+      //   }         
+      // },
+    },
+
+    created () {
+      cgPATHARRAY = self.$store.state.gPlotPATHARRAY
+      cgName_One = cgPATHARRAY[0]
+      cgName_Two = cgPATHARRAY[1]
+
+      // this.$router.go()
+      console.log("in created2" )
+    },
+    mount () {
+      // this.$router.go()
+      console.log("in mount2" )
+    },
+    updated () {
+      console.log("in updated2" )
+    },
+    activated () {
+      console.log("in activated2" )
+    },
+   
     created () {
       // this.$router.go()
-      var plotslist = self.$store.state.gPlotList
-      if (plotslist.length > 0) {
-        myplotnewone = plotlist[0]
-        testcomp = require(myplotnewone).default;
+      var aPATHARRAY = self.$store.state.gPlotPATHARRAY
+      if (aPATHARRAY.length > 0) {
+        myplotnewone = aPATHARRAY[0]
 
-        if (plotslist.length > 1) {
-          myplotnametwo = plotslist[1]
-          testcomptwo = require(myplotnametwo).default;
+        if (aPATHARRAY.length > 1) {
+          myplotnametwo = aPATHARRAY[1]
 
         }
       }
     },
     
     methods: {
-      loadonenow: function () {
-        this.$store.dispatch('sWhichPlotAct', 1);
-        let locsplotslist = this.$store.state.gPlotList
-        let savonecompname = locsplotslist[1]      
-        console.log("!!! beginning splotkeyone: " + splotkeyone)
-        console.log("!!! savonecompname: " + savonecompname)
-        showonecomp: true
-        ++splotkeyone
-        console.log("!!! splotkeyone: " + splotkeyone)
+      get_name_one: function () {
+        let myPATHARRAY = this.$store.state.gPlotPATHARRAY
+        let save_one = myPATHARRAY[0]      
+        console.log("in get_name_one: " + save_one)
+
       },
-      loadtwonow: function () {
-        console.log("clicked loadtwonow. ")
-        showtwocomp: true
+      get_name_two: function () {
+        let myPATHARRAY = this.$store.state.gPlotPATHARRAY
+        let save_two = myPATHARRAY[1]      
+        console.log("in get_name_two: " + save_two)
+
       },
     },  
   }

@@ -31,7 +31,7 @@ export default new Vuex.Store({
     gTimedPlotPathMut(state, theval) {
       state.gTimedPlotPath = theval
     },
-    gPlotPATHARRAYMut(state, theval) {
+    gPlotPATHARRAYpushMut(state, theval) {
       state.gPlotPATHARRAY.push(theval)
     },
     // gPlotPATHARRAYMutZero(state, theval) {
@@ -65,8 +65,8 @@ export default new Vuex.Store({
     gTimedPlotPathAct (context, theval) {
       context.commit('gTimedPlotPathMut', theval)
     },
-    gPlotPATHARRAYAct (context, theval) {
-      context.commit('gPlotPATHARRAYMut', theval)
+    gPlotPATHARRAYpushAct (context, theval) {
+      context.commit('gPlotPATHARRAYpushMut', theval)
     },
     // gPlotPATHARRAYActZero (context, theval) {
     //   context.commit('gPlotPATHARRAYMutZero', theval)

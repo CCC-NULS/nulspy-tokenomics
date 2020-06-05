@@ -223,7 +223,6 @@
     });
 
   const self = this
-  var localKey
   var showme
   var plotreal
 
@@ -238,7 +237,6 @@
         class: "v_chip_small", small: true, dark: false,
       },
       showme: false,
-      localKey: 0,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -251,16 +249,16 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
-        computeshowval () {
-          let theretval = false
-          let check_gctc =  this.$store.state.gCounter
-          console.log('In computeshowval: gCounter now: ' + check_gctc)
-          if (check_gctc > 1)
-            theretval = true         
-          console.log('value of theretval in computeshowval: ' + theretval)
-          return theretval
-        },
+      computeshowval () {
+        let theretval = false
+        let check_gctc =  this.$store.state.gCounter
+        console.log('In computeshowval: gCounter now: ' + check_gctc)
+        if (check_gctc > 1)
+          theretval = true         
+        console.log('value of theretval in computeshowval: ' + theretval)
+        return theretval
       },
+    },
     watch: {
       plotreal:  {
         deep: true,
@@ -275,7 +273,7 @@
           let check_gct  =  this.$store.state.gCounter
           console.log('In watch: gCounter now: ' + check_gct)
 
-          this.showme = computeshowval();
+          this.showme = this.computeshowval
 
           console.log("value of showme in handler: " + this.showme)
         }         
@@ -352,13 +350,13 @@
         catch (e) {
           console.log(e)
         }
-        console.log(`!!! pythonUrl: $pythonUrl`)   
+        console.log(`!!! pythonUrl: ${pythonUrl}`)   
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
-        this.$store.dispatch('gPlotPATHARRAYAct', timePlotPath);
+        this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
         this.$store.dispatch('gCounterAct', 1)  // reset start mostly over
-        console.log('stored gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
+        console.log('pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
       },
     }
   }
