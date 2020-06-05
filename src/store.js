@@ -11,7 +11,7 @@ export default new Vuex.Store({
     gCounter: 0,
     sCounter: 0,
     gTimeNAMEonly: null,
-    gTimedPlotPath: null,
+    gTimedPlotPath: '@/assets/plots/plotempty.svg',
     gPlotPATHARRAY: [],
     showme: false,
   },

@@ -25,11 +25,9 @@
             raised
           >
             <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
-
-            <plotonecomp
-              v-if="$store.state.sCounter > 1"
-              :key="$store.state.sCounter"
-            />
+            <v-lazy>
+              <plotonecomp />
+            </v-lazy>
           </v-card>
         </base-material-card>
       </v-col>
@@ -86,37 +84,23 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
     // return require('@/assets/icons/icon_${name}.svg).default;
   const self = this
-  var plotonecomp
-  // plottwocomp = () => import('@/assets/plots/plotempty.svg')
-
+  // var plotonecomp
+  var plotonecomp = () => import('@/assets/plots/plotempty.svg')
+  // var ponen
 
   export default {
     name: "SavedGraphs",
     components: {
-      plotonecomp: () => import(this.$store.state.gPlotPATHARRAY[0]),
+      plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
     },
     data: () => ({
       a: 1,
     }),
     computed: {
-      // loadtwo () {
-      //   plottwocomp: () => import('@/assets/plots/plotempty.svg')
-      //   let parry = this.$store.state.gPlotPATHARRAY
-      //   if (parry.length > 1)
-      //     plottwocomp: () => import( this.$store.state.gPlotPATHARRAY[1] )
-      //   return plottwocomp
-      // },
+      ponen: function() {
+        return self.$store.state.gPlotPATHARRAY[0]        
+      }
     },
-      //   compute_showval () {
-      //     let ret_val = false
-      //     let check_s_ct =  this.$store.state.sCounter
-      //     console.log('In computeshowvcompute_showvalal: gCounter now: ' + check_s_ct)
-      //     if (check_s_ct > 1)
-      //       ret_val = true         
-      //     console.log('value of theretval in compute_showval: ' + ret_val)
-      //     return ret_val
-      //   },
-      // },
     watch: {
       // plotreal:  {
       //   deep: true,
@@ -141,12 +125,6 @@
     created () {
       console.log("in created2" )
 
-      // cgPATHARRAY = self.$store.state.gPlotPATHARRAY
-      // cgName_One = cgPATHARRAY[0]
-      // cgName_Two = cgPATHARRAY[1]
-
-      // this.$router.go()
-      // console.log("in created2: cgName_One: " + cgName_One)
     },
     mount () {
       // this.$router.go()
@@ -158,28 +136,11 @@
     activated () {
       console.log("in activated2" )
     },
-   
-    // created () {
-    //   // this.$router.go()
-    //   var aPATHARRAY = self.$store.state.gPlotPATHARRAY
-    //   if (aPATHARRAY.length > 0) {
-    //     myplotnewone = aPATHARRAY[0]
+      // this.$router.go() // big reset
 
-    //     if (aPATHARRAY.length > 1) {
-    //       myplotnametwo = aPATHARRAY[1]
-
-    //     }
-    //   }
-    // },
-    
     methods: {
       loadonenow: function () {
         console.log("in loadonenow: ")
-      },
-      get_name_one: function () {
-        let myPATHARRAY = this.$store.state.gPlotPATHARRAY
-        let save_one = myPATHARRAY[0]      
-        console.log("in get_name_one: " + save_one)
       },
       get_name_two: function () {
         let myPATHARRAY = this.$store.state.gPlotPATHARRAY
