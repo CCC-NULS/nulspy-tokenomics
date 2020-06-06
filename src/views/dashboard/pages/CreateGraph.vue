@@ -162,17 +162,16 @@
         md="11"
       >
         <v-card
-          v-if="true"
+          v-if="$store.state.gCounter > 0"
           id="plotcard"
-          :key="$store.state.gCounter"
           class="padplot"
           pl-2
           elevation-24
           raised
         >
           <plotreal
-            v-if="$store.state.gCounter > 1"
             :key="$store.state.gCounter"
+            plotcard
           />
         </v-card>
 
@@ -207,7 +206,6 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-
   var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -219,15 +217,6 @@
       } }
     });
 
-  const self = this
-  // var showme
-  var plotreal
-  const timest = Date.now().toString().substring(5,13);
-
-  // var compsavtwwwo = function () {
-  //   return require('@/assets/icons/icon_${name}.svg').default;
-
-
   export default {
     name: 'CreateGraph',
     components: {
@@ -238,6 +227,7 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
+      plotdir: '@/assets/plots',
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -249,19 +239,9 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    computed:  {
-      // computeshowval () {
-      //   let theretval = false
-      //   let check_gctc =  this.$store.state.gCounter
-      //   console.log('In computeshowval: gCounter now: ' + check_gctc)
-      //   if (check_gctc > 1)
-      //     theretval = true         
-      //   console.log('value of theretval in computeshowval: ' + theretval)
-      //   return theretval
-      // },
-    },
+
     watch: {
-      plotreal:  {
+      plotdir:  {
         deep: true,
         immediate: true,
         handler () {
@@ -270,24 +250,16 @@
           console.log("In watch: gCounter: " +  gct )
           gct += 1
           this.$store.dispatch('gCounterAct', gct)
-
           let check_gct  =  this.$store.state.gCounter
           console.log('In watch: gCounter now: ' + check_gct)
-
-          // this.showme = this.computeshowval
-
-          // console.log("value of showme in handler: " + this.showme)
         }         
       },
     },
-
     created () {
-      // this.$router.go()
       console.log("in created" )
-      // this.$store.dispatch('showmeAct', false)
     },
     mount () {
-      // this.$router.go()
+      // this.$router.go()  // big reset
       console.log("in mount" )
       // this.$store.dispatch('showmeAct', false)
     },
@@ -300,11 +272,11 @@
    
     methods: {
       resetc: function () {
-        let gctt  =  self.$store.state.gCounter
-        console.log("In resetc: myCounter: " +  gctt )
+        let gctt  =  this.$store.state.gCounter
+        console.log("In resetc: gCounter: " +  gctt )
         ++gctt
-        self.$store.dispatch('gCounterAct', gctt)  // start over
-        let mctt  =  self.$store.state.gCounter
+        this.$store.dispatch('gCounterAct', gctt)  // start over
+        let mctt  =  this.$store.state.gCounter
         console.log("In resetc:  myCounter now: " + mctt)
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
@@ -352,7 +324,6 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`)  
-        this.plotime = timestr 
       },
       // increaseScount: function () {
       //   let sctt  =  this.$store.state.sCounter
@@ -365,20 +336,12 @@
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
         console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
-
         this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
-        console.log('in keepplot: starting over, hiding last chart')
-
+        // console.log('in keepplot: starting over, hiding last chart')
         // this.$store.dispatch('gCounterAct', 1)  // reset start mostly over
         console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
        
-        // let sct  =  this.$store.state.sCounter
-        // console.log("In keepplot: sCounter: " +  sct )
-        // sct += 1
-        // this.$store.dispatch('sCounterAct', sct)
-        // let check_sct  =  this.$store.state.sCounter
-        // console.log('In keepplot: sCounter now: ' + check_sct)
-        // this.showme = this.computeshowval
+
       },
     }
   }
