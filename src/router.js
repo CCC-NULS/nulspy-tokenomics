@@ -20,7 +20,7 @@ export default new Router({
         // Pages
         {
           name: 'Create Graph',
-          path: 'pages/creategraph',
+          path: 'pages/CreateGraph',
           component: () => import('@/views/dashboard/pages/CreateGraph'),
         }, 
         {
@@ -30,7 +30,7 @@ export default new Router({
         },
         {
           name: 'Tokenomics',
-          path: 'components/tokenomics',
+          path: 'components/Tokenomics',
           component: () => import('@/views/dashboard/component/Tokenomics'),
         },
         // Dashboard

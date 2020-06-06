@@ -25,9 +25,6 @@
             raised
           >
             <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
-            <v-lazy>
-              <plotonecomp />
-            </v-lazy>
           </v-card>
         </base-material-card>
       </v-col>
@@ -82,44 +79,29 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
-    // return require('@/assets/icons/icon_${name}.svg).default;
   const self = this
-  // var plotonecomp
-  var plotonecomp = () => import('@/assets/plots/plotempty.svg')
-  // var ponen
+  // var plotonecomp = () => import('@/assets/plots/plotempty.svg')
+
+  // const reqSvgs = require.context ( './images', true, /\.svg$/ )
+  var reqSvgs
+  var svgs
+
 
   export default {
     name: "SavedGraphs",
     components: {
-      plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
+      // plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
     },
     data: () => ({
       a: 1,
     }),
     computed: {
-      ponen: function() {
-        return self.$store.state.gPlotPATHARRAY[0]        
-      }
+      // ponen: function() {
+      //   return self.$store.state.gPlotPATHARRAY[0]        
+      // }
     },
     watch: {
-      // plotreal:  {
-      //   deep: true,
-      //   immediate: true,
-      //   handler () {
-      //     console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
-      //     let gct  =  this.$store.state.gCounter
-      //     console.log("In watch: gCounter: " +  gct )
-      //     gct += 1
-      //     this.$store.dispatch('gCounterAct', gct)
-
-      //     let check_gct  =  this.$store.state.gCounter
-      //     console.log('In watch: gCounter now: ' + check_gct)
-
-      //     this.showme = computeshowval();
-
-      //     console.log("value of showme in handler: " + this.showme)
-      //   }         
-      // },
+    
     },
 
     created () {
@@ -132,7 +114,11 @@
     },
     updated () {
       console.log("in updated2" )
-    },
+      this.reqSvgs = require.context ( '@/assets/plots', true, /\.svg$/ )
+      this.svgs = reqSvgs
+        .keys ()
+        .map ( path => ({ path, file: reqSvgs ( path ) }) )
+        },
     activated () {
       console.log("in activated2" )
     },
