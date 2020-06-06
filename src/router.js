@@ -20,7 +20,7 @@ export default new Router({
         // Pages
         {
           name: 'Create Graph',
-          path: 'pages/creategraph',
+          path: 'pages/CreateGraph',
           component: () => import('@/views/dashboard/pages/CreateGraph'),
         }, 
         {

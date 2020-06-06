@@ -36,11 +36,11 @@
   "tabs": "Tabs",
   "tim": "NULS Blockchain",
   "timeline": "Timeline",
-  "Tokenomics": "Tokenomics",
   "upgrade": " ",
-  "creategraph": "Create Graph",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
   "wizard": "Wizard",
-  "SavedGraphs": "Saved Graphs"
+  "CreateGraph": "Create Graph",
+  "SavedGraphs": "Saved Graphs",
+  "Tokenomics": "Tokenomics"
 }

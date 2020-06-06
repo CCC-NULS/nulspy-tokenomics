@@ -108,9 +108,9 @@
       items: [
 
         {
-          title: 'creategraph',
+          title: 'CreateCraph',
           icon: 'mdi-chart-areaspline',
-          to: '/pages/creategraph',
+          to: '/pages/CreateCraph',
         },           
         {
           title: 'SavedGraphs',

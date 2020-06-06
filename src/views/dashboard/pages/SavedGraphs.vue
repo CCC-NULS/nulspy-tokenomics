@@ -24,10 +24,11 @@
             elevation-24
             raised
           >
-            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
+            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE 
             <v-lazy>
               <plotonecomp />
             </v-lazy>
+            -->
           </v-card>
         </base-material-card>
       </v-col>
@@ -88,18 +89,25 @@
   var plotonecomp = () => import('@/assets/plots/plotempty.svg')
   // var ponen
 
+  const reqSvgs = require.context ( '@/assets/plots', true, /\.svg$/ )
+
+  const svgs = reqSvgs
+    .keys ()
+    .map ( path => ({ path, file: reqSvgs ( path ) }) )
+
+
   export default {
     name: "SavedGraphs",
     components: {
-      plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
+      // plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
     },
     data: () => ({
       a: 1,
     }),
     computed: {
-      ponen: function() {
-        return self.$store.state.gPlotPATHARRAY[0]        
-      }
+      // ponen: function() {
+      //   return self.$store.state.gPlotPATHARRAY[0]        
+      // }
     },
     watch: {
       // plotreal:  {
