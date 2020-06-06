@@ -30,7 +30,7 @@ export default new Router({
         },
         {
           name: 'Tokenomics',
-          path: 'components/tokenomics',
+          path: 'components/Tokenomics',
           component: () => import('@/views/dashboard/component/Tokenomics'),
         },
         // Dashboard
