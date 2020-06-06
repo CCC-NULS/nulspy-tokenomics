@@ -24,7 +24,11 @@
             elevation-24
             raised
           >
-            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE  -->
+            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE 
+            <v-lazy>
+              <plotonecomp />
+            </v-lazy>
+            -->
           </v-card>
         </base-material-card>
       </v-col>
@@ -79,12 +83,17 @@
 
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
+    // return require('@/assets/icons/icon_${name}.svg).default;
   const self = this
-  // var plotonecomp = () => import('@/assets/plots/plotempty.svg')
+  // var plotonecomp
+  var plotonecomp = () => import('@/assets/plots/plotempty.svg')
+  // var ponen
 
-  // const reqSvgs = require.context ( './images', true, /\.svg$/ )
-  var reqSvgs
-  var svgs
+  const reqSvgs = require.context ( '@/assets/plots', true, /\.svg$/ )
+
+  const svgs = reqSvgs
+    .keys ()
+    .map ( path => ({ path, file: reqSvgs ( path ) }) )
 
 
   export default {
@@ -101,7 +110,24 @@
       // }
     },
     watch: {
-    
+      // plotreal:  {
+      //   deep: true,
+      //   immediate: true,
+      //   handler () {
+      //     console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
+      //     let gct  =  this.$store.state.gCounter
+      //     console.log("In watch: gCounter: " +  gct )
+      //     gct += 1
+      //     this.$store.dispatch('gCounterAct', gct)
+
+      //     let check_gct  =  this.$store.state.gCounter
+      //     console.log('In watch: gCounter now: ' + check_gct)
+
+      //     this.showme = computeshowval();
+
+      //     console.log("value of showme in handler: " + this.showme)
+      //   }         
+      // },
     },
 
     created () {
@@ -114,11 +140,7 @@
     },
     updated () {
       console.log("in updated2" )
-      this.reqSvgs = require.context ( '@/assets/plots', true, /\.svg$/ )
-      this.svgs = reqSvgs
-        .keys ()
-        .map ( path => ({ path, file: reqSvgs ( path ) }) )
-        },
+    },
     activated () {
       console.log("in activated2" )
     },
