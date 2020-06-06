@@ -65,10 +65,14 @@ export default new Router({
         //   component: () => import('@/views/dashboard/Upgrade'),
         // },
         {
-          name: 'plotreal',
+          name: 'pltreal',
           path: 'assets/plots',  
-          component: () => import('@/assets/plots/plotreal.svg'),  
-          // async dynamic load works component: () => import('@/assets/plots/plot.svg'),
+          component: () => import('@/assets/plots/pltreal.svg'),  
+        },
+        {
+          name: 'uoneplot',
+          path: 'assets/users/uone',  
+          component: () => import('@/assets/users/uone/e1.svg'),  
         },
       ],
     },

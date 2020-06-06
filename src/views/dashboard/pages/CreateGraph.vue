@@ -169,7 +169,8 @@
           elevation-24
           raised
         >
-          <plotreal
+          <pltreal
+            v-if="$store.state.gCounter > 1"
             :key="$store.state.gCounter"
             plotcard
           />
@@ -221,7 +222,7 @@
     name: 'CreateGraph',
     components: {
       TopWords,
-      plotreal: () => import('@/assets/plots/plotreal.svg'),
+      pltreal: () => import('@/assets/plots/pltreal.svg'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {

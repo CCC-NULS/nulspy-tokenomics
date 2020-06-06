@@ -5,134 +5,149 @@
     tag="section"
   >
     <v-row>
-      <v-col cols="12">
-        <base-material-card
-          id="mcforrunone"
-          color="success"
-          title="Graph"
-          class="px-5 py-1"
+      <base-material-card
+        id="eoneandtwo"
+        color="success"
+        title="Graph"
+        class="px-1 py-1"
+        fluid
+      >
+        <v-col
+          cols="12"
+          md="6"
         >
-          <v-btn
-            id="runonebtn"
-          >
-            Load ONE Now
-          </v-btn>
-
+          <!-- %%%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%%%  PLOT 1 --> 
           <v-card
-            id="ponewrap"
+            id="e1card"
             class="padplot"
+            pl-2
             elevation-24
             raised
           >
-            <!-- %%%%%%%%%%%%%%%% ONE %%%%%%%%%%%%%%%%%%  PLOT ONE ONE ONE 
-            <v-lazy>
-              <plotonecomp />
-            </v-lazy>
-            -->
+            <e1plot
+              :key="$store.state.sCounter"
+              e1card
+            />
           </v-card>
-        </base-material-card>
-      </v-col>
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <!-- %%%%%%%%%%%%%%%%% TWO %%%%%%%%%%%%%%%%%%%  PLOT 2 --> 
+          <v-card
+            id="e2card"
+          >
+            <e2plot
+              :key="$store.state.sCounter"
+              e2card
+            />
+          </v-card>
+          <!--   %%%%%%%%%%%%%%%%%%%%%%%%%    -->
+        </v-col>
+      </base-material-card>
+    </v-row>
+
+    <v-row>
       <v-col
         cols="12"
-        md="6"
+        md="12"
       >
         <base-material-card
-          id="mcforruntwo"
+          id="e3and4"
           color="success"
           title="Graph"
-          class="px-5 py-1"
+          class="px-1 py-1"
+          fluid
         >
+          <!-- %%%%%%%%%%%%%%%%% 3 %%%%%%%%%%%%%%%%%%%  PLOT 3 --> 
           <v-card
-            id="ptwowrap"
-            margin-left="9px"
-            max-width="95%"
+            id="e3card"
           >
-            <v-btn
-              id="runtwobtn"
-            >
-              Load TWO Now
-            </v-btn>
-            <!-- %%%%%%%%%%%%%%%%% TWO %%%%%%%%%%%%%%%%%%%  PLOT TWO  
-
-            <testcomptwo 
-              v-if="false" 
-              ptwowrap
+            <e3plot
+              :key="$store.state.sCounter"
+              e3card
             />
-                              %%%%%%%%%%%%%%%%%%%%%%%%%    -->
           </v-card>
+
+
+          <!-- %%%%%%%%%%%%%%%%% 4 %%%%%%%%%%%%%%%%%%%  PLOT 4 --> 
+          <v-card
+            id="e4card"
+          >
+            <e4plot
+              :key="$store.state.sCounter"
+              e4card
+            />
+          </v-card>
+          <!--   %%%%%%%%%%%%%%%%%%%%%%%%%    -->
         </base-material-card>
       </v-col>
-
+    </v-row>
+    <v-row>
       <v-col
         cols="12"
         md="6"
       >
         <base-material-card
+          id="e5and5"
           color="success"
-          title="Inflation / Deflation"
-          class="px-5 py-3"
+          title="Graph"
+          class="px-1 py-1"
+          fluid
         >
-          <v-card-text class="px-0 pb-0">
-            this is ptemp {{ a }}
-          </v-card-text>
+          <!-- %%%%%%%%%%%%%%%%% 5 %%%%%%%%%%%%%%%%%%%  PLOT 5 --> 
+          <v-card
+            id="e5card"
+          >
+            <e5plot
+              :key="$store.state.sCounter"
+              e5card
+            />
+          </v-card>
+
+          <!-- %%%%%%%%%%%%%%%%% 4 %%%%%%%%%%%%%%%%%%%  PLOT 6 --> 
+          <v-card
+            id="e6card"
+          >
+            <e6plot
+              :key="$store.state.sCounter"
+              e6card
+            />
+          </v-card>
+          <!--   %%%%%%%%%%%%%%%%%%%%%%%%%    -->
         </base-material-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
+<!--   %%%  /-%%%-/%%-/  %%%-/%%-/%%-/  %%%%-/%%%-/  %%%    -->
+
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'  
-    // return require('@/assets/icons/icon_${name}.svg).default;
-  const self = this
-  // var plotonecomp
-  var plotonecomp = () => import('@/assets/plots/plotempty.svg')
-  // var ponen
-
-  const reqSvgs = require.context ( '@/assets/plots', true, /\.svg$/ )
-
-  const svgs = reqSvgs
-    .keys ()
-    .map ( path => ({ path, file: reqSvgs ( path ) }) )
-
 
   export default {
     name: "SavedGraphs",
     components: {
-      // plotonecomp: () => import($store.state.gPlotPATHARRAY[0]),
+      e1plot: () => import('@/assets/users/uone/e1.svg'),
+      e2plot: () => import('@/assets/users/uone/e2.svg'),
+      e3plot: () => import('@/assets/users/uone/e3.svg'),
+      e4plot: () => import('@/assets/users/uone/e4.svg'),
+      e5plot: () => import('@/assets/users/uone/e5.svg'),
+      e6plot: () => import('@/assets/users/uone/e6.svg'),
+
     },
     data: () => ({
       a: 1,
+      showplt: true,
     }),
-    computed: {
-      // ponen: function() {
-      //   return self.$store.state.gPlotPATHARRAY[0]        
-      // }
-    },
-    watch: {
-      // plotreal:  {
-      //   deep: true,
-      //   immediate: true,
-      //   handler () {
-      //     console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
-      //     let gct  =  this.$store.state.gCounter
-      //     console.log("In watch: gCounter: " +  gct )
-      //     gct += 1
-      //     this.$store.dispatch('gCounterAct', gct)
-
-      //     let check_gct  =  this.$store.state.gCounter
-      //     console.log('In watch: gCounter now: ' + check_gct)
-
-      //     this.showme = computeshowval();
-
-      //     console.log("value of showme in handler: " + this.showme)
-      //   }         
-      // },
-    },
-
+    // computed: {
+    // },
+    // watch: {
+    // },
     created () {
       console.log("in created2" )
-
     },
     mount () {
       // this.$router.go()
@@ -144,9 +159,28 @@
     activated () {
       console.log("in activated2" )
     },
-      // this.$router.go() // big reset
+      // this.$router.go() // big reset   ( './images', true, /\.svg$/ )
 
-    methods: {
+    methods: {       
+      svgload: function () {
+        const mysvgs = this.svgloadmain()
+        plotone = mysvgs[0]
+        console.log("thisvar: " + plotone)
+        this.showplt = true
+      },
+      svgloadmain: function () {
+        const reqSvgs = require.context('@/assets/plots', true, /\.svg$/)
+        const svgs = reqSvgs
+          .keys()
+          .map( path => ({ path, file: reqSvgs ( path ) }) )
+        console.log("in svgload: ")
+        let tlen = svgs.length
+        console.log("in svgload tlen:" + tlen)
+        // stackoverflow.com/questions/54059179/what-is-require-context
+        // JSON.stringify(svgs)
+        svgs.forEach(function(path) { console.log(path);})
+        return svgs
+      },
       loadonenow: function () {
         console.log("in loadonenow: ")
       },
@@ -157,26 +191,13 @@
       },
     },  
   }
-  //  <v-lazy
-  //           v-model="isActive"
-  //           :options="{
-  //             threshold: .5
-  //           }"
-  //           min-height="200"
-  //           transition="fade-transition"
-  //         >
-
-  // reset everything:
-  //
+   // reset everything:
     // created () {
     //   this.$vuetify.rtl = true
     //   this.$i18n.locale = 'ar'
     // },
-
 // Call router.go() or this.$router.go()
 // That will refresh the page and your state will be reset to how it was when the user first loaded the app.
-
-
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>

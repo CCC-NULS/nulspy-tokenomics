@@ -75,6 +75,7 @@ def gplots():
 def make_names(args_dict):
     if os.name == 'nt':
         plotfilesdir = "E:/wsvue/vuetify-material-dashboard-master/src/assets/plots"
+        plotfilesdirspec = "E:/wsvue/vuetify-material-dashboard-master/src/assets/users/uone"
 
         # app_rootg = "static/plots"
         # app_root = os.path.abspath(os.curdir)
@@ -91,11 +92,12 @@ def make_names(args_dict):
     # args_dict.update({"timestp": timestp})
 
     # main real plot is time or _t
-    plot_name_r = "plotreal.svg"  # same as "two", not as permanent as timed
-    plot_name_t = "plot" + timestp + ".svg"
+    plot_name_r = "pltreal.svg"  # same as "two", not as permanent as timed
+    # plot_name_t = "plot" + timestp + ".svg"
+    plot_name_t = "e1.svg"
 
     plotfp_r = os.path.join(plotfilesdir, plot_name_r)  # put real one in components so router can update
-    plotfp_t = os.path.join(plotfilesdir, plot_name_t)
+    plotfp_t = os.path.join(plotfilesdirspec, plot_name_t)
     # plotfp_g = os.path.join(app_rootg, plot_name_t)
 
     plotfilepath_t = os.path.normpath(plotfp_t)
