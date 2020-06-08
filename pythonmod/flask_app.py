@@ -61,8 +61,14 @@ def getpy():
 
         tk_obj.main(args_dict)
 
-        chk_file = chk_for_file(args_dict.get('plotfilepath'))
-        print("got this far! file should be there")
+        try:
+            filethere = chk_for_file(args_dict.get('plotpath_generic'))
+            if not filethere:
+                filethere = chk_for_file(args_dict.get('plotpath_timestp'))
+        except FileNotFoundError:
+            print("file not there")
+
+        print("got this far! file should be there. " + str(filethere))
         return '200 OK'
     else:
         gdir = formdata.get('gdir')
@@ -91,7 +97,7 @@ def make_dir_name(ggdir):
 def make_dir(timey_dir):
     ckdir = os.path.isdir(timey_dir)
     print("ckdir answer: " + str(ckdir))
-    if ckdir:
+    if not ckdir:    #  if false
         os.mkdir(timey_dir)
 
 
@@ -102,7 +108,7 @@ def make_names(args_dict):
 
     # jpg plot is timeed or _t
     plot_name_generic = "pltreal.svg"
-    plot_name_time_stmp = "plot" + timestamp + ".jpg"  # the rest are saved as jpgs with timestamps
+    plot_name_time_stmp = "plot" + timestamp + ".png"  # the rest are saved as jpgs with timestamps
 
     plotpath_generic = os.path.join(plot_path_uniq, plot_name_generic)  # put real one in components so router can update
     plotpath_timestp = os.path.join(plot_path_uniq, plot_name_time_stmp)  # t for timestamp - names have timestamp

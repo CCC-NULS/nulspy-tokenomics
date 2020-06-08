@@ -101,7 +101,7 @@ class AppSupport:
         stop_str = "   Stop Inflation: " + str(stp_inf_formatted)
         bigstr = init_str + stop_str
 
-        plt.margins(x=.07, y=.001, tight=False)
+        plt.margins(x=.1, y=.001, tight=False)
 
         top_x = int(self.interval_limit_x)
         bottom_y = self.initial_supply_y
@@ -115,9 +115,10 @@ class AppSupport:
             top_y = self.stop_inflation_y
 
         matplotlib.rc('font', **font)
-        fig, ax = plt.subplots(figsize=(8, 4.7))
+        fig, ax = plt.subplots(figsize=(9.6, 7.2))  # default is 6.4, 4.8 6.4, 4.8
+        # fig, ax = plt.subplots(figsize=(12, 9))  default is 6.4, 4.8
 
-        plt.subplots_adjust(left=0.15, bottom=0.19)  # controls amount of room left and below
+        plt.subplots_adjust(left=0.17, bottom=0.19)  # controls amount of room left and below
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
         plt.text(100, text_loc, max_text, color='r', size='large', weight='bold')
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
@@ -153,13 +154,13 @@ class AppSupport:
         xlabel_str = "30 day Intervals, " + an_infl + part2 + disinflation
         ylabel_str = 'Total Supply'
 
-        plt.ylabel(ylabel_str, size=18, color="green", labelpad=9)
-        plt.xlabel(xlabel_str, size=18, labelpad=20, color="blue", weight="bold")
+        plt.ylabel(ylabel_str, size=14, color="green", labelpad=7)
+        plt.xlabel(xlabel_str, size=16, labelpad=20, color="blue", weight="bold")
 
         plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))  # No decimal places
 
         plt.title('Life Span for Token', pad=20, color="purple", size=30)
-        plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=16, y=4, color="red")
+        plt.suptitle("Lifespan for Token " + self.TOKEN_SYMBOL, size=14, y=4, color="red")
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
 
