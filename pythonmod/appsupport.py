@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 from math import floor
-# import matplotlib.lines as lines
-# import matplotlib.text as text
 from matplotlib.ticker import StrMethodFormatter
 from datetime import datetime
-import os
-import shutil
+# import os
+# import shutil
+# import matplotlib.lines as lines
+# import matplotlib.text as text
 
 
 class AppSupport:
@@ -40,11 +40,8 @@ class AppSupport:
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
-        plotfilepath_t = args_dict.get("plotfilepath_t")
-        plotfilepath_r = args_dict.get("plotfilepath_r")
-        # plotfilepath_g = args_dict.get("plotfilepath_g")
-
-        # tstamp = args_dict.get("timestp")
+        plotpath_timestp = args_dict.get("plotpath_timestp")   # jpg
+        plotpath_generic = args_dict.get("plotpath_generic")   # svg
 
         start_inflation = start_inflation / 1000
 
@@ -64,13 +61,14 @@ class AppSupport:
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             interval_count += 1
-        tresult = self.plot_graph(plotfilepath_t, plotfilepath_r)
+            name_list = [plotpath_generic, plotpath_timestp]
+        tresult = self.plot_graph(name_list)
         return tresult
 
-    def make_long_stamp(self):
-        datetime_str = str(datetime.now())
-        print(datetime_str)
-        return datetime_str
+    # def make_long_stamp(self):
+    #     datetime_str = str(datetime.now())
+    #     print(datetime_str)
+    #     return datetime_str
 
     def rounddown(self, nm):
         num = int(nm)
@@ -85,7 +83,8 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotfilepath_t, plotfilepath_r):
+    def plot_graph(self, fnames):
+        plotpath_generic, plotpath_timed = fnames
         plt.ioff()
         font = {'size': 12}
         stp_inf = self.stop_inflation_y
@@ -116,7 +115,7 @@ class AppSupport:
             top_y = self.stop_inflation_y
 
         matplotlib.rc('font', **font)
-        fig, ax = plt.subplots(figsize=(12, 7))
+        fig, ax = plt.subplots(figsize=(8, 4.7))
 
         plt.subplots_adjust(left=0.15, bottom=0.19)  # controls amount of room left and below
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
@@ -164,9 +163,8 @@ class AppSupport:
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
 
-        plt.savefig(plotfilepath_r,  dpi=150, format='svg')
-        plt.savefig(plotfilepath_t,  dpi=150, format='svg')  # to get vue to update - change the file size
-        # plt.savefig(plotfilepath_g,  dpi=150, format='svg')  # local dir for 5002
+        plt.savefig(plotpath_generic,  dpi=150, format='svg')
+        plt.savefig(plotpath_timed,  dpi=150, format='jpg')
         #plt.show()
         return True
 

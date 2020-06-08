@@ -14,6 +14,7 @@ export default new Vuex.Store({
     gTimedPlotPath: '@/assets/plots/plotempty.svg',
     gPlotPATHARRAY: [],
     showme: false,
+    gDirName: '',
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -43,9 +44,9 @@ export default new Vuex.Store({
     showmeMut(state, theval) {
       state.showme = theval
     },
-    // sWhichPlotMut(state, theval) {
-    //   state.sWhichPlot = theval
-    // },
+    gDirNameMut(state, theval) {
+      state.gDirName = theval
+    },
   },
   getters: {
     gShowPlotGet: state => state.gShowPlot,
@@ -77,9 +78,9 @@ export default new Vuex.Store({
     showmeAct (context, theval) {
       context.commit('showmeMut', theval)
     },
-    // sWhichPlotAct (context, theval) {
-    //   context.commit('sWhichPlotMut', theval)
-    // }
+    gDirNameAct (context, theval) {
+      context.commit('gDirNameMut', theval)
+    }
   }
 
 })

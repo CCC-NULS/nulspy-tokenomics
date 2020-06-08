@@ -229,6 +229,7 @@
         class: "v_chip_small", small: true, dark: false,
       },
       plotdir: '@/assets/plots',
+      dirname: '',
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -240,7 +241,14 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-
+    computed: {
+      dirnametimed: function () {
+        let dirtimestr = Date.now().toString().substring(7,13);
+        let dirname = `d${dirtimestr}`
+        console.log("dirname=" + dirname)
+        return dirname
+      }
+    },
     watch: {
       plotdir:  {
         deep: true,
@@ -258,6 +266,9 @@
     },
     created () {
       console.log("in created" )
+      let tn = this.dirnametimed
+      this.$store.dispatch('gDirNameAct', tn)
+      console.log("set gDirName to: " + tn)
     },
     mount () {
       // this.$router.go()  // big reset
@@ -304,8 +315,11 @@
         console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
-        let plotname_t_path = "@/assets/plots/" + plotname_t
+        let gDir = this.$store.state.gDirName
+        let plotname_t_path = "@/assets/plots/" + gDir + "/" + plotname_t
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
+        console.log("new plotname_t_path: " + plotname_t_path)
+
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -316,7 +330,8 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr
+        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + gDir
+          // gDir is the unique directory for each session
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
           this.asyncRequestPlot(pythonUrl); 
@@ -338,11 +353,7 @@
         let timePlotPath = this.$store.state.gTimedPlotPath
         console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
         this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
-        // console.log('in keepplot: starting over, hiding last chart')
-        // this.$store.dispatch('gCounterAct', 1)  // reset start mostly over
         console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-       
-
       },
     }
   }

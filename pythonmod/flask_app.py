@@ -52,7 +52,8 @@ def getpy():
                 "start_inflation": formdata.get('startinf'),
                 "stop_inflation_y": formdata.get('stopinf'),
                 "disinflation_ratio": formdata.get('disinf'),
-                "timestp": formdata.get('timestp')}
+                "timestp": formdata.get('timestp'),
+                "gdir": formdata.get('gdir')}
 
     args_dict = make_names(formdict)
     tk_obj = appsupport.AppSupport()
@@ -73,44 +74,27 @@ def gplots():
 
 
 def make_names(args_dict):
+    timestamp = args_dict.get("timestp")
+    gdir = args_dict.get("gdir")
+
     if os.name == 'nt':
-        plotfilesdir = "E:/wsvue/vuetify-material-dashboard-master/src/assets/plots"
-        plotfilesdirspec = "E:/wsvue/vuetify-material-dashboard-master/src/assets/users/uone"
+        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + gdir + "/"
 
-        # app_rootg = "static/plots"
-        # app_root = os.path.abspath(os.curdir)
-    else:
-        # app_root = '/home/jetgal/psucalc'  # pythonanywhere
-        plotfilesdir = '/usr/share/nginx/html/tokenlife'
+    else:  # linux
+        plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + gdir + "/"
 
-    # plotsdir = 'plots'
-    # plotsdir_comps = 'plots/comps'
-    # plotfilesdir = os.path.join(plot_dir, plotsdir)
-    # plotcompsdir = os.path.join(app_root, plotsdir)
+    # jpg plot is timeed or _t
+    plot_name_generic = "pltreal.svg"
+    plot_name_time_stmp = "plot" + timestamp + ".jpg"  # the rest are saved as jpgs with timestamps
 
-    timestp = args_dict.get("timestp")
-    # args_dict.update({"timestp": timestp})
+    plotpath_generic = os.path.join(plot_path_uniq, plot_name_generic)  # put real one in components so router can update
+    plotpath_timestp = os.path.join(plot_path_uniq, plot_name_time_stmp)  # t for timestamp - names have timestamp
 
-    # main real plot is time or _t
-    plot_name_r = "pltreal.svg"  # same as "two", not as permanent as timed
-    # plot_name_t = "plot" + timestp + ".svg"
-    plot_name_t = "e1.svg"
+    plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
+    plotpath_generic_norm = os.path.normpath(plotpath_generic)
 
-    plotfp_r = os.path.join(plotfilesdir, plot_name_r)  # put real one in components so router can update
-    plotfp_t = os.path.join(plotfilesdirspec, plot_name_t)
-    # plotfp_g = os.path.join(app_rootg, plot_name_t)
-
-    plotfilepath_t = os.path.normpath(plotfp_t)
-    plotfilepath_r = os.path.normpath(plotfp_r)
-    # plotfilepath_g = os.path.normpath(plotfp_g)
-
-    args_dict.update({"plotfilepath_t": plotfilepath_t})
-    args_dict.update({"plot_name_t": plotfp_t})  # time stamped for later
-
-    args_dict.update({"plotfilepath_r": plotfilepath_r})
-    args_dict.update({"plot_name_r": plot_name_r})  # real or two
-
-    # args_dict.update({"plotfilepath_g": plotfilepath_g})
+    args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
+    args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
 
     return args_dict
 
