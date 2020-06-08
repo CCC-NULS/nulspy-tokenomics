@@ -266,9 +266,11 @@
     },
     created () {
       console.log("in created" )
-      let tn = this.dirnametimed
-      this.$store.dispatch('gDirNameAct', tn)
-      console.log("set gDirName to: " + tn)
+      let gdir = this.dirnametimed
+      this.$store.dispatch('gDirNameAct', gdir)
+      console.log("set gDirName to: " + gdir)
+      this.make_timey_dir(gdir)
+      console.log("past make_timey_dir")
     },
     mount () {
       // this.$router.go()  // big reset
@@ -297,9 +299,9 @@
         console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
         console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
       },
-      asyncRequestPlot: function (baseurl) {
+      asyncRequestPython: function (baseurl) {
         try { 
-          console.log('inside asyncRequestPlot')
+          console.log('inside asyncRequestPython')
           ;(async () => {
             let response = await axiosi({
               url: baseurl,
@@ -310,6 +312,18 @@
         catch (e) {
           console.log(e)
         }
+      },
+      make_timey_dir: function(gDir) {
+          console.log(`!!! in make_timey_dir`)  
+          // gDir is the unique directory for each session
+          let pythonUrld = "http://localhost:5002/getpy?gdir=" + gDir
+          try {
+            this.asyncRequestPython(pythonUrld); 
+          }
+          catch (e) {
+            console.log(e)
+          }
+          console.log(`!!! done making dir ${gDir}`)  
       },
       makePlot: function (a, b, c, d, e) {
         console.log("a: " + a + "b: " + b + "d: " + d)
@@ -334,7 +348,7 @@
           // gDir is the unique directory for each session
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
-          this.asyncRequestPlot(pythonUrl); 
+          this.asyncRequestPython(pythonUrl); 
         }
         catch (e) {
           console.log(e)

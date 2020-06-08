@@ -46,42 +46,59 @@ def getpy():
         print("Incoming GET")
 
     formdata = request.values.dicts[0]
+    if len(formdata) > 2:
 
-    formdict = {"initial_supply_y": formdata.get('initsup'),
-                "annual_inflation": formdata.get('anninf'),
-                "start_inflation": formdata.get('startinf'),
-                "stop_inflation_y": formdata.get('stopinf'),
-                "disinflation_ratio": formdata.get('disinf'),
-                "timestp": formdata.get('timestp'),
-                "gdir": formdata.get('gdir')}
+        formdict = {"initial_supply_y": formdata.get('initsup'),
+                    "annual_inflation": formdata.get('anninf'),
+                    "start_inflation": formdata.get('startinf'),
+                    "stop_inflation_y": formdata.get('stopinf'),
+                    "disinflation_ratio": formdata.get('disinf'),
+                    "timestp": formdata.get('timestp'),
+                    "gdir": formdata.get('gdir')}
 
-    args_dict = make_names(formdict)
-    tk_obj = appsupport.AppSupport()
+        args_dict = make_names(formdict)
+        tk_obj = appsupport.AppSupport()
 
-    tk_obj.main(args_dict)
+        tk_obj.main(args_dict)
 
-    # chk_file = chk_for_file(args_dict.get('plotfilepath'))
-    print("got this far! file should be there")
-    return '200 OK'
+        chk_file = chk_for_file(args_dict.get('plotfilepath'))
+        print("got this far! file should be there")
+        return '200 OK'
+    else:
+        gdir = formdata.get('gdir')
+        timey_dir_name = make_dir_name(gdir)
+        make_dir(timey_dir_name)
+        print("got this far! directory should be there")
+        return '200 OK'
 
 
 @cross_origin()
 @application.route('/', methods=["GET", "POST", "UPDATE", "HEAD"])
 def gplots():
     if request.method == 'GET':
-        # message = {'greeting': 'Hello from Flask!'}
         print("Incoming GET")
+
+
+def make_dir_name(ggdir):
+    if os.name == 'nt':
+        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
+    else:  # linux
+        plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + ggdir + "/"
+    print("make_dir_name plot_path_uniq: " + plot_path_uniq)
+    return plot_path_uniq
+
+
+def make_dir(timey_dir):
+    ckdir = os.path.isdir(timey_dir)
+    print("ckdir answer: " + str(ckdir))
+    if ckdir:
+        os.mkdir(timey_dir)
 
 
 def make_names(args_dict):
     timestamp = args_dict.get("timestp")
     gdir = args_dict.get("gdir")
-
-    if os.name == 'nt':
-        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + gdir + "/"
-
-    else:  # linux
-        plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + gdir + "/"
+    plot_path_uniq = make_dir_name(gdir)
 
     # jpg plot is timeed or _t
     plot_name_generic = "pltreal.svg"
