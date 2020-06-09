@@ -228,7 +228,9 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      plotdir: '@/assets/plots',
+      plotbase: '',
+      imagepile: '',
+      plotdir: '',
       dirname: '',
       vmd1: '',
       vmd2: '',
@@ -242,12 +244,30 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
-      dirnametimed: function () {
+      makedirname: function () {
         let dirtimestr = Date.now().toString().substring(7,13);
         let dirname = `d${dirtimestr}`
         console.log("dirname=" + dirname)
         return dirname
-      }
+      },
+      fetchdir: function () {
+        return this.$store.state.gDirName
+      },
+      // dogImage: function () {
+      //   if (!this.selectedDog) {
+      //     return
+      //   }
+      //   const fileName = this.selectedDog.toLowerCase()
+      //   return require(`../assets/doggos/${fileName}.jpg`) // the module request
+      // },
+    //   getimgs: function (tdir) {
+    //     let gDir = this.fetchdir
+    //     // require.context ( folder, recurse, pattern )
+    //     var images = require.context(`${tdir}`, false, /\.png$/)
+    //     console.log("getimgs: " + tdir)
+    //     return images
+    //     // return images('./' + pet + ".png")
+    //   }
     },
     watch: {
       plotdir:  {
@@ -261,15 +281,20 @@
           this.$store.dispatch('gCounterAct', gct)
           let check_gct  =  this.$store.state.gCounter
           console.log('In watch: gCounter now: ' + check_gct)
+          }
         }         
       },
-    },
     created () {
       console.log("in created" )
-      let gdir = this.dirnametimed
-      this.$store.dispatch('gDirNameAct', gdir)
-      console.log("set gDirName to: " + gdir)
-      this.make_timey_dir(gdir)
+      this.plotbase = '@/assets/plots/'
+      let ndir = this.makedirname
+      this.plotdirpath = `@/assets/plots/${ndir}`
+
+      this.$store.dispatch('gDirNameAct', ndir)
+      this.$store.dispatch('gDirPathAct', plotdirpath)
+
+      console.log("set gDirPathAct to: " + plotdirpath)
+      this.make_timey_dir(ndir)
       console.log("past make_timey_dir")
     },
     mount () {
@@ -279,12 +304,27 @@
     },
     updated () {
       console.log("in updated" )
+      this.$store.dispatch('gCounterAct', gct)
+      let checkgct  =  this.$store.state.gCounter
+      console.log('In watch: gCounter now: ' + check_gct)
+      if (checkgct > 1) {
+        imagepile = this.getimgs(this.plotdir)
+        console.log('just got images')
+      }
     },
     activated () {
       console.log("in activated" )
     },
    
     methods: {
+      getimgs: function (tdir) {
+        let gDir = this.fetchdir
+        // require.context ( folder, recurse, pattern )
+        var images = require.context(`${tdir}`, false, /\.png$/)
+        console.log("getimgs: " + tdir)
+        return images
+        // return images('./' + pet + ".png")
+      },
       resetc: function () {
         let gctt  =  this.$store.state.gCounter
         console.log("In resetc: gCounter: " +  gctt )
@@ -368,6 +408,7 @@
         console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
         this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
         console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
+
       },
     }
   }

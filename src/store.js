@@ -15,6 +15,8 @@ export default new Vuex.Store({
     gPlotPATHARRAY: [],
     showme: false,
     gDirName: '',
+    gDirPath: '',
+
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -46,6 +48,9 @@ export default new Vuex.Store({
     },
     gDirNameMut(state, theval) {
       state.gDirName = theval
+    },
+    gDirPathMut(state, theval) {
+      state.gDirPath = theval
     },
   },
   getters: {
@@ -80,6 +85,9 @@ export default new Vuex.Store({
     },
     gDirNameAct (context, theval) {
       context.commit('gDirNameMut', theval)
+    },
+    gDirPathAct (context, theval) {
+      context.commit('gDirPathMut', theval)
     }
   }
 
