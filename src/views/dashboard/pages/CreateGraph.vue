@@ -162,16 +162,15 @@
         md="11"
       >
         <v-card
-          v-if="$store.state.gCounter > 0"
           id="plotcard"
           class="padplot"
           pl-2
           elevation-24
           raised
         >
-          <pltreal
-            :key="$store.state.gCounter"
-            plotcard
+          <v-img
+            class="white--text align-end"
+            :src="plotimg"
           />
         </v-card>
 
@@ -221,34 +220,34 @@
       } }
     });
     
-  async function loadrealplot (thefile) {
-    console.log('In loadrealplot')
+  // async function loadrealplot (thefile) {
+  //   console.log('In loadrealplot')
 
-    while (this.resolved == false) {
-      console.log('In loadrealplot3')
-      pltreal = await new Promise((resolve, reject) => {
-        console.log('In loadrealplot4')
-        this.pltreal = () => import(thefile)
-        let gct  =  this.$store.state.gCounter + 1
-        this.$store.dispatch('gCounterAct', gct)
-        this.paging(pltreal, resolve);
-        console.log('In loadrealplot5')
-      });
-    }
-  }
-  import pltreal from '@/assets/plots/pltreal.svg'
+  //   while (this.resolved == false) {
+  //     console.log('In loadrealplot3')
+  //     pltreal = await new Promise((resolve, reject) => {
+  //       console.log('In loadrealplot4')
+  //       this.pltreal = () => import(thefile)
+  //       let gct  =  this.$store.state.gCounter + 1
+  //       this.$store.dispatch('gCounterAct', gct)
+  //       this.paging(pltreal, resolve);
+  //       console.log('In loadrealplot5')
+  //     });
+  //   }
+  // }
+  // import pltreal from '@/assets/plots/pltreal.svg'
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
       watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
-      pltreal,
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
+      plotimg: "http://localhost:5002/static/plot.svg",
       imagepile: '',
       dirname: '',
       plotdirpath: '',
@@ -301,7 +300,7 @@
           console.log('In watch: gCounter now: ' + check_gct)
           if (gct > 1 ) {
             console.log("gct is: ", gct)
-            newrealfile = this.$store.state.gTimedPlotPathAct 
+            let newrealfile = this.$store.state.gTimedPlotPathAct 
             console.log('just fixed pltreal - count: ' + check_gct)
           }
           }
@@ -317,6 +316,7 @@
 
       console.log("set gDirPathAct to: " + this.plotdirpath)
       this.make_timey_dir(ndir)
+      let realpath = ndir + "pltreal.png"
       console.log("past make_timey_dir")
       // now python make a component to watch
     },
@@ -339,7 +339,7 @@
     },
    
     methods: {
-      loadrealplot,
+      // loadrealplot,
       reimportWatchComp: function () {
         let thedir = this.plotdirpath
         console.log("inside reorientWatchComp - thedir: " + thedir)
@@ -355,10 +355,12 @@
 
       },
 
-      paging: function (pltreal, resolve) {
-        console.log("resolved")
-        this.resolved = true
-      },
+      // paging: function (pltreal, resolve) {
+      //   console.log("resolved")
+      //   this.resolved = true
+      //   let check_gct  =  this.$store.state.gCounter + 2
+      //   this.$store.dispatch('gCounterAct', check_gct)
+      // },
       getimgs: function (tdir) {
         // require.context ( folder, recurse, pattern )
         var images = require.context(`${tdir}`, false, /\.png$/)
@@ -411,6 +413,10 @@
         let plotname_t = "plot" + timestr + ".svg"
         let gDir = this.$store.state.gDirName
         let plotname_t_path = "@/assets/plots/" + gDir + "/" + plotname_t
+
+        // let plotname_t_path = "@/assets/plots/" + gDir + "/" + plotname_t
+
+
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
         console.log("new plotname_t_path: " + plotname_t_path)
 
@@ -434,7 +440,7 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
-        this.loadrealplot(plotname_t_path);  
+        // this.loadrealplot(plotname_t_path);  
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath

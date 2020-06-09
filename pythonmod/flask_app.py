@@ -96,7 +96,9 @@ def gplots():
 
 def make_dir_name(ggdir):
     if os.name == 'nt':
-        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
+        plot_path_uniq = "E:/wsvue/tokenlifevue/pythonmod/static/plots/" + ggdir + "/"
+
+        # plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
     else:  # linux
         plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + ggdir + "/"
     print("make_dir_name plot_path_uniq: " + plot_path_uniq)
