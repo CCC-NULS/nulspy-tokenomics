@@ -199,6 +199,7 @@
         </v-card>
       </v-col>
     </v-row>
+    <watchedComp v-show="false" />
   </v-container>
 </template>
 
@@ -217,11 +218,13 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
+ 
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
+      watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
       pltreal: () => import('@/assets/plots/pltreal.svg'),
     },
     data: () => ({     // '' must be this to be "reactive"
@@ -230,8 +233,9 @@
       },
       plotbase: '',
       imagepile: '',
-      plotdir: '',
+      watchdir: '@/assets/plots',
       dirname: '',
+      plotdirpath: '',
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -270,11 +274,11 @@
     //   }
     },
     watch: {
-      plotdir:  {
+      watchedComp:  {
         deep: true,
         immediate: true,
         handler () {
-          console.log("!!! &&&&  &&&&  WATCH plotdir route change!!  ---------  ")
+          console.log("!!! &&&&  &&&&  WATCH watchdir route change!!  ---------  ")
           let gct  =  this.$store.state.gCounter
           console.log("In watch: gCounter: " +  gct )
           gct += 1
@@ -286,16 +290,21 @@
       },
     created () {
       console.log("in created" )
-      this.plotbase = '@/assets/plots/'
       let ndir = this.makedirname
-      this.plotdirpath = `@/assets/plots/${ndir}`
+      console.log("made ndir:  " + ndir)
+      this.plotdirpath = '@/assets/plots/' + ndir
+      // let pd = this.plotdirpath
+      this.watchdir = this.plotdirpath
+      console.log("in created, watchdir is now: " + this.watchdir)
 
       this.$store.dispatch('gDirNameAct', ndir)
-      this.$store.dispatch('gDirPathAct', plotdirpath)
+      this.$store.dispatch('gDirPathAct', this.plotdirpath)
 
-      console.log("set gDirPathAct to: " + plotdirpath)
+      console.log("set gDirPathAct to: " + this.plotdirpath)
       this.make_timey_dir(ndir)
       console.log("past make_timey_dir")
+      // now python make a component to watch
+      this.remakeWatchComp(this.plotdirpath)
     },
     mount () {
       // this.$router.go()  // big reset
@@ -304,10 +313,9 @@
     },
     updated () {
       console.log("in updated" )
-      this.$store.dispatch('gCounterAct', gct)
       let checkgct  =  this.$store.state.gCounter
-      console.log('In watch: gCounter now: ' + check_gct)
-      if (checkgct > 1) {
+      console.log('In watch: gCounter now: ' + checkgct)
+      if (checkgct > 3) {
         imagepile = this.getimgs(this.plotdir)
         console.log('just got images')
       }
@@ -317,8 +325,14 @@
     },
    
     methods: {
+      remakeWatchComp: function (tpath) {
+        let tfile = tpath + 'watchedComp.vue'
+        this.watchedComp = require.import(tfile)
+        // watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
+
+        console.log("updated watchComp: " + tpath)
+      },
       getimgs: function (tdir) {
-        let gDir = this.fetchdir
         // require.context ( folder, recurse, pattern )
         var images = require.context(`${tdir}`, false, /\.png$/)
         console.log("getimgs: " + tdir)

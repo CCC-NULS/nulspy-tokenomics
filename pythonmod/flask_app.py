@@ -6,6 +6,7 @@ from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
 import os
+from os import write
 
 
 application = Flask(__name__)
@@ -69,12 +70,16 @@ def getpy():
             print("file not there")
 
         print("got this far! file should be there. " + str(filethere))
+        gd = args_dict.get('gdir')
+        gd_path = make_dir_name(gd)
+        append_temp_file(gd_path)
         return '200 OK'
     else:
         gdir = formdata.get('gdir')
         timey_dir_name = make_dir_name(gdir)
         make_dir(timey_dir_name)
-        print("got this far! directory should be there")
+        make_temp_file(timey_dir_name)
+        print("got this far! directory and temp file should be there")
         return '200 OK'
 
 
@@ -99,6 +104,22 @@ def make_dir(timey_dir):
     print("ckdir answer: " + str(ckdir))
     if not ckdir:    #  if false
         os.mkdir(timey_dir)
+
+
+def make_temp_file(timeydir):
+    tempvuefile = timeydir + "temp.vue"
+    #  make temp file so vue can see the component changes
+    f = open(tempvuefile, "w")
+    temp_line = "<template><div>counting changes</div></template><script>export default {name:1}</script>"
+    f.write(temp_line)
+    f.close()
+
+
+def append_temp_file(tempfile):
+    templine = '<template><div>new line</div></template><script>export default {hi:1}</script>'
+    f = open(tempfile, "a")
+    f.write(templine)
+    f.close()
 
 
 def make_names(args_dict):
