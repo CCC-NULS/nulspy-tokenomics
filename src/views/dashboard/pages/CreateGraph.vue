@@ -170,7 +170,7 @@
           raised
         >
           <pltreal
-            v-if="$store.state.gCounter > 1"
+            v-show="showreal"
             :key="$store.state.gCounter"
             plotcard
           />
@@ -234,11 +234,11 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      plotbase: '',
+      pltreal: '',
       imagepile: '',
-      watchdir: '@/assets/plots',
       dirname: '',
       plotdirpath: '',
+      showreal: false,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -257,24 +257,22 @@
         console.log("dirname=" + dirname)
         return dirname
       },
-      fetchdir: function () {
+      geeDirName: function () {
         return this.$store.state.gDirName
       },
+      // newestreal : async() => {
+      //     return this.plotreal = () => import(newrealfile)
+      // },
       // dogImage: function () {
-      //   if (!this.selectedDog) {
-      //     return
-      //   }
+      //   if (!this.selectedDog) {  }
       //   const fileName = this.selectedDog.toLowerCase()
       //   return require(`../assets/doggos/${fileName}.jpg`) // the module request
-      // },
-    //   getimgs: function (tdir) {
-    //     let gDir = this.fetchdir
+      // },  getimgs: function (tdir) {   let gDir = this.geeDirName
     //     // require.context ( folder, recurse, pattern )
     //     var images = require.context(`${tdir}`, false, /\.png$/)
     //     console.log("getimgs: " + tdir)
     //     return images
-    //     // return images('./' + pet + ".png")
-    //   }
+    //     // return images('./' + pet + ".png")   }
     },
     watch: {
       watchedComp:  {
@@ -282,12 +280,15 @@
         immediate: true,
         handler () {
           console.log("!!! &&&&  &&&&  WATCH watchdir route change!!  ---------  ")
-          let gct  =  this.$store.state.gCounter
-          console.log("In watch: gCounter: " +  gct )
-          gct += 1
+          let gct  =  this.$store.state.gCounter + 1
           this.$store.dispatch('gCounterAct', gct)
           let check_gct  =  this.$store.state.gCounter
           console.log('In watch: gCounter now: ' + check_gct)
+          if (gct == 3) {
+            console.log("gct is: ", gct)
+            newrealfile = this.$store.state.gTimedPlotPathAct 
+            console.log('just fixed pltreal - count: ' + check_gct)
+          }
           }
         }         
       },
@@ -315,7 +316,7 @@
       console.log('In watch: gCounter now: ' + checkgct)
       if (checkgct > 1) {
         // imagepile = this.getimgs(this.plotdir)
-        console.log('just got result')
+        console.log('just got results')
       }
     },
     activated () {
@@ -325,8 +326,7 @@
     methods: {
       reimportWatchComp: function () {
         let thedir = this.plotdirpath
-        console.log("inside reorientWatchComp")
-        console.log("thedir: " + thedir)
+        console.log("inside reorientWatchComp - thedir: " + thedir)
         let thefile = thedir + "/watchedComp.vue"
         console.log("thedir: " + thefile)
         this.watchedComp = () => import(thefile)
@@ -338,6 +338,15 @@
         console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
 
       },
+      loadrealplot: function (realname) {
+        async doThis => {
+          await this.getAsync(realname)
+        }
+        this.showreal = true
+      },
+      getAsync : async(newrealfile) => {
+          this.pltreal = () => import(newrealfile)
+      },
       getimgs: function (tdir) {
         // require.context ( folder, recurse, pattern )
         var images = require.context(`${tdir}`, false, /\.png$/)
@@ -346,9 +355,7 @@
         // return images('./' + pet + ".png")
       },
       resetc: function () {
-        let gctt  =  this.$store.state.gCounter
-        console.log("In resetc: gCounter: " +  gctt )
-        ++gctt
+        let gctt  =  this.$store.state.gCounter + 1
         this.$store.dispatch('gCounterAct', gctt)  // start over
         let mctt  =  this.$store.state.gCounter
         console.log("In resetc:  myCounter now: " + mctt)
@@ -414,17 +421,9 @@
         catch (e) {
           console.log(e)
         }
-        console.log(`!!! pythonUrl: ${pythonUrl}`)  
-
+        console.log(`!!! pythonUrl: ${pythonUrl}`) 
+        this.loadrealplot(plotname_t_path);  
       },
-      // increaseScount: function () {
-      //   let sctt  =  this.$store.state.sCounter
-      //   console.log("In keepplot: sCounter: " +  sctt )
-      //   sctt += 1
-      //   this.$store.dispatch('sCounterAct', sctt)
-      //   let check_sctt  =  this.$store.state.sCounter
-      //   console.log('In keepplot: sCounter now: ' + check_sctt)
-      // },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
         console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)

@@ -71,11 +71,14 @@ def getpy():
             print("file not there")
 
         print("got this far! file should be there. " + str(filethere))
+
         gd = args_dict.get('gdir')
         gd_path = make_dir_name(gd)
-        append_temp_file(gd_path)
+        change_temp_file(gd_path)
+        print("got this far! directory - changed temp file should be changed")
         return '200 OK'
-    else:
+
+    else:     # make dir and temp files
         gdir = formdata.get('gdir')
         timey_dir_name = make_dir_name(gdir)
         make_dir(timey_dir_name)
@@ -117,15 +120,16 @@ def make_temp_file(timeydir):
     os.chmod(tempvuefile, S_IWUSR)  # write to others
 
 
-def append_temp_file(timeydir):    # to cause vue to see a change
+def change_temp_file(timeydir):    # to cause vue to see a change
     tempvuefile = timeydir + "watchedComp.vue"
-    f = open(tempvuefile, "w+")
     temp_line = "<template><div>counting more changes</div></template><script>export default {name:1}</script>"
     dtt = str(datetime.now())  # make the file different each time
+    f = open(tempvuefile, "w+")
     f.write(temp_line)
     f.write(dtt)
     f.close()
     os.chmod(tempvuefile, S_IWUSR)  # write to others
+    print("done changing temp file")
 
 
 def make_names(args_dict):
