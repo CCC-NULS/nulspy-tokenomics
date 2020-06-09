@@ -198,8 +198,11 @@
           </v-btn>
         </v-card>
       </v-col>
+      <watchedComp 
+        v-if="true" 
+        id="watchedcomp"
+      />
     </v-row>
-    <watchedComp v-show="false" />
   </v-container>
 </template>
 
@@ -293,10 +296,6 @@
       let ndir = this.makedirname
       console.log("made ndir:  " + ndir)
       this.plotdirpath = '@/assets/plots/' + ndir
-      // let pd = this.plotdirpath
-      this.watchdir = this.plotdirpath
-      console.log("in created, watchdir is now: " + this.watchdir)
-
       this.$store.dispatch('gDirNameAct', ndir)
       this.$store.dispatch('gDirPathAct', this.plotdirpath)
 
@@ -304,7 +303,6 @@
       this.make_timey_dir(ndir)
       console.log("past make_timey_dir")
       // now python make a component to watch
-      this.remakeWatchComp(this.plotdirpath)
     },
     mount () {
       // this.$router.go()  // big reset
@@ -315,9 +313,9 @@
       console.log("in updated" )
       let checkgct  =  this.$store.state.gCounter
       console.log('In watch: gCounter now: ' + checkgct)
-      if (checkgct > 3) {
-        imagepile = this.getimgs(this.plotdir)
-        console.log('just got images')
+      if (checkgct > 1) {
+        // imagepile = this.getimgs(this.plotdir)
+        console.log('just got result')
       }
     },
     activated () {
@@ -325,12 +323,20 @@
     },
    
     methods: {
-      remakeWatchComp: function (tpath) {
-        let tfile = tpath + 'watchedComp.vue'
-        this.watchedComp = require.import(tfile)
-        // watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
+      reimportWatchComp: function () {
+        let thedir = this.plotdirpath
+        console.log("inside reorientWatchComp")
+        console.log("thedir: " + thedir)
+        let thefile = thedir + "/watchedComp.vue"
+        console.log("thedir: " + thefile)
+        this.watchedComp = () => import(thefile)
+        console.log("updated watchComp: " + thefile)
+        let gcct  =  this.$store.state.gCounter + 1
+        console.log("In reimportWatchComp: gCounter incremented: " +  gcct )
+        this.$store.dispatch('gCounterAct', gcct)
+        let checkgcct  =  this.$store.state.gCounter
+        console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
 
-        console.log("updated watchComp: " + tpath)
       },
       getimgs: function (tdir) {
         // require.context ( folder, recurse, pattern )
@@ -380,6 +386,7 @@
           console.log(`!!! done making dir ${gDir}`)  
       },
       makePlot: function (a, b, c, d, e) {
+        this.reimportWatchComp()
         console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
@@ -408,6 +415,7 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`)  
+
       },
       // increaseScount: function () {
       //   let sctt  =  this.$store.state.sCounter

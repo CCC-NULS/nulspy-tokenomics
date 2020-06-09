@@ -6,8 +6,9 @@ from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
 import os
-from os import write
-
+from datetime import datetime
+import stat
+from stat import S_IWUSR
 
 application = Flask(__name__)
 CORS(application, resources={r"/*": {"origins": "*"}})
@@ -107,19 +108,24 @@ def make_dir(timey_dir):
 
 
 def make_temp_file(timeydir):
-    tempvuefile = timeydir + "temp.vue"
+    tempvuefile = timeydir + "watchedComp.vue"
     #  make temp file so vue can see the component changes
-    f = open(tempvuefile, "w")
+    f = open(tempvuefile, "w+")
     temp_line = "<template><div>counting changes</div></template><script>export default {name:1}</script>"
     f.write(temp_line)
     f.close()
+    os.chmod(tempvuefile, S_IWUSR)  # write to others
 
 
-def append_temp_file(tempfile):
-    templine = '<template><div>new line</div></template><script>export default {hi:1}</script>'
-    f = open(tempfile, "a")
-    f.write(templine)
+def append_temp_file(timeydir):    # to cause vue to see a change
+    tempvuefile = timeydir + "watchedComp.vue"
+    f = open(tempvuefile, "w+")
+    temp_line = "<template><div>counting more changes</div></template><script>export default {name:1}</script>"
+    dtt = str(datetime.now())  # make the file different each time
+    f.write(temp_line)
+    f.write(dtt)
     f.close()
+    os.chmod(tempvuefile, S_IWUSR)  # write to others
 
 
 def make_names(args_dict):
