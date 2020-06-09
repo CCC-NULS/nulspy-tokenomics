@@ -170,7 +170,6 @@
           raised
         >
           <pltreal
-            v-show="showreal"
             :key="$store.state.gCounter"
             plotcard
           />
@@ -221,23 +220,39 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
- 
+    
+  async function loadrealplot (thefile) {
+    console.log('In loadrealplot')
+
+    while (this.resolved == false) {
+      console.log('In loadrealplot3')
+      pltreal = await new Promise((resolve, reject) => {
+        console.log('In loadrealplot4')
+        this.pltreal = () => import(thefile)
+        let gct  =  this.$store.state.gCounter + 1
+        this.$store.dispatch('gCounterAct', gct)
+        this.paging(pltreal, resolve);
+        console.log('In loadrealplot5')
+      });
+    }
+  }
+  import pltreal from '@/assets/plots/pltreal.svg'
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
       watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
-      pltreal: () => import('@/assets/plots/pltreal.svg'),
+      pltreal,
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      pltreal: '',
       imagepile: '',
       dirname: '',
       plotdirpath: '',
+      resolved: false,
       showreal: false,
       vmd1: '',
       vmd2: '',
@@ -284,7 +299,7 @@
           this.$store.dispatch('gCounterAct', gct)
           let check_gct  =  this.$store.state.gCounter
           console.log('In watch: gCounter now: ' + check_gct)
-          if (gct == 3) {
+          if (gct > 1 ) {
             console.log("gct is: ", gct)
             newrealfile = this.$store.state.gTimedPlotPathAct 
             console.log('just fixed pltreal - count: ' + check_gct)
@@ -324,6 +339,7 @@
     },
    
     methods: {
+      loadrealplot,
       reimportWatchComp: function () {
         let thedir = this.plotdirpath
         console.log("inside reorientWatchComp - thedir: " + thedir)
@@ -338,14 +354,10 @@
         console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
 
       },
-      loadrealplot: function (realname) {
-        async doThis => {
-          await this.getAsync(realname)
-        }
-        this.showreal = true
-      },
-      getAsync : async(newrealfile) => {
-          this.pltreal = () => import(newrealfile)
+
+      paging: function (pltreal, resolve) {
+        console.log("resolved")
+        this.resolved = true
       },
       getimgs: function (tdir) {
         // require.context ( folder, recurse, pattern )
