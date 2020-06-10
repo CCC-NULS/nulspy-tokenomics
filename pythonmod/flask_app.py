@@ -7,7 +7,7 @@ import appsupport
 from flask_cors import CORS, cross_origin
 import os
 from datetime import datetime
-import stat
+from shutil import copyfile
 from stat import S_IWUSR
 
 application = Flask(__name__)
@@ -112,14 +112,13 @@ def make_dir(timey_dir):
         os.mkdir(timey_dir)
 
 
-def make_temp_file(timeydir):
-    tempvuefile = timeydir + "watchedComp.vue"
-    #  make temp file so vue can see the component changes
-    f = open(tempvuefile, "w+")
-    temp_line = "<template><div>counting changes</div></template><script>export default {name:1}</script>"
-    f.write(temp_line)
-    f.close()
-    os.chmod(tempvuefile, S_IWUSR)  # write to others
+def make_temp_file(timey_dir_name):
+    if os.name == 'nt':
+        basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
+    #  make temp file as placeholder
+    esquare = basedir + "/pltreal.png"  # empty square placeholder png
+    pltreal = timey_dir_name + "/pltreal.png" 
+    copyfile(esquare, pltreal)
 
 
 def change_temp_file(timeydir):    # to cause vue to see a change

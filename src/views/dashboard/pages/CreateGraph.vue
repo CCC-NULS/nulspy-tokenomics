@@ -168,12 +168,14 @@
           elevation-24
           raised
         >
-          <v-img
-            class="white--text align-end"
-            :src="this.$realpath"
-          />
+          <v-lazy>
+            <v-img
+              v-show="false"
+              class="white--text align-end"
+              :src="$realpath"
+            />
+          </v-lazy>
         </v-card>
-
         <v-card 
           id="buttoncard"
           color="success"
@@ -243,10 +245,10 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      plotimg: this.$realpath,
       imagepile: '',
       dirname: '',
       plotdirpath: '',
+      watchd: '',
       resolved: false,
       showreal: false,
       vmd1: '',
@@ -261,15 +263,20 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
+      watchdir () {
+          drv = `e:\/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
+          return drv
+        },
+      },
       // makedirname: function () {
       //   let dirtimestr = Date.now().toString().substring(7,13);
       //   let dirname = `d${dirtimestr}`
       //   console.log("dirname=" + dirname)
       //   return dirname
       // },
-      geeDirName: function () {
-        return this.$store.state.gDirName
-      },
+      // geeDirName: function () {
+      //   return this.$store.state.gDirName
+      // },
       // newestreal : async() => {
       //     return this.plotreal = () => import(newrealfile)
       // },
@@ -283,13 +290,16 @@
     //     console.log("getimgs: " + tdir)
     //     return images
     //     // return images('./' + pet + ".png")   }
-    },
+     
     watch: {
-      // watchedComp:  {
-      //   deep: true,
-      //   immediate: true,
-      //   handler () {
-      //     console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
+      watchd:  {
+        deep: true,
+        immediate: true,
+        handler () {
+          console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
+          },
+        }
+    },
       //     let gct  =  this.$store.state.gCounter + 1
       //     this.$store.dispatch('gCounterAct', gct)
       //     let check_gct  =  this.$store.state.gCounter
@@ -301,27 +311,24 @@
       //     }
       //     }
       //   }         
-      },
+    
     beforeCreate () {
         this.$mydir = 'd' + Date.now().toString().substring(7,13);
-        this.$mydirpath = '@/assets/plots/' + this.$mydir
-        this.$realpath = this.$mydirpath + '/pltreal.png'
-        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ this.$mydirpath )
+        let mdir = '@/assets/plots/' + this.$mydir
+        this.$mydirpath = mdir
+        this.$realpath = mdir + '/pltreal.png'
+        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ mdir )
+        this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
+          
     },
     created () {
-      console.log("in created. this.$mydir=" + this.$mydir )
-      this.$store.dispatch('gDirNameAct', this.$mydir)
-      this.$store.dispatch('gDirPathAct', this.$mydirpath)
-
-      console.log("set gDirPathAct to: " + this.$mydirpath)
+      console.log("in created." )
       this.make_timey_dir(this.$mydir)
-      let realpath = this.$mydir + "pltreal.png"
       console.log("past make_timey_dir")
     },
     mount () {
       // this.$router.go()  // big reset
       console.log("in mount" )
-      // this.$store.dispatch('showmeAct', false)
     },
     updated () {
       console.log("in updated" )
@@ -337,31 +344,9 @@
     },
    
     methods: {
-      // loadrealplot,
-      // reimportWatchComp: function () {
-      //   let thedir = this.plotdirpath
-      //   console.log("inside reorientWatchComp - thedir: " + thedir)
-      //   let thefile = thedir + "/watchedComp.vue"
-      //   console.log("thedir: " + thefile)
-      //   this.watchedComp = () => import(thefile)
-      //   console.log("updated watchComp: " + thefile)
-      //   let gcct  =  this.$store.state.gCounter + 1
-      //   console.log("In reimportWatchComp: gCounter incremented: " +  gcct )
-      //   this.$store.dispatch('gCounterAct', gcct)
-      //   let checkgcct  =  this.$store.state.gCounter
-      //   console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
-
-      // },
-
-      // paging: function (pltreal, resolve) {
-      //   console.log("resolved")
-      //   this.resolved = true
-      //   let check_gct  =  this.$store.state.gCounter + 2
-      //   this.$store.dispatch('gCounterAct', check_gct)
-      // },
       getimgs: function (tdir) {
         // require.context ( folder, recurse, pattern )
-        var images = require.context(`${tdir}`, false, /\.png$/)
+        var images = require.context(`${tdir}`, false, /^d\.png$/)
         console.log("getimgs: " + tdir)
         return images
         // return images('./' + pet + ".png")
@@ -373,10 +358,10 @@
         console.log("In resetc:  myCounter now: " + mctt)
       },
       storeTimedPlotNames: function (plot_name, plot_name_path) {
-        this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
-        this.$store.dispatch('gTimedPlotPathAct', plot_name_path)
-        console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
-        console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
+        // this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
+        // this.$store.dispatch('gTimedPlotPathAct', plot_name_path)
+        // console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
+        // console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
       },
       asyncRequestPython: function (baseurl) {
         try { 
@@ -394,7 +379,6 @@
       },
       make_timey_dir: function(gDir) {
           console.log(`!!! in make_timey_dir`)  
-          // gDir is the unique directory for each session
           let pythonUrld = "http://localhost:5002/getpy?gdir=" + gDir
           try {
             this.asyncRequestPython(pythonUrld); 
@@ -410,7 +394,7 @@
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = this.$mydirpath + "/" + plotname_t
 
-        this.storeTimedPlotNames(plotname_t, plotname_t_path)
+        // this.storeTimedPlotNames(plotname_t, plotname_t_path)
         console.log("new plotname_t_path: " + plotname_t_path)
 
         // let bw = '&anninf=' + b.replace(/,/g, '')
@@ -433,7 +417,6 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
-        // this.loadrealplot(plotname_t_path);  
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
