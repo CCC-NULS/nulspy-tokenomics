@@ -168,14 +168,10 @@
           elevation-24
           raised
         >
-          <v-lazy>
-            <pltreal
-              v-if="true"
-              id="pltrealid"
-              :key="gcounter"
-              plotcard
-            />
-          </v-lazy>
+          <pltreal
+            id="pltrealid"
+            plotcard
+          />
         </v-card>
         <v-card 
           id="buttoncard"
@@ -219,35 +215,19 @@
       } }
     });
     
-  // async function loadrealplot (thefile) {
-  //   console.log('In loadrealplot')
-
-  //   while (this.resolved == false) {
-  //     console.log('In loadrealplot3')
-  //     pltreal = await new Promise((resolve, reject) => {
-  //       console.log('In loadrealplot4')
-  //       this.pltreal = () => import(thefile)
-  //       let gct  =  this.$store.state.gCounter + 1
-  //       this.$store.dispatch('gCounterAct', gct)
-  //       this.paging(pltreal, resolve);
-  //       console.log('In loadrealplot5')
-  //     });
-  //   }
-  // }
-  import pltreal from '@/assets/plots/pltreal.svg'
+  // import pltreal from '@/assets/plots/pltreal.svg'
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
-      pltreal,
-      // watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
+      // pltreal,
+      pltreal: () => import('@/assets/plots/pltreal.svg'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      watchd: '',
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -259,27 +239,28 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    computed: {
-      watchsvg () {
-          return `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
-        },
-      },
+    // computed: {
+      // watchsvg () {
+      //     return `e:/wsvue/tokenlifevue/src/assets/plots/pltreal.svg`
+      //   },
+      // },
     
     watch: {
       pltreal:  {
         deep: true,
-        immediate: true,
+        // immediate: true,
         handler () {
           console.log("!!! &&&&  &&&& IN WATCH pltreal route change!!  ---------  ")
+          // this.$gcounter += 1
           },
       },
-      watchd:  {
-        deep: true,
-        immediate: true,
-        handler () {
-          console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
-          },
-        }
+      // watchd:  {
+      //   deep: true,
+      //   immediate: true,
+      //   handler () {
+      //     console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
+      //     },
+      //   }
     },
     beforeCreate () {
         this.$mydir = 'd' + Date.now().toString().substring(7,13);  //d date dir name
@@ -287,7 +268,7 @@
         this.$mydirpath = path_at
         this.$realpath = path_at + '/pltreal.svg'
         console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ path_at)
-        this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
+        // this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
     },
     created () {
       console.log("in created." )
@@ -300,26 +281,26 @@
     },
     updated () {
       console.log("in updated" )
-      this.$gcounter += 1
-      console.log('this.$gcounter now: ' + this.$gcounter)
-      if (this.$gcounter > 1) console.log('just got results')     
+      // this.$gcounter += 1
+      // console.log('this.$gcounter now: ' + this.$gcounter)
+      // if (this.$gcounter > 1) console.log('just got results')     
     },
     activated () {
       console.log("in activated" )
     },
     methods: {
-      loadit: function () {
-        console.log("in loadit: checking")   
-        const map1 = require.context('../../../assets/plots', false, /\.svg$/)
-        // console.log("in loadid: did require")
-        // const iterator1 = map1.entries();
-        // console.log(iterator1.next().value);
-        // // expected output: ["0", "foo"]
-        // console.log(iterator1.next().value);
-        // console.log("leaving loadit")
-        // map1.keys().forEach(key => console.log(key));
-        return map1
-        },
+      // loadit: function () {
+      //   console.log("in loadit: checking")   
+      //   const map1 = require.context('../../../assets/plots', false, /\.svg$/)
+      //   // console.log("in loadid: did require")
+      //   // const iterator1 = map1.entries();
+      //   // console.log(iterator1.next().value);
+      //   // // expected output: ["0", "foo"]
+      //   // console.log(iterator1.next().value);
+      //   // console.log("leaving loadit")
+      //   // map1.keys().forEach(key => console.log(key));
+      //   return map1
+      //   },
        // var myimages = setInterval(function() { require.context('./assets/plots', false, /\.png$/) }, 100); // check every 500ms
       // getimgs: function () {
       //   // require.context ( folder, recurse, pattern )
@@ -391,7 +372,6 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
-        this.loadit()         
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath

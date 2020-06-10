@@ -116,8 +116,8 @@ def make_temp_file(timey_dir_name):
     if os.name == 'nt':
         basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
     #  make temp file as placeholder
-    esquare = basedir + "/pltreal.png"  # empty square placeholder png
-    pltreal = timey_dir_name + "/pltreal.png" 
+    esquare = basedir + "/bluecube.svg"  # empty square placeholder
+    pltreal = basedir + "/pltreal.svg"
     copyfile(esquare, pltreal)
 
 
@@ -139,10 +139,12 @@ def make_names(args_dict):
     plot_path_uniq = make_dir_name(gdir)
 
     # jpg plot is timeed or _t
-    plot_name_generic = "pltreal.png"
-    plot_name_time_stmp = "plot" + timestamp + ".png"  # the rest are saved as jpgs with timestamps
+    if os.name == 'nt':
+        basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
+    plot_name_generic = "pltreal.svg"
+    plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
 
-    plotpath_generic = os.path.join(plot_path_uniq, plot_name_generic)  # put real one in components so router can update
+    plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
     plotpath_timestp = os.path.join(plot_path_uniq, plot_name_time_stmp)  # t for timestamp - names have timestamp
 
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)

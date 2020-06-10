@@ -164,8 +164,8 @@ class AppSupport:
 
         plt.plot(self.token_count_list_y, color='purple', linestyle='-', linewidth=3)
 
-        plt.savefig(plotpath_generic,  dpi=150, format='png')
-        plt.savefig(plotpath_timed,  dpi=150, format='png')
+        plt.savefig(plotpath_generic,  dpi=150, format='svg')
+        plt.savefig(plotpath_timed,  dpi=150, format='svg')
         #plt.show()
         return True
 
