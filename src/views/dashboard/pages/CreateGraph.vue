@@ -169,10 +169,11 @@
           raised
         >
           <v-lazy>
-            <v-img
-              v-show="false"
-              class="white--text align-end"
-              :src="$realpath"
+            <pltreal
+              v-if="true"
+              id="pltrealid"
+              :key="gcounter"
+              plotcard
             />
           </v-lazy>
         </v-card>
@@ -233,24 +234,20 @@
   //     });
   //   }
   // }
-  // import pltreal from '@/assets/plots/pltreal.svg'
+  import pltreal from '@/assets/plots/pltreal.svg'
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
+      pltreal,
       // watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      imagepile: '',
-      dirname: '',
-      plotdirpath: '',
       watchd: '',
-      resolved: false,
-      showreal: false,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -263,17 +260,17 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
-      watchpng () {
-          return `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
+      watchsvg () {
+          return `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
         },
       },
     
     watch: {
-      watchpng:  {
+      pltreal:  {
         deep: true,
         immediate: true,
         handler () {
-          console.log("!!! &&&&  &&&& IN WATCH watchpng route change!!  ---------  ")
+          console.log("!!! &&&&  &&&& IN WATCH pltreal route change!!  ---------  ")
           },
       },
       watchd:  {
@@ -284,26 +281,13 @@
           },
         }
     },
-      //     let gct  =  this.$store.state.gCounter + 1
-      //     this.$store.dispatch('gCounterAct', gct)
-      //     let check_gct  =  this.$store.state.gCounter
-      //     console.log('In watch: gCounter now: ' + check_gct)
-      //     if (gct > 1 ) {
-      //       console.log("gct is: ", gct)
-      //       let newrealfile = this.$store.state.gTimedPlotPathAct 
-      //       console.log('just fixed pltreal - count: ' + check_gct)
-      //     }
-      //     }
-      //   }         
-    
     beforeCreate () {
-        this.$mydir = 'd' + Date.now().toString().substring(7,13);
-        let mdir = '@/assets/plots/' + this.$mydir
-        this.$mydirpath = mdir
-        this.$realpath = mdir + '/pltreal.png'
-        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ mdir )
-        this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
-          
+        this.$mydir = 'd' + Date.now().toString().substring(7,13);  //d date dir name
+        let path_at = '@/assets/plots/' + this.$mydir
+        this.$mydirpath = path_at
+        this.$realpath = path_at + '/pltreal.svg'
+        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ path_at)
+        this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
     },
     created () {
       console.log("in created." )
@@ -318,57 +302,44 @@
       console.log("in updated" )
       this.$gcounter += 1
       console.log('this.$gcounter now: ' + this.$gcounter)
-      if (this.$gcounter > 1) {
-        // imagepile = this.getimgs(this.plotdir)
-        console.log('just got results')
-      }
+      if (this.$gcounter > 1) console.log('just got results')     
     },
     activated () {
       console.log("in activated" )
     },
-   
     methods: {
-      importAll: function (r) {
-        console.log("in importAll: importing keys")
-        const cache = {};
-        r.keys().forEach(key => cache[key] = r(key))
-      },
-
       loadit: function () {
-        console.log("in loadit: checking")
-
-        var myimages = setInterval(function() {
-          this.importAll(require.context('../../../assets/plots', false, /\.png$/))
-             }, 500); // check every 500ms
+        console.log("in loadit: checking")   
+        const map1 = require.context('../../../assets/plots', false, /\.svg$/)
+        // console.log("in loadid: did require")
+        // const iterator1 = map1.entries();
+        // console.log(iterator1.next().value);
+        // // expected output: ["0", "foo"]
+        // console.log(iterator1.next().value);
+        // console.log("leaving loadit")
+        // map1.keys().forEach(key => console.log(key));
+        return map1
         },
-          // var images = require.context('../../../assets/plots', false, /\.png$/)
-          //var images = require.context('./src/assets/plots', false, /\.png$/)
-        //   if ((images).length > 0) {
-        //     console.log("Exists!");
-        //   clearInterval(checkExist);
-
-        //E:\wsvue\tokenlifevue\src\views\dashboard\pages\CreateGraph.vue
-        
-      
-      getimgs: function () {
-        // require.context ( folder, recurse, pattern )
-        var images = require.context('../../../assets/plots', false, /\.png$/)
-        console.log("getimgs: " + this.$mydirpath)
-        return images
-        // return images('./' + pet + ".png")
-      },
+       // var myimages = setInterval(function() { require.context('./assets/plots', false, /\.png$/) }, 100); // check every 500ms
+      // getimgs: function () {
+      //   // require.context ( folder, recurse, pattern )
+      //   const realdir = '../../../assets/plots'
+      //   const images = require.context('../../../assets/plots', false, /\.svg$/)
+      //   console.log("getimgs: " + this.$mydirpath)
+      //   return images
+      // },
       resetc: function () {
         let gctt  =  this.$store.state.gCounter + 1
         this.$store.dispatch('gCounterAct', gctt)  // start over
         let mctt  =  this.$store.state.gCounter
         console.log("In resetc:  myCounter now: " + mctt)
       },
-      storeTimedPlotNames: function (plot_name, plot_name_path) {
+      // storeTimedPlotNames: function (plot_name, plot_name_path) {
         // this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
         // this.$store.dispatch('gTimedPlotPathAct', plot_name_path)
         // console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
         // console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
-      },
+      // },
       asyncRequestPython: function (baseurl) {
         try { 
           console.log('inside asyncRequestPython')
@@ -399,16 +370,13 @@
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
         let plotname_t_path = this.$mydirpath + "/" + plotname_t
-
         // this.storeTimedPlotNames(plotname_t, plotname_t_path)
         console.log("new plotname_t_path: " + plotname_t_path)
-
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')
         let ew = '&disinf=' + e
         // need to remove comma's twice from a, b, d
-
         let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
@@ -423,21 +391,17 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
-        this.loadit(plotname_t_path)
-         
+        this.loadit()         
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
         console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
         this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
         console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-
       },
     }
   }
-  //    gTimeNAMEonly: '',
-    // gTimedPlotPath: '',
-    // gPlotPATHARRAY: [],
+
 // Before create
 // Created
 // Before mount
