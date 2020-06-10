@@ -22,7 +22,13 @@ import i18n from './i18n'
 import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
+var mydir = "mydirtext"
+var mydirpath = "mydirpathtext"
+var realpath = "realpathtext"
 
+Vue.prototype.$mydir = mydir
+Vue.prototype.$mydirpath = mydirpath
+Vue.prototype.$realpath = realpath
 
 Vue.config.productionTip = false
 

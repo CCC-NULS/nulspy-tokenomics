@@ -5,5 +5,6 @@
 <script>
   export default {
     name: 'App',
+    dirrname: 'temp'
   }
 </script>

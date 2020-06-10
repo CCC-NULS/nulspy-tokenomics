@@ -96,9 +96,9 @@ def gplots():
 
 def make_dir_name(ggdir):
     if os.name == 'nt':
-        plot_path_uniq = "E:/wsvue/tokenlifevue/pythonmod/static/plots/" + ggdir + "/"
+        plot_path_uniq1 = "E:/wsvue/tokenlifevue/pythonmod/static/plots/" + ggdir + "/"   # nms:switch
 
-        # plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
+        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
     else:  # linux
         plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + ggdir + "/"
     print("make_dir_name plot_path_uniq: " + plot_path_uniq)
@@ -140,7 +140,7 @@ def make_names(args_dict):
     plot_path_uniq = make_dir_name(gdir)
 
     # jpg plot is timeed or _t
-    plot_name_generic = "pltreal.svg"
+    plot_name_generic = "pltreal.png"
     plot_name_time_stmp = "plot" + timestamp + ".png"  # the rest are saved as jpgs with timestamps
 
     plotpath_generic = os.path.join(plot_path_uniq, plot_name_generic)  # put real one in components so router can update

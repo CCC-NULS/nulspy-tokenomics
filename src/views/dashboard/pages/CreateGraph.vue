@@ -170,7 +170,7 @@
         >
           <v-img
             class="white--text align-end"
-            :src="plotimg"
+            :src="this.$realpath"
           />
         </v-card>
 
@@ -196,10 +196,6 @@
           </v-btn>
         </v-card>
       </v-col>
-      <watchedComp 
-        v-if="true" 
-        id="watchedcomp"
-      />
     </v-row>
   </v-container>
 </template>
@@ -241,13 +237,13 @@
     name: 'CreateGraph',
     components: {
       TopWords,
-      watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
+      // watchedComp: () => import('@/assets/plots/watchedcomp.vue'),
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      plotimg: "http://localhost:5002/static/plot.svg",
+      plotimg: this.$realpath,
       imagepile: '',
       dirname: '',
       plotdirpath: '',
@@ -265,12 +261,12 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
-      makedirname: function () {
-        let dirtimestr = Date.now().toString().substring(7,13);
-        let dirname = `d${dirtimestr}`
-        console.log("dirname=" + dirname)
-        return dirname
-      },
+      // makedirname: function () {
+      //   let dirtimestr = Date.now().toString().substring(7,13);
+      //   let dirname = `d${dirtimestr}`
+      //   console.log("dirname=" + dirname)
+      //   return dirname
+      // },
       geeDirName: function () {
         return this.$store.state.gDirName
       },
@@ -289,36 +285,38 @@
     //     // return images('./' + pet + ".png")   }
     },
     watch: {
-      watchedComp:  {
-        deep: true,
-        immediate: true,
-        handler () {
-          console.log("!!! &&&&  &&&&  WATCH watchdir route change!!  ---------  ")
-          let gct  =  this.$store.state.gCounter + 1
-          this.$store.dispatch('gCounterAct', gct)
-          let check_gct  =  this.$store.state.gCounter
-          console.log('In watch: gCounter now: ' + check_gct)
-          if (gct > 1 ) {
-            console.log("gct is: ", gct)
-            let newrealfile = this.$store.state.gTimedPlotPathAct 
-            console.log('just fixed pltreal - count: ' + check_gct)
-          }
-          }
-        }         
+      // watchedComp:  {
+      //   deep: true,
+      //   immediate: true,
+      //   handler () {
+      //     console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
+      //     let gct  =  this.$store.state.gCounter + 1
+      //     this.$store.dispatch('gCounterAct', gct)
+      //     let check_gct  =  this.$store.state.gCounter
+      //     console.log('In watch: gCounter now: ' + check_gct)
+      //     if (gct > 1 ) {
+      //       console.log("gct is: ", gct)
+      //       let newrealfile = this.$store.state.gTimedPlotPathAct 
+      //       console.log('just fixed pltreal - count: ' + check_gct)
+      //     }
+      //     }
+      //   }         
       },
+    beforeCreate () {
+        this.$mydir = 'd' + Date.now().toString().substring(7,13);
+        this.$mydirpath = '@/assets/plots/' + this.$mydir
+        this.$realpath = this.$mydirpath + '/pltreal.png'
+        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ this.$mydirpath )
+    },
     created () {
-      console.log("in created" )
-      let ndir = this.makedirname
-      console.log("made ndir:  " + ndir)
-      this.plotdirpath = '@/assets/plots/' + ndir
-      this.$store.dispatch('gDirNameAct', ndir)
-      this.$store.dispatch('gDirPathAct', this.plotdirpath)
+      console.log("in created. this.$mydir=" + this.$mydir )
+      this.$store.dispatch('gDirNameAct', this.$mydir)
+      this.$store.dispatch('gDirPathAct', this.$mydirpath)
 
-      console.log("set gDirPathAct to: " + this.plotdirpath)
-      this.make_timey_dir(ndir)
-      let realpath = ndir + "pltreal.png"
+      console.log("set gDirPathAct to: " + this.$mydirpath)
+      this.make_timey_dir(this.$mydir)
+      let realpath = this.$mydir + "pltreal.png"
       console.log("past make_timey_dir")
-      // now python make a component to watch
     },
     mount () {
       // this.$router.go()  // big reset
@@ -340,20 +338,20 @@
    
     methods: {
       // loadrealplot,
-      reimportWatchComp: function () {
-        let thedir = this.plotdirpath
-        console.log("inside reorientWatchComp - thedir: " + thedir)
-        let thefile = thedir + "/watchedComp.vue"
-        console.log("thedir: " + thefile)
-        this.watchedComp = () => import(thefile)
-        console.log("updated watchComp: " + thefile)
-        let gcct  =  this.$store.state.gCounter + 1
-        console.log("In reimportWatchComp: gCounter incremented: " +  gcct )
-        this.$store.dispatch('gCounterAct', gcct)
-        let checkgcct  =  this.$store.state.gCounter
-        console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
+      // reimportWatchComp: function () {
+      //   let thedir = this.plotdirpath
+      //   console.log("inside reorientWatchComp - thedir: " + thedir)
+      //   let thefile = thedir + "/watchedComp.vue"
+      //   console.log("thedir: " + thefile)
+      //   this.watchedComp = () => import(thefile)
+      //   console.log("updated watchComp: " + thefile)
+      //   let gcct  =  this.$store.state.gCounter + 1
+      //   console.log("In reimportWatchComp: gCounter incremented: " +  gcct )
+      //   this.$store.dispatch('gCounterAct', gcct)
+      //   let checkgcct  =  this.$store.state.gCounter
+      //   console.log('In reimportWatchComp: gCounter now: ' + checkgcct)
 
-      },
+      // },
 
       // paging: function (pltreal, resolve) {
       //   console.log("resolved")
@@ -407,15 +405,10 @@
           console.log(`!!! done making dir ${gDir}`)  
       },
       makePlot: function (a, b, c, d, e) {
-        this.reimportWatchComp()
         console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
-        let gDir = this.$store.state.gDirName
-        let plotname_t_path = "@/assets/plots/" + gDir + "/" + plotname_t
-
-        // let plotname_t_path = "@/assets/plots/" + gDir + "/" + plotname_t
-
+        let plotname_t_path = this.$mydirpath + "/" + plotname_t
 
         this.storeTimedPlotNames(plotname_t, plotname_t_path)
         console.log("new plotname_t_path: " + plotname_t_path)
@@ -430,7 +423,7 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + gDir
+        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + this.$mydir
           // gDir is the unique directory for each session
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
