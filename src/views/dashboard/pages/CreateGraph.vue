@@ -218,7 +218,7 @@
   // import pltreal from '@/assets/plots/pltreal.svg'
 
   export default {
-    name: 'CreateGraph',
+    // name: 'CreateGraph',
     components: {
       TopWords,
       // pltreal,
@@ -228,6 +228,9 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
+      time_small_drname: '',
+      path_at_base: '@/assets/plots/',
+      path_at_timey: '@/assets/plots/' + time_small_drname,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -240,11 +243,8 @@
       disinflation: ["3", "4", "5"],
     }),
     // computed: {
-      // watchsvg () {
-      //     return `e:/wsvue/tokenlifevue/src/assets/plots/pltreal.svg`
-      //   },
       // },
-    
+ 
     watch: {
       pltreal:  {
         deep: true,
@@ -254,36 +254,21 @@
           // this.$gcounter += 1
           },
       },
-      // watchd:  {
-      //   deep: true,
-      //   immediate: true,
-      //   handler () {
-      //     console.log("!!! &&&&  &&&& IN WATCH watchdir route change!!  ---------  ")
-      //     },
-      //   }
     },
-    beforeCreate () {
-        this.$mydir = 'd' + Date.now().toString().substring(7,13);  //d date dir name
-        let path_at = '@/assets/plots/' + this.$mydir
-        this.$mydirpath = path_at
-        this.$realpath = path_at + '/pltreal.svg'
-        console.log("before create: $mydir $mydirpath: " + this.$mydir + ' '+ path_at)
-        // this.watchd = `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.svg`
+    beforeCreate () {   
+      this.time_small_drname = this.$time_smalldir
     },
     created () {
       console.log("in created." )
-      this.make_timey_dir(this.$mydir)
-      console.log("past make_timey_dir")
     },
     mount () {
       // this.$router.go()  // big reset
       console.log("in mount" )
+
+      this.make_timey_dir()
     },
     updated () {
-      console.log("in updated" )
-      // this.$gcounter += 1
-      // console.log('this.$gcounter now: ' + this.$gcounter)
-      // if (this.$gcounter > 1) console.log('just got results')     
+      console.log("in updated" )   
     },
     activated () {
       console.log("in activated" )
@@ -309,17 +294,11 @@
       //   console.log("getimgs: " + this.$mydirpath)
       //   return images
       // },
-      resetc: function () {
-        let gctt  =  this.$store.state.gCounter + 1
-        this.$store.dispatch('gCounterAct', gctt)  // start over
-        let mctt  =  this.$store.state.gCounter
-        console.log("In resetc:  myCounter now: " + mctt)
-      },
-      // storeTimedPlotNames: function (plot_name, plot_name_path) {
-        // this.$store.dispatch('gTimeNAMEonlyAct', plot_name)
-        // this.$store.dispatch('gTimedPlotPathAct', plot_name_path)
-        // console.log('chkg store: gTimedPlotPath: ' + this.$store.state.gTimedPlotPath )
-        // console.log("plot_name_path: " + plot_name_path + ": " + plot_name)
+      // resetc: function () {
+      //   let gctt  =  this.$store.state.gCounter + 1
+      //   this.$store.dispatch('gCounterAct', gctt)  // start over
+      //   let mctt  =  this.$store.state.gCounter
+      //   console.log("In resetc:  myCounter now: " + mctt)
       // },
       asyncRequestPython: function (baseurl) {
         try { 
@@ -335,22 +314,25 @@
           console.log(e)
         }
       },
-      make_timey_dir: function(gDir) {
+      make_timey_dir: function() {
+          let tn = this.time_small_drname
           console.log(`!!! in make_timey_dir`)  
-          let pythonUrld = "http://localhost:5002/getpy?gdir=" + gDir
+          let pythonUrld = "http://localhost:5002/getpy?gdir=" + tn
           try {
             this.asyncRequestPython(pythonUrld); 
           }
           catch (e) {
             console.log(e)
           }
-          console.log(`!!! done making dir ${gDir}`)  
+          console.log(`!!! done making dir ${tn}`)  
       },
       makePlot: function (a, b, c, d, e) {
+        let tn_b = this.time_small_drname
+
         console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
         let plotname_t = "plot" + timestr + ".svg"
-        let plotname_t_path = this.$mydirpath + "/" + plotname_t
+        let plotname_t_path = this.path_at_timey + "/" + plotname_t
         // this.storeTimedPlotNames(plotname_t, plotname_t_path)
         console.log("new plotname_t_path: " + plotname_t_path)
         // let bw = '&anninf=' + b.replace(/,/g, '')
@@ -362,7 +344,7 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + this.$mydir
+        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + tn_b
           // gDir is the unique directory for each session
         let pythonUrl = "http://localhost:5002/getpy?" + requestVars
         try {
@@ -373,12 +355,12 @@
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
       },
-      keepplot: function () {
-        let timePlotPath = this.$store.state.gTimedPlotPath
-        console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
-        this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
-        console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-      },
+      // keepplot: function () {
+      //   let timePlotPath = this.$store.state.gTimedPlotPath
+      //   console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
+      //   this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
+      //   console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
+      // },
     }
   }
 

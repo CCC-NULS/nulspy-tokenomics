@@ -22,15 +22,10 @@ import i18n from './i18n'
 import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
-var mydir = "mydirtext"
-var mydirpath = "mydirpathtext"
-var realpath = "realpathtext"
-var gcounter = 0
 
-Vue.prototype.$mydir = mydir
-Vue.prototype.$mydirpath = mydirpath
-Vue.prototype.$realpath = realpath
-Vue.prototype.$gcounter = gcounter
+Vue.prototype.$time_smalldir = 'd' + Date.now().toString().substring(7,13)
+
+Vue.prototype.$gcounter = 0
 
 Vue.config.productionTip = false
 
