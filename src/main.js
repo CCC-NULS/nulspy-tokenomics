@@ -23,7 +23,11 @@ import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
 
-Vue.prototype.$time_smalldir = 'd' + Date.now().toString().substring(7,13)
+const atimestr = Date.now().toString().substring(7,13)
+
+Vue.prototype.$apptime = atimestr
+Vue.prototype.$timeydirmade = false
+
 
 Vue.prototype.$gcounter = 0
 

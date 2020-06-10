@@ -66,14 +66,14 @@ export default new Router({
         // },
         {
           name: 'pltreal',
-          path: 'assets/plots',  
-          component: () => import('@/assets/plots/pltreal.svg'),  
+          path: 'assets/plots/pltreal.svg',  
+          // component: () => import('@/assets/plots/pltreal.svg'),  
         },
-        {
-          name: 'uoneplot',
-          path: 'assets/users/uone',  
-          component: () => import('@/assets/users/uone/e1.svg'),  
-        },
+        // {
+        //   name: 'uoneplot',
+        //   path: 'assets/users/uone',  
+        //   component: () => import('@/assets/users/uone/e1.svg'),  
+        // },
       ],
     },
   ],

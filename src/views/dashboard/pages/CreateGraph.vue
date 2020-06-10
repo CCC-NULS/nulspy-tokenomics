@@ -214,11 +214,19 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-    
-  // import pltreal from '@/assets/plots/pltreal.svg'
+  const path_at_base = '@/assets/plots/'
+
+  function make_timeyd ()  {
+    console.log('!!! in make_timeyd- this.$apptime: ' + this.$apptime)  
+    let pythonUrld = "http://localhost:5002/getpy?gdir=d" + this.$apptime
+    try {   this.asyncRequestPython(pythonUrld);  }
+    catch (e) { console.log(e)  }
+    console.log(`!!! done making dir`)  
+    this.$timeydirmade = true
+  }
 
   export default {
-    // name: 'CreateGraph',
+    name: 'CreateGraph',
     components: {
       TopWords,
       // pltreal,
@@ -228,9 +236,7 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      time_small_drname: '',
-      path_at_base: '@/assets/plots/',
-      path_at_timey: '@/assets/plots/' + time_small_drname,
+      path_at_base,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -247,7 +253,7 @@
  
     watch: {
       pltreal:  {
-        deep: true,
+        // deep: true,
         // immediate: true,
         handler () {
           console.log("!!! &&&&  &&&& IN WATCH pltreal route change!!  ---------  ")
@@ -256,16 +262,16 @@
       },
     },
     beforeCreate () {   
-      this.time_small_drname = this.$time_smalldir
     },
     created () {
       console.log("in created." )
+      if (this.$timeydirmade === false) {
+        this.make_timeyd()
+      }
     },
     mount () {
       // this.$router.go()  // big reset
       console.log("in mount" )
-
-      this.make_timey_dir()
     },
     updated () {
       console.log("in updated" )   
@@ -274,35 +280,10 @@
       console.log("in activated" )
     },
     methods: {
-      // loadit: function () {
-      //   console.log("in loadit: checking")   
-      //   const map1 = require.context('../../../assets/plots', false, /\.svg$/)
-      //   // console.log("in loadid: did require")
-      //   // const iterator1 = map1.entries();
-      //   // console.log(iterator1.next().value);
-      //   // // expected output: ["0", "foo"]
-      //   // console.log(iterator1.next().value);
-      //   // console.log("leaving loadit")
-      //   // map1.keys().forEach(key => console.log(key));
-      //   return map1
-      //   },
-       // var myimages = setInterval(function() { require.context('./assets/plots', false, /\.png$/) }, 100); // check every 500ms
-      // getimgs: function () {
-      //   // require.context ( folder, recurse, pattern )
-      //   const realdir = '../../../assets/plots'
-      //   const images = require.context('../../../assets/plots', false, /\.svg$/)
-      //   console.log("getimgs: " + this.$mydirpath)
-      //   return images
-      // },
-      // resetc: function () {
-      //   let gctt  =  this.$store.state.gCounter + 1
-      //   this.$store.dispatch('gCounterAct', gctt)  // start over
-      //   let mctt  =  this.$store.state.gCounter
-      //   console.log("In resetc:  myCounter now: " + mctt)
-      // },
+      make_timeyd,
       asyncRequestPython: function (baseurl) {
         try { 
-          console.log('inside asyncRequestPython')
+          console.log('inside asyncRequestPython: ' + baseurl)
           ;(async () => {
             let response = await axiosi({
               url: baseurl,
@@ -314,27 +295,19 @@
           console.log(e)
         }
       },
-      make_timey_dir: function() {
-          let tn = this.time_small_drname
-          console.log(`!!! in make_timey_dir`)  
-          let pythonUrld = "http://localhost:5002/getpy?gdir=" + tn
-          try {
-            this.asyncRequestPython(pythonUrld); 
-          }
-          catch (e) {
-            console.log(e)
-          }
-          console.log(`!!! done making dir ${tn}`)  
-      },
+      // make_timey_dir: function() {
+      //     console.log('!!! in make_timey_dir- this.$apptime: ' + this.$apptime)  
+      //     let pythonUrld = "http://localhost:5002/getpy?gdir=d" + this.$apptime
+      //     try {   this.asyncRequestPython(pythonUrld);  }
+      //     catch (e) { console.log(e)  }
+      //     console.log(`!!! done making dir`)  
+      // },
       makePlot: function (a, b, c, d, e) {
-        let tn_b = this.time_small_drname
+        let tn_b = 'd' + this.$apptime
 
         console.log("a: " + a + "b: " + b + "d: " + d)
         const timestr = Date.now().toString().substring(5,13);
-        let plotname_t = "plot" + timestr + ".svg"
-        let plotname_t_path = this.path_at_timey + "/" + plotname_t
-        // this.storeTimedPlotNames(plotname_t, plotname_t_path)
-        console.log("new plotname_t_path: " + plotname_t_path)
+
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -355,12 +328,16 @@
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
       },
-      // keepplot: function () {
+      resetc: function () {
+        console.log("in resetc")
+      },
+      keepplot: function () {
+        console.log("in keepplot")
       //   let timePlotPath = this.$store.state.gTimedPlotPath
       //   console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
       //   this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
       //   console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-      // },
+      },
     }
   }
 
