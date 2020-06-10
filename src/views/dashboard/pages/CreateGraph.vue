@@ -263,35 +263,19 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
-      watchdir () {
-          drv = `e:\/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
-          return drv
+      watchpng () {
+          return `e:/wsvue/tokenlifevue/src/assets/plots/${this.$mydir}/pltreal.png`
         },
       },
-      // makedirname: function () {
-      //   let dirtimestr = Date.now().toString().substring(7,13);
-      //   let dirname = `d${dirtimestr}`
-      //   console.log("dirname=" + dirname)
-      //   return dirname
-      // },
-      // geeDirName: function () {
-      //   return this.$store.state.gDirName
-      // },
-      // newestreal : async() => {
-      //     return this.plotreal = () => import(newrealfile)
-      // },
-      // dogImage: function () {
-      //   if (!this.selectedDog) {  }
-      //   const fileName = this.selectedDog.toLowerCase()
-      //   return require(`../assets/doggos/${fileName}.jpg`) // the module request
-      // },  getimgs: function (tdir) {   let gDir = this.geeDirName
-    //     // require.context ( folder, recurse, pattern )
-    //     var images = require.context(`${tdir}`, false, /\.png$/)
-    //     console.log("getimgs: " + tdir)
-    //     return images
-    //     // return images('./' + pet + ".png")   }
-     
+    
     watch: {
+      watchpng:  {
+        deep: true,
+        immediate: true,
+        handler () {
+          console.log("!!! &&&&  &&&& IN WATCH watchpng route change!!  ---------  ")
+          },
+      },
       watchd:  {
         deep: true,
         immediate: true,
@@ -332,9 +316,9 @@
     },
     updated () {
       console.log("in updated" )
-      let checkgct  =  this.$store.state.gCounter
-      console.log('In watch: gCounter now: ' + checkgct)
-      if (checkgct > 1) {
+      this.$gcounter += 1
+      console.log('this.$gcounter now: ' + this.$gcounter)
+      if (this.$gcounter > 1) {
         // imagepile = this.getimgs(this.plotdir)
         console.log('just got results')
       }
@@ -344,10 +328,32 @@
     },
    
     methods: {
-      getimgs: function (tdir) {
+      importAll: function (r) {
+        console.log("in importAll: importing keys")
+        const cache = {};
+        r.keys().forEach(key => cache[key] = r(key))
+      },
+
+      loadit: function () {
+        console.log("in loadit: checking")
+
+        var myimages = setInterval(function() {
+          this.importAll(require.context('../../../assets/plots', false, /\.png$/))
+             }, 500); // check every 500ms
+        },
+          // var images = require.context('../../../assets/plots', false, /\.png$/)
+          //var images = require.context('./src/assets/plots', false, /\.png$/)
+        //   if ((images).length > 0) {
+        //     console.log("Exists!");
+        //   clearInterval(checkExist);
+
+        //E:\wsvue\tokenlifevue\src\views\dashboard\pages\CreateGraph.vue
+        
+      
+      getimgs: function () {
         // require.context ( folder, recurse, pattern )
-        var images = require.context(`${tdir}`, false, /^d\.png$/)
-        console.log("getimgs: " + tdir)
+        var images = require.context('../../../assets/plots', false, /\.png$/)
+        console.log("getimgs: " + this.$mydirpath)
         return images
         // return images('./' + pet + ".png")
       },
@@ -417,6 +423,8 @@
           console.log(e)
         }
         console.log(`!!! pythonUrl: ${pythonUrl}`) 
+        this.loadit(plotname_t_path)
+         
       },
       keepplot: function () {
         let timePlotPath = this.$store.state.gTimedPlotPath
