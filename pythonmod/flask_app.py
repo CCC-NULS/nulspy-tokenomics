@@ -6,9 +6,7 @@ from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
 import os
-from datetime import datetime
 from shutil import copyfile
-from stat import S_IWUSR
 
 application = Flask(__name__)
 CORS(application, resources={r"/*": {"origins": "*"}})
@@ -39,6 +37,7 @@ def index():
 @cross_origin()
 @application.route('/getpy', methods=["GET", "POST", "UPDATE", "HEAD"])
 def getpy():
+    basedir = None
     # if request.method == 'POST':
     #     print('Incoming POST')
 
@@ -49,6 +48,10 @@ def getpy():
 
     formdata = request.values.dicts[0]
     if len(formdata) > 2:
+        if os.name == 'nt':
+            basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
+        else:  # linux
+            basedir = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/"
 
         formdict = {"initial_supply_y": formdata.get('initsup'),
                     "annual_inflation": formdata.get('anninf'),
@@ -56,108 +59,37 @@ def getpy():
                     "stop_inflation_y": formdata.get('stopinf'),
                     "disinflation_ratio": formdata.get('disinf'),
                     "timestp": formdata.get('timestp'),
-                    "gdir": formdata.get('gdir')}
+                    "basedir": basedir}
 
         args_dict = make_names(formdict)
-        tk_obj = appsupport.AppSupport()
-
-        tk_obj.main(args_dict)
-
-        try:
-            filethere = chk_for_file(args_dict.get('plotpath_generic'))
-            if not filethere:
-                filethere = chk_for_file(args_dict.get('plotpath_timestp'))
-        except FileNotFoundError:
-            print("file not there")
-
-        print("got this far! file should be there. " + str(filethere))
-
-        gd = args_dict.get('gdir')
-        gd_path = make_dir_name(gd)
-        # change_temp_file(gd_path)
-        print("got this far! directory - changed temp file should be changed")
-        return '200 OK'
-
-    else:     # make dir and temp files
-        gdir = formdata.get('gdir')
-        timey_dir_name = make_dir_name(gdir)
-        make_dir(timey_dir_name)
-        make_temp_file(timey_dir_name)
-        print("got this far! directory and temp file should be there")
+        make_temp_file(basedir)
+        tk_obj = appsupport.AppSupport()  # make obj
+        tk_obj.main(args_dict)    # execute main
+        print("got this far! file should be there. ")
         return '200 OK'
 
 
-@cross_origin()
-@application.route('/', methods=["GET", "POST", "UPDATE", "HEAD"])
-def gplots():
-    if request.method == 'GET':
-        print("Incoming GET")
-
-
-def make_dir_name(ggdir):
-    if os.name == 'nt':
-        # plot_path_uniq1 = "E:/wsvue/tokenlifevue/pythonmod/static/plots/" + ggdir + "/"   # nms:switch
-
-        plot_path_uniq = "E:/wsvue/tokenlifevue/src/assets/plots/" + ggdir + "/"
-    else:  # linux
-        plot_path_uniq = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/" + ggdir + "/"
-    print("make_dir_name plot_path_uniq: " + plot_path_uniq)
-    return plot_path_uniq
-
-
-def make_dir(timey_dir):
-    ckdir = os.path.isdir(timey_dir)
-    print("ckdir answer: " + str(ckdir))
-    if not ckdir:    #  if false
-        os.mkdir(timey_dir)
-
-
-def make_temp_file(timey_dir_name):
-    if os.name == 'nt':
-        basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
-    #  make temp file as placeholder
-    esquare = basedir + "/bluecube.svg"  # empty square placeholder
-    pltreal = basedir + "/pltreal.svg"
-    plot1 = timey_dir_name + "/plot1.svg"
-    plot2 = timey_dir_name + "/plot2.svg"
+def make_temp_file(basedir):         #  make temp file as placeholder
+    esquare = basedir + "bluecube.svg"  # empty square placeholder
+    pltreal = basedir + "pltreal.svg"
     copyfile(esquare, pltreal)
-    copyfile(esquare, plot1)
-    copyfile(esquare, plot2)
-
-
-
-def change_temp_file(timeydir):    # to cause vue to see a change
-    tempvuefile = timeydir + "watchedComp.vue"
-    temp_line = "<template><div>counting more changes</div></template><script>export default {name:1}</script>"
-    dtt = str(datetime.now())  # make the file different each time
-    f = open(tempvuefile, "w+")
-    f.write(temp_line)
-    f.write(dtt)
-    f.close()
-    os.chmod(tempvuefile, S_IWUSR)  # write to others
-    print("done changing temp file")
 
 
 def make_names(args_dict):
     timestamp = args_dict.get("timestp")
-    gdir = args_dict.get("gdir")
-    plot_path_uniq = make_dir_name(gdir)
+    basedir = args_dict.get("basedir")
 
-    # jpg plot is timeed or _t
-    if os.name == 'nt':
-        basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
     plot_name_generic = "pltreal.svg"
     plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
 
     plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
-    plotpath_timestp = os.path.join(plot_path_uniq, plot_name_time_stmp)  # t for timestamp - names have timestamp
+    plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp
 
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
     plotpath_generic_norm = os.path.normpath(plotpath_generic)
 
     args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
     args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
-
     return args_dict
 
 

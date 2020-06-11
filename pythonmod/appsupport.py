@@ -65,11 +65,6 @@ class AppSupport:
         tresult = self.plot_graph(name_list)
         return tresult
 
-    # def make_long_stamp(self):
-    #     datetime_str = str(datetime.now())
-    #     print(datetime_str)
-    #     return datetime_str
-
     def rounddown(self, nm):
         num = int(nm)
         amt = len(str(num))-1

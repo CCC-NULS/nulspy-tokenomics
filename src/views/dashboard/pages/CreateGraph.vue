@@ -204,11 +204,10 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
-
   import TopWords from '@/views/dashboard/components/TopWords'
-
-  var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
+  
+  const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
     defaults: {
       headers: {
@@ -217,16 +216,6 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-
-  var datestr = Date.now().toString().substring(7,13)
-
-  const makeDir = require('make-dir')
-  
-  (async () => {
-    const path = await makeDir('unicorn/rainbow/cake');
-    console.log(path);
-    //=> '/Users/sindresorhus/fun/unicorn/rainbow/cake'
-  })();
 
   export default {
     name: 'CreateGraph',
@@ -252,7 +241,9 @@
     }),
     computed: {
     },
-    methods: {
+    mounted () {
+    },
+    methods: {    
       asyncRequestPython: function (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -268,16 +259,9 @@
         }
       },
       makePlot: function (a, b, c, d, e) {
-        let dtstr = this.datestr
-        const pyUrl = `http://localhost:5002/getpy?gdir=d${dtstr}`
-        try { 
-          this.asyncRequestPython(pyUrl)
-        }
-        catch (e) {
-          console.log(e)
-        }
+        let sessn = this.$sesshin  // per user session
         console.log("a: " + a + "b: " + b + "d: " + d)
-        const filetstmp = Date.now().toString().substring(5,13);
+        let filetstmp = Date.now().toString().substring(5,13);
 
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
@@ -289,8 +273,8 @@
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
 
-        let moretxt = `filetstmp&gdir=d${dtstr}`
-        let requestVars = aw + bw + cw + dw + ew + `&timestp=${moretxt}`
+        let longstmp = sessn + filetstmp
+        let requestVars = aw + bw + cw + dw + ew + `&timestp=${longstmp}`
           // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
         try {
