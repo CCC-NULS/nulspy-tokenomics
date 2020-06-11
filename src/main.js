@@ -23,9 +23,6 @@ import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
 
-var sessdate = Date.now().toString().substring(7,13)
-Vue.config.sesshin = sessdate  // date stamp for files - per session so we can group them
-
 Vue.config.productionTip = false
 
 new Vue({

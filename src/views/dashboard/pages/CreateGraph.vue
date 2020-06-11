@@ -170,7 +170,6 @@
         >
           <pltreal
             id="pltrealid"
-            plotcard
           />
         </v-card>
         <v-card 
@@ -217,6 +216,8 @@
       } }
     });
 
+  var sesshen
+
   export default {
     name: 'CreateGraph',
     components: {
@@ -227,7 +228,7 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      datestr,
+      sesshen,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -240,8 +241,13 @@
       disinflation: ["3", "4", "5"],
     }),
     computed: {
+      dtnow () {
+        return Date.now().toString()
+      }
     },
-    mounted () {
+    Created () {  
+      this.sesshen = this.dtnow.substring(9,13);
+      console.log("sesshen: " + this.sesshen )
     },
     methods: {    
       asyncRequestPython: function (baseurl) {
@@ -259,7 +265,8 @@
         }
       },
       makePlot: function (a, b, c, d, e) {
-        let sessn = this.$sesshin  // per user session
+        console.log("sesshen in makePlot: " + this.sesshen)
+        let sessn = this.sesshen  // per user session
         console.log("a: " + a + "b: " + b + "d: " + d)
         let filetstmp = Date.now().toString().substring(5,13);
 
@@ -290,11 +297,7 @@
       },
       keepplot: function () {
         console.log("in keepplot")
-      //   let timePlotPath = this.$store.state.gTimedPlotPath
-      //   console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
-      //   this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
-      //   console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-       },
+      },
     }
   }
 
