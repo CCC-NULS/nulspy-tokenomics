@@ -125,7 +125,7 @@
 <!--   %%%  /-%%%-/%%-/  %%%-/%%-/%%-/  %%%%-/%%%-/  %%%    -->
 
 <script>
-  import { mapState, mapMutations, mapActions } from 'vuex'  
+  // import { mapState, mapMutations, mapActions } from 'vuex'  
 
   export default {
     name: "SavedGraphs",
@@ -142,24 +142,6 @@
       a: 1,
       showplt: true,
     }),
-    // computed: {
-    // },
-    // watch: {
-    // },
-    created () {
-      console.log("in created2" )
-    },
-    mount () {
-      // this.$router.go()
-      console.log("in mount2" )
-    },
-    updated () {
-      console.log("in updated2" )
-    },
-    activated () {
-      console.log("in activated2" )
-    },
-      // this.$router.go() // big reset   ( './images', true, /\.svg$/ )
 
     methods: {       
       svgload: function () {

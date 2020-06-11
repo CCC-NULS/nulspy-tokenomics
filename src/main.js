@@ -23,14 +23,6 @@ import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
 
-const atimestr = Date.now().toString().substring(7,13)
-
-Vue.prototype.$apptime = atimestr
-Vue.prototype.$timeydirmade = false
-
-
-Vue.prototype.$gcounter = 0
-
 Vue.config.productionTip = false
 
 new Vue({

@@ -74,7 +74,7 @@ def getpy():
 
         gd = args_dict.get('gdir')
         gd_path = make_dir_name(gd)
-        change_temp_file(gd_path)
+        # change_temp_file(gd_path)
         print("got this far! directory - changed temp file should be changed")
         return '200 OK'
 
@@ -118,7 +118,12 @@ def make_temp_file(timey_dir_name):
     #  make temp file as placeholder
     esquare = basedir + "/bluecube.svg"  # empty square placeholder
     pltreal = basedir + "/pltreal.svg"
+    plot1 = timey_dir_name + "/plot1.svg"
+    plot2 = timey_dir_name + "/plot2.svg"
     copyfile(esquare, pltreal)
+    copyfile(esquare, plot1)
+    copyfile(esquare, plot2)
+
 
 
 def change_temp_file(timeydir):    # to cause vue to see a change

@@ -203,7 +203,10 @@
 <script>
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
+  import pltreal from '@/assets/plots/pltreal.svg'
+
   import TopWords from '@/views/dashboard/components/TopWords'
+
   var acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   var restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -214,29 +217,28 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  const path_at_base = '@/assets/plots/'
 
-  function make_timeyd ()  {
-    console.log('!!! in make_timeyd- this.$apptime: ' + this.$apptime)  
-    let pythonUrld = "http://localhost:5002/getpy?gdir=d" + this.$apptime
-    try {   this.asyncRequestPython(pythonUrld);  }
-    catch (e) { console.log(e)  }
-    console.log(`!!! done making dir`)  
-    this.$timeydirmade = true
-  }
+  var datestr = Date.now().toString().substring(7,13)
+
+  const makeDir = require('make-dir')
+  
+  (async () => {
+    const path = await makeDir('unicorn/rainbow/cake');
+    console.log(path);
+    //=> '/Users/sindresorhus/fun/unicorn/rainbow/cake'
+  })();
 
   export default {
     name: 'CreateGraph',
     components: {
       TopWords,
-      // pltreal,
-      pltreal: () => import('@/assets/plots/pltreal.svg'),
+      pltreal,
     },
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      path_at_base,
+      datestr,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -248,39 +250,9 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    // computed: {
-      // },
- 
-    watch: {
-      pltreal:  {
-        // deep: true,
-        // immediate: true,
-        handler () {
-          console.log("!!! &&&&  &&&& IN WATCH pltreal route change!!  ---------  ")
-          // this.$gcounter += 1
-          },
-      },
-    },
-    beforeCreate () {   
-    },
-    created () {
-      console.log("in created." )
-      if (this.$timeydirmade === false) {
-        this.make_timeyd()
-      }
-    },
-    mount () {
-      // this.$router.go()  // big reset
-      console.log("in mount" )
-    },
-    updated () {
-      console.log("in updated" )   
-    },
-    activated () {
-      console.log("in activated" )
+    computed: {
     },
     methods: {
-      make_timeyd,
       asyncRequestPython: function (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -295,18 +267,17 @@
           console.log(e)
         }
       },
-      // make_timey_dir: function() {
-      //     console.log('!!! in make_timey_dir- this.$apptime: ' + this.$apptime)  
-      //     let pythonUrld = "http://localhost:5002/getpy?gdir=d" + this.$apptime
-      //     try {   this.asyncRequestPython(pythonUrld);  }
-      //     catch (e) { console.log(e)  }
-      //     console.log(`!!! done making dir`)  
-      // },
       makePlot: function (a, b, c, d, e) {
-        let tn_b = 'd' + this.$apptime
-
+        let dtstr = this.datestr
+        const pyUrl = `http://localhost:5002/getpy?gdir=d${dtstr}`
+        try { 
+          this.asyncRequestPython(pyUrl)
+        }
+        catch (e) {
+          console.log(e)
+        }
         console.log("a: " + a + "b: " + b + "d: " + d)
-        const timestr = Date.now().toString().substring(5,13);
+        const filetstmp = Date.now().toString().substring(5,13);
 
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
@@ -317,16 +288,18 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-        let requestVars = aw + bw + cw + dw + ew + "&timestp=" + timestr + "&gdir=" + tn_b
+
+        let moretxt = `filetstmp&gdir=d${dtstr}`
+        let requestVars = aw + bw + cw + dw + ew + `&timestp=${moretxt}`
           // gDir is the unique directory for each session
-        let pythonUrl = "http://localhost:5002/getpy?" + requestVars
+        let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
         try {
           this.asyncRequestPython(pythonUrl); 
         }
         catch (e) {
           console.log(e)
         }
-        console.log(`!!! pythonUrl: ${pythonUrl}`) 
+        console.log(`The pythonUrl is: ${pythonUrl}`) 
       },
       resetc: function () {
         console.log("in resetc")
@@ -337,7 +310,7 @@
       //   console.log(`keepplot: timePlotPath2 is '${timePlotPath}'`)
       //   this.$store.dispatch('gPlotPATHARRAYpushAct', timePlotPath);
       //   console.log('in keepplot: pushed new val onto gPlotPATHARRAY: ' + this.$store.state.gPlotPATHARRAY)
-      },
+       },
     }
   }
 

@@ -19,7 +19,7 @@ export default new Router({
       children: [
         // Pages
         {
-          name: 'Create Graph',
+          name: 'CreateGraph',
           path: 'pages/CreateGraph',
           component: () => import('@/views/dashboard/pages/CreateGraph'),
         }, 
@@ -64,11 +64,11 @@ export default new Router({
         //   path: 'upgrade',
         //   component: () => import('@/views/dashboard/Upgrade'),
         // },
-        {
-          name: 'pltreal',
-          path: 'assets/plots/pltreal.svg',  
+        // {
+        //   name: 'pltreal',
+        //   path: 'assets/plots/pltreal.svg',  
           // component: () => import('@/assets/plots/pltreal.svg'),  
-        },
+        // },
         // {
         //   name: 'uoneplot',
         //   path: 'assets/users/uone',  
