@@ -19,18 +19,18 @@ export default new Router({
       children: [
         // Pages
         {
-          name: 'CreateGraph',
-          path: 'pages/CreateGraph',
+          name: 'Create Graph',
+          path: 'pages/creategraph',
           component: () => import('@/views/dashboard/pages/CreateGraph'),
         }, 
         {
           name: 'Saved Graphs',
-          path: 'pages/SavedGraphs',
+          path: 'pages/savedgraphs',
           component: () => import('@/views/dashboard/pages/SavedGraphs'),
         },
         {
           name: 'Tokenomics',
-          path: 'components/Tokenomics',
+          path: 'components/tokenomics',
           component: () => import('@/views/dashboard/component/Tokenomics'),
         },
         // Dashboard

@@ -31,5 +31,8 @@ new Vue({
   vuetify,
   i18n,
   iconfont: 'mdi',
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')
+
+// import configureStore from './store';
+// store: configureStore(),

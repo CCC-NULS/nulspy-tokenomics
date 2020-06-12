@@ -169,6 +169,7 @@
           raised
         >
           <pltreal
+            v-if="showtrue"
             id="pltrealid"
           />
         </v-card>
@@ -216,10 +217,9 @@
       } }
     });
 
-  var sesshen
+  var showtrue = false
 
   export default {
-    name: 'CreateGraph',
     components: {
       TopWords,
       pltreal,
@@ -228,7 +228,7 @@
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      sesshen,
+      showtrue,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -240,16 +240,20 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    computed: {
-      dtnow () {
-        return Date.now().toString()
-      }
-    },
-    Created () {  
-      this.sesshen = this.dtnow.substring(9,13);
-      console.log("sesshen: " + this.sesshen )
-    },
+
     methods: {    
+      getSessStr: function () {
+        let gsess = this.$store.state.gSessionStr
+        if (gsess.length < 1) { // nothing there
+          gsess = Date.now().toString().substring(7,13);
+          this.$store.dispatch('gSessionStrAct', gsess)
+        }
+        else {
+          gsess = this.$store.state.gSessionStr
+        }
+        this.showtrue = true
+        return gsess
+      },
       asyncRequestPython: function (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -265,8 +269,8 @@
         }
       },
       makePlot: function (a, b, c, d, e) {
-        console.log("sesshen in makePlot: " + this.sesshen)
-        let sessn = this.sesshen  // per user session
+        let sessn = this.getSessStr()
+        console.log("sessn in makePlot: " + sessn)
         console.log("a: " + a + "b: " + b + "d: " + d)
         let filetstmp = Date.now().toString().substring(5,13);
 

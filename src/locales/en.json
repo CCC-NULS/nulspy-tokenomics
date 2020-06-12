@@ -40,7 +40,7 @@
   "vforms": "Validation Forms",
   "widgets": "Widgets",
   "wizard": "Wizard",
-  "CreateGraph": "Create Graph",
-  "SavedGraphs": "Saved Graphs",
-  "Tokenomics": "Tokenomics"
+  "creategraph": "Create Graph",
+  "savedgraphs": "Saved Graphs",
+  "tokenomics": "Tokenomics"
 }

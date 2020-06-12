@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
+// var ps = createPersistedState()
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
@@ -16,6 +19,7 @@ export default new Vuex.Store({
     showme: false,
     gDirName: '',
     gDirPath: '',
+    gSessionStr: '',
 
   },
   mutations: {
@@ -52,13 +56,16 @@ export default new Vuex.Store({
     gDirPathMut(state, theval) {
       state.gDirPath = theval
     },
+    gSessionStrMut(state, theval) {
+      state.gSessionStr = theval
+    },
   },
   getters: {
     gShowPlotGet: state => state.gShowPlot,
     gTimedPlotPathGet: state => state.gTimedPlotPath,
     gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
     // gSaveOneGet: state => state.gSaveOne,
-    // sWhichPlotGet: state => state.sWhichPlot,
+    gSessionStrGet: state => state.gSessionStr,
 
   },
   actions: {  
@@ -88,7 +95,9 @@ export default new Vuex.Store({
     },
     gDirPathAct (context, theval) {
       context.commit('gDirPathMut', theval)
+    },
+    gSessionStrAct (context, theval) {
+      context.commit('gSessionStrMut', theval)
     }
   }
-
 })

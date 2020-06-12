@@ -108,19 +108,19 @@
       items: [
 
         {
-          title: 'CreateGraph',
+          title: 'creategraph',
           icon: 'mdi-chart-areaspline',
-          to: '/pages/CreateGraph',
+          to: '/pages/creategraph',
         },           
         {
-          title: 'SavedGraphs',
+          title: 'savedgraphs',
           icon: 'mdi-poll',
-          to: '/pages/SavedGraphs',
+          to: '/pages/savedgraphs',
         },
         {
-          title: 'Tokenomics',
+          title: 'tokenomics',
           icon: 'mdi-electron-framework',
-          to: '/component/Tokenomics',
+          to: '/component/tokenomics',
         },
 
         // {
