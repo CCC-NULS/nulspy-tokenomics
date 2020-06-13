@@ -62,7 +62,7 @@ def getpy():
                     "basedir": basedir}
 
         args_dict = make_names(formdict)
-        make_temp_file(basedir)
+        # make_temp_file(basedir)
         tk_obj = appsupport.AppSupport()  # make obj
         tk_obj.main(args_dict)    # execute main
         print("got this far! file should be there. ")

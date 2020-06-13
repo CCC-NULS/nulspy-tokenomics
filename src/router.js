@@ -1,13 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import store from './store'
 
 Vue.use(Router)
-
-// const plotreal = {
-//   template: '<div>User</div>'
-// }
-// const plist = store.state.gTimeNAMEonly
 
 export default new Router({
   mode: 'hash',

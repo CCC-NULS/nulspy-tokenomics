@@ -4,6 +4,21 @@ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 // var ps = createPersistedState()
+const APP_KEY = 'My Vuex App';
+// { key: APP_KEY }
+// if (module.hot) {
+//   // accept actions and mutations as hot modules
+//     module.hot.accept(['./modules'], () => {
+//       // require the updated modules
+//       // have to add .default here due to babel 6 module output
+//       import('./modules').then((newModules) => {
+//         // swap in the new actions and mutations
+//         store.hotUpdate({
+//           modules: newModules.default,
+//         });
+//       });
+//     });
+//   }
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -16,10 +31,10 @@ export default new Vuex.Store({
     gTimeNAMEonly: null,
     gTimedPlotPath: '',
     gPlotPATHARRAY: [],
-    showme: false,
+    gShowMe: false,
     gDirName: '',
     gDirPath: '',
-    gSessionStr: '',
+    gSessionStr: 'a',
 
   },
   mutations: {
@@ -47,8 +62,8 @@ export default new Vuex.Store({
     gTimeNAMEonlyMut(state, theval) {
       state.gTimeNAMEonly = theval
     },
-    showmeMut(state, theval) {
-      state.showme = theval
+    gShowMeMut(state, theval) {
+      state.gShowMe = theval
     },
     gDirNameMut(state, theval) {
       state.gDirName = theval
@@ -87,8 +102,8 @@ export default new Vuex.Store({
     gTimeNAMEonlyAct (context, theval) {
       context.commit('gTimeNAMEonlyMut', theval)
     },
-    showmeAct (context, theval) {
-      context.commit('showmeMut', theval)
+    gShowMeAct (context, theval) {
+      context.commit('gShowMeMut', theval)
     },
     gDirNameAct (context, theval) {
       context.commit('gDirNameMut', theval)

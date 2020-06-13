@@ -145,6 +145,7 @@
                   type="submit"
                   size="large"
                   color="warning"
+                  @submit.prevent
                   @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
                   submitform
@@ -169,8 +170,7 @@
           raised
         >
           <pltreal
-            v-if="showtrue"
-            id="pltrealid"
+            id="therealplot"
           />
         </v-card>
         <v-card 
@@ -244,9 +244,10 @@
     methods: {    
       getSessStr: function () {
         let gsess = this.$store.state.gSessionStr
-        if (gsess.length < 1) { // nothing there
+        if (gsess.length < 2) { // nothing there
           gsess = Date.now().toString().substring(7,13);
           this.$store.dispatch('gSessionStrAct', gsess)
+          
         }
         else {
           gsess = this.$store.state.gSessionStr
