@@ -1,0 +1,106 @@
+{
+  "_from": "vue-simple-svg@^2.0.2",
+  "_id": "vue-simple-svg@2.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-L98WJApnqX8ud3mRSXjwRHXmR0yg8oLNQk+ahrVx3qLjGmF78AOe8Yn254rnTQCFd8MFvFuDmgs35p0OI+uy0Q==",
+  "_location": "/vue-simple-svg",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "vue-simple-svg@^2.0.2",
+    "name": "vue-simple-svg",
+    "escapedName": "vue-simple-svg",
+    "rawSpec": "^2.0.2",
+    "saveSpec": null,
+    "fetchSpec": "^2.0.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/vue-simple-svg/-/vue-simple-svg-2.0.2.tgz",
+  "_shasum": "31275a52e9507599543b302b0414f4ce232c850f",
+  "_spec": "vue-simple-svg@^2.0.2",
+  "_where": "E:\\wsvue\\tokenlifevue",
+  "author": {
+    "name": "Seiya Kobayashi"
+  },
+  "bugs": {
+    "url": "https://github.com/seiyable/vue-simple-svg/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "cssom": "^0.3.2"
+  },
+  "deprecated": false,
+  "description": "A simple Vue.js plugin that allows you to use a component that loads a SVG image as an inline SVG so you can easily control its fill color from the parent component.",
+  "devDependencies": {
+    "autoprefixer": "^7.2.6",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "chalk": "^2.4.1",
+    "chromedriver": "^2.38.2",
+    "copy-webpack-plugin": "^4.5.1",
+    "cross-spawn": "^5.0.1",
+    "css-loader": "^3.2.0",
+    "eventsource-polyfill": "^0.9.6",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.11",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^2.30.1",
+    "node-notifier": "^5.2.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "ora": "^1.4.0",
+    "portfinder": "^1.0.13",
+    "postcss-import": "^11.1.0",
+    "postcss-loader": "^2.1.4",
+    "reset.css": "^2.0.2",
+    "rimraf": "^2.6.0",
+    "rollup": "^0.52.3",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-uglify": "^2.0.1",
+    "selenium-server": "^3.11.0",
+    "semver": "^5.5.0",
+    "shelljs": "^0.7.6",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^1.1.1",
+    "vue": "^2.5.16",
+    "vue-loader": "^13.7.1",
+    "vue-style-loader": "^3.1.2",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^3.11.0",
+    "webpack-bundle-analyzer": "^3.5.2",
+    "webpack-dev-server": "^2.11.5",
+    "webpack-merge": "^4.1.2"
+  },
+  "homepage": "https://github.com/seiyable/vue-simple-svg#readme",
+  "keywords": [
+    "vue svg",
+    "vuejs svg",
+    "vue.js svg",
+    "vue inline svg"
+  ],
+  "license": "MIT",
+  "main": "dist/plugin.js",
+  "name": "vue-simple-svg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seiyable/vue-simple-svg.git"
+  },
+  "scripts": {
+    "build-demo": "node demo/build/build.js",
+    "dev-demo": "webpack-dev-server --inline --progress --config demo/build/webpack.dev.conf.js",
+    "rollup": "rollup --config rollup.config.js",
+    "start": "npm run dev-demo"
+  },
+  "version": "2.0.2"
+}

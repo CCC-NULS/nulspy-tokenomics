@@ -196,16 +196,29 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-card id="testcard">
+      <simple-svg
+        :src="p2"
+        :filepath="p2"
+        width="400"
+        height="300"
+        @load="true"
+      />
+    </v-card>
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
+  import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
-  
+  // import VueSimpleSVG from '@/plugins/vue-simple-svg/plugin.js'
+  import {SimpleSVG} from 'vue-simple-svg'
+  Vue.component('simple-svg', SimpleSVG)
+
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -229,6 +242,7 @@
         class: "v_chip_small", small: true, dark: false,
       },
       showtrue,
+      p2: '@/assets/plots/p2.svg',
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -302,6 +316,7 @@
       },
       keepplot: function () {
         console.log("in keepplot")
+        
       },
     }
   }

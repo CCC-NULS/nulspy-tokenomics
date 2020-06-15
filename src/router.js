@@ -27,6 +27,10 @@ export default new Router({
           path: 'components/tokenomics',
           component: () => import('@/views/dashboard/component/Tokenomics'),
         },
+        {
+          name: 'Plots',
+          path: 'assets/plots',
+        },
         // Dashboard
         // {
         //   name: 'Dashboard',
