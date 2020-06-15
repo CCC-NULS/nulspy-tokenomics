@@ -22,8 +22,9 @@ import i18n from './i18n'
 import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
-// import VueSimpleSVG from './plugins/vue-simple-svg/plugin.js'
-// Vue.use(VueSimpleSVG)
+// import SimpleSVG from './plugins/vue-simple-svg/dist/SimpleSVG.js'
+
+// Vue.use(SimpleSVG)
 
 Vue.config.productionTip = false
 

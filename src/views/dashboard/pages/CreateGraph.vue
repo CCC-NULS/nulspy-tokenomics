@@ -197,12 +197,8 @@
       </v-col>
     </v-row>
     <v-card id="testcard">
-      <simple-svg
-        :src="p2"
-        :filepath="p2"
-        width="400"
-        height="300"
-        @load="true"
+      <tempval
+        testcard
       />
     </v-card>
   </v-container>
@@ -215,9 +211,8 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
-  // import VueSimpleSVG from '@/plugins/vue-simple-svg/plugin.js'
-  import {SimpleSVG} from 'vue-simple-svg'
-  Vue.component('simple-svg', SimpleSVG)
+  require('require-context/register')
+  var requireContext = require('require-context');
 
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
@@ -232,17 +227,29 @@
 
   var showtrue = false
 
+
+  var pbb = "pb"
+
+  function importAll (r) {
+    r.keys().forEach(r);
+  }
+
+  const tempval2 = importAll(require.context('./', true, /\.js$/));
+
+
   export default {
     components: {
       TopWords,
       pltreal,
-    },
+      tempval: require.context('../../../assets/plots', false, /\.svg$/)
+    },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
       showtrue,
-      p2: '@/assets/plots/p2.svg',
+      showMagicHat: false,
+      pbb,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -254,8 +261,27 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-
-    methods: {    
+    // computed: {
+    //   fname: function () {
+    //     var thedir = 'assets/plots'
+    //     return newanswer
+    //   }
+    // },
+    watch: {
+      // This method is triggered whenever
+      // the value of `showMagicHat` changes.
+      showMagicHat(value) {
+        // if (value) import(/* webpackChunkName: "svgicon-magic-hat" */ './components/icons/magic-hat');
+        if (value) {
+          tempval = require.context('../../../assets/plots', false, /\.svg$/)
+        }
+      },
+    },
+    methods: {  
+      svgLoaded () {
+      console.log('Inline SVG is loaded!')
+    },
+  
       getSessStr: function () {
         let gsess = this.$store.state.gSessionStr
         if (gsess.length < 2) { // nothing there
