@@ -197,6 +197,7 @@
       </v-col>
     </v-row>
     <v-card id="testcard">
+      should be here
       <pic
         testcard
       />
@@ -223,14 +224,12 @@
     });
 
   var showtrue = false;
-  var nm = 'pb'
+  var nm = 'pc'
   self = this
   const pic = (async () => { 
-            var p = (await require(`./${nm}.svg`));
+            var p = (await require(`./svgs/${nm}.svg`));
             return p
-            }) 
-            
-  var d = async () => { await require(`./${nm}.svg`) }
+            })
              
   export default {
     components: {
@@ -260,7 +259,7 @@
         try { 
           console.log('inside asyncReqSvg: ' + nm)
           ;(async () => { 
-            var icon = (await import(`./${nm}.svg`));
+            var icon = (await import(`./svgs/${nm}.svg`));
             }) ()
         }
           catch (e)
