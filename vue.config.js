@@ -19,6 +19,5 @@ module.exports = {
     }
   },
 
-  runtimeCompiler: true,
-  assetsDir: '\'/assets/\''
+  runtimeCompiler: true
 }

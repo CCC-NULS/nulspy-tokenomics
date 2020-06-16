@@ -197,11 +197,8 @@
       </v-col>
     </v-row>
     <v-card id="testcard">
-      <img
-        :src="pic"
+      <pic
         testcard
-      >
-      he
       />
     </v-card>
   </v-container>
@@ -214,11 +211,8 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
-  // require('require-context/register')  var requireContext = require('require-context');
-
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
-  
   const axiosi = axios.create({ 
     defaults: {
       headers: {
@@ -228,37 +222,21 @@
       } }
     });
 
-  var context = require.context( './assets/plots', false, /\.svg$/)
-  var myModules = {}
   var showtrue = false;
-  var myModule
-  const tempvar = context[0]
-  console.log("context[0]: " + context[0])
-
-   
-  import pic from  'newvar'
-  // console.log("newvar: " + newvar)
-
-  // context.keys().forEach(function (key) {
-  //   myModule = context(key);
-  //   myModules[key] = myModule;
-  //   // customReloadLogic(key, myModule, false);
-  //   // document.write("<br><br>");
-  //   var thisimg = context(key)
-  //   console.log("thisimg: " + thisimg.toString)
-  //   console.log("myModule: " + myModule.toString)
-  //   if (key == 1)
-  //     var tempvar = require(myModule)
-  //   // document.write("<br>  key: " + key);
-  //   // document.write("<br>  thisimg: " + thisimg.toString);
-  //   // document.write(`<br><img src="a.jpg" ></img>`)
-  // })
-
+  var nm = 'pb'
+  self = this
+  const pic = (async () => { 
+            var p = (await require(`./${nm}.svg`));
+            return p
+            }) 
+            
+  var d = async () => { await require(`./${nm}.svg`) }
+             
   export default {
     components: {
       TopWords,
       pltreal,
-      // pic,
+      pic,
     },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
@@ -277,25 +255,44 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    // computed: {
-    //   fname: function () {
-    //     var thedir = 'assets/plots'
-    //     return newanswer
-    //   }
-    // },
+    computed: {
+      mypic (nm) {
+        try { 
+          console.log('inside asyncReqSvg: ' + nm)
+          ;(async () => { 
+            var icon = (await import(`./${nm}.svg`));
+            }) ()
+        }
+          catch (e)
+              {  throw err;
+          } finally { 
+          }
+        return icon 
+      },    
+    },
     watch: {
-      // This method is triggered whenever
-      // the value of `showMagicHat` changes.
       showMagicHat(value) {
         if (value) {
           mycontext => require.context('../../../assets/plots', false, /\.svg$/)
         }
       },
     },
-    methods: {  
+    methods: {
+      asyncReqSvg2(nm) {
+        try { 
+          console.log('inside asyncReqSvg: ' + nm)
+          ;(async () => { 
+            var icon = (await import(`./${nm}.svg`));
+            }) ()
+        }
+          catch (e)
+              {  throw err;
+          } finally { 
+          return icon }
+      },    
       svgLoaded () {
         console.log('Inline SVG is loaded!')
-    },
+      },
       getSessStr() {
         let gsess = this.$store.state.gSessionStr
         if (gsess.length < 2) { // nothing there
@@ -356,6 +353,7 @@
       },
     }
   }
+
 
 // Before create
 // Created
