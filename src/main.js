@@ -22,10 +22,8 @@ import i18n from './i18n'
 import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
-// import SimpleSVG from './plugins/vue-simple-svg/dist/SimpleSVG.js'
-
-// Vue.use(SimpleSVG)
-
+import 'require-context/register'
+ 
 Vue.config.productionTip = false
 
 new Vue({
@@ -36,6 +34,3 @@ new Vue({
   iconfont: 'mdi',
   render: h => h(App)
 }).$mount('#app')
-
-// import configureStore from './store';
-// store: configureStore(),

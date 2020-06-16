@@ -197,8 +197,11 @@
       </v-col>
     </v-row>
     <v-card id="testcard">
-      <tempval
+      <img
+        :src="pic"
         testcard
+      >
+      he
       />
     </v-card>
   </v-container>
@@ -211,11 +214,11 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
-  require('require-context/register')
-  var requireContext = require('require-context');
+  // require('require-context/register')  var requireContext = require('require-context');
 
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
+  
   const axiosi = axios.create({ 
     defaults: {
       headers: {
@@ -225,23 +228,37 @@
       } }
     });
 
-  var showtrue = false
+  var context = require.context( './assets/plots', false, /\.svg$/)
+  var myModules = {}
+  var showtrue = false;
+  var myModule
+  const tempvar = context[0]
+  console.log("context[0]: " + context[0])
 
+   
+  import pic from  'newvar'
+  // console.log("newvar: " + newvar)
 
-  var pbb = "pb"
-
-  function importAll (r) {
-    r.keys().forEach(r);
-  }
-
-  const tempval2 = importAll(require.context('./', true, /\.js$/));
-
+  // context.keys().forEach(function (key) {
+  //   myModule = context(key);
+  //   myModules[key] = myModule;
+  //   // customReloadLogic(key, myModule, false);
+  //   // document.write("<br><br>");
+  //   var thisimg = context(key)
+  //   console.log("thisimg: " + thisimg.toString)
+  //   console.log("myModule: " + myModule.toString)
+  //   if (key == 1)
+  //     var tempvar = require(myModule)
+  //   // document.write("<br>  key: " + key);
+  //   // document.write("<br>  thisimg: " + thisimg.toString);
+  //   // document.write(`<br><img src="a.jpg" ></img>`)
+  // })
 
   export default {
     components: {
       TopWords,
       pltreal,
-      tempval: require.context('../../../assets/plots', false, /\.svg$/)
+      // pic,
     },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
@@ -249,7 +266,6 @@
       },
       showtrue,
       showMagicHat: false,
-      pbb,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -271,23 +287,20 @@
       // This method is triggered whenever
       // the value of `showMagicHat` changes.
       showMagicHat(value) {
-        // if (value) import(/* webpackChunkName: "svgicon-magic-hat" */ './components/icons/magic-hat');
         if (value) {
-          tempval = require.context('../../../assets/plots', false, /\.svg$/)
+          mycontext => require.context('../../../assets/plots', false, /\.svg$/)
         }
       },
     },
     methods: {  
       svgLoaded () {
-      console.log('Inline SVG is loaded!')
+        console.log('Inline SVG is loaded!')
     },
-  
-      getSessStr: function () {
+      getSessStr() {
         let gsess = this.$store.state.gSessionStr
         if (gsess.length < 2) { // nothing there
           gsess = Date.now().toString().substring(7,13);
           this.$store.dispatch('gSessionStrAct', gsess)
-          
         }
         else {
           gsess = this.$store.state.gSessionStr
@@ -295,7 +308,7 @@
         this.showtrue = true
         return gsess
       },
-      asyncRequestPython: function (baseurl) {
+      asyncRequestPython (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
           ;(async () => {
@@ -309,12 +322,11 @@
           console.log(e)
         }
       },
-      makePlot: function (a, b, c, d, e) {
+      makePlot (a, b, c, d, e) {
         let sessn = this.getSessStr()
         console.log("sessn in makePlot: " + sessn)
         console.log("a: " + a + "b: " + b + "d: " + d)
         let filetstmp = Date.now().toString().substring(5,13);
-
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -324,7 +336,6 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-
         let longstmp = sessn + filetstmp
         let requestVars = aw + bw + cw + dw + ew + `&timestp=${longstmp}`
           // gDir is the unique directory for each session
@@ -337,12 +348,11 @@
         }
         console.log(`The pythonUrl is: ${pythonUrl}`) 
       },
-      resetc: function () {
+      resetc () {
         console.log("in resetc")
       },
-      keepplot: function () {
+      keepplot () {
         console.log("in keepplot")
-        
       },
     }
   }
