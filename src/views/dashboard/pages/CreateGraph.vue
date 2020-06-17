@@ -169,8 +169,8 @@
           elevation-24
           raised
         >
-          <pltreal
-            id="therealplot"
+          <plotreal
+            :key="upplot" 
           />
         </v-card>
         <v-card 
@@ -196,15 +196,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-card 
-      id="testcard" 
-    >
-      testcard
-    </v-card>
-    <pic 
-      :key="pickey"
-      testcard
-    />
   </v-container>
 </template>
 
@@ -214,8 +205,8 @@
   import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
-  import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
+  import store from '../../../store'
 
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
@@ -228,34 +219,27 @@
       } }
     });
 
-
-  var showtrue = true
-  var pa = 'pa'
-  var pr = 'pr'
-
-  var nm = pr  // green square  // false
-  if (showtrue)
-    nm = pa  // chart  //true
-  var sdate = Vue.prototype.$sdate
-  console.log("val of $sdate: " + sdate)
-
-  // console.log("val of $config.sessiondate: " + $sessiondate)
+  var running = false
+  var nm = ''
+  if (running)
+    nm = store.state.gSessionStr
+  console.log("val of filename is: " + nm)
+  var pn = `plot${nm}.svg`
+  // var pname = '../../../assets/plots/' + pn
+  //var pname = './src/assets/plots/' + pn
+  var pname = './plots/plot.svg'
 
   export default {
     name: "CreateGraph",
     components: {
       TopWords,
-      pltreal,
-      pic: () => import(`./svgs/${nm}.svg`),
+      plotreal: () => import(pname),
     },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
-      showtrue,
-      nm,
-      sdate,
-      pickey: 0,
+      upplot: 0,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -268,7 +252,7 @@
       disinflation: ["3", "4", "5"],
     }),
     methods: {
-      async wrapperFunc(baseurl) {
+      async wrapperFunc (baseurl) {
           try {
               let r1 = axiosi({ url: baseurl, method: "get" })
               return `axios done`;     // this will be the resolved value of the returned promise
@@ -280,31 +264,16 @@
       asyncRequestPython (baseur) {
         this.wrapperFunc(baseur).then(result => {
           console.log("now done")
+          this.upplot += 1
+          this.running = true
         }).catch(err => {
           console.log(e);
         });
       },
-      // asyncRequestPythonOld (baseurl) {
-      //   try { 
-      //     console.log('inside asyncRequestPython: ' + baseurl)
-      //     ;(async () => {
-      //       let response = await axiosi({
-      //         url: baseurl,
-      //         method: "get",
-      //         })
-      //       })()
-      //   }
-      //   catch (e) {
-      //     console.log(e)
-      //   }
-      // },
-
       makePlot (a, b, c, d, e) {
-        let sessn = this.sdate
-        console.log("sessn in makePlot: " + sessn)
+        let tdate = this.store.state.gSessionStr
+        console.log("tdate in makePlot: " + tdate)
         console.log("a: " + a + "b: " + b + "d: " + d)
-        let x = Number(sessn) * 31 / 25
-        let filetstmp = x.toString().substring(9,13);
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -314,8 +283,7 @@
         let bw = "&anninf=5000000" 
         let cw = "&startinf=24" 
         let dw = "&stopinf=210000000" 
-        let longstmp = sessn + filetstmp
-        let requestVars = aw + bw + cw + dw + ew + `&timestp=${longstmp}`
+        let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
           // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
         try {

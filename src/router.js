@@ -30,8 +30,7 @@ export default new Router({
         {
           name: 'TimedFile',
           path: 'assets/plots',
-          fname: "plot" + Vue.prototype.$sdate,
-          component: () => import('@/assets/plots/' + fname),
+          component: () => import('@/assets/plots/plotnone'),
         },
         // Dashboard
         // {

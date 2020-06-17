@@ -66,7 +66,7 @@ def getpy():
         tk_obj.main(args_dict)    # execute main
         print("got this far! file should be there. ")
         timefilepth = make_temp_file(basedir, args_dict.get('timestp'))
-        sleep(.3)
+        sleep(5)
         file_there = chk_for_file(timefilepth)
         print("got this far! file should be there: " + str(file_there))
         return '200 OK'
@@ -102,20 +102,20 @@ def make_names(args_dict):
     timestamp = args_dict.get("timestp")
     basedir = args_dict.get("basedir")
 
-    plot_name_generic = "pltreal.svg"
+    # plot_name_generic = "pltreal.svg"
     plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
     file_time_stmp = "temp" + timestamp + ".txt"  # the rest are saved as jpgs with timestamps
 
-    plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
+    # plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
     plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp
     plotpath_tfile = os.path.join(basedir, file_time_stmp)  # t for timestamp - names have timestamp
 
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
-    plotpath_generic_norm = os.path.normpath(plotpath_generic)
+    # plotpath_generic_norm = os.path.normpath(plotpath_generic)
     plotpath_tfile_norm = os.path.normpath(plotpath_tfile)
 
     args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
-    args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
+    # args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
     args_dict.update({"plotpath_tfile": plotpath_tfile_norm})  # generic name, svg
     return args_dict
 

@@ -22,11 +22,7 @@ import i18n from './i18n'
 import 'material-icons'
 import 'cross-spawn'
 require('@/assets/styles/mystyle.css')
-import 'require-context/register'
-let d = Date.now().toString()
-var sessd = d.substring(7,13)
 
-Vue.prototype.$sdate =  sessd  // must have $ and be prototype
 
 Vue.config.productionTip = false
 
