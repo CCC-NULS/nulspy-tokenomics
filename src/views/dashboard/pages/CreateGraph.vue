@@ -196,22 +196,36 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-card id="testcard">
-      should be here
-      <pic
-        testcard
-      />
+    <v-card 
+      id="testcard" 
+    >
+      testcard
     </v-card>
+    <pic 
+      :key="pickey"
+      testcard
+
+    />
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
+
   import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
+  const chokidar = require('chokidar');
+  const Observer = require('@/services/observer');
+  var observer = new Observer();
+  const folder = './svgs';
+  // observer.on('file-added', log => {
+  //   console.log("file added");
+  // });
+  observer.watchFolder(folder);
+
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -223,26 +237,31 @@
       } }
     });
 
-  var showtrue = false;
-  var nm = 'pc'
-  self = this
-  const pic = (async () => { 
-            var p = (await require(`./svgs/${nm}.svg`));
-            return p
-            })
-             
+
+  var showtrue = true
+  var pa = 'pa'
+  var pr = 'pr'
+
+  var nm = pr  // green square  // false
+  if (showtrue)
+    nm = pa  // chart  //true
+
+  // console.log("val of nm: " + nm)
+
   export default {
     components: {
       TopWords,
       pltreal,
-      pic,
+      pic: () => import(`./svgs/${nm}.svg`),
     },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
         class: "v_chip_small", small: true, dark: false,
       },
       showtrue,
-      showMagicHat: false,
+      nm,
+      pickey: 0,
+      // showMagicHat: false,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -254,41 +273,19 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    computed: {
-      mypic (nm) {
-        try { 
-          console.log('inside asyncReqSvg: ' + nm)
-          ;(async () => { 
-            var icon = (await import(`./svgs/${nm}.svg`));
-            }) ()
-        }
-          catch (e)
-              {  throw err;
-          } finally { 
-          }
-        return icon 
-      },    
-    },
-    watch: {
-      showMagicHat(value) {
-        if (value) {
-          mycontext => require.context('../../../assets/plots', false, /\.svg$/)
-        }
-      },
-    },
+    // computed: {
+    //   pic(nmm) {
+    //     pict = () => import(`./svgs/${nmm}.svg`)
+    //     return pict
+    //   },    
+    // },
+    // watch: {
+    //   showMagicHat(value) {
+    //     if (value) {
+    //       mycontext => require.context('../../../assets/plots', false, /\.svg$/)
+    //     }
+    //   },  
     methods: {
-      asyncReqSvg2(nm) {
-        try { 
-          console.log('inside asyncReqSvg: ' + nm)
-          ;(async () => { 
-            var icon = (await import(`./${nm}.svg`));
-            }) ()
-        }
-          catch (e)
-              {  throw err;
-          } finally { 
-          return icon }
-      },    
       svgLoaded () {
         console.log('Inline SVG is loaded!')
       },
@@ -304,7 +301,23 @@
         this.showtrue = true
         return gsess
       },
-      asyncRequestPython (baseurl) {
+      async wrapperFunc(baseurl) {
+          try {
+              let r1 = axiosi({ url: baseurl, method: "get" })
+              return `axios done result: ${r1}`;     // this will be the resolved value of the returned promise
+          } catch(e) {
+              console.log(e);
+              throw e;      // let caller know the promise was rejected with this reason
+          }
+      },
+      asyncRequestPython (baseur) {
+        this.wrapperFunc(baseur).then(result => {
+          console.log("now really done")
+        }).catch(err => {
+          console.log(e);
+        });
+      },
+      asyncRequestPythonOld (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
           ;(async () => {
@@ -318,6 +331,7 @@
           console.log(e)
         }
       },
+
       makePlot (a, b, c, d, e) {
         let sessn = this.getSessStr()
         console.log("sessn in makePlot: " + sessn)
@@ -365,3 +379,10 @@
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
+
+  // works too:
+  // const pic = (async () => { 
+  //           var p = (await require(`./svgs/${nm}.svg`));
+  //           return p
+  //           })
+  // const pic = () => import(`./svgs/${nm}.svg`);
