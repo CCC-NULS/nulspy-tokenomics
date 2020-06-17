@@ -28,8 +28,10 @@ export default new Router({
           component: () => import('@/views/dashboard/component/Tokenomics'),
         },
         {
-          name: 'Plots',
+          name: 'TimedFile',
           path: 'assets/plots',
+          fname: "plot" + Vue.prototype.$sdate,
+          component: () => import('@/assets/plots/' + fname),
         },
         // Dashboard
         // {

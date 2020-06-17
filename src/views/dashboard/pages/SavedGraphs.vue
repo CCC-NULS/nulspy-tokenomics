@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="google-maps"
+    id="savedgraphs"
     fluid
     tag="section"
   >                
@@ -18,7 +18,7 @@
           elevation-24
           raised
         >
-          <e1plot
+          <div
             id="e1cardp"
           />
 
@@ -45,7 +45,7 @@
           elevation-24
           raised
         >
-          <e2plot
+          <div
             id="e2cardp"
             e2card
           />
@@ -149,8 +149,8 @@
   export default {
     name: "SavedGraphs",
     components: {
-      e1plot: () => import('@/assets/plots/pltreal.svg'),
-      e2plot: () => import('@/assets/plots/bluecube.svg'),
+      // e1plot: () => import('@/assets/plots/pltreal.svg'),
+      // e2plot: () => import('@/assets/plots/bluecube.svg'),
 
 
     },

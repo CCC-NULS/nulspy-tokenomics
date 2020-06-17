@@ -204,7 +204,6 @@
     <pic 
       :key="pickey"
       testcard
-
     />
   </v-container>
 </template>
@@ -217,14 +216,6 @@
   import { mapState, mapMutations, mapActions } from 'vuex'  
   import pltreal from '@/assets/plots/pltreal.svg'
   import TopWords from '@/views/dashboard/components/TopWords'
-  const chokidar = require('chokidar');
-  const Observer = require('@/services/observer');
-  var observer = new Observer();
-  const folder = './svgs';
-  // observer.on('file-added', log => {
-  //   console.log("file added");
-  // });
-  observer.watchFolder(folder);
 
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
@@ -245,10 +236,13 @@
   var nm = pr  // green square  // false
   if (showtrue)
     nm = pa  // chart  //true
+  var sdate = Vue.prototype.$sdate
+  console.log("val of $sdate: " + sdate)
 
-  // console.log("val of nm: " + nm)
+  // console.log("val of $config.sessiondate: " + $sessiondate)
 
   export default {
+    name: "CreateGraph",
     components: {
       TopWords,
       pltreal,
@@ -260,8 +254,8 @@
       },
       showtrue,
       nm,
+      sdate,
       pickey: 0,
-      // showMagicHat: false,
       vmd1: '',
       vmd2: '',
       vmd3: '',
@@ -273,38 +267,11 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
-    // computed: {
-    //   pic(nmm) {
-    //     pict = () => import(`./svgs/${nmm}.svg`)
-    //     return pict
-    //   },    
-    // },
-    // watch: {
-    //   showMagicHat(value) {
-    //     if (value) {
-    //       mycontext => require.context('../../../assets/plots', false, /\.svg$/)
-    //     }
-    //   },  
     methods: {
-      svgLoaded () {
-        console.log('Inline SVG is loaded!')
-      },
-      getSessStr() {
-        let gsess = this.$store.state.gSessionStr
-        if (gsess.length < 2) { // nothing there
-          gsess = Date.now().toString().substring(7,13);
-          this.$store.dispatch('gSessionStrAct', gsess)
-        }
-        else {
-          gsess = this.$store.state.gSessionStr
-        }
-        this.showtrue = true
-        return gsess
-      },
       async wrapperFunc(baseurl) {
           try {
               let r1 = axiosi({ url: baseurl, method: "get" })
-              return `axios done result: ${r1}`;     // this will be the resolved value of the returned promise
+              return `axios done`;     // this will be the resolved value of the returned promise
           } catch(e) {
               console.log(e);
               throw e;      // let caller know the promise was rejected with this reason
@@ -312,31 +279,32 @@
       },
       asyncRequestPython (baseur) {
         this.wrapperFunc(baseur).then(result => {
-          console.log("now really done")
+          console.log("now done")
         }).catch(err => {
           console.log(e);
         });
       },
-      asyncRequestPythonOld (baseurl) {
-        try { 
-          console.log('inside asyncRequestPython: ' + baseurl)
-          ;(async () => {
-            let response = await axiosi({
-              url: baseurl,
-              method: "get",
-              })
-            })()
-        }
-        catch (e) {
-          console.log(e)
-        }
-      },
+      // asyncRequestPythonOld (baseurl) {
+      //   try { 
+      //     console.log('inside asyncRequestPython: ' + baseurl)
+      //     ;(async () => {
+      //       let response = await axiosi({
+      //         url: baseurl,
+      //         method: "get",
+      //         })
+      //       })()
+      //   }
+      //   catch (e) {
+      //     console.log(e)
+      //   }
+      // },
 
       makePlot (a, b, c, d, e) {
-        let sessn = this.getSessStr()
+        let sessn = this.sdate
         console.log("sessn in makePlot: " + sessn)
         console.log("a: " + a + "b: " + b + "d: " + d)
-        let filetstmp = Date.now().toString().substring(5,13);
+        let x = Number(sessn) * 31 / 25
+        let filetstmp = x.toString().substring(9,13);
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
         // let dw = '&stopinf=' + d.replace(/,/g, '')

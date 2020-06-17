@@ -62,17 +62,40 @@ def getpy():
                     "basedir": basedir}
 
         args_dict = make_names(formdict)
-        # make_temp_file(basedir)
         tk_obj = appsupport.AppSupport()  # make obj
         tk_obj.main(args_dict)    # execute main
         print("got this far! file should be there. ")
+        timefilepth = make_temp_file(basedir, args_dict.get('timestp'))
+        sleep(.3)
+        file_there = chk_for_file(timefilepth)
+        print("got this far! file should be there: " + str(file_there))
         return '200 OK'
 
 
-def make_temp_file(basedir):         #  make temp file as placeholder
-    esquare = basedir + "bluecube.svg"  # empty square placeholder
-    pltreal = basedir + "pltreal.svg"
-    copyfile(esquare, pltreal)
+def chk_for_file(tfile):
+    sleep(.4)
+    while True:
+        try:
+            x = os.path.isfile(tfile)
+            if x:
+                return True
+            else:
+                sleep(.3)
+        except FileNotFoundError:
+            continue
+
+def make_temp_file(timedir, timest):         #  make temp file as placeholder
+    # esquare = basedir + "bluecube.svg"  # empty square placeholder
+    # pltreal = basedir + "pltreal.svg"
+    # copyfile(esquare, pltreal)
+    print("inside make_temp_file")
+
+    plotnonepath = timedir + "plotnone.vue"  # empty component
+    timefilepath = timedir + "plot" + timest + ".vue"
+    copyfile(plotnonepath, timefilepath)
+    print("plotnone: " + plotnonepath)
+    print("timefilepath: " + timefilepath)
+    return timefilepath
 
 
 def make_names(args_dict):
@@ -81,15 +104,19 @@ def make_names(args_dict):
 
     plot_name_generic = "pltreal.svg"
     plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
+    file_time_stmp = "temp" + timestamp + ".txt"  # the rest are saved as jpgs with timestamps
 
     plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
     plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp
+    plotpath_tfile = os.path.join(basedir, file_time_stmp)  # t for timestamp - names have timestamp
 
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
     plotpath_generic_norm = os.path.normpath(plotpath_generic)
+    plotpath_tfile_norm = os.path.normpath(plotpath_tfile)
 
     args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
     args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
+    args_dict.update({"plotpath_tfile": plotpath_tfile_norm})  # generic name, svg
     return args_dict
 
 
