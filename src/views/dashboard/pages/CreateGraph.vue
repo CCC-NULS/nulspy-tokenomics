@@ -217,9 +217,8 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-
+ 
   var globaldate
-  console.log("in begin. sessionStr: " + globaldate)
 
   export default {
     name: "CreateGraph",
@@ -273,9 +272,45 @@
       var sstr = this.$store.state.gSessionStr
       console.log("in mounted. sessionStr: " + sstr)
       this.globaldate = sstr
+      this.ckfile(sstr)
     },
     methods: {
-       asyncRequestPython (baseurl) {
+      ckfile () {
+        const fs = require('fs-extra');
+        const fname = `plot${timet}.svg`
+        const pathbase = "@/assets/plots/"
+        const fpath = `${pathbase}${fname}`
+        fs.access(fpath, fs.F_OK, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+            }
+          console.log("file is there")
+          });
+        },
+      
+      // fileExist(filePath) {
+      //   const fs = require('fs-extra')
+      //   console.log("inside fileExist: " + filePath)
+      //   return new Promise((resolve, reject) => {
+      //     fs.access(filePath, fs.F_OK, (err) => {
+      //       if (err) {
+      //         console.error(err)
+      //         return reject(err);
+      //       }
+      //       resolve(console.log("file is there"));
+      //     })
+      //   });
+      // },
+      // async watchpath(timet) {
+      //   const fname = `plot${timet}.svg`
+      //   const pathbase = "@/assets/plots/"
+      //   const fpath = `${pathbase}${fname}`
+      //   console.log(`inside watchpath ... watching for '${fpath}'`)
+      //   let existFlag = await this.fileExist(fpath);
+      //   console.log("inside main existFlag: " + existFlag)
+      //   },
+      asyncRequestPython (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
           ;(async () => {

@@ -66,10 +66,9 @@ def getpy():
         tk_obj.main(args_dict)    # execute main
         print("got this far! file should be there. ")
         timefilepth = make_temp_file(basedir, args_dict.get('timestp'))
-        sleep(5)
         file_there = chk_for_file(timefilepth)
         print("got this far! file should be there: " + str(file_there))
-        return '201 OK'
+        return '200 OK'
 
 
 def chk_for_file(tfile):
