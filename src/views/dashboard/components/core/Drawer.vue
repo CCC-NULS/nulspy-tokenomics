@@ -120,7 +120,7 @@
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
-          to: '/component/tokenomics',
+          to: '/pages/tokenomics',
         },
 
         // {

@@ -201,13 +201,11 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
-
   import Vue from 'vue'
   import axios from 'axios'
-  import { mapState, mapMutations, mapActions } from 'vuex'  
+  import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-  import store from '../../../store'
-
+  import Store from '@/store'
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -218,22 +216,13 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-
-  var running = false
-  var nm = ''
-  if (running)
-    nm = store.state.gSessionStr
-  console.log("val of filename is: " + nm)
-  var pn = `plot${nm}.svg`
-  // var pname = '../../../assets/plots/' + pn
-  //var pname = './src/assets/plots/' + pn
-  var pname = './plots/plot.svg'
+  self = this
 
   export default {
     name: "CreateGraph",
     components: {
       TopWords,
-      plotreal: () => import(pname),
+      plotreal: () => import("../../../assets/plots/plot.svg"),
     },    
     data: () => ({     // '' must be this to be "reactive"
       chipprops: {
@@ -251,27 +240,47 @@
       stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
       disinflation: ["3", "4", "5"],
     }),
+    computed: {
+      sessionStr: () => self.$store.getSession,
+      headerss: () => 
+        `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+          'Content-Type': 'application/json' },
+          common: { 'Access-Control-Allow-Origin':  '*'}`,
+      axiosii: () =>  axios.create({ 
+        defaults: {
+          headers: {
+            get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+            'Content-Type': 'application/json' },
+            common: { 'Access-Control-Allow-Origin':  '*'}
+          } }
+        }),
+      },
+            // session1 () {     // always use computed for store  return this.$store.state.getSession
+      // } // computed: {    ...mapState([  'areas'   ])
+   
+    mounted () {
+      var sstr = this.$store.getSession
+      console.log("in mounted. sessionStr: " + sstr)
+    },
     methods: {
       async wrapperFunc (baseurl) {
-          try {
-              let r1 = axiosi({ url: baseurl, method: "get" })
-              return `axios done`;     // this will be the resolved value of the returned promise
-          } catch(e) {
-              console.log(e);
-              throw e;      // let caller know the promise was rejected with this reason
+        let response = () => {
+          let r1 = axiosi({ url: baseurl, method: "get" })
+          return r1;     // this will be the resolved value of the returned promise
           }
       },
       asyncRequestPython (baseur) {
-        this.wrapperFunc(baseur).then(result => {
-          console.log("now done")
-          this.upplot += 1
-          this.running = true
-        }).catch(err => {
-          console.log(e);
-        });
+        try {
+          this.wrapperFunc(baseur).then(result => {
+            console.log("now done, result: " + result)
+            this.upplot += 1
+            this.running = true
+        })}
+          catch {
+            console.log(e); }      
       },
       makePlot (a, b, c, d, e) {
-        let tdate = this.store.state.gSessionStr
+        let tdate = this.sdate
         console.log("tdate in makePlot: " + tdate)
         console.log("a: " + a + "b: " + b + "d: " + d)
         // let bw = '&anninf=' + b.replace(/,/g, '')
@@ -294,6 +303,7 @@
         }
         console.log(`The pythonUrl is: ${pythonUrl}`) 
       },
+
       resetc () {
         console.log("in resetc")
       },

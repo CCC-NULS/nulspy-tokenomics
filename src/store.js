@@ -1,27 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
-// var ps = createPersistedState()
-const APP_KEY = 'My Vuex App';
-// { key: APP_KEY }
-// if (module.hot) {
-//   // accept actions and mutations as hot modules
-//     module.hot.accept(['./modules'], () => {
-//       // require the updated modules
-//       // have to add .default here due to babel 6 module output
-//       import('./modules').then((newModules) => {
-//         // swap in the new actions and mutations
-//         store.hotUpdate({
-//           modules: newModules.default,
-//         });
-//       });
-//     });
-//   }
 
 export default new Vuex.Store({
-  plugins: [createPersistedState()],
+  // plugins: [createPersistedState()],
   state: {
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
@@ -35,7 +19,6 @@ export default new Vuex.Store({
     gDirName: '',
     gDirPath: '',
     gSessionStr: 'a',
-
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -56,9 +39,6 @@ export default new Vuex.Store({
     gPlotPATHARRAYpushMut(state, theval) {
       state.gPlotPATHARRAY.push(theval)
     },
-    // gPlotPATHARRAYMutZero(state, theval) {
-    //   state.gPlotPATHARRAY[0] = theval  //replaces a val
-    // },
     gTimeNAMEonlyMut(state, theval) {
       state.gTimeNAMEonly = theval
     },
@@ -81,7 +61,8 @@ export default new Vuex.Store({
     gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
     // gSaveOneGet: state => state.gSaveOne,
     gSessionStrGet: state => state.gSessionStr,
-
+    getSession: state =>  state.gSessionStr
+    
   },
   actions: {  
     gCounterAct (context, theval) {
@@ -96,9 +77,6 @@ export default new Vuex.Store({
     gPlotPATHARRAYpushAct (context, theval) {
       context.commit('gPlotPATHARRAYpushMut', theval)
     },
-    // gPlotPATHARRAYActZero (context, theval) {
-    //   context.commit('gPlotPATHARRAYMutZero', theval)
-    // },
     gTimeNAMEonlyAct (context, theval) {
       context.commit('gTimeNAMEonlyMut', theval)
     },

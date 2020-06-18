@@ -24,14 +24,15 @@ export default new Router({
         },
         {
           name: 'Tokenomics',
-          path: 'components/tokenomics',
-          component: () => import('@/views/dashboard/component/Tokenomics'),
+          path: 'pages/tokenomics',
+          component: () => import('@/views/dashboard/pages/Tokenomics'),
         },
-        {
-          name: 'TimedFile',
-          path: 'assets/plots',
-          component: () => import('@/assets/plots/plotnone'),
-        },
+        // {
+        //   name: 'TimedFile',
+        //   path: 'assets/plots',
+        //   component: () => import('@/assets/plots/plotnone'),
+        // },
+        
         // Dashboard
         // {
         //   name: 'Dashboard',
@@ -44,13 +45,6 @@ export default new Router({
         //   path: 'tables/regular-tables',
         //   component: () => import('@/views/dashboard/tables/RegularTables'),
         // },
-        // Maps
-        // {
-        //   name: 'View Maps',
-        //   path: 'maps/google-maps',
-        //   component: () => import('@/views/dashboard/maps/GoogleMaps'),
-        // },
- 
         // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
         // {
         //   name: 'Profile Card',
@@ -62,16 +56,6 @@ export default new Router({
         //   name: 'Upgrade',
         //   path: 'upgrade',
         //   component: () => import('@/views/dashboard/Upgrade'),
-        // },
-        // {
-        //   name: 'pltreal',
-        //   path: 'assets/plots/pltreal.svg',  
-          // component: () => import('@/assets/plots/pltreal.svg'),  
-        // },
-        // {
-        //   name: 'uoneplot',
-        //   path: 'assets/users/uone',  
-        //   component: () => import('@/assets/users/uone/e1.svg'),  
         // },
       ],
     },

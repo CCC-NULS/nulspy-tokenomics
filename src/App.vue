@@ -4,12 +4,12 @@
 
 <script>
   import store from './store'
+
   let d = Date.now().toString()
-  var sdate = d.substring(7,13)
+  var adate = d.substring(7,13)
 
-  store.dispatch('gSessionStrAct', sdate)
-
-
+  store.dispatch('gSessionStrAct', adate)
+  
   export default {
     name: 'App',
   }
