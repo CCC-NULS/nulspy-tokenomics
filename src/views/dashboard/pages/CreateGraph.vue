@@ -201,6 +201,7 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
+  // beware: arrow functions cause problems with 'this' 
   import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'  
@@ -216,7 +217,9 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  self = this
+
+  var globaldate
+  console.log("in begin. sessionStr: " + globaldate)
 
   export default {
     name: "CreateGraph",
@@ -224,63 +227,70 @@
       TopWords,
       plotreal: () => import("../../../assets/plots/plot.svg"),
     },    
-    data: () => ({     // '' must be this to be "reactive"
-      chipprops: {
-        class: "v_chip_small", small: true, dark: false,
-      },
-      upplot: 0,
-      vmd1: '',
-      vmd2: '',
-      vmd3: '',
-      vmd4: '',
-      vmd5: '',
-      initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
-      aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
-      inflatervals: ["12", "18", "24", "36", "48"],
-      stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-      disinflation: ["3", "4", "5"],
-    }),
+    data () {
+      return {     // '' must be this to be "reactive"
+        chipprops: {
+          class: "v_chip_small", small: true, dark: false,
+          },
+        upplot: 0,
+        vmd1: '',
+        vmd2: '',
+        vmd3: '',
+        vmd4: '',
+        vmd5: '',
+        initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
+        aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
+        inflatervals: ["12", "18", "24", "36", "48"],
+        stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
+        disinflation: ["3", "4", "5"],
+      }},
+
     computed: {
-      sessionStr: () => self.$store.getSession,
-      headerss: () => 
-        `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-          'Content-Type': 'application/json' },
-          common: { 'Access-Control-Allow-Origin':  '*'}`,
-      axiosii: () =>  axios.create({ 
-        defaults: {
-          headers: {
-            get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-            'Content-Type': 'application/json' },
-            common: { 'Access-Control-Allow-Origin':  '*'}
-          } }
-        }),
+      sessionStr () {
+        var sstring = this.$store.state.gSessionStr
+        return sstring
       },
-            // session1 () {     // always use computed for store  return this.$store.state.getSession
-      // } // computed: {    ...mapState([  'areas'   ])
-   
+      // headerss () {
+      //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+      //     'Content-Type': 'application/json' },
+      //     common: { 'Access-Control-Allow-Origin':  '*'}`
+      //   return headr
+      // },
+      // axiosii () {
+      //  var axi = axios.create({ 
+      //   defaults: {
+      //     headers: {
+      //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+      //       'Content-Type': 'application/json' },
+      //       common: { 'Access-Control-Allow-Origin':  '*'}
+      //     } }
+      //   })
+      //   return axi
+      // },
+    },
+  
     mounted () {
-      var sstr = this.$store.getSession
+      var sstr = this.$store.state.gSessionStr
       console.log("in mounted. sessionStr: " + sstr)
+      this.globaldate = sstr
     },
     methods: {
-      async wrapperFunc (baseurl) {
-        let response = () => {
-          let r1 = axiosi({ url: baseurl, method: "get" })
-          return r1;     // this will be the resolved value of the returned promise
-          }
-      },
-      asyncRequestPython (baseur) {
-        try {
-          this.wrapperFunc(baseur).then(result => {
-            console.log("now done, result: " + result)
-            this.upplot += 1
-            this.running = true
-        })}
-          catch {
-            console.log(e); }      
+       asyncRequestPython (baseurl) {
+        try { 
+          console.log('inside asyncRequestPython: ' + baseurl)
+          ;(async () => {
+            let response = await axiosi({
+              url: baseurl,
+              method: "get",
+              })
+            })()
+        }
+        catch (e) {
+          console.log(e)
+        }
       },
       makePlot (a, b, c, d, e) {
-        let tdate = this.sdate
+        let tdate = this.globaldate
         console.log("tdate in makePlot: " + tdate)
         console.log("a: " + a + "b: " + b + "d: " + d)
         // let bw = '&anninf=' + b.replace(/,/g, '')

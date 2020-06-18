@@ -60,9 +60,12 @@ export default new Vuex.Store({
     gTimedPlotPathGet: state => state.gTimedPlotPath,
     gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
     // gSaveOneGet: state => state.gSaveOne,
-    gSessionStrGet: state => state.gSessionStr,
-    getSession: state =>  state.gSessionStr
-    
+    gSessionStrGet () {
+      return state.gSessionStr
+    },
+    getSession () {
+      return state.gSessionStr
+    }
   },
   actions: {  
     gCounterAct (context, theval) {
