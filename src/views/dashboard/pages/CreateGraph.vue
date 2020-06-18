@@ -206,13 +206,12 @@
   import axios from 'axios'
   import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
-  import Store from '@/store'
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
     defaults: {
       headers: {
-        get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+        post: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
          'Content-Type': 'application/json' },
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
@@ -242,13 +241,78 @@
         inflatervals: ["12", "18", "24", "36", "48"],
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
         disinflation: ["3", "4", "5"],
-      }},
-
+      }
+    },
     computed: {
-      sessionStr () {
-        var sstring = this.$store.state.gSessionStr
-        return sstring
+      retdate () {
+        return this.$store.state.gSessionStr
       },
+    },
+    mounted () {
+      var sstr = this.$store.state.gSessionStr
+      console.log("in mounted. sessionStr: " + sstr)
+      this.globaldate = sstr
+    },
+    methods: {
+      makePlot() {
+        let todayd = this.retdate
+        this.setupPost(todayd)
+      },
+      setupPost(todayd) {
+        const params = {
+          initsup: 100000000,  
+          anninf: 5000000, 
+          startinf: 24,
+          stopinf: 210000000,
+          disinf: 4,
+          tdate: todayd
+          }
+        const baseurl = 'http://localhost:5002/getpy'
+        // let res = await axios.post(baseurl, params);
+        this.requestPost(baseurl, params)
+        // console.log(res.data);
+      },
+      requestPost (baseurl, tparams) {
+        try { 
+          ;(async () => {
+            let response = await axiosi({
+              url: baseurl,
+              method: "post",  // post or get
+              params: tparams
+              })
+            })()
+        }
+        catch (e) {
+          console.log(e)
+        }
+      },
+      resetc () {
+        console.log("in resetc")
+      },
+      keepplot () {
+        console.log("in keepplot")
+      },
+    }
+  }
+
+// Before create
+// Created
+// Before mount
+// Mounted
+// Before update
+// Updated
+// Before destroy
+// Destroyed
+
+
+
+
+  // works too:
+  // const pic = (async () => { 
+  //           var p = (await require(`./svgs/${nm}.svg`));
+  //           return p
+  //           })
+  // const pic = () => import(`./svgs/${nm}.svg`);
       // headerss () {
       //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
       //     'Content-Type': 'application/json' },
@@ -266,28 +330,33 @@
       //   })
       //   return axi
       // },
-    },
-  
-    mounted () {
-      var sstr = this.$store.state.gSessionStr
-      console.log("in mounted. sessionStr: " + sstr)
-      this.globaldate = sstr
-      this.ckfile(sstr)
-    },
-    methods: {
-      ckfile () {
-        const fs = require('fs-extra');
-        const fname = `plot${timet}.svg`
-        const pathbase = "@/assets/plots/"
-        const fpath = `${pathbase}${fname}`
-        fs.access(fpath, fs.F_OK, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-            }
-          console.log("file is there")
-          });
-        },
+
+            // makePlot (a, b, c, d, e) {
+      //   let tdate = this.globaldate
+      //   console.log("tdate in makePlot: " + tdate)
+      //   console.log("a: " + a + "b: " + b + "d: " + d)
+      //   // let bw = '&anninf=' + b.replace(/,/g, '')
+      //   // let cw = '&startinf=' + c
+      //   // let dw = '&stopinf=' + d.replace(/,/g, '')
+      //   let ew = '&disinf=' + e
+      //   // need to remove comma's twice from a, b, d
+      //   let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
+      //   let bw = "&anninf=5000000" 
+      //   let cw = "&startinf=24" 
+      //   let dw = "&stopinf=210000000" 
+      //   let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
+      //     // gDir is the unique directory for each session
+      //   let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
+      //   try {
+      //     makePostRequest
+      //     this.asyncRequestPython(pythonUrl, "get"); 
+      //   }
+      //   catch (e) {
+      //     console.log(e)
+      //   }
+      //   console.log(`The pythonUrl is: ${pythonUrl}`) 
+      // },
+
       
       // fileExist(filePath) {
       //   const fs = require('fs-extra')
@@ -310,70 +379,8 @@
       //   let existFlag = await this.fileExist(fpath);
       //   console.log("inside main existFlag: " + existFlag)
       //   },
-      asyncRequestPython (baseurl) {
-        try { 
-          console.log('inside asyncRequestPython: ' + baseurl)
-          ;(async () => {
-            let response = await axiosi({
-              url: baseurl,
-              method: "get",
-              })
-            })()
-        }
-        catch (e) {
-          console.log(e)
-        }
-      },
-      makePlot (a, b, c, d, e) {
-        let tdate = this.globaldate
-        console.log("tdate in makePlot: " + tdate)
-        console.log("a: " + a + "b: " + b + "d: " + d)
-        // let bw = '&anninf=' + b.replace(/,/g, '')
-        // let cw = '&startinf=' + c
-        // let dw = '&stopinf=' + d.replace(/,/g, '')
-        let ew = '&disinf=' + e
-        // need to remove comma's twice from a, b, d
-        let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
-        let bw = "&anninf=5000000" 
-        let cw = "&startinf=24" 
-        let dw = "&stopinf=210000000" 
-        let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
-          // gDir is the unique directory for each session
-        let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
-        try {
-          this.asyncRequestPython(pythonUrl); 
-        }
-        catch (e) {
-          console.log(e)
-        }
-        console.log(`The pythonUrl is: ${pythonUrl}`) 
-      },
-
-      resetc () {
-        console.log("in resetc")
-      },
-      keepplot () {
-        console.log("in keepplot")
-      },
-    }
-  }
 
 
-// Before create
-// Created
-// Before mount
-// Mounted
-// Before update
-// Updated
-// Before destroy
-// Destroyed
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
-
-  // works too:
-  // const pic = (async () => { 
-  //           var p = (await require(`./svgs/${nm}.svg`));
-  //           return p
-  //           })
-  // const pic = () => import(`./svgs/${nm}.svg`);

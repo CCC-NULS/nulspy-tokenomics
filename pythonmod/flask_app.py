@@ -38,8 +38,8 @@ def index():
 @application.route('/getpy', methods=["GET", "POST", "UPDATE", "HEAD"])
 def getpy():
     basedir = None
-    # if request.method == 'POST':
-    #     print('Incoming POST')
+    if request.method == 'POST':
+        print('Incoming POST')
 
     # GET request
     if request.method == 'GET':
@@ -58,7 +58,7 @@ def getpy():
                     "start_inflation": formdata.get('startinf'),
                     "stop_inflation_y": formdata.get('stopinf'),
                     "disinflation_ratio": formdata.get('disinf'),
-                    "timestp": formdata.get('timestp'),
+                    "timestp": formdata.get('tdate'),
                     "basedir": basedir}
 
         args_dict = make_names(formdict)
