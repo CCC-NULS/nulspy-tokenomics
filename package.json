@@ -25,6 +25,7 @@
     "browser-resolve": "^1.11.3",
     "buffer-xor": "^2.0.2",
     "cache-loader": "^4.1.0",
+    "chokidar": "^3.4.0",
     "core-js": "^3.6.2",
     "cross-spawn": "6.0.5",
     "css": "^2.2.4",

@@ -219,12 +219,20 @@
     });
  
   var globaldate
+  var fpath
+  var plotreal
+  var teatime = ''
+  const pathbase = "@/assets/plots/"        
+
+  var juststarting = 0
+
+  // var plotreal = () => import(`../../../assets/plots/plot${teatime}.svg`)
 
   export default {
     name: "CreateGraph",
     components: {
       TopWords,
-      plotreal: () => import("../../../assets/plots/plot.svg"),
+      plotreal: import(this.filenamec()),
     },    
     data () {
       return {     // '' must be this to be "reactive"
@@ -233,6 +241,7 @@
           },
         upplot: 0,
         vmd1: '',
+        teatime,
         vmd2: '',
         vmd3: '',
         vmd4: '',
@@ -245,71 +254,40 @@
       }},
 
     computed: {
-      sessionStr () {
-        var sstring = this.$store.state.gSessionStr
-        return sstring
-      },
-      // headerss () {
-      //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //     'Content-Type': 'application/json' },
-      //     common: { 'Access-Control-Allow-Origin':  '*'}`
-      //   return headr
-      // },
-      // axiosii () {
-      //  var axi = axios.create({ 
-      //   defaults: {
-      //     headers: {
-      //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //       'Content-Type': 'application/json' },
-      //       common: { 'Access-Control-Allow-Origin':  '*'}
-      //     } }
-      //   })
-      //   return axi
-      // },
+      filenamec () {
+        var sstrg = this.$store.state.gSessionStr;
+        if (this.juststarting == 0) {
+          sstrg = ''
+        }
+        return `${this.pathbase}plot${sstrg}.svg`      
+        }
     },
-  
     mounted () {
-      var sstr = this.$store.state.gSessionStr
-      console.log("in mounted. sessionStr: " + sstr)
-      this.globaldate = sstr
-      this.ckfile(sstr)
+      this.globaldate = this.$store.state.gSessionStr
+      console.log("in mounted. this.globaldate: " + this.globaldate)
+      this.juststarting = 0
     },
     methods: {
-      ckfile () {
-        const fs = require('fs-extra');
-        const fname = `plot${timet}.svg`
-        const pathbase = "@/assets/plots/"
-        const fpath = `${pathbase}${fname}`
-        fs.access(fpath, fs.F_OK, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-            }
-          console.log("file is there")
-          });
-        },
-      
-      // fileExist(filePath) {
-      //   const fs = require('fs-extra')
-      //   console.log("inside fileExist: " + filePath)
-      //   return new Promise((resolve, reject) => {
-      //     fs.access(filePath, fs.F_OK, (err) => {
-      //       if (err) {
-      //         console.error(err)
-      //         return reject(err);
-      //       }
-      //       resolve(console.log("file is there"));
-      //     })
-      //   });
-      // },
-      // async watchpath(timet) {
-      //   const fname = `plot${timet}.svg`
+      // setTimeout(function(){ alert("waiting"); }, 2000);
+      // ckfile () {
+      //   const fname = `plot${this.globaldate}.svg`
       //   const pathbase = "@/assets/plots/"
-      //   const fpath = `${pathbase}${fname}`
-      //   console.log(`inside watchpath ... watching for '${fpath}'`)
-      //   let existFlag = await this.fileExist(fpath);
-      //   console.log("inside main existFlag: " + existFlag)
-      //   },
+      //   this.fpath = `${pathbase}${fname}`      
+      //   this.teatime = this.globaldate
+      //   console.log("!!! -- in ckfile. this.teatime: " + this.teatime)
+      //   return this.fpath
+
+      //   // setInterval(
+      //   //   function () { 
+      //   //     try {              
+      //   //       this.upplot += 1;
+      //   //   } catch (e) 
+      //   //   { console.log("continue")
+      //   //     // continue  
+      //   //   }
+      //   //   },
+      //   //    1000 )
+      // },
       asyncRequestPython (baseurl) {
         try { 
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -340,13 +318,16 @@
         let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
           // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
+        this.juststarting =+ 1
+        this.ckfile()
+
         try {
           this.asyncRequestPython(pythonUrl); 
         }
         catch (e) {
           console.log(e)
         }
-        console.log(`The pythonUrl is: ${pythonUrl}`) 
+        console.log(`The pythonUrl is: ${pythonUrl}`)
       },
 
       resetc () {
@@ -371,9 +352,47 @@
 <style src="@/assets/styles/mystyle.css">
 </style>
 
+      // fileExist(filePath) {
+      //   const fs = require('fs-extra')
+      //   console.log("inside fileExist: " + filePath)
+      //   return new Promise((resolve, reject) => {
+      //     fs.access(filePath, fs.F_OK, (err) => {
+      //       if (err) {
+      //         console.error(err)
+      //         return reject(err);
+      //       }
+      //       resolve(console.log("file is there"));
+      //     })
+      //   });
+      // },
+      // async watchpath(timet) {
+      //   const fname = `plot${timet}.svg`
+      //   const pathbase = "@/assets/plots/"
+      //   const fpath = `${pathbase}${fname}`
+      //   console.log(`inside watchpath ... watching for '${fpath}'`)
+      //   let existFlag = await this.fileExist(fpath);
+      //   console.log("inside main existFlag: " + existFlag)
+      //   },
   // works too:
   // const pic = (async () => { 
   //           var p = (await require(`./svgs/${nm}.svg`));
   //           return p
   //           })
   // const pic = () => import(`./svgs/${nm}.svg`);
+      // headerss () {
+      //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+      //     'Content-Type': 'application/json' },
+      //     common: { 'Access-Control-Allow-Origin':  '*'}`
+      //   return headr
+      // },
+      // axiosii () {
+      //  var axi = axios.create({ 
+      //   defaults: {
+      //     headers: {
+      //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
+      //       'Content-Type': 'application/json' },
+      //       common: { 'Access-Control-Allow-Origin':  '*'}
+      //     } }
+      //   })
+      //   return axi
+      // },
