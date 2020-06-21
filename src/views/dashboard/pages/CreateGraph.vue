@@ -163,15 +163,15 @@
         md="11"
       >
         <v-card
+          v-show="showme"
           id="plotcard"
+          :key="upplot" 
           class="padplot"
           pl-2
           elevation-24
           raised
         >
-          <plotreal
-            :key="upplot" 
-          />
+          <plotreal />
         </v-card>
         <v-card 
           id="buttoncard"
@@ -196,6 +196,18 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-card 
+        id="bcard"
+        :key="upplot"
+      >
+        <custom-component 
+          v-for="(item, index) in reqComponent" 
+          :key="index"
+          bcard
+        /> 
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
@@ -207,6 +219,10 @@
   import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'  
   import TopWords from '@/views/dashboard/components/TopWords'
   import Store from '@/store'
+  require("require-context")
+  import upperFirst from 'lodash/upperFirst'
+  import camelCase from 'lodash/camelCase'
+
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
   const axiosi = axios.create({ 
@@ -217,31 +233,59 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
- 
+  let d = Date.now().toString()
+  var gg = d.substring(7,13)
+
+  function bigim2 () {
+    const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
+    console.log("len: " + reqComponent.length)
+    var fileName = ''
+    reqComponent.keys().forEach(
+      fileName => {
+        const compConfig = reqComponent(fileName).default
+        console.log("in bigimp: filename: " + fileName)
+        const compName = upperFirst(
+        camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
+      )
+      console.log("in bigimp: compName: " + compName)
+      Vue.component(`Plot${compName}`, compConfig.default || compConfig)
+    })
+  }
+  var reqComponent = ''
+  function bigim () {
+    this.reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
+    return reqComponent
+    }
+
+
+
   var globaldate
   var fpath
-  var plotreal
-  var teatime = ''
-  const pathbase = "@/assets/plots/"        
-
+  var sstrg = '';
   var juststarting = 0
+  var filenamecc = '@assets/svgs/plot.svg'
+  var bluecube = './plots/bluecube.svg'
+  var greencube = './plots/green.svg'
+  var showme = false
+  var g = 'green'
+  var upplot = 0
 
-  // var plotreal = () => import(`../../../assets/plots/plot${teatime}.svg`)
-
+  var plotreal = () => import('@/assets/plots/plot.svg')
   export default {
     name: "CreateGraph",
     components: {
       TopWords,
-      plotreal: import(this.filenamec()),
+      plotreal,
+      // v: () => require.context(`./plots/${gg}.svg`)
     },    
-    data () {
-      return {     // '' must be this to be "reactive"
+    data: () => ({
         chipprops: {
           class: "v_chip_small", small: true, dark: false,
           },
-        upplot: 0,
+        upplot,
+        showme,
+        reqComponent,
         vmd1: '',
-        teatime,
         vmd2: '',
         vmd3: '',
         vmd4: '',
@@ -250,43 +294,51 @@
         aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
         inflatervals: ["12", "18", "24", "36", "48"],
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-        disinflation: ["3", "4", "5"],
-      }},
-
+        disinflation: ["3", "4", "5"]
+    }),
     computed: {
-      filenamec () {
-        var sstrg = this.$store.state.gSessionStr;
-        if (this.juststarting == 0) {
-          sstrg = ''
-        }
-        return `${this.pathbase}plot${sstrg}.svg`      
-        }
+      tdate () { 
+        var v = this.$store.state.gSessionStr 
+        return v
+      }
+
     },
+    watch: {
+        plotreal(newVal, oldVal) {
+          console.log(`plotreal changed: ${newVal}`);
+        },
+        // this.showme(newVal, oldVal){
+        //   console.log(`showme changed: ${newVal}`);
+        // },
+      },
+      // computed: {
+      //   filenamec () {
+      //     var sstrg = this.$store.state.gSessionStr;
+      //     if (this.juststarting == 0) {
+      //       sstrg = ''
+      //     }
+      //     return `../../../assets/plots/plot${sstrg}.svg`      
+      //     }
+      // },
     mounted () {
       this.globaldate = this.$store.state.gSessionStr
       console.log("in mounted. this.globaldate: " + this.globaldate)
       this.juststarting = 0
     },
     methods: {
-      // setTimeout(function(){ alert("waiting"); }, 2000);
-      // ckfile () {
-      //   const fname = `plot${this.globaldate}.svg`
-      //   const pathbase = "@/assets/plots/"
-      //   this.fpath = `${pathbase}${fname}`      
-      //   this.teatime = this.globaldate
-      //   console.log("!!! -- in ckfile. this.teatime: " + this.teatime)
-      //   return this.fpath
-
-      //   // setInterval(
-      //   //   function () { 
-      //   //     try {              
-      //   //       this.upplot += 1;
-      //   //   } catch (e) 
-      //   //   { console.log("continue")
-      //   //     // continue  
-      //   //   }
-      //   //   },
-      //   //    1000 )
+      bigim,
+      // bigimp () {
+      //   const reqComponent = require.context('@/assets/plots', true, /\.svg$/, )
+      //   var fileName
+      //   reqComponent.keys().forEach(fileName => {
+      //     const compConfig = reqComponent(fileName)
+      //     console.log("in bigimp: filename: " + filename)
+      //     const compName = upperFirst(
+      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
+      //     )
+      //     console.log("in bigimp: compName: " + compName)
+      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
+      //   })
       // },
       asyncRequestPython (baseurl) {
         try { 
@@ -319,8 +371,7 @@
           // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
         this.juststarting =+ 1
-        this.ckfile()
-
+        this.showme = true
         try {
           this.asyncRequestPython(pythonUrl); 
         }
@@ -328,6 +379,11 @@
           console.log(e)
         }
         console.log(`The pythonUrl is: ${pythonUrl}`)
+        setTimeout(function(){ 
+          console.log("waiting 3 seconds"); 
+          clearTimeout() 
+          }, 4000);
+         this.reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
       },
 
       resetc () {
@@ -352,6 +408,31 @@
 <style src="@/assets/styles/mystyle.css">
 </style>
 
+      // setTimeout(function(){ alert("waiting"); }, 2000);
+      // setTimeout(function(){ console.log("wait"); clearTimeout() }, 2000);
+
+      // clearTimeout()
+
+
+      // ckfile () {
+      //   const fname = `plot${this.globaldate}.svg`
+      //   const pathbase = "@/assets/plots/"
+      //   this.fpath = `${pathbase}${fname}`      
+      //   this.teatime = this.globaldate
+      //   console.log("!!! -- in ckfile. this.teatime: " + this.teatime)
+      //   return this.fpath
+
+      //   // setInterval(
+      //   //   function () { 
+      //   //     try {              
+      //   //       this.upplot += 1;
+      //   //   } catch (e) 
+      //   //   { console.log("continue")
+      //   //     // continue  
+      //   //   }
+      //   //   },
+      //   //    1000 )
+      // },
       // fileExist(filePath) {
       //   const fs = require('fs-extra')
       //   console.log("inside fileExist: " + filePath)

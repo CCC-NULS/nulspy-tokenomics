@@ -44,3 +44,8 @@ src/assets/extra
 
 
 src/assets/users/
+public
+ src/views/dashboard/pages/plots
+src/assets/svgs
+bluecube.svg
+green.svg

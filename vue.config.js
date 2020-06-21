@@ -14,7 +14,10 @@ module.exports = {
     },
     svgLoader: {
       svgo: {
-        plugins: []
+        plugins: [
+          {removeDoctype: true},
+          {removeComments: true}
+        ]      
       }
     }
   },
