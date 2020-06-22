@@ -58,7 +58,7 @@ def getpy():
                     "start_inflation": formdata.get('startinf'),
                     "stop_inflation_y": formdata.get('stopinf'),
                     "disinflation_ratio": formdata.get('disinf'),
-                    "timestp": formdata.get('tdate'),
+                    "timestp": str(formdata.get('tdate')),
                     "basedir": basedir}
 
         args_dict = make_names(formdict)
@@ -102,8 +102,8 @@ def make_names(args_dict):
     basedir = args_dict.get("basedir")
 
     # plot_name_generic = "pltreal.svg"
-    plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
-    file_time_stmp = "temp" + timestamp + ".txt"  # the rest are saved as jpgs with timestamps
+    plot_name_time_stmp = "plot" + str(timestamp) + ".svg"  # the rest are saved as jpgs with timestamps
+    file_time_stmp = "temp" + str(timestamp) + ".txt"  # the rest are saved as jpgs with timestamps
 
     # plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
     plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp

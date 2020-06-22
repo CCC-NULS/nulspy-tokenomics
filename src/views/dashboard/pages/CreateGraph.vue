@@ -165,7 +165,7 @@
         <v-card
           v-show="showme"
           id="plotcard"
-          :key="upplot" 
+          :key="upplot"
           class="padplot"
           pl-2
           elevation-24
@@ -173,14 +173,14 @@
         >
           <plotreal />
         </v-card>
-        <v-card 
+        <v-card
           id="buttoncard"
           color="success"
           class="padbotcard"
           elevation-24
           raised
         >
-          <v-btn 
+          <v-btn
             id="redobtn"
             @click="resetc"
           >
@@ -197,15 +197,15 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-card 
+      <v-card
         id="bcard"
         :key="upplot"
       >
-        <custom-component 
-          v-for="(item, index) in reqComponent" 
+        <custom-component
+          v-for="(item, index) in reqComponent"
           :key="index"
           bcard
-        /> 
+        />
       </v-card>
     </v-row>
   </v-container>
@@ -213,22 +213,15 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
-  // beware: arrow functions cause problems with 'this' 
+  // beware: arrow functions cause problems with 'this'
   import Vue from 'vue'
   import axios from 'axios'
-  import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'  
+  import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
-<<<<<<< HEAD
-=======
-  import Store from '@/store'
-  require("require-context")
-  import upperFirst from 'lodash/upperFirst'
-  import camelCase from 'lodash/camelCase'
-
->>>>>>> dev4
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  const restTypes = 'GET, POST, HEAD, UPDATE, PUT'  
-  const axiosi = axios.create({ 
+  const restTypes = 'GET, POST, HEAD, UPDATE, PUT'
+  var lastone = ''
+  const axiosi = axios.create({
     defaults: {
       headers: {
         post: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
@@ -237,27 +230,30 @@
       } }
     });
   let d = Date.now().toString()
-  var gg = d.substring(7,13)
 
   function bigim2 () {
-    const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
-    console.log("len: " + reqComponent.length)
+    const reqCmps = require.context('@/assets/plots', false, /\.svg$/, )
+    console.log("len: " + reqCmps.length)
     var fileName = ''
-    reqComponent.keys().forEach(
+    reqCmps.keys().forEach(
       fileName => {
-        const compConfig = reqComponent(fileName).default
-        console.log("in bigimp: filename: " + fileName)
-        const compName = upperFirst(
-        camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
-      )
-      console.log("in bigimp: compName: " + compName)
-      Vue.component(`Plot${compName}`, compConfig.default || compConfig)
-    })
+        const componentConfig = reqCmps(fileName)
+        const componentName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
+        console.log("in bigim2: filename: " + fileName + " componentName: " + componentName)
+      } )
+    // return Object.keys(map)
+    for (const [key, value] of Object.entries(reqCmps)) {
+      console.log(key, value);
+      lastone = reqCmps[1]
+      }
+      // Vue.component(`Plot${compName}`, compConfig.default || compConfig)
+
   }
-  var reqComponent = ''
-  function bigim () {
-    this.reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
-    return reqComponent
+
+  var reqComponent = function  () {
+    let reqComp = require.context('@/assets/plots', false, /\.svg$/, )
+    console.log("len: " + reqComp.length)
+    return req
     }
 
 
@@ -280,7 +276,7 @@
       TopWords,
       plotreal,
       // v: () => require.context(`./plots/${gg}.svg`)
-    },    
+    },
     data: () => ({
         chipprops: {
           class: "v_chip_small", small: true, dark: false,
@@ -297,152 +293,11 @@
         aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
         inflatervals: ["12", "18", "24", "36", "48"],
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-<<<<<<< HEAD
-        disinflation: ["3", "4", "5"],
-      }
-    },
-    computed: {
-      retdate () {
-        return this.$store.state.gSessionStr
-      },
-    },
-    mounted () {
-      var sstr = this.$store.state.gSessionStr
-      console.log("in mounted. sessionStr: " + sstr)
-      this.globaldate = sstr
-    },
-    methods: {
-      makePlot() {
-        let todayd = this.retdate
-        this.setupPost(todayd)
-      },
-      setupPost(todayd) {
-        const params = {
-          initsup: 100000000,  
-          anninf: 5000000, 
-          startinf: 24,
-          stopinf: 210000000,
-          disinf: 4,
-          tdate: todayd
-          }
-        const baseurl = 'http://localhost:5002/getpy'
-        // let res = await axios.post(baseurl, params);
-        this.requestPost(baseurl, params)
-        // console.log(res.data);
-      },
-      requestPost (baseurl, tparams) {
-        try { 
-          ;(async () => {
-            let response = await axiosi({
-              url: baseurl,
-              method: "post",  // post or get
-              params: tparams
-              })
-            })()
-        }
-        catch (e) {
-          console.log(e)
-        }
-      },
-      resetc () {
-        console.log("in resetc")
-      },
-      keepplot () {
-        console.log("in keepplot")
-      },
-    }
-  }
-
-// Before create
-// Created
-// Before mount
-// Mounted
-// Before update
-// Updated
-// Before destroy
-// Destroyed
-
-
-
-
-  // works too:
-  // const pic = (async () => { 
-  //           var p = (await require(`./svgs/${nm}.svg`));
-  //           return p
-  //           })
-  // const pic = () => import(`./svgs/${nm}.svg`);
-      // headerss () {
-      //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //     'Content-Type': 'application/json' },
-      //     common: { 'Access-Control-Allow-Origin':  '*'}`
-      //   return headr
-      // },
-      // axiosii () {
-      //  var axi = axios.create({ 
-      //   defaults: {
-      //     headers: {
-      //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //       'Content-Type': 'application/json' },
-      //       common: { 'Access-Control-Allow-Origin':  '*'}
-      //     } }
-      //   })
-      //   return axi
-      // },
-
-            // makePlot (a, b, c, d, e) {
-      //   let tdate = this.globaldate
-      //   console.log("tdate in makePlot: " + tdate)
-      //   console.log("a: " + a + "b: " + b + "d: " + d)
-      //   // let bw = '&anninf=' + b.replace(/,/g, '')
-      //   // let cw = '&startinf=' + c
-      //   // let dw = '&stopinf=' + d.replace(/,/g, '')
-      //   let ew = '&disinf=' + e
-      //   // need to remove comma's twice from a, b, d
-      //   let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
-      //   let bw = "&anninf=5000000" 
-      //   let cw = "&startinf=24" 
-      //   let dw = "&stopinf=210000000" 
-      //   let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
-      //     // gDir is the unique directory for each session
-      //   let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
-      //   try {
-      //     makePostRequest
-      //     this.asyncRequestPython(pythonUrl, "get"); 
-      //   }
-      //   catch (e) {
-      //     console.log(e)
-      //   }
-      //   console.log(`The pythonUrl is: ${pythonUrl}`) 
-      // },
-
-      
-      // fileExist(filePath) {
-      //   const fs = require('fs-extra')
-      //   console.log("inside fileExist: " + filePath)
-      //   return new Promise((resolve, reject) => {
-      //     fs.access(filePath, fs.F_OK, (err) => {
-      //       if (err) {
-      //         console.error(err)
-      //         return reject(err);
-      //       }
-      //       resolve(console.log("file is there"));
-      //     })
-      //   });
-      // },
-      // async watchpath(timet) {
-      //   const fname = `plot${timet}.svg`
-      //   const pathbase = "@/assets/plots/"
-      //   const fpath = `${pathbase}${fname}`
-      //   console.log(`inside watchpath ... watching for '${fpath}'`)
-      //   let existFlag = await this.fileExist(fpath);
-      //   console.log("inside main existFlag: " + existFlag)
-      //   },
-=======
         disinflation: ["3", "4", "5"]
     }),
     computed: {
-      tdate () { 
-        var v = this.$store.state.gSessionStr 
+      tdate () {
+        var v = this.$store.state.gSessionStr
         return v
       }
 
@@ -461,7 +316,7 @@
       //     if (this.juststarting == 0) {
       //       sstrg = ''
       //     }
-      //     return `../../../assets/plots/plot${sstrg}.svg`      
+      //     return `../../../assets/plots/plot${sstrg}.svg`
       //     }
       // },
     mounted () {
@@ -470,7 +325,7 @@
       this.juststarting = 0
     },
     methods: {
-      bigim,
+      bigim2,
       // bigimp () {
       //   const reqComponent = require.context('@/assets/plots', true, /\.svg$/, )
       //   var fileName
@@ -485,7 +340,7 @@
       //   })
       // },
       asyncRequestPython (baseurl) {
-        try { 
+        try {
           console.log('inside asyncRequestPython: ' + baseurl)
           ;(async () => {
             let response = await axiosi({
@@ -507,27 +362,27 @@
         // let dw = '&stopinf=' + d.replace(/,/g, '')
         let ew = '&disinf=' + e
         // need to remove comma's twice from a, b, d
-        let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"    
-        let bw = "&anninf=5000000" 
-        let cw = "&startinf=24" 
-        let dw = "&stopinf=210000000" 
+        let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"
+        let bw = "&anninf=5000000"
+        let cw = "&startinf=24"
+        let dw = "&stopinf=210000000"
         let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
           // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
         this.juststarting =+ 1
         this.showme = true
         try {
-          this.asyncRequestPython(pythonUrl); 
+          this.asyncRequestPython(pythonUrl);
         }
         catch (e) {
           console.log(e)
         }
         console.log(`The pythonUrl is: ${pythonUrl}`)
-        setTimeout(function(){ 
-          console.log("waiting 3 seconds"); 
-          clearTimeout() 
+        setTimeout(function(){
+          console.log("waiting 3 seconds");
+          clearTimeout()
           }, 4000);
-         this.reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
+         this.bigim2()
       },
 
       resetc () {
@@ -538,14 +393,11 @@
       },
     }
   }
->>>>>>> dev4
 
 
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
-<<<<<<< HEAD
-=======
 
       // setTimeout(function(){ alert("waiting"); }, 2000);
       // setTimeout(function(){ console.log("wait"); clearTimeout() }, 2000);
@@ -556,18 +408,18 @@
       // ckfile () {
       //   const fname = `plot${this.globaldate}.svg`
       //   const pathbase = "@/assets/plots/"
-      //   this.fpath = `${pathbase}${fname}`      
+      //   this.fpath = `${pathbase}${fname}`
       //   this.teatime = this.globaldate
       //   console.log("!!! -- in ckfile. this.teatime: " + this.teatime)
       //   return this.fpath
 
       //   // setInterval(
-      //   //   function () { 
-      //   //     try {              
+      //   //   function () {
+      //   //     try {
       //   //       this.upplot += 1;
-      //   //   } catch (e) 
+      //   //   } catch (e)
       //   //   { console.log("continue")
-      //   //     // continue  
+      //   //     // continue
       //   //   }
       //   //   },
       //   //    1000 )
@@ -594,7 +446,7 @@
       //   console.log("inside main existFlag: " + existFlag)
       //   },
   // works too:
-  // const pic = (async () => { 
+  // const pic = (async () => {
   //           var p = (await require(`./svgs/${nm}.svg`));
   //           return p
   //           })
@@ -606,7 +458,7 @@
       //   return headr
       // },
       // axiosii () {
-      //  var axi = axios.create({ 
+      //  var axi = axios.create({
       //   defaults: {
       //     headers: {
       //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
@@ -616,4 +468,3 @@
       //   })
       //   return axi
       // },
->>>>>>> dev4
