@@ -197,20 +197,19 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-card
+      <v-sheet
         id="bcard"
         :key="upplot"
       >
         temp card
-        <v-component
-          :is="option.type"
-          v-for="option in options"
-          :data="option.propsData"
+        <component
+          :is="bigobjs.filename"
+          v-for="bigobj in bigobjs"
+          :key="bigobj"
+          :data="componentName"
+          bcard
         />
-
-
-
-      </v-card>
+      </v-sheet>
     </v-row>
   </v-container>
 </template>
@@ -234,21 +233,23 @@
       } }
     });
 
+  var bigobjs
   function bigim2 () {
-    const reqCmps = require.context('@/assets/plots', false, /\.svg$/, )
-    Object.entries(reqCmps).forEach(([key, value]) => console.log(`${key}: ${value}`));
+    bigobjs = require.context('@/assets/plots', false, /\.svg$/, )
+    Object.entries(bigobjs).forEach(([key, value]) => console.log(`${key}: ${value}`));
     // console.log("len: " + reqCmps.length)
     var fileName = ''
-    reqCmps.keys().forEach(
+    bigobjs.keys().forEach(
       fileName => {
         const componentConfig = reqCmps(fileName)
         const componentName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
-        console.log("in bigim2: filename: " + fileName + " componentName: " + componentName)
+        console.log("in bigim2: componentConfig: " + componentConfig + " componentName: " + componentName)
       } )
     // return Object.keys(map)
-    for (const [key, value] of Object.entries(reqCmps)) {
+    console.log("done fixing names")
+    for (const [key, value] of Object.entries(bigobjs)) {
       console.log(key, value);
-      lastone = reqCmps[1]
+      lastone = bigobjs[1]
       }
     }
 
@@ -265,6 +266,7 @@
     components: {
       TopWords,
       plotreal,
+      bigobjs,
     },
     data: () => ({
         chipprops: {
