@@ -1,0 +1,61 @@
+.margleft {
+  margin-left:12px!important;
+}
+.margright {
+  margin-right:29px!important;
+}
+.displaynms {
+  line-height: 1.7em;
+  font-size: 22px!important;
+  padding-left: 9px!important;
+}
+.v_chip_small {
+  padding: 2px;
+  margin-bottom: 10px!important;
+  font-size: 16px!important;
+  font-weight: 300;
+  text-align: center;
+}
+.v-chip {
+  padding: 12px;
+  margin-bottom: 10px!important;
+}
+.v-chip__content {
+  font-size: 24px;
+  font-weight: 300;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+.v-chip__content_small {
+  font-size: 17px;
+  font-weight: 300;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+.v-card__title {
+  font-size: 22px;
+  font-weight: 300;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  padding-left: 22px;
+  margin-right: 22px;
+  text-align: center;
+}
+.padbotcard {
+  margin-top: 1px!important;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  display: flex;
+  justify-content: center;
+}
+.padplot {
+  margin-top: 1px!important;
+  padding-top: 1px!important;
+  padding-bottom: 1px!important;
+  display: flex;
+  justify-content: center;
+}

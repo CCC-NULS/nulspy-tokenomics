@@ -1,12 +1,12 @@
 <template>
   <v-container
-    id="typography"
+    id="tokenomics"
     fluid
     tag="section"
   >
     <base-v-component
-      heading="NULS"
-      link="styles/typography"
+      heading="About Tokenomics"
+      link="pages/tokenomics"
     />
 
     <v-row
@@ -55,7 +55,6 @@
                     <template v-if="i !== 'quote'">
                       {{ t[1] }}
                     </template>
-
                     <p v-if="i === 'quote'">
                       {{ t[1] }}
                     </p>
@@ -77,6 +76,43 @@
 </template>
 
 <script>
+
+// setTimeout(function(){ alert("Hi"); }, 4000);
+// setInterval(function(){ alert("Hi"); }, 2000);
+
+
+
+  // var watcher = chokidar.watch('file, dir, glob, or array', {
+  //   ignored: /(^|[\/\\])\../,
+  //   persistent: true
+  // });
+
+  // var path = "../../../assets/plots/plot.svg"
+  // // var path = "../../../assets/plots/plot.svg"
+
+  // var log = console.log.bind(console);
+  // watcher
+  //   .on('add', path => log(`File ${path} has been added`))
+  //   .on('change', path => log(`File ${path} has been changed`))
+
+
+
+  // watcher.add('new-file');
+  // watcher.add(['new-file-2', 'new-file-3', '**/other-file*']);
+  // // Un-watch some files.
+  // watcher.unwatch('new-file*');
+
+  // Stop watching.
+  // watcher.close();
+
+
+
+
+
+
+
+
+
   const leader = 'Blockchain will be worth billions of dollars, ' +
     'because we understand culture.'
   const leaderShort = leader.slice(0, 105) + '...'
@@ -90,26 +126,29 @@
     'NULS sets a new industry standard in streamlining blockchain adoption.'
 
   export default {
-    data: () => ({
-      typography: {
-        'display-4': [' ', tHeader, 'h1'],
-        'display-3': [' ', material + mat2, 'h2'],
-        'display-2': [' ', material, 'h3'],
-        'display-1': [' ', material, 'h4'],
-        headline: [' ', moreText, 'h5'],
-        'title text-uppercase': [' ', material, 'h6'],
-        '': [' ', leader, 'p'],
-        blockquote: [' ', leader, 'blockquote'],
-        'text--disabled': [' ', leaderShort, 'p'],
-        'primary--text': [' ', leaderShort, 'p'],
-        'info--text': [' ', leaderShort, 'p'],
-        'success--text': [' ', leaderShort, 'p'],
-        'warning--text': [' ', leaderShort, 'p'],
-        'danger--text': [' ', leaderShort, 'p'],
-        small: [' ', small, 'h2'],
-      },
-    }),
+    name: 'Tokenomics',
+    data () {
+      return {   
+        typography: {
+          'display-4': [' ', tHeader, 'h1'],
+          'display-3': [' ', material + mat2, 'h2'],
+          'display-2': [' ', material, 'h3'],
+          'display-1': [' ', material, 'h4'],
+          headline: [' ', moreText, 'h5'],
+          'title text-uppercase': [' ', material, 'h6'],
+          '': [' ', leader, 'p'],
+          blockquote: [' ', leader, 'blockquote'],
+          'text--disabled': [' ', leaderShort, 'p'],
+          'primary--text': [' ', leaderShort, 'p'],
+          'info--text': [' ', leaderShort, 'p'],
+          'success--text': [' ', leaderShort, 'p'],
+          'warning--text': [' ', leaderShort, 'p'],
+          'danger--text': [' ', leaderShort, 'p'],
+          small: [' ', small, 'h2'],
+          }
+      }
   }
+}
 </script>
 
 <style lang="scss">
