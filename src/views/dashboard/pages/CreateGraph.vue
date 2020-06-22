@@ -201,11 +201,15 @@
         id="bcard"
         :key="upplot"
       >
-        <custom-component
-          v-for="(item, index) in reqComponent"
-          :key="index"
-          bcard
+        temp card
+        <v-component
+          :is="option.type"
+          v-for="option in options"
+          :data="option.propsData"
         />
+
+
+
       </v-card>
     </v-row>
   </v-container>
@@ -229,11 +233,11 @@
         common: { 'Access-Control-Allow-Origin':  '*'}
       } }
     });
-  let d = Date.now().toString()
 
   function bigim2 () {
     const reqCmps = require.context('@/assets/plots', false, /\.svg$/, )
-    console.log("len: " + reqCmps.length)
+    Object.entries(reqCmps).forEach(([key, value]) => console.log(`${key}: ${value}`));
+    // console.log("len: " + reqCmps.length)
     var fileName = ''
     reqCmps.keys().forEach(
       fileName => {
@@ -246,27 +250,13 @@
       console.log(key, value);
       lastone = reqCmps[1]
       }
-      // Vue.component(`Plot${compName}`, compConfig.default || compConfig)
-
-  }
-
-  var reqComponent = function  () {
-    let reqComp = require.context('@/assets/plots', false, /\.svg$/, )
-    console.log("len: " + reqComp.length)
-    return req
     }
 
-
-
+  const delay = t => new Promise(resolve => setTimeout(resolve, t));
   var globaldate
   var fpath
-  var sstrg = '';
   var juststarting = 0
-  var filenamecc = '@assets/svgs/plot.svg'
-  var bluecube = './plots/bluecube.svg'
-  var greencube = './plots/green.svg'
   var showme = false
-  var g = 'green'
   var upplot = 0
 
   var plotreal = () => import('@/assets/plots/plot.svg')
@@ -275,7 +265,6 @@
     components: {
       TopWords,
       plotreal,
-      // v: () => require.context(`./plots/${gg}.svg`)
     },
     data: () => ({
         chipprops: {
@@ -283,7 +272,6 @@
           },
         upplot,
         showme,
-        reqComponent,
         vmd1: '',
         vmd2: '',
         vmd3: '',
@@ -295,30 +283,17 @@
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
         disinflation: ["3", "4", "5"]
     }),
-    computed: {
-      tdate () {
-        var v = this.$store.state.gSessionStr
-        return v
-      }
-
-    },
+    // computed: {
+    //   tdate () {
+    //     var v = this.$store.state.gSessionStr
+    //     return v
+    //   }
+    // },
     watch: {
         plotreal(newVal, oldVal) {
           console.log(`plotreal changed: ${newVal}`);
         },
-        // this.showme(newVal, oldVal){
-        //   console.log(`showme changed: ${newVal}`);
-        // },
-      },
-      // computed: {
-      //   filenamec () {
-      //     var sstrg = this.$store.state.gSessionStr;
-      //     if (this.juststarting == 0) {
-      //       sstrg = ''
-      //     }
-      //     return `../../../assets/plots/plot${sstrg}.svg`
-      //     }
-      // },
+    },
     mounted () {
       this.globaldate = this.$store.state.gSessionStr
       console.log("in mounted. this.globaldate: " + this.globaldate)
@@ -326,19 +301,6 @@
     },
     methods: {
       bigim2,
-      // bigimp () {
-      //   const reqComponent = require.context('@/assets/plots', true, /\.svg$/, )
-      //   var fileName
-      //   reqComponent.keys().forEach(fileName => {
-      //     const compConfig = reqComponent(fileName)
-      //     console.log("in bigimp: filename: " + filename)
-      //     const compName = upperFirst(
-      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
-      //     )
-      //     console.log("in bigimp: compName: " + compName)
-      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
-      //   })
-      // },
       asyncRequestPython (baseurl) {
         try {
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -378,11 +340,8 @@
           console.log(e)
         }
         console.log(`The pythonUrl is: ${pythonUrl}`)
-        setTimeout(function(){
-          console.log("waiting 3 seconds");
-          clearTimeout()
-          }, 4000);
-         this.bigim2()
+        // delay(3000).then(() => console.log('Hello'));
+        delay(3000).then(() => bigim2());
       },
 
       resetc () {
@@ -398,6 +357,9 @@
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
+
+
+
 
       // setTimeout(function(){ alert("waiting"); }, 2000);
       // setTimeout(function(){ console.log("wait"); clearTimeout() }, 2000);

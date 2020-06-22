@@ -1,33 +1,16 @@
 
-
-from time import sleep
 from flask import Flask, request, render_template, jsonify
 from jinja2 import Environment, select_autoescape
 import appsupport
 from flask_cors import CORS, cross_origin
 import os
-from shutil import copyfile
 
 application = Flask(__name__)
 CORS(application, resources={r"/*": {"origins": "*"}})
 
-env = Environment(    # jinja2
+env = Environment(
     autoescape=select_autoescape(['html', 'xml']),
 )
-
-
-def chk_for_file(tfile):
-    sleep(.4)
-    while True:
-        try:
-            x = os.path.isfile(tfile)
-            if x:
-                return True
-            else:
-                sleep(.3)
-        except FileNotFoundError:
-            continue
-
 
 @application.route('/abc')
 def index():
@@ -40,10 +23,8 @@ def getpy():
     basedir = None
     if request.method == 'POST':
         print('Incoming POST')
-
     # GET request
     if request.method == 'GET':
-        # message = {'greeting': 'Hello from Flask!'}
         print("Incoming GET")
 
     formdata = request.values.dicts[0]
@@ -58,64 +39,22 @@ def getpy():
                     "start_inflation": formdata.get('startinf'),
                     "stop_inflation_y": formdata.get('stopinf'),
                     "disinflation_ratio": formdata.get('disinf'),
-                    "timestp": str(formdata.get('tdate')),
+                    "timestp": formdata.get('timestp'),
                     "basedir": basedir}
-
         args_dict = make_names(formdict)
         tk_obj = appsupport.AppSupport()  # make obj
         tk_obj.main(args_dict)    # execute main
         print("got this far! file should be there. ")
-        timefilepth = make_temp_file(basedir, args_dict.get('timestp'))
-        file_there = chk_for_file(timefilepth)
-        print("got this far! file should be there: " + str(file_there))
         return '200 OK'
-
-
-def chk_for_file(tfile):
-    sleep(.4)
-    while True:
-        try:
-            x = os.path.isfile(tfile)
-            if x:
-                return True
-            else:
-                sleep(.3)
-        except FileNotFoundError:
-            continue
-
-def make_temp_file(timedir, timest):         #  make temp file as placeholder
-    # esquare = basedir + "bluecube.svg"  # empty square placeholder
-    # pltreal = basedir + "pltreal.svg"
-    # copyfile(esquare, pltreal)
-    print("inside make_temp_file")
-
-    plotnonepath = timedir + "plotnone.vue"  # empty component
-    timefilepath = timedir + "plot" + timest + ".vue"
-    copyfile(plotnonepath, timefilepath)
-    print("plotnone: " + plotnonepath)
-    print("timefilepath: " + timefilepath)
-    return timefilepath
 
 
 def make_names(args_dict):
     timestamp = args_dict.get("timestp")
     basedir = args_dict.get("basedir")
-
-    # plot_name_generic = "pltreal.svg"
-    plot_name_time_stmp = "plot" + str(timestamp) + ".svg"  # the rest are saved as jpgs with timestamps
-    file_time_stmp = "temp" + str(timestamp) + ".txt"  # the rest are saved as jpgs with timestamps
-
-    # plotpath_generic = os.path.join(basedir, plot_name_generic)  # put real one in components so router can update
+    plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
     plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp
-    plotpath_tfile = os.path.join(basedir, file_time_stmp)  # t for timestamp - names have timestamp
-
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
-    # plotpath_generic_norm = os.path.normpath(plotpath_generic)
-    plotpath_tfile_norm = os.path.normpath(plotpath_tfile)
-
     args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
-    # args_dict.update({"plotpath_generic": plotpath_generic_norm})  # generic name, svg
-    args_dict.update({"plotpath_tfile": plotpath_tfile_norm})  # generic name, svg
     return args_dict
 
 
@@ -124,6 +63,45 @@ if __name__ == "__main__":
 
 
 
+
+
+    # def chk_for_file(tfile):
+    #     sleep(.4)
+    #     while True:
+    #         try:
+    #             x = os.path.isfile(tfile)
+    #             if x:
+    #                 return True
+    #             else:
+    #                 sleep(.3)
+    #         except FileNotFoundError:
+    #             continue
+
+    #
+    # def chk_for_file(tfile):
+    #     sleep(.4)
+    #     while True:
+    #         try:
+    #             x = os.path.isfile(tfile)
+    #             if x:
+    #                 return True
+    #             else:
+    #                 sleep(.3)
+    #         except FileNotFoundError:
+    #             continue
+
+    # def make_temp_file(timedir, timest):         #  make temp file as placeholder
+    #     # esquare = basedir + "bluecube.svg"  # empty square placeholder
+    #     # pltreal = basedir + "pltreal.svg"
+    #     # copyfile(esquare, pltreal)
+    #     print("inside make_temp_file")
+    #
+    #     plotnonepath = timedir + "plotnone.vue"  # empty component
+    #     timefilepath = timedir + "plot" + timest + ".vue"
+    #     copyfile(plotnonepath, timefilepath)
+    #     print("plotnone: " + plotnonepath)
+    #     print("timefilepath: " + timefilepath)
+    #     return timefilepath
 
     # serve(app, listen='0.0.0.0:8082')
     # serve(app, unix_socket='/tmp/tokenlife.sock')
