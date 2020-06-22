@@ -171,7 +171,7 @@
           elevation-24
           raised
         >
-          <plotreal />
+          hi
         </v-card>
         <v-card
           id="buttoncard"
@@ -197,19 +197,35 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-sheet
-        id="bcard"
-        :key="upplot"
+      <v-col
+        cols="12"
+        md="11"
       >
-        temp card
-        <component
-          :is="bigobjs.filename"
-          v-for="bigobj in bigobjs"
-          :key="bigobj"
-          :data="componentName"
-          bcard
-        />
-      </v-sheet>
+        <v-card
+          id="bcard"
+          :key="upplot"
+          min-height="200"
+        >
+          temp card
+          <component
+            :is="componentName.fileName"
+            v-for="componentName in myMap"
+            :key="componentName"
+            bcard
+          />
+          List below here:
+          <ul>
+            <li
+              :is="componentName"
+              v-for="componentName in myMap"
+              :key="componentName"
+              bcard
+            >
+              {{ fileName }} the item
+            </li>
+          </ul>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -217,6 +233,8 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
   // beware: arrow functions cause problems with 'this'
+  import upperFirst from 'lodash/upperFirst'
+  import camelCase from 'lodash/camelCase'
   import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'
@@ -233,40 +251,19 @@
       } }
     });
 
-  var bigobjs
-  function bigim2 () {
-    bigobjs = require.context('@/assets/plots', false, /\.svg$/, )
-    Object.entries(bigobjs).forEach(([key, value]) => console.log(`${key}: ${value}`));
-    // console.log("len: " + reqCmps.length)
-    var fileName = ''
-    bigobjs.keys().forEach(
-      fileName => {
-        const componentConfig = reqCmps(fileName)
-        const componentName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
-        console.log("in bigim2: componentConfig: " + componentConfig + " componentName: " + componentName)
-      } )
-    // return Object.keys(map)
-    console.log("done fixing names")
-    for (const [key, value] of Object.entries(bigobjs)) {
-      console.log(key, value);
-      lastone = bigobjs[1]
-      }
-    }
-
+  var myMap
   const delay = t => new Promise(resolve => setTimeout(resolve, t));
   var globaldate
   var fpath
   var juststarting = 0
   var showme = false
   var upplot = 0
-
-  var plotreal = () => import('@/assets/plots/plot.svg')
+  // var myMap = ''
+  // var plotreal = () => import('@/assets/plots/plot.svg')
   export default {
     name: "CreateGraph",
     components: {
       TopWords,
-      plotreal,
-      bigobjs,
     },
     data: () => ({
         chipprops: {
@@ -285,12 +282,40 @@
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
         disinflation: ["3", "4", "5"]
     }),
-    // computed: {
-    //   tdate () {
-    //     var v = this.$store.state.gSessionStr
-    //     return v
-    //   }
-    // },
+    computed: {
+      myMap: function () {
+        console.log("in mappedPlot.  ")
+
+        const reqComponent = require.context('@/assets/plots', false, /\.svg$/, 'lazy' )  // returns Map
+        reqComponent.keys().forEach(
+          fileName => {
+            const compConfig = reqComponent(fileName).default
+            console.log("in bigimp: filename: " + fileName)
+            const compName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
+              //       const compName = upperFirst(
+              //    camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')))
+            //module.exports[compName] = reqComponent(compConfig)
+            console.log("in bigimp: compName: " + compName)
+            Vue.component(`${compName}`, reqComponent.default || reqComponent)
+        })
+        return reqComponent
+        }
+      },
+      // function bigim2 () {
+      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
+      //   console.log("len: " + reqComponent.length)
+      //   var fileName = ''
+      //   reqComponent.keys().forEach(
+      //     fileName => {
+      //       const compConfig = reqComponent(fileName).default
+      //       console.log("in bigimp: filename: " + fileName)
+      //       const compName = upperFirst(
+      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
+      //     )
+      //     console.log("in bigimp: compName: " + compName)
+      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
+      //   })
+      // }
     watch: {
         plotreal(newVal, oldVal) {
           console.log(`plotreal changed: ${newVal}`);
@@ -302,7 +327,6 @@
       this.juststarting = 0
     },
     methods: {
-      bigim2,
       asyncRequestPython (baseurl) {
         try {
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -343,7 +367,7 @@
         }
         console.log(`The pythonUrl is: ${pythonUrl}`)
         // delay(3000).then(() => console.log('Hello'));
-        delay(3000).then(() => bigim2());
+        delay(1000).then(() => console.log("done"));
       },
 
       resetc () {
