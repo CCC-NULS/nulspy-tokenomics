@@ -162,17 +162,21 @@
         cols="12"
         md="11"
       >
-        <v-card
-          v-show="showme"
-          id="plotcard"
-          :key="upplot"
-          class="padplot"
-          pl-2
-          elevation-24
-          raised
-        >
-          hi
-        </v-card>
+        <template v-if="juststarting > 0">
+          <v-card
+            id="plotcard"
+            :key="juststarting"
+            class="padplot"
+            pl-2
+            elevation-24
+            raised
+            min-height="222"
+            min-width="222"
+          >
+            <v-img :src="`http://localhost:5002/static/plot${globaldate}.svg`" />
+            {{ globaldate }}
+          </v-card>
+        </template>
         <v-card
           id="buttoncard"
           color="success"
@@ -196,52 +200,22 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        md="11"
-      >
-        <v-card
-          id="bcard"
-          :key="upplot"
-          min-height="200"
-        >
-          temp card
-          <component
-            :is="componentName.fileName"
-            v-for="componentName in myMap"
-            :key="componentName"
-            bcard
-          />
-          List below here:
-          <ul>
-            <li
-              :is="componentName"
-              v-for="componentName in myMap"
-              :key="componentName"
-              bcard
-            >
-              {{ fileName }} the item
-            </li>
-          </ul>
-        </v-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
+  // onerror="this.onerror=null; this.src='image.png'">
+
   // beware: arrow functions cause problems with 'this'
-  import upperFirst from 'lodash/upperFirst'
-  import camelCase from 'lodash/camelCase'
+
   import Vue from 'vue'
   import axios from 'axios'
   import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'
   import TopWords from '@/views/dashboard/components/TopWords'
+  const requestImageSize = require('request-image-size');
   const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
   const restTypes = 'GET, POST, HEAD, UPDATE, PUT'
-  var lastone = ''
   const axiosi = axios.create({
     defaults: {
       headers: {
@@ -251,15 +225,14 @@
       } }
     });
 
-  var myMap
+  var plotlist = []
   const delay = t => new Promise(resolve => setTimeout(resolve, t));
-  var globaldate
+  var globaldate = "0"
   var fpath
   var juststarting = 0
   var showme = false
   var upplot = 0
-  // var myMap = ''
-  // var plotreal = () => import('@/assets/plots/plot.svg')
+
   export default {
     name: "CreateGraph",
     components: {
@@ -270,7 +243,10 @@
           class: "v_chip_small", small: true, dark: false,
           },
         upplot,
+        juststarting,
         showme,
+        mainplotempty: "http://localhost:5002/static/plote.svg",
+        globaldate,
         vmd1: '',
         vmd2: '',
         vmd3: '',
@@ -282,51 +258,22 @@
         stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
         disinflation: ["3", "4", "5"]
     }),
-    computed: {
-      myMap: function () {
-        console.log("in mappedPlot.  ")
-
-        const reqComponent = require.context('@/assets/plots', false, /\.svg$/, 'lazy' )  // returns Map
-        reqComponent.keys().forEach(
-          fileName => {
-            const compConfig = reqComponent(fileName).default
-            console.log("in bigimp: filename: " + fileName)
-            const compName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
-              //       const compName = upperFirst(
-              //    camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')))
-            //module.exports[compName] = reqComponent(compConfig)
-            console.log("in bigimp: compName: " + compName)
-            Vue.component(`${compName}`, reqComponent.default || reqComponent)
-        })
-        return reqComponent
-        }
-      },
-      // function bigim2 () {
-      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
-      //   console.log("len: " + reqComponent.length)
-      //   var fileName = ''
-      //   reqComponent.keys().forEach(
-      //     fileName => {
-      //       const compConfig = reqComponent(fileName).default
-      //       console.log("in bigimp: filename: " + fileName)
-      //       const compName = upperFirst(
-      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
-      //     )
-      //     console.log("in bigimp: compName: " + compName)
-      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
-      //   })
-      // }
     watch: {
-        plotreal(newVal, oldVal) {
-          console.log(`plotreal changed: ${newVal}`);
-        },
+      juststarting(newVal, oldVal) {
+        console.log(`juststarting changed: ${newVal}`);
+      },
     },
     mounted () {
       this.globaldate = this.$store.state.gSessionStr
       console.log("in mounted. this.globaldate: " + this.globaldate)
       this.juststarting = 0
+      console.log("in mounted: juststarting: " + this.juststarting)
     },
     methods: {
+      js () {
+          this.juststarting += 1
+          return this.juststarting
+      },
       asyncRequestPython (baseurl) {
         try {
           console.log('inside asyncRequestPython: ' + baseurl)
@@ -339,11 +286,12 @@
         }
         catch (e) {
           console.log(e)
+          console.log("juststarting: " + this.juststarting)
         }
       },
       makePlot (a, b, c, d, e) {
         let tdate = this.globaldate
-        console.log("tdate in makePlot: " + tdate)
+        console.log("tdate in makePlot: " + tdate + "\n " + "juststarting: " + this.juststarting)
         console.log("a: " + a + "b: " + b + "d: " + d)
         // let bw = '&anninf=' + b.replace(/,/g, '')
         // let cw = '&startinf=' + c
@@ -355,10 +303,11 @@
         let cw = "&startinf=24"
         let dw = "&stopinf=210000000"
         let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
-          // gDir is the unique directory for each session
         let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
-        this.juststarting =+ 1
+        // this.mainplot = `http://localhost:5002/static/plot${tdate}.svg`
         this.showme = true
+        console.log("juststarting: " + this.juststarting)
+
         try {
           this.asyncRequestPython(pythonUrl);
         }
@@ -367,7 +316,21 @@
         }
         console.log(`The pythonUrl is: ${pythonUrl}`)
         // delay(3000).then(() => console.log('Hello'));
-        delay(1000).then(() => console.log("done"));
+        delay(1000).then(() =>
+          console.log("done"));
+        var size
+        var a
+        var err
+        console.log("checking for image")
+        delay(3000).then(() =>
+          requestImageSize(pythonUrl)
+            .then(size => console.log(size))
+            .then(a => this.js)
+            .catch(err => console.error(err)),
+        console.log("done"));
+
+        this.juststarting =+ 1
+        console.log("juststarting: " + this.juststarting)
       },
 
       resetc () {
@@ -384,9 +347,39 @@
 <style src="@/assets/styles/mystyle.css">
 </style>
 
+    // computed: {
 
+      // function bigim2 () {
+      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
+      //   console.log("len: " + reqComponent.length)
+      //   var fileName = ''
+      //   reqComponent.keys().forEach(
+      //     fileName => {
+      //       const compConfig = reqComponent(fileName).default
+      //       console.log("in bigimp: filename: " + fileName)
+      //       const compName = upperFirst(
+      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
+      //     )
+      //     console.log("in bigimp: compName: " + compName)
+      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
+      //   })
+      // }
 
-
+      // myMap: function () {
+      //   console.log("in myMap.  ")
+      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/ )  // returns Map
+      //   reqComponent.keys().forEach(
+      //     fileName => {
+      //       const compConfig = reqComponent(fileName).default
+      //       console.log("in bigimp: filename: " + fileName)
+      //       const compName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
+      //         //       const compName = upperFirst(
+      //         //    camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')))
+      //       //module.exports[compName] = reqComponent(compConfig)
+      //       console.log("in bigimp: compName: " + compName)
+      //       Vue.component(`${compName}`, reqComponent.default || reqComponent)
+      //   })  return reqComponent
+      // },
       // setTimeout(function(){ alert("waiting"); }, 2000);
       // setTimeout(function(){ console.log("wait"); clearTimeout() }, 2000);
 

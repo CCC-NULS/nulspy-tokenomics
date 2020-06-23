@@ -12,7 +12,7 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml']),
 )
 
-@application.route('/abc')
+@application.route('/static')
 def index():
     return render_template('index.html')  ## has the user entry form
 
@@ -30,9 +30,9 @@ def getpy():
     formdata = request.values.dicts[0]
     if len(formdata) > 2:
         if os.name == 'nt':
-            basedir = "E:/wsvue/tokenlifevue/src/assets/plots/"
+            basedir = "E:/wsvue/tokenlifevue/pythonmod/static"
         else:  # linux
-            basedir = "/usr/share/nginx/html/tokenlifevue/src/assets/plots/"
+            basedir = "/usr/share/nginx/html/tokenlifevue/pythonmod/static"
 
         formdict = {"initial_supply_y": formdata.get('initsup'),
                     "annual_inflation": formdata.get('anninf'),
