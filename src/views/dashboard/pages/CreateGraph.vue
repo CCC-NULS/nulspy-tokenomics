@@ -160,7 +160,10 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="11">
+      <v-col
+        cols="12"
+        md="11"
+      >
         <template v-show="juststarting > 0">
           <v-card
             id="plotcard"
@@ -176,18 +179,30 @@
               v-show="juststarting > 0"
               :key="juststarting"
               :src="dplot"
-               />
+            />
             The date is: {{ globaldate }}
           </v-card>
         </template>
-        <v-card id="buttoncard" color="success" class="padbotcard" elevation-24 raised>
-        <v-btn
-          id="redobtn"
-          @click="resetc">Redo</v-btn>
-        <v-btn
-          id="savebtn"
-          color="purple"
-          @click="keepplot">Save</v-btn>
+        <v-card
+          id="buttoncard"
+          color="success"
+          class="padbotcard"
+          elevation-24
+          raised
+        >
+          <v-btn
+            id="redobtn"
+            @click="resetc"
+          >
+            Redo
+          </v-btn>
+          <v-btn
+            id="savebtn"
+            color="purple"
+            @click="keepplot"
+          >
+            Save
+          </v-btn>
         </v-card>
       </v-col>
     </v-row>
