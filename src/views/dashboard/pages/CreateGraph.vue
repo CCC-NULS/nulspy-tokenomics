@@ -164,25 +164,24 @@
         cols="12"
         md="11"
       >
-        <template v-show="juststarting > 0">
-          <v-card
-            id="plotcard"
+        <v-card
+          id="plotcard"
+          :key="juststarting"
+          class="padplot"
+          pl-2
+          elevation-24
+          raised
+          min-height="222"
+          min-width="222"
+        >
+          <v-img
             :key="juststarting"
-            class="padplot"
-            pl-2
-            elevation-24
-            raised
-            min-height="222"
-            min-width="222"
-          >
-            <v-img
-              v-show="juststarting > 0"
-              :key="juststarting"
-              :src="dplot"
-            />
-            The date is: {{ globaldate }}
-          </v-card>
-        </template>
+            :src="dplot"
+            plotcard 
+            lazy-src="https://cdn.vuetifyjs.com/images/cards/store.jpg"        
+          />
+          The date is: {{ globaldate }}
+        </v-card>
         <v-card
           id="buttoncard"
           color="success"
@@ -211,8 +210,6 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
-// onerror="this.onerror=null; this.src='image.png'">
-
 // beware: arrow functions cause problems with 'this'
 
 import Vue from "vue";
@@ -239,12 +236,10 @@ const axiosi = axios.create({
 });
 
 var plotlist = [];
-// var juststarting
-
 export default {
   name: "CreateGraph",
   components: {
-    TopWords
+    TopWords,
   },
   data: () => ({
     chipprops: {
@@ -253,52 +248,32 @@ export default {
       dark: false
     },
     juststarting: 0,
-    mainplotempty: "http://localhost:5002/static/plote.svg",
+    showme: false,
     globaldate: null,
-    dplot: null,
     vmd1: "",
     vmd2: "",
     vmd3: "",
     vmd4: "",
     vmd5: "",
-    initsupply: [
-      "300,000,000",
-      "260,000,000",
-      "225,000,000",
-      "200,000,000",
-      "175,000,000",
-      "150,000,000",
-      "100,000,000"
-    ],
-    aninflation: [
-      "2,000,000",
-      "3,000,000",
-      "4,000,000",
-      "5,000,000",
-      "6,000,000"
-    ],
+    vmd1: '',
+    vmd2: '',
+    vmd3: '',
+    vmd4: '',
+    vmd5: '',
+    initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
+    aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
     inflatervals: ["12", "18", "24", "36", "48"],
-    stopinflation: [
-      "510,000,000",
-      "450,000,000",
-      "350,000,000",
-      "310,000,000",
-      "250,000,000",
-      "155,000,000",
-      "120,000,000"
-    ],
+    stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["3", "4", "5"]
   }),
 
   computed: {
     dplot() {
+      if (this.showme == false)
+        return ''
       let gdate = this.$store.state.gSessionStr;
-      return this.displayPlot(gdate);
-    }
-  },
-  watch: {
-    juststarting(newVal, oldVal) {
-      console.log(`juststarting changed: ${newVal}`);
+      this.setsets()
+      return `http://localhost:5002/static/plot${gdate}.svg`;
     }
   },
   mounted() {
@@ -308,41 +283,9 @@ export default {
     console.log("in mounted: juststarting: " + this.juststarting);
   },
   methods: {
-    displayPlot(tdate) {
-      console.log("!!!!!  in displayPlot: juststarting: " + this.juststarting);
-
-      let baseUrl = "http://localhost:5002";
-      let url = `${baseUrl}/static/plot${tdate}.svg`;
-      let n = 1000;
-      let options = "get";
-      console.log("!!!!!  in displayPlot: fetch_retry: " + this.juststarting);
-      const fetch_retry = async (url, options, n) => {
-        for (let i = 0; i < n; i++) {
-          console.log("!!!!!  in: fetch_retry: i = " + i);
-
-          try {
-            return await fetch(url, options);
-          } catch (err) {
-            var isLastAttempt = i + 1 === n;
-            if (isLastAttempt) throw err;
-          }
-        }
-      };
-    },
-    showfile(baseurl) {
-      axiosRetry(axios, {
-        retries: 399,
-        baseURL: baseurl,
-        method: "get",
-        headers: {
-          get: {
-            Accept: acceptStr,
-            acctlMeths: restTypes,
-            ctType: appJson
-          },
-          common: { "Access-Control-Allow-Origin": "*" }
-        }
-      });
+    setsets () {
+      this.showme = "true"
+      this.juststarting =+1;
     },
     asyncRequestPython(baseurl) {
       try {
@@ -360,11 +303,8 @@ export default {
     makePlot(a, b, c, d, e) {
       let tdate = this.globaldate;
       console.log(
-        "tdate in makePlot: " +
-          tdate +
-          "\n " +
-          "juststarting: " +
-          this.juststarting
+        "tdate in makePlot: " +  tdate +  "\n " +
+          "juststarting: " +  this.juststarting
       );
       console.log("a: " + a + "b: " + b + "d: " + d);
       // let bw = '&anninf=' + b.replace(/,/g, '')
