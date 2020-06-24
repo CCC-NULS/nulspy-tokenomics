@@ -1,23 +1,10 @@
 <template>
-  <v-container
-    id="user-profile"
-    fluid
-    tag="section"
-  >
+  <v-container id="user-profile" fluid tag="section">
     <v-row justify="center">
-      <v-col
-        cols="12"
-        md="8"
-      >
-        <base-material-card
-          color="tertiary"
-        >
+      <v-col cols="12" md="8">
+        <base-material-card color="tertiary">
           <template v-slot:heading>
-            <div
-              id="firstdiv"
-              shaped
-              class="displaynms font-weight-light"
-            >
+            <div id="firstdiv" shaped class="displaynms font-weight-light">
               <TopWords />
             </div>
           </template>
@@ -25,44 +12,22 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--             v-model="formvmodel"   -->
 
-          <v-form
-            id="mainform"
-            ref="formref"
-            @submit.prevent
-          >
-            <v-container
-              id="vcontain"
-              class="py-4"
-            >
-              <v-card
-                id="vcardform"
-                align="center"
-                pr-5
-                pl-5
-                elevation-15
-                raised
-              >
+          <v-form id="mainform" ref="formref" @submit.prevent>
+            <v-container id="vcontain" class="py-4">
+              <v-card id="vcardform" align="center" pr-5 pl-5 elevation-15 raised>
                 <v-row>
-                  <v-col
-                    cols="12"
-                    md="6"
-                  >
+                  <v-col cols="12" md="6">
                     <v-chip
                       id="choicechip"
                       v-bind="chipprops"
                       class="margleft"
                       elevation-14
                       raised
-                    >
-                      Make Your Choices:&emsp;
-                    </v-chip>
+                    >Make Your Choices:&emsp;</v-chip>
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
+                  <v-col cols="12" md="4">
                     <!-- choice chip:  # # # #  # # # #  # # # #  -->
                     <!--:items="initsupply" -->
 
@@ -72,17 +37,13 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
-
                       :items="initsupply"
                       placeholder="100,000"
                     />
                   </v-col>
 
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
+                  <v-col cols="12" md="4">
                     <v-select
                       id="vseltwo"
                       v-model="vmd2"
@@ -96,10 +57,7 @@
 
                 <v-row>
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
+                  <v-col cols="12" md="4">
                     <v-select
                       id="vselthree"
                       v-model="vmd3"
@@ -111,10 +69,7 @@
                   </v-col>
                   <!-- stop inflation:  # # # #  # # # #  # # # #  -->
 
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
+                  <v-col cols="12" md="4">
                     <v-select
                       id="vselfour"
                       v-model="vmd4"
@@ -124,10 +79,7 @@
                     />
                   </v-col>
 
-                  <v-col
-                    cols="12"
-                    md="3"
-                  >
+                  <v-col cols="12" md="3">
                     <!-- disinflation # select # five five:  # # # #  # # # #  # # # #  -->
                     <v-select
                       id="vselfive"
@@ -147,10 +99,10 @@
                   color="warning"
                   @submit.prevent
                   @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
-                >
-                  submitform
-                </v-btn>
-                <div>  <br>  </div>
+                >submitform</v-btn>
+                <div>
+                  <br />
+                </div>
               </v-card>
             </v-container>
           </v-form>
@@ -158,11 +110,8 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        cols="12"
-        md="11"
-      >
-        <template v-if="juststarting > 0">
+      <v-col cols="12" md="11">
+        <template v-show="juststarting > 0">
           <v-card
             id="plotcard"
             :key="juststarting"
@@ -173,30 +122,13 @@
             min-height="222"
             min-width="222"
           >
-            <v-img :src="`http://localhost:5002/static/plot${globaldate}.svg`" />
-            {{ globaldate }}
+            <v-img v-show="juststarting > 0" :src="dplot" />
+            The date is: {{ globaldate }}
           </v-card>
         </template>
-        <v-card
-          id="buttoncard"
-          color="success"
-          class="padbotcard"
-          elevation-24
-          raised
-        >
-          <v-btn
-            id="redobtn"
-            @click="resetc"
-          >
-            Redo
-          </v-btn>
-          <v-btn
-            id="savebtn"
-            color="purple"
-            @click="keepplot"
-          >
-            Save
-          </v-btn>
+        <v-card id="buttoncard" color="success" class="padbotcard" elevation-24 raised>
+          <v-btn id="redobtn" @click="resetc">Redo</v-btn>
+          <v-btn id="savebtn" color="purple" @click="keepplot">Save</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -205,144 +137,200 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
-  // onerror="this.onerror=null; this.src='image.png'">
+// onerror="this.onerror=null; this.src='image.png'">
 
-  // beware: arrow functions cause problems with 'this'
+// beware: arrow functions cause problems with 'this'
 
-  import Vue from 'vue'
-  import axios from 'axios'
-  import { mapState, mapMutations, mapActions, mapGetter } from 'vuex'
-  import TopWords from '@/views/dashboard/components/TopWords'
-  const requestImageSize = require('request-image-size');
-  const acceptStr = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-  const restTypes = 'GET, POST, HEAD, UPDATE, PUT'
-  const axiosi = axios.create({
-    defaults: {
-      headers: {
-        post: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-         'Content-Type': 'application/json' },
-        common: { 'Access-Control-Allow-Origin':  '*'}
-      } }
-    });
+import Vue from "vue";
+import axios from "axios";
+import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
+import TopWords from "@/views/dashboard/components/TopWords";
 
-  var plotlist = []
-  const delay = t => new Promise(resolve => setTimeout(resolve, t));
-  var globaldate = "0"
-  var fpath
-  var juststarting = 0
-  var showme = false
-  var upplot = 0
-
-  export default {
-    name: "CreateGraph",
-    components: {
-      TopWords,
-    },
-    data: () => ({
-        chipprops: {
-          class: "v_chip_small", small: true, dark: false,
-          },
-        upplot,
-        juststarting,
-        showme,
-        mainplotempty: "http://localhost:5002/static/plote.svg",
-        globaldate,
-        vmd1: '',
-        vmd2: '',
-        vmd3: '',
-        vmd4: '',
-        vmd5: '',
-        initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
-        aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
-        inflatervals: ["12", "18", "24", "36", "48"],
-        stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-        disinflation: ["3", "4", "5"]
-    }),
-    watch: {
-      juststarting(newVal, oldVal) {
-        console.log(`juststarting changed: ${newVal}`);
+import axiosRetry from "axios-retry";
+const acceptStr =
+  "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+const restTypes = "GET, POST, HEAD, UPDATE, PUT";
+const acctlMeths = "Access-Control-Allow-Methods";
+const acctlOrig = "Access-Control-Allow-Origin";
+const appJson = "application/json";
+const axiosi = axios.create({
+  defaults: {
+    headers: {
+      post: {
+        Accept: acceptStr,
+        acctlMeths: restTypes,
+        "Content-Type": appJson
       },
-    },
-    mounted () {
-      this.globaldate = this.$store.state.gSessionStr
-      console.log("in mounted. this.globaldate: " + this.globaldate)
-      this.juststarting = 0
-      console.log("in mounted: juststarting: " + this.juststarting)
-    },
-    methods: {
-      js () {
-          this.juststarting += 1
-          return this.juststarting
+      get: {
+        Accept: acceptStr,
+        acctlMeths: restTypes,
+        "Content-Type": appJson
       },
-      asyncRequestPython (baseurl) {
-        try {
-          console.log('inside asyncRequestPython: ' + baseurl)
-          ;(async () => {
-            let response = await axiosi({
-              url: baseurl,
-              method: "get",
-              })
-            })()
-        }
-        catch (e) {
-          console.log(e)
-          console.log("juststarting: " + this.juststarting)
-        }
-      },
-      makePlot (a, b, c, d, e) {
-        let tdate = this.globaldate
-        console.log("tdate in makePlot: " + tdate + "\n " + "juststarting: " + this.juststarting)
-        console.log("a: " + a + "b: " + b + "d: " + d)
-        // let bw = '&anninf=' + b.replace(/,/g, '')
-        // let cw = '&startinf=' + c
-        // let dw = '&stopinf=' + d.replace(/,/g, '')
-        let ew = '&disinf=' + e
-        // need to remove comma's twice from a, b, d
-        let aw = "&initsup=100000000"  // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"
-        let bw = "&anninf=5000000"
-        let cw = "&startinf=24"
-        let dw = "&stopinf=210000000"
-        let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`
-        let pythonUrl = `http://localhost:5002/getpy?${requestVars}`
-        // this.mainplot = `http://localhost:5002/static/plot${tdate}.svg`
-        this.showme = true
-        console.log("juststarting: " + this.juststarting)
-
-        try {
-          this.asyncRequestPython(pythonUrl);
-        }
-        catch (e) {
-          console.log(e)
-        }
-        console.log(`The pythonUrl is: ${pythonUrl}`)
-        // delay(3000).then(() => console.log('Hello'));
-        delay(1000).then(() =>
-          console.log("done"));
-        var size
-        var a
-        var err
-        console.log("checking for image")
-        delay(3000).then(() =>
-          requestImageSize(pythonUrl)
-            .then(size => console.log(size))
-            .then(a => this.js)
-            .catch(err => console.error(err)),
-        console.log("done"));
-
-        this.juststarting =+ 1
-        console.log("juststarting: " + this.juststarting)
-      },
-
-      resetc () {
-        console.log("in resetc")
-      },
-      keepplot () {
-        console.log("in keepplot")
-      },
+      common: { acctlOrig: "*" }
     }
   }
+});
 
+var plotlist = [];
+// var juststarting
 
+export default {
+  name: "CreateGraph",
+  components: {
+    TopWords
+  },
+  data: () => ({
+    chipprops: {
+      class: "v_chip_small",
+      small: true,
+      dark: false
+    },
+    juststarting: 0,
+    mainplotempty: "http://localhost:5002/static/plote.svg",
+    globaldate: "0",
+    dplot,
+    vmd1: "",
+    vmd2: "",
+    vmd3: "",
+    vmd4: "",
+    vmd5: "",
+    initsupply: [
+      "300,000,000",
+      "260,000,000",
+      "225,000,000",
+      "200,000,000",
+      "175,000,000",
+      "150,000,000",
+      "100,000,000"
+    ],
+    aninflation: [
+      "2,000,000",
+      "3,000,000",
+      "4,000,000",
+      "5,000,000",
+      "6,000,000"
+    ],
+    inflatervals: ["12", "18", "24", "36", "48"],
+    stopinflation: [
+      "510,000,000",
+      "450,000,000",
+      "350,000,000",
+      "310,000,000",
+      "250,000,000",
+      "155,000,000",
+      "120,000,000"
+    ],
+    disinflation: ["3", "4", "5"]
+  }),
+
+  computed: {
+    dplot() {
+      let gdate = this.$store.state.gSessionStr;
+      return this.displayPlot(gdate);
+    }
+  },
+  watch: {
+    juststarting(newVal, oldVal) {
+      console.log(`juststarting changed: ${newVal}`);
+    }
+  },
+  mounted() {
+    this.globaldate = this.$store.state.gSessionStr;
+    console.log("in mounted. this.globaldate: " + this.globaldate);
+    this.juststarting = 0;
+    console.log("in mounted: juststarting: " + this.juststarting);
+  },
+  methods: {
+    displayPlot(tdate) {
+      console.log("!!!!!  in displayPlot: juststarting: " + this.juststarting);
+
+      let baseUrl = "http://localhost:5002";
+      let url = `${baseUrl}/static/plot${tdate}.svg`;
+      let n = 1000;
+      let options = "get";
+      console.log("!!!!!  in displayPlot: fetch_retry: " + this.juststarting);
+      const fetch_retry = async (url, options, n) => {
+        for (let i = 0; i < n; i++) {
+          console.log("!!!!!  in: fetch_retry: i = " + i);
+
+          try {
+            return await fetch(url, options);
+          } catch (err) {
+            var isLastAttempt = i + 1 === n;
+            if (isLastAttempt) throw err;
+          }
+        }
+      };
+    },
+    showfile(baseurl) {
+      axiosRetry(axios, {
+        retries: 399,
+        baseURL: baseurl,
+        method: "get",
+        headers: {
+          get: {
+            Accept: acceptStr,
+            acctlMeths: restTypes,
+            "Content-Type": appJson
+          },
+          common: { "Access-Control-Allow-Origin": "*" }
+        }
+      });
+    },
+    asyncRequestPython(baseurl) {
+      try {
+        console.log("inside asyncRequestPython: " + baseurl);
+        (async () => {
+          let response = await axiosi({
+            url: baseurl,
+            method: "post"
+          });
+        })();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    makePlot(a, b, c, d, e) {
+      let tdate = this.globaldate;
+      console.log(
+        "tdate in makePlot: " +
+          tdate +
+          "\n " +
+          "juststarting: " +
+          this.juststarting
+      );
+      console.log("a: " + a + "b: " + b + "d: " + d);
+      // let bw = '&anninf=' + b.replace(/,/g, '')
+      // let cw = '&startinf=' + c
+      // let dw = '&stopinf=' + d.replace(/,/g, '')
+      let ew = "&disinf=" + e;
+      // need to remove comma's twice from a, b, d
+      let aw = "&initsup=100000000"; // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"
+      let bw = "&anninf=5000000";
+      let cw = "&startinf=24";
+      let dw = "&stopinf=210000000";
+      let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
+      let baseUrl = "http://localhost:5002";
+      let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
+      let mainplot = `${baseUrl}/static/plot${tdate}.svg`;
+      console.log("juststarting before request: " + this.juststarting);
+      try {
+        this.asyncRequestPython(pythonUrl);
+      } catch (e) {
+        console.log(e);
+      }
+      console.log(`The plot Url is: ${mainplot}`);
+      this.juststarting = +1;
+      console.log("juststarting: " + this.juststarting);
+    },
+    resetc() {
+      console.log("in resetc");
+    },
+    keepplot() {
+      console.log("in keepplot");
+    }
+  }
+};
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
