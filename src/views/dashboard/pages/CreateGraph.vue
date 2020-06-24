@@ -1,10 +1,23 @@
 <template>
-  <v-container id="user-profile" fluid tag="section">
+  <v-container
+    id="user-profile"
+    fluid
+    tag="section"
+  >
     <v-row justify="center">
-      <v-col cols="12" md="8">
-        <base-material-card color="tertiary">
+      <v-col
+        cols="12"
+        md="8"
+      >
+        <base-material-card
+          color="tertiary"
+        >
           <template v-slot:heading>
-            <div id="firstdiv" shaped class="displaynms font-weight-light">
+            <div
+              id="firstdiv"
+              shaped
+              class="displaynms font-weight-light"
+            >
               <TopWords />
             </div>
           </template>
@@ -12,22 +25,44 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--             v-model="formvmodel"   -->
 
-          <v-form id="mainform" ref="formref" @submit.prevent>
-            <v-container id="vcontain" class="py-4">
-              <v-card id="vcardform" align="center" pr-5 pl-5 elevation-15 raised>
+          <v-form
+            id="mainform"
+            ref="formref"
+            @submit.prevent
+          >
+            <v-container
+              id="vcontain"
+              class="py-4"
+            >
+              <v-card
+                id="vcardform"
+                align="center"
+                pr-5
+                pl-5
+                elevation-15
+                raised
+              >
                 <v-row>
-                  <v-col cols="12" md="6">
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
                     <v-chip
                       id="choicechip"
                       v-bind="chipprops"
                       class="margleft"
                       elevation-14
                       raised
-                    >Make Your Choices:&emsp;</v-chip>
+                    >
+                      Make Your Choices:&emsp;
+                    </v-chip>
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="12" md="4">
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
                     <!-- choice chip:  # # # #  # # # #  # # # #  -->
                     <!--:items="initsupply" -->
 
@@ -37,13 +72,17 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
+
                       :items="initsupply"
                       placeholder="100,000"
                     />
                   </v-col>
 
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                  <v-col cols="12" md="4">
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
                     <v-select
                       id="vseltwo"
                       v-model="vmd2"
@@ -57,7 +96,10 @@
 
                 <v-row>
                   <!-- annual inflation:  # # # #  # # # #  # # # #  -->
-                  <v-col cols="12" md="4">
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
                     <v-select
                       id="vselthree"
                       v-model="vmd3"
@@ -69,7 +111,10 @@
                   </v-col>
                   <!-- stop inflation:  # # # #  # # # #  # # # #  -->
 
-                  <v-col cols="12" md="4">
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
                     <v-select
                       id="vselfour"
                       v-model="vmd4"
@@ -79,7 +124,10 @@
                     />
                   </v-col>
 
-                  <v-col cols="12" md="3">
+                  <v-col
+                    cols="12"
+                    md="3"
+                  >
                     <!-- disinflation # select # five five:  # # # #  # # # #  # # # #  -->
                     <v-select
                       id="vselfive"
@@ -99,9 +147,11 @@
                   color="warning"
                   @submit.prevent
                   @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
-                >submitform</v-btn>
+                >
+                  submitform
+                </v-btn>
                 <div>
-                  <br />
+                  <br>
                 </div>
               </v-card>
             </v-container>
@@ -122,13 +172,22 @@
             min-height="222"
             min-width="222"
           >
-            <v-img v-show="juststarting > 0" :src="dplot" />
+            <v-img
+              v-show="juststarting > 0"
+              :key="juststarting"
+              :src="dplot"
+               />
             The date is: {{ globaldate }}
           </v-card>
         </template>
         <v-card id="buttoncard" color="success" class="padbotcard" elevation-24 raised>
-          <v-btn id="redobtn" @click="resetc">Redo</v-btn>
-          <v-btn id="savebtn" color="purple" @click="keepplot">Save</v-btn>
+        <v-btn
+          id="redobtn"
+          @click="resetc">Redo</v-btn>
+        <v-btn
+          id="savebtn"
+          color="purple"
+          @click="keepplot">Save</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -153,19 +212,12 @@ const restTypes = "GET, POST, HEAD, UPDATE, PUT";
 const acctlMeths = "Access-Control-Allow-Methods";
 const acctlOrig = "Access-Control-Allow-Origin";
 const appJson = "application/json";
+const ctType = "Content-Type";
 const axiosi = axios.create({
   defaults: {
     headers: {
-      post: {
-        Accept: acceptStr,
-        acctlMeths: restTypes,
-        "Content-Type": appJson
-      },
-      get: {
-        Accept: acceptStr,
-        acctlMeths: restTypes,
-        "Content-Type": appJson
-      },
+      post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
+      get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
       common: { acctlOrig: "*" }
     }
   }
@@ -187,8 +239,8 @@ export default {
     },
     juststarting: 0,
     mainplotempty: "http://localhost:5002/static/plote.svg",
-    globaldate: "0",
-    dplot,
+    globaldate: null,
+    dplot: null,
     vmd1: "",
     vmd2: "",
     vmd3: "",
@@ -271,7 +323,7 @@ export default {
           get: {
             Accept: acceptStr,
             acctlMeths: restTypes,
-            "Content-Type": appJson
+            ctType: appJson
           },
           common: { "Access-Control-Allow-Origin": "*" }
         }
