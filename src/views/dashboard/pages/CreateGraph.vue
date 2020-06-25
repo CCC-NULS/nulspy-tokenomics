@@ -166,7 +166,6 @@
       >
         <v-card
           id="plotcard"
-          :key="juststarting"
           class="padplot"
           pl-2
           elevation-24
@@ -174,13 +173,9 @@
           min-height="222"
           min-width="222"
         >
-          <v-img
-            :key="juststarting"
-            :src="dplot"
-            plotcard 
-            lazy-src="https://cdn.vuetifyjs.com/images/cards/store.jpg"        
+          <AsyncCard
+            :incomingstr="globaldate" 
           />
-          The date is: {{ globaldate }}
         </v-card>
         <v-card
           id="buttoncard"
@@ -216,7 +211,7 @@ import Vue from "vue";
 import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-
+import AsyncCard from "@/views/dashboard/components/AsyncCard";
 import axiosRetry from "axios-retry";
 const acceptStr =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
@@ -240,8 +235,10 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
+    AsyncCard,
   },
   data: () => ({
+    datestr: 'g',
     chipprops: {
       class: "v_chip_small",
       small: true,
@@ -267,26 +264,12 @@ export default {
     disinflation: ["3", "4", "5"]
   }),
 
-  computed: {
-    dplot() {
-      if (this.showme == false)
-        return ''
-      let gdate = this.$store.state.gSessionStr;
-      this.setsets()
-      return `http://localhost:5002/static/plot${gdate}.svg`;
-    }
-  },
   mounted() {
     this.globaldate = this.$store.state.gSessionStr;
-    console.log("in mounted. this.globaldate: " + this.globaldate);
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
   },
   methods: {
-    setsets () {
-      this.showme = "true"
-      this.juststarting =+1;
-    },
     asyncRequestPython(baseurl) {
       try {
         console.log("inside asyncRequestPython: " + baseurl);
@@ -302,10 +285,9 @@ export default {
     },
     makePlot(a, b, c, d, e) {
       let tdate = this.globaldate;
-      console.log(
-        "tdate in makePlot: " +  tdate +  "\n " +
-          "juststarting: " +  this.juststarting
-      );
+      let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
+      console.log(infoo)
+
       console.log("a: " + a + "b: " + b + "d: " + d);
       // let bw = '&anninf=' + b.replace(/,/g, '')
       // let cw = '&startinf=' + c
