@@ -40,8 +40,8 @@ class AppSupport:
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
-        plotpath_timestp = args_dict.get("plotpath_timestp")   # jpg
-        plotpath_generic = args_dict.get("plotpath_generic")   # svg
+        plotpath_timestp = args_dict.get("plotpath_timestp")   #
+        # plotpath_generic = args_dict.get("plotpath_generic")   #
 
         start_inflation = start_inflation / 1000
 
@@ -61,8 +61,7 @@ class AppSupport:
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             interval_count += 1
-            name_list = [plotpath_generic, plotpath_timestp]
-        tresult = self.plot_graph(name_list)
+        tresult = self.plot_graph(plotpath_timestp)
         return tresult
 
     def rounddown(self, nm):
@@ -78,8 +77,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, fnames):
-        plotpath_generic, plotpath_timed = fnames
+    def plot_graph(self, plotpath_timed):
         plt.ioff()
         font = {'size': 12}
         stp_inf = self.stop_inflation_y

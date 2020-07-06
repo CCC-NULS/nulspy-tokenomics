@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import createPersistedState from "vuex-persistedstate";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  // plugins: [createPersistedState()],
+  plugins: [createPersistedState()],
   state: {
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
@@ -29,10 +29,10 @@ export default new Vuex.Store({
     },
     gCounterMut(state, theval) {
       state.gCounter = theval
-    },   
+    },
     sCounterMut(state, theval) {
       state.sCounter = theval
-    },    
+    },
     gTimedPlotPathMut(state, theval) {
       state.gTimedPlotPath = theval
     },
@@ -67,7 +67,7 @@ export default new Vuex.Store({
       return state.gSessionStr
     }
   },
-  actions: {  
+  actions: {
     gCounterAct (context, theval) {
       context.commit('gCounterMut', theval)
     },
