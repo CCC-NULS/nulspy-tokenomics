@@ -13,9 +13,8 @@
 </template>
 
 <script>
-  // const bstr = "http://localhost:5002/static/plot"
 
-  const bstr = "http://westteam.nulstar.com:5002/static/plot"
+  const bstr = "http://westteam.nulstar.com:8001/plots"
   const svgstr = ".svg"
   
   function sleep(ms) {
