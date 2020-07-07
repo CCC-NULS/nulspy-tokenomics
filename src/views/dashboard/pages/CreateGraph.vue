@@ -324,6 +324,8 @@ export default {
 <style src="@/assets/styles/mystyle.css">
 </style>
 
+
+
     // computed: {
 
       // function bigim2 () {
