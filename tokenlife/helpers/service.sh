@@ -8,7 +8,7 @@ Group=Nancy
 
 WorkingDirectory=/usr/share/nginx/html/tokenlife
 Environment="PATH=/home/Nancy/anaconda3/bin"
-ExecStart=/home/Nancy/anaconda3/bin/gunicorn -c /usr/share/nginx/html/tokenlife/gunicsockdir/gunicornsock.config.py wsgi:application
+ExecStart=/home/Nancy/anaconda3/bin/gunicorn -c /usr/share/nginx/html/tokenlife/gunicsockdir/gunicornsock.config.py flask_app:application
 
 [Install]
 WantedBy=multi-user.target
