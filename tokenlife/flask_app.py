@@ -32,7 +32,7 @@ def getpy():
         if os.name == 'nt':
             basedir = "E:/wsvue/tokenlifevue/pythonmod/static"
         else:  # linux
-            basedir = "/usr/share/nginx/html/plots"
+            basedir = "/usr/share/nginx/html/tokenlife/plots"
 
         formdict = {"initial_supply_y": formdata.get('initsup'),
                     "annual_inflation": formdata.get('anninf'),
@@ -59,5 +59,5 @@ def make_names(args_dict):
 
 
 if __name__ == "__main__":
-    application.run(debug=1, host='0.0.0.0')
+    application.run(debug=1, host='0.0.0.0', port=8084)
 

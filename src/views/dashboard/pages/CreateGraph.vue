@@ -299,7 +299,7 @@ export default {
       let cw = "&startinf=24";
       let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      let baseUrl = "http://westteam.nulstar.com:8001";
+      let baseUrl = "http://westteam.nulstar.com:8084";
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/plots/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);

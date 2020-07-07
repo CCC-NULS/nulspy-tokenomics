@@ -27,10 +27,6 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css?family=Hind|Lato|Open+Sans|Roboto&display=swap" rel="stylesheet">
-<!--font-family: 'Hind', sans-serif;-->
-<!--font-family: 'Lato', sans-serif;-->
-<!--font-family: 'Roboto', sans-serif;-->
-<!--font-family: 'Open Sans', sans-serif;-->
 <style>
 
 .maintitle {
@@ -42,7 +38,7 @@ Nancy Schorr and Nuls using Python 3.7, Flask, CSS, Html, etc." />
 }
 
 .maindiv {  margin-top:5px; padding:1px;
-      background: linear-gradient(to bottom right,#a98975, #ffcccc, # 100%);
+      background: linear-gradient(to bottom right,#a98975, #ffcccc, 100% );
 }
 .row {
   display: flex;            /* equal height of the children */
@@ -128,50 +124,6 @@ Disinflation ratio is: &emsp;&emsp; 0.004       ( 0.01 = 1% )  <br>
 &emsp;&emsp;&emsp;Inflation and disinflation begin at the same time.<br>
 </div>
 
-  <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-<style>
-.inputc {
-    font-size:22px;
-    font-family: 'Lato', sans-serif;
-    color:blue;
-    }
-.parspace {
-     margin-bottom: 4px;
-    }
-</style>
-
-
-  <h3>Enter Adjustments</h3>
-
-<span style="margin-bottom: 4px;"> </span>
-
-<form action="/plotfiles" method ="POST"  >
-
-Initial Supply:
-<input type="number" value="100000000" name="initial_supply_y" class="inputc"><p class="parspace"></p>
-
-    Inflation tokens per 12 intervals:
-<input type="number"  value="5000000" name="annual_inflation" class="inputc">&nbsp;<p class="parspace"></p>
-
-Inflation begins in how many intervals:
-  <input type="number"  name="start_inflation" value="24" class="inputc"><p class="parspace"></p>
-
-Inflation stops at:
-  <input type="number" value="210000000" name="stop_inflation_y" class="inputc">&nbsp;<p class="parspace"></p>
-
-
-    Disinflation ratio ( .01 = 1% ):
-  <input type="text" size="20" value="0.004" name="disinflation_ratio" class="inputc"><p class="parspace"></p>
-
-
-<input type="submit" value=" Plot Me "
-       style="width:7em; min-width:7em;  background: #dd6b20;
-       color:white; text-shadow: 3px 2px 5px #a98975; padding: 5px; margin-left:7em;
-       margin-top:12px; font-size: 21px;
-        font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
-
-</form>
-    </div> <!-- inset -->
 </div>  <!-- text -->
 <br>
 

@@ -20,7 +20,7 @@
 
 #bind = 'unix:/tmp/gunicorn.sock'
 
-bind = '0.0.0.0:8001'
+bind = '0.0.0.0:8084'
 backlog = 2048
 #proxy_allow_ips = ['0.0.0.0']
 proxy_allow_ips = '*'
