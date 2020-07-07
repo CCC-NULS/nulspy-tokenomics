@@ -303,8 +303,8 @@ export default {
       // let ew = "&disinf=4"
       // let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
-      // let baseUrl = "http://westteam.nulstar.com:8084";
+      // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
+      let baseUrl = "http://westteam.nulstar.com:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/plots/plot${tdate}.svg`;

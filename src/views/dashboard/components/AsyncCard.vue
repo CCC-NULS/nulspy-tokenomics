@@ -23,7 +23,7 @@
         },
     },
     data: () => ({
-      bstr: "http://westteam.nulstar.com/tokenlife/plots",
+      bstr: "http://westteam.nulstar.com/tokenlife/plots/plot",
       svgstr: ".svg",
       dataloaded: false,
       }),
