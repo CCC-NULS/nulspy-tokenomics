@@ -112,11 +112,11 @@
           icon: 'mdi-chart-areaspline',
           to: '/pages/creategraph',
         },           
-        {
-          title: 'savedgraphs',
-          icon: 'mdi-poll',
-          to: '/pages/savedgraphs',
-        },
+        // {
+        //   title: 'savedgraphs',
+        //   icon: 'mdi-poll',
+        //   to: '/pages/savedgraphs',
+        // },
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',

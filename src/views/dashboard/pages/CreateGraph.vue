@@ -289,17 +289,19 @@ export default {
       console.log(infoo)
 
       console.log("a: " + a + "b: " + b + "d: " + d);
-      // let bw = '&anninf=' + b.replace(/,/g, '')
-      // let cw = '&startinf=' + c
+      let bw = '&anninf=' + b.replace(/,/g, '')
+      let cw = '&startinf=' + c
       // let dw = '&stopinf=' + d.replace(/,/g, '')
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
       let aw = "&initsup=100000000"; // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"
-      let bw = "&anninf=5000000";
-      let cw = "&startinf=24";
+      //let bw = "&anninf=5000000";
+      //let cw = "&startinf=24";
       let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      let baseUrl = "http://westteam.nulstar.com:8084";
+      let baseUrl = "http://0.0.0.0:8084";
+      // let baseUrl = "http://westteam.nulstar.com:8084";
+
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/plots/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
