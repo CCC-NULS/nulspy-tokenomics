@@ -2,9 +2,11 @@
   <v-card
     v-if="dataloaded"
     id="asynccard"
+    :key="dataloaded"
     name="asynccard"
   >
     <v-img
+      :key="incomingstr"
       :src="bstr + incomingstr + svgstr"
     />
   </v-card>
@@ -19,7 +21,7 @@
     props: {
       incomingstr: {
         type: String,
-        default: 'empty',        
+        default: 'e',        
         },
     },
     data: () => ({
@@ -28,7 +30,7 @@
       dataloaded: false,
       }),
     async created() {
-      await sleep(5000);
+      await sleep(4000);
       this.dataloaded = true;
     },
   }
