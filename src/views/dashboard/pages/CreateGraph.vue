@@ -288,16 +288,20 @@ export default {
       let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
       console.log(infoo)
 
-      // console.log("a: " + a + "b: " + b + "d: " + d);
+      console.log("a: " + a + "b: " + b + "d: " + d);
+      let aw = '&initsup=' + a.replace(/,/g, '')
       let bw = '&anninf=' + b.replace(/,/g, '')
       let cw = '&startinf=' + c
-      // let dw = '&stopinf=' + d.replace(/,/g, '')
+      let dw = '&stopinf=' + d.replace(/,/g, '')
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
-      let aw = "&initsup=100000000"; // let bw = "&anninf=5000000"   // let cw = "&startinf=24"   // let dw = "&stopinf=210000000"  // let ew = "&disinf=4"
-      //let bw = "&anninf=5000000";
-      //let cw = "&startinf=24";
-      let dw = "&stopinf=210000000";
+
+      // let aw = "&initsup=100000000"; 
+      // let bw = "&anninf=5000000"   
+      // let cw = "&startinf=24"  
+      // let dw = "&stopinf=210000000" 
+      // let ew = "&disinf=4"
+      // let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
       let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
       // let baseUrl = "http://westteam.nulstar.com:8084";
