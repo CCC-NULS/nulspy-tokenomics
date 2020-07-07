@@ -12,11 +12,6 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml']),
 )
 
-@application.route('/static')
-def index():
-    return render_template('index.html')  ## has the user entry form
-
-
 @cross_origin()
 @application.route('/getpy', methods=["GET", "POST", "UPDATE", "HEAD"])
 def getpy():
