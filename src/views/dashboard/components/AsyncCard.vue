@@ -13,8 +13,8 @@
 </template>
 
 <script>
+  const bstr = "http://westteam.nulstar.com/tokenlife/plots"
 
-  const bstr = "http://westteam.nulstar.com:8001/plots"
   const svgstr = ".svg"
   
   function sleep(ms) {
@@ -40,7 +40,7 @@
     
 
     async created() {
-      await sleep(4000);
+      await sleep(5000);
       this.dataloaded = true;
 
     },

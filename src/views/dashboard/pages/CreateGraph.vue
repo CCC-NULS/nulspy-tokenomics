@@ -288,7 +288,7 @@ export default {
       let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
       console.log(infoo)
 
-      console.log("a: " + a + "b: " + b + "d: " + d);
+      // console.log("a: " + a + "b: " + b + "d: " + d);
       let bw = '&anninf=' + b.replace(/,/g, '')
       let cw = '&startinf=' + c
       // let dw = '&stopinf=' + d.replace(/,/g, '')
@@ -299,7 +299,7 @@ export default {
       //let cw = "&startinf=24";
       let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      let baseUrl = "http://0.0.0.0:8084";
+      let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
       // let baseUrl = "http://westteam.nulstar.com:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
@@ -325,108 +325,3 @@ export default {
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
-
-
-
-    // computed: {
-
-      // function bigim2 () {
-      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/, )
-      //   console.log("len: " + reqComponent.length)
-      //   var fileName = ''
-      //   reqComponent.keys().forEach(
-      //     fileName => {
-      //       const compConfig = reqComponent(fileName).default
-      //       console.log("in bigimp: filename: " + fileName)
-      //       const compName = upperFirst(
-      //       camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
-      //     )
-      //     console.log("in bigimp: compName: " + compName)
-      //     Vue.component(`Plot${compName}`, compConfig.default || compConfig)
-      //   })
-      // }
-
-      // myMap: function () {
-      //   console.log("in myMap.  ")
-      //   const reqComponent = require.context('@/assets/plots', false, /\.svg$/ )  // returns Map
-      //   reqComponent.keys().forEach(
-      //     fileName => {
-      //       const compConfig = reqComponent(fileName).default
-      //       console.log("in bigimp: filename: " + fileName)
-      //       const compName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
-      //         //       const compName = upperFirst(
-      //         //    camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')))
-      //       //module.exports[compName] = reqComponent(compConfig)
-      //       console.log("in bigimp: compName: " + compName)
-      //       Vue.component(`${compName}`, reqComponent.default || reqComponent)
-      //   })  return reqComponent
-      // },
-      // setTimeout(function(){ alert("waiting"); }, 2000);
-      // setTimeout(function(){ console.log("wait"); clearTimeout() }, 2000);
-
-      // clearTimeout()
-
-
-      // ckfile () {
-      //   const fname = `plot${this.globaldate}.svg`
-      //   const pathbase = "@/assets/plots/"
-      //   this.fpath = `${pathbase}${fname}`
-      //   this.teatime = this.globaldate
-      //   console.log("!!! -- in ckfile. this.teatime: " + this.teatime)
-      //   return this.fpath
-
-      //   // setInterval(
-      //   //   function () {
-      //   //     try {
-      //   //       this.upplot += 1;
-      //   //   } catch (e)
-      //   //   { console.log("continue")
-      //   //     // continue
-      //   //   }
-      //   //   },
-      //   //    1000 )
-      // },
-      // fileExist(filePath) {
-      //   const fs = require('fs-extra')
-      //   console.log("inside fileExist: " + filePath)
-      //   return new Promise((resolve, reject) => {
-      //     fs.access(filePath, fs.F_OK, (err) => {
-      //       if (err) {
-      //         console.error(err)
-      //         return reject(err);
-      //       }
-      //       resolve(console.log("file is there"));
-      //     })
-      //   });
-      // },
-      // async watchpath(timet) {
-      //   const fname = `plot${timet}.svg`
-      //   const pathbase = "@/assets/plots/"
-      //   const fpath = `${pathbase}${fname}`
-      //   console.log(`inside watchpath ... watching for '${fpath}'`)
-      //   let existFlag = await this.fileExist(fpath);
-      //   console.log("inside main existFlag: " + existFlag)
-      //   },
-  // works too:
-  // const pic = (async () => {
-  //           var p = (await require(`./svgs/${nm}.svg`));
-  //           return p
-  //           })
-  // const pic = () => import(`./svgs/${nm}.svg`);
-      // headerss () {
-      //   var headr = `get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //     'Content-Type': 'application/json' },
-      //     common: { 'Access-Control-Allow-Origin':  '*'}`
-      //   return headr
-      // },
-      // axiosii () {
-      //  var axi = axios.create({
-      //   defaults: {
-      //     headers: {
-      //       get: { 'Accept': acceptStr, 'Access-Control-Allow-Methods': restTypes,
-      //       'Content-Type': 'application/json' },
-      //       common: { 'Access-Control-Allow-Origin':  '*'}
-      //     } }
-      //   })
-      //   return axi
-      // },
