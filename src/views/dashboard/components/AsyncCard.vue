@@ -1,41 +1,37 @@
 <template>
   <v-card
-    v-if="showing"
     id="asynccard"
-    :key="dataloaded"
     name="asynccard"
   >
     <v-img
-      :src="bstr + incomingstr + svgstr"
+      :src="ploturl"
     />
   </v-card>
 </template>
 
 <script>
-  import bstr from '../../../constants'
-  console.log("bstr: " + bstr)
+  // import realstr from '../../../constants.js'
+  // console.log("bstr: " + bstr)
+  // const bstr = 'http://localhost:8084/static/plot'
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   export default {
     name: 'AsyncCard',
-    // props: {
-    //   incomingstr: {
-    //     type: String,
-    //     default: 'e',        
-    //     },
-    //   showing: {
-    //     type: Boolean,
-    //     default: false,        
-    //     },
-    // },
     data: () => ({
-      bstr,
-      svgstr: ".svg",
       dataloaded: false,
     }),
+    computed: {
+      ploturl () { 
+        let svgst = ".svg"
+        let ddate = this.$store.state.gSessionStr 
+        let ptwo = ddate + svgst
+        let theurl = `http://localhost:8084/static/plot${ptwo}`
+        return theurl
+      }
+    },
     mounted () {
-        console.log("mounted AsyncCard " )
+        console.log("mounted AsyncCard")
     },    
     async created() {
       await sleep(3000)
@@ -44,9 +40,3 @@
     },
   }
 </script>
-
-
-
-      // bstr: "http://westteam.nulstar.com/tokenlife/public/plots/plot",
-      // bstr: "http://westteam.nulstar.com/tokenlife/static/plot",
-      // bstr: "http://localhost:8084/tokenlifevue/static/plot",

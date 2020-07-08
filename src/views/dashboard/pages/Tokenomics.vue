@@ -110,12 +110,7 @@
                 {{ leader3 }}<br><br>
 
                 <v-chip
-                  color="blue-grey"
-                  dark
-                  elevation-19
-                  large
-                  label
-                  style="justify=center align=center"
+                  v-bind="tchipprops"
                 >
                   {{ lead4 }}<br>
                 </v-chip>                
@@ -175,6 +170,17 @@
     'set interval of time. (example; 0.4 % Deflation Ration).'
 
   const leader9 = 'Interval (in days): The frequency which the deflation ratio is enforced to decrease the creation of new tokens over time. (example 30 days)'
+  
+  const tchipprops = {
+    color: "blue-grey",
+    raised: true,
+    large: true,
+    label: true,
+    dark: true,
+    raised: true,
+    'elevation-24': true,
+    style: "justify=center align=center"
+  }
 
   export default {
     name: 'Tokenomics',
@@ -193,7 +199,8 @@
         leader6,
         leader7,
         leader8,       
-        leader9,       
+        leader9,
+        tchipprops   
         }
       }
     }

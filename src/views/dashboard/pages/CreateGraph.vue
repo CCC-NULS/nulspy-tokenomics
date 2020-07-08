@@ -210,7 +210,7 @@
             color="purple"
             @click="keepplot"
           >
-            Save
+            Show Plot
           </v-btn>
         </v-card>
       </v-col>
@@ -253,6 +253,7 @@ export default {
   components: {
     TopWords,
     EmptyComp,
+    AsyncCard
   },
   data: () => ({
     datestr: 'g',
@@ -264,10 +265,8 @@ export default {
     juststarting: 0,
     pcard: "EmptyComp",
     showme: false,
-    globaldate: null,
     resetform: 0,
     alert: false,
-    onemil: "1,000,000",
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -285,7 +284,6 @@ export default {
     },5000)
   },
   mounted() {
-    // this.globaldate = this.$store.state.gSessionStr;
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
   },
@@ -305,20 +303,17 @@ export default {
       this.showme = true
     },
     makePlot(a, b, c, d, e) {
-
-
       let ddte = Date.now().toString()
       var tdate = ddte.substring(7,13)
       this.$store.dispatch('gSessionStrAct', tdate)
-      this.globaldate = tdate;
+      // this.globaldate = tdate;
    
       let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
       console.log(infoo)
       if (a == '')
         console.log("a is just empty string");
 
-
-      console.log("a: " + a + "b: " + b + "d: " + d);
+      console.log("a: " + a + " b: " + b + " d: " + d);
       let aw = '&initsup=' + a.replace(/,/g, '')
       let bw = '&anninf=' + b.replace(/,/g, '')
       let cw = '&startinf=' + c
@@ -326,12 +321,6 @@ export default {
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
 
-      // let aw = "&initsup=100000000"; 
-      // let bw = "&anninf=5000000"   
-      // let cw = "&startinf=24"  
-      // let dw = "&stopinf=210000000" 
-      // let ew = "&disinf=4"
-      // let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
       // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
       //let baseUrl = "http://westteam.nulstar.com:8084";
@@ -352,13 +341,17 @@ export default {
     resetc() {
       console.log("resetting form");
       this.resetform +=1;
-      this.alert=true
+      this.alert = true
     },
     keepplot() {
-      console.log("in keepplot");
+      console.log("in keepplot")
+      this.pcard = "AsyncCard"
+
     }
   }
 };
+//      // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
+
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>

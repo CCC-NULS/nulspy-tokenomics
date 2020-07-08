@@ -18,6 +18,7 @@ let localpub = baselocal + pub
 
 export default {
   data: {
-    bstr: "`${localstat}`",
+    bstr: `${localstat}`,
   }
 }
+
