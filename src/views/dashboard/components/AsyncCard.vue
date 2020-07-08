@@ -19,16 +19,16 @@
   }
   export default {
     name: 'AsyncCard',
-    props: {
-      incomingstr: {
-        type: String,
-        default: 'e',        
-        },
-      showing: {
-        type: Boolean,
-        default: false,        
-        },
-    },
+    // props: {
+    //   incomingstr: {
+    //     type: String,
+    //     default: 'e',        
+    //     },
+    //   showing: {
+    //     type: Boolean,
+    //     default: false,        
+    //     },
+    // },
     data: () => ({
       bstr,
       svgstr: ".svg",

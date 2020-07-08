@@ -1,23 +1,23 @@
 
-const basewest = "http://westteam.nulstar.com/tokenlife/"
-const baselocal = "http://localhost:8084/"
-const stat = "static/plot"
-const pub = "public/plots/plot"
+let basewest = 'http://westteam.nulstar.com/tokenlife/'
+let baselocal = 'http://localhost:8084/'
+let stat = 'static/plot'
+let pub = 'public/plots/plot'
 
-const weststat = basewest + stat
-const westpub = basewest + pub
-const localstat = baselocal + stat
-const localpub = baselocal + pub
+let weststat = basewest + stat
+let westpub = basewest + pub
+let localstat = "`${baselocal}${stat}`"
+let localpub = baselocal + pub
 
 // uncomment your choice and comment out others:
 
 // const bstr = weststat
 // const bstr = westpub
-const bstr = localstat
+// let bstr = localstat
 // const bstr = localpub
 
 export default {
   data: {
-    bstr,
+    bstr: "`${localstat}`",
   }
 }

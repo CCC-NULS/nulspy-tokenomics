@@ -73,13 +73,13 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
+                      :value="initsupply[0]"
+                      :placeholder="initsupply[0]"                     
                       :items="initsupply"
-                      value="100,000,000"
-                      placeholder="100,000,000"
                     />
                   </v-col>
 
-                  <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                  <!--2   annual inflation:  2  # # # #  # # # #  # # # #  -->
                   <v-col
                     cols="12"
                     md="4"
@@ -89,15 +89,15 @@
                       v-model="vmd2"
                       type="string"
                       label="Annual Inflation"
-                      :items="aninflation"
-                      value="1,000"
-                      placeholder="1,000"
+                      :value="aninflation[0]"
+                      :placeholder="aninflation[0]"
+                      :items="aninflation"                     
                     />
                   </v-col>
                 </v-row>
 
                 <v-row>
-                  <!-- annual inflation:  # # # #  # # # #  # # # #  -->
+                  <!-- 3  inflatervals Inflation Interval:  3  # # # #  # # # #  # # # #  -->
                   <v-col
                     cols="12"
                     md="4"
@@ -106,14 +106,14 @@
                       id="vselthree"
                       v-model="vmd3"
                       type="string"
-                      value="12"
-                      placeholder="12"
                       label="Inflation Interval"
                       class="margleft"
+                      :value="inflatervals[0]"                   
+                      :placeholder="inflatervals[0]"
                       :items="inflatervals"
                     />
                   </v-col>
-                  <!-- stop inflation:  # # # #  # # # #  # # # #  -->
+                  <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
 
                   <v-col
                     cols="12"
@@ -122,10 +122,11 @@
                     <v-select
                       id="vselfour"
                       v-model="vmd4"
-                      value="120,000,000"
-                      placeholder="120,000,000"
+
                       type="string"
                       label="Stop Inflation "
+                      :value="stopinflation[0]"
+                      :placeholder="stopinflation[0]"                      
                       :items="stopinflation"
                     />
                   </v-col>
@@ -139,10 +140,10 @@
                       id="vselfive"
                       v-model="vmd5"
                       type="string"
-                      value="1"
-                      placeholder="1"                      
                       label="Disinflation Ratio %"
                       class="margright"
+                      :value="disinflation[0]"
+                      :placeholder="disinflation[0]"
                       :items="disinflation"
                     />
                   </v-col>
@@ -182,7 +183,7 @@
           min-width="222"
         >
           <component 
-            :is="PlotCard" 
+            :is="pcard" 
           />
         </v-card>
         <v-card
@@ -200,7 +201,8 @@
           </v-btn>
           <v-alert 
             type="success" 
-            :value="alert">
+            :value="alert"
+          >
             You have reset the values
           </v-alert>
           <v-btn
@@ -250,7 +252,7 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    PlotCard: EmptyComp,
+    EmptyComp,
   },
   data: () => ({
     datestr: 'g',
@@ -260,15 +262,12 @@ export default {
       dark: false
     },
     juststarting: 0,
+    pcard: "EmptyComp",
     showme: false,
     globaldate: null,
     resetform: 0,
     alert: false,
-    vmd1: "",
-    vmd2: "",
-    vmd3: "",
-    vmd4: "",
-    vmd5: "",
+    onemil: "1,000,000",
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -306,15 +305,18 @@ export default {
       this.showme = true
     },
     makePlot(a, b, c, d, e) {
-      // let tdate = this.globaldate;
+
+
       let ddte = Date.now().toString()
       var tdate = ddte.substring(7,13)
+      this.$store.dispatch('gSessionStrAct', tdate)
       this.globaldate = tdate;
    
       let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
       console.log(infoo)
+      if (a == '')
+        console.log("a is just empty string");
 
-      this.$store.dispatch('gSessionStrAct', tdate)
 
       console.log("a: " + a + "b: " + b + "d: " + d);
       let aw = '&initsup=' + a.replace(/,/g, '')
@@ -336,7 +338,7 @@ export default {
       let baseUrl = "http://localhost:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
-      let mainplot = `${baseUrl}/plots/plot${tdate}.svg`;
+      let mainplot = `${baseUrl}/static/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
       try {
         this.asyncRequestPython(pythonUrl);
