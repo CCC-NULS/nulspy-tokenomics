@@ -28,6 +28,7 @@
           <v-form
             id="mainform"
             ref="formref"
+            :key="resetform"
             @submit.prevent
           >
             <v-container
@@ -72,9 +73,9 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
-
                       :items="initsupply"
-                      placeholder="100,000"
+                      value="100,000,000"
+                      placeholder="100,000,000"
                     />
                   </v-col>
 
@@ -89,6 +90,7 @@
                       type="string"
                       label="Annual Inflation"
                       :items="aninflation"
+                      value="1,000"
                       placeholder="1,000"
                     />
                   </v-col>
@@ -104,6 +106,8 @@
                       id="vselthree"
                       v-model="vmd3"
                       type="string"
+                      value="12"
+                      placeholder="12"
                       label="Inflation Interval"
                       class="margleft"
                       :items="inflatervals"
@@ -118,6 +122,8 @@
                     <v-select
                       id="vselfour"
                       v-model="vmd4"
+                      value="120,000,000"
+                      placeholder="120,000,000"
                       type="string"
                       label="Stop Inflation "
                       :items="stopinflation"
@@ -133,6 +139,8 @@
                       id="vselfive"
                       v-model="vmd5"
                       type="string"
+                      value="1"
+                      placeholder="1"                      
                       label="Disinflation Ratio %"
                       class="margright"
                       :items="disinflation"
@@ -170,11 +178,11 @@
           pl-2
           elevation-24
           raised
-          min-height="222"
+          min-height="22"
           min-width="222"
         >
-          <AsyncCard
-            :incomingstr="globaldate" 
+          <component 
+            :is="PlotCard" 
           />
         </v-card>
         <v-card
@@ -190,6 +198,11 @@
           >
             Redo
           </v-btn>
+          <v-alert 
+            type="success" 
+            :value="alert">
+            You have reset the values
+          </v-alert>
           <v-btn
             id="savebtn"
             color="purple"
@@ -212,6 +225,8 @@ import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
 import AsyncCard from "@/views/dashboard/components/AsyncCard";
+import EmptyComp from "@/views/dashboard/components/EmptyComp";
+
 import axiosRetry from "axios-retry";
 const acceptStr =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
@@ -235,7 +250,7 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    AsyncCard,
+    PlotCard: EmptyComp,
   },
   data: () => ({
     datestr: 'g',
@@ -247,6 +262,8 @@ export default {
     juststarting: 0,
     showme: false,
     globaldate: null,
+    resetform: 0,
+    alert: false,
     vmd1: "",
     vmd2: "",
     vmd3: "",
@@ -261,11 +278,15 @@ export default {
     aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
     inflatervals: ["12", "18", "24", "36", "48"],
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-    disinflation: ["3", "4", "5"]
+    disinflation: ["0", "1", "2", "3", "4", "5"]
   }),
-
+  created(){
+    setTimeout(()=>{
+      this.alert=false
+    },5000)
+  },
   mounted() {
-    this.globaldate = this.$store.state.gSessionStr;
+    // this.globaldate = this.$store.state.gSessionStr;
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
   },
@@ -282,11 +303,18 @@ export default {
       } catch (e) {
         console.log(e);
       }
+      this.showme = true
     },
     makePlot(a, b, c, d, e) {
-      let tdate = this.globaldate;
+      // let tdate = this.globaldate;
+      let ddte = Date.now().toString()
+      var tdate = ddte.substring(7,13)
+      this.globaldate = tdate;
+   
       let infoo = `tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`
       console.log(infoo)
+
+      this.$store.dispatch('gSessionStrAct', tdate)
 
       console.log("a: " + a + "b: " + b + "d: " + d);
       let aw = '&initsup=' + a.replace(/,/g, '')
@@ -304,7 +332,8 @@ export default {
       // let dw = "&stopinf=210000000";
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
       // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
-      let baseUrl = "http://westteam.nulstar.com:8084";
+      //let baseUrl = "http://westteam.nulstar.com:8084";
+      let baseUrl = "http://localhost:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/plots/plot${tdate}.svg`;
@@ -319,7 +348,9 @@ export default {
       console.log("juststarting: " + this.juststarting);
     },
     resetc() {
-      console.log("in resetc");
+      console.log("resetting form");
+      this.resetform +=1;
+      this.alert=true
     },
     keepplot() {
       console.log("in keepplot");

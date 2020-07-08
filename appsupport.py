@@ -41,7 +41,7 @@ class AppSupport:
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
-        # plotpath_generic = args_dict.get("plotpath_generic")   #
+        plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
 
         start_inflation = start_inflation / 1000
 
@@ -61,7 +61,7 @@ class AppSupport:
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             interval_count += 1
-        tresult = self.plot_graph(plotpath_timestp)
+        tresult = self.plot_graph(plotpath_timestp, plotpath_timestp2)
         return tresult
 
     def rounddown(self, nm):
@@ -77,7 +77,7 @@ class AppSupport:
         answer = num - (num % multiple)
         return answer
 
-    def plot_graph(self, plotpath_timed):
+    def plot_graph(self, plotpath_timed, plotpath_timed2):
         plt.ioff()
         font = {'size': 12}
         stp_inf = self.stop_inflation_y
@@ -159,6 +159,7 @@ class AppSupport:
 
         # plt.savefig(plotpath_generic,  dpi=150, format='svg')
         plt.savefig(plotpath_timed,  dpi=150, format='svg')
+        plt.savefig(plotpath_timed2,  dpi=150, format='svg')
         #plt.show()
         return True
 

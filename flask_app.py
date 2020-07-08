@@ -25,9 +25,12 @@ def getpy():
     formdata = request.values.dicts[0]
     if len(formdata) > 2:
         if os.name == 'nt':
-            basedir = "E:/wsvue/tokenlifevue/pythonmod/static"
+            basedir = "E:/wsvue/tokenlifevue/static"
+            basedirp = "E:/wsvue/tokenlifevue/public/plots"
+
         else:  # linux
-            basedir = "/usr/share/nginx/html/tokenlife/plots"
+            basedir = "/usr/share/nginx/html/tokenlife/static"
+            basedirp = "/usr/share/nginx/html/tokenlife/public/plots"
 
         formdict = {"initial_supply_y": formdata.get('initsup'),
                     "annual_inflation": formdata.get('anninf'),
@@ -35,10 +38,15 @@ def getpy():
                     "stop_inflation_y": formdata.get('stopinf'),
                     "disinflation_ratio": formdata.get('disinf'),
                     "timestp": formdata.get('timestp'),
-                    "basedir": basedir}
+                    "basedir": basedir,
+                    "basedirp": basedirp}
         args_dict = make_names(formdict)
         tk_obj = appsupport.AppSupport()  # make obj
         tk_obj.main(args_dict)    # execute main
+        print("basedir: " + basedir)
+        print("basedir: " + basedir)
+        print("basedirp: " + basedirp)
+        print("os.name: " + os.name)
         print("got this far! file should be there. ")
         return '200 OK'
 
@@ -46,13 +54,20 @@ def getpy():
 def make_names(args_dict):
     timestamp = args_dict.get("timestp")
     basedir = args_dict.get("basedir")
+    basedirp = args_dict.get("basedirp")
     plot_name_time_stmp = "plot" + timestamp + ".svg"  # the rest are saved as jpgs with timestamps
     plotpath_timestp = os.path.join(basedir, plot_name_time_stmp)  # t for timestamp - names have timestamp
+    plotpath_timestp2 = os.path.join(basedirp, plot_name_time_stmp)  # t for timestamp - names have timestamp
     plotpath_timestp_norm = os.path.normpath(plotpath_timestp)
+    plotpath_timestp_norm2 = os.path.normpath(plotpath_timestp2)
     args_dict.update({"plotpath_timestp": plotpath_timestp_norm})  # time stamped for later, jpg
+    args_dict.update({"plotpath_timestp2": plotpath_timestp_norm2})  # time stamped for later, jpg
+    print("plotpath_timestp: " + plotpath_timestp_norm)
+    print("plotpath_timestp2: " + plotpath_timestp_norm2)
     return args_dict
 
 
 if __name__ == "__main__":
-    application.run(debug=1, host='0.0.0.0', port='8084')
+    #application.run(debug=1, host='0.0.0.0', port='8084')
+    application.run(debug=1, host='127.0.0.1', port='8084')
 
