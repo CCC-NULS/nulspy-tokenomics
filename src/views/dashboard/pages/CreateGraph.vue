@@ -171,9 +171,12 @@
           id="plotcard"
           v-bind="plotpad"
         >
+          <!-- <img 
+            :src="`${plotpath1}`"
+          >      
           <img 
-            :src="require(`${plotpath}`)" 
-          >                 
+            src="`plotpath2()`"
+          >             -->
         </v-card>
         <v-card
           id="buttoncard"
@@ -215,12 +218,12 @@ import Vue from "vue";
 import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-import FullCard from "@/views/dashboard/components/FullCard";
-import EmptyComp from "@/views/dashboard/components/EmptyComp";
+// import FullCard from "@/views/dashboard/components/FullCard";
+// import EmptyComp from "@/views/dashboard/components/EmptyComp";
 
 import axiosRetry from "axios-retry";
-const acceptStr =
-  "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+
+const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const restTypes = "GET, POST, HEAD, UPDATE, PUT";
 const acctlMeths = "Access-Control-Allow-Methods";
 const acctlOrig = "Access-Control-Allow-Origin";
@@ -235,17 +238,22 @@ const axiosi = axios.create({
     }
   }
 });
+const self = this
+console.log("this1: " + this)
 
-var pubpath = 'http://localhost:8084/public/'
-var plotname = 'cube.svg'         
+var dirPath = "http://localhost:8084/static/"
+self.$store.dispatch('gDirPathAct', dirPath)
+var plotname1 = "cube.svg"  // not in store
 
-plotpath = `${pubdir}${plotname}`
-console.log("plotpath: " + plotpath)
+var imgName = "cube2.svg"         // replace this one with real plot 
+self.$store.dispatch('gImgNameAct', imgName)  //real plot
+
+var plotpath1 = `${dirPath}${plotname1}`
+console.log("plotpath1: " + plotpath1)
 
 var juststarting = 0;
 const chooseDefault = "Choose"
 
-const chdis = "Disinflation"
 const plotpad = {
   class: "padplot pl-2",
   raised: true,
@@ -254,24 +262,22 @@ const plotpad = {
   'min-width': "222",
 }
 var plotlist = [];
+console.log("this2: " + this)
 
 export default {
   name: "CreateGraph",
   components: {
     TopWords,
-
   },
-  data: () => ({
-    datestr: 'g',
-    chdis,
+  data () {
+    return {
     chooseDefault,
     chipprops: {
       class: "v_chip_small",
       small: true,
       dark: false
     },
-    pcard: '',
-    plotpath,
+    plotpath1,  // not real plot
     resetform: 0,
     alert: false,
     vmd1: '',
@@ -284,21 +290,25 @@ export default {
     inflatervals: ["12", "18", "24", "36", "48"],
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["0", "1", "2", "3", "4", "5"]
-  }),
-
+    }
+  },
+ 
   computed: {
-    vplotname () {
-      var pubdir = this.pubpath
-      var plotn = this.plotname         
-      return `${pubdir}${plotn}`
+    plotpath2 () {
+      console.log("this3: " + this)
+
+      selff = this
+      let dpath = selff.$store.gDirPathGet()
+      let plotn = selff.$store.gImgNameGet()    // real plot
+      let pn = `${dpath}${plotn}`  
+      console.log("plotpath2: " + pn)
+      return pn
     }
   },
 
-  created(){
-    this.pcard = this.EmptyComp
-    setTimeout(()=>{
-      this.alert=false
-    },100)
+  created() {
+    console.log("this4: " + this);
+
   },  
   mounted() {
     this.juststarting = 0;
@@ -306,6 +316,8 @@ export default {
   },
   methods: {
     asyncRequestPython(baseurl) {
+      console.log("this5: " + this);
+
       try {
         console.log("inside asyncRequestPython: " + baseurl);
         (async () => {
@@ -335,11 +347,11 @@ export default {
       console.log(`b is ${b} ${b.length}`);
       console.log(`d is ${d} ${d.length}`);
 
-      let ddte = Date.now().toString()
-      var tdate = ddte.substring(7,13)
-      this.$store.dispatch('gSessionStrAct', tdate)
-   
-      console.log(`tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`)
+      let ddte = Date.now().toString();
+      var tdate = ddte.substring(7,13);
+      this.$store.dispatch('gSessionStrAct', tdate);
+      console.log("this6 : " + this);
+      console.log(`tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
       let aw = '&initsup=' + a.replace(/,/g, '')
@@ -348,11 +360,11 @@ export default {
       let dw = '&stopinf=' + d.replace(/,/g, '')
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
-      let results = 0
+      let results = 0;
 
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app
-      //let baseUrl = "http://westteam.nulstar.com:8084";
+      // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app  //let baseUrl = "http://westteam.nulstar.com:8084";
+      
       let baseUrl = "http://localhost:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
@@ -365,18 +377,16 @@ export default {
       }
       console.log(`The plot Url is: ${mainplot}`);
       this.juststarting = +1;
-      this.plotname = mainplot
 
       console.log("results: " + this.results);
     },
     resetc() {
       console.log("resetting form");
-      this.resetform +=1;
-      this.alert = true
+      this.resetform += 1;
+      this.alert = true;
     },
     keepplot() {
-      console.log("in keepplot")
-      this.pcard = "AsyncCard"
+      console.log("in keepplot");
 
     }
   }
