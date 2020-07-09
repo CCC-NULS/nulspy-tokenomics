@@ -142,8 +142,6 @@
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
-                      :value="disinflation[0]"
-                      :placeholder="disinflation[0]"
                       :items="disinflation"
                     />
                   </v-col>
@@ -243,15 +241,15 @@ const axiosi = axios.create({
 });
 var juststarting = 0;
 
-
 const plotpad = {
   class: "padplot pl-2",
-  'elevation-24': true,
   raised: true,
+  'elevation-24': true,
   'min-height': "22",
   'min-width': "222",
 }
 var plotlist = [];
+
 export default {
   name: "CreateGraph",
   components: {
@@ -267,6 +265,7 @@ export default {
       dark: false
     },
     pcard: '',
+    plotpad,
     resetform: 0,
     alert: false,
     vmd1: '',

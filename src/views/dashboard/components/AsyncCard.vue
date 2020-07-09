@@ -33,10 +33,5 @@
     mounted () {
         console.log("mounted AsyncCard")
     },    
-    async created() {
-      await sleep(3000)
-      this.dataloaded = true
-      console.log("in async created - dataloaded= " + this.dataloaded)
-    },
   }
 </script>
