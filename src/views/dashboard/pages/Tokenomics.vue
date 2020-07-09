@@ -155,31 +155,31 @@
 
   // const tHeader = 'About NULS'
   const mat1 = 'NULS is an open-source, enterprise-grade, adaptive blockchain platform ' +
-    'that offers fast-track business solutions for developers.'
+    'that offers fast-track business solutions for developers.';
   
-  var mat2 = 'NULS sets a new industry standard '
-  var mat2b = 'in streamlining blockchain adoption'
+  var mat2 = 'NULS sets a new industry standard ';
+  var mat2b = 'in streamlining blockchain adoption';
   
   const leader1 = 'Featuring microservices, smart contracts, cross-chain interoperability, and instant ' +
-    'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' 
+    'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' ;
   
-  const lead2 = 'Total Supply'
+  const lead2 = 'Total Supply';
   const leader2 = 'is the initial total token supply that will be created for the new blockchain. ' +
     'There are many variables to consider when selecting an initial total token supply including; valuation, ' +
     'funding strategy, consensus node rewards, application use case (s), number/size of transactions, number of users, ' +
-    'use case road map and community incentive programs. (Example: 100,000,000)'
+    'use case road map and community incentive programs. (Example: 100,000,000)';
   
-  const lead3 = 'Decimal'
+  const lead3 = 'Decimal';
   const leader3 = '8 is the maximum needed. 8 decimal places are used by large public blockchain projects such as ' +
-   'Bitcoin and Ethereum.'
+   'Bitcoin and Ethereum.';
   
-  const lead4 = 'Inflation'
+  const lead4 = 'Inflation';
   const leader4 = 'is the number and rate of new tokens that will be created and primarily used as rewards ' +
-    'to incentivize the blockchain network to create, pack and validate blocks.'
+    'to incentivize the blockchain network to create, pack and validate blocks.';
 
-  const lead5 ='Initial Inflation'
+  const lead5 ='Initial Inflation';
   const leader5 = 'is the fixed number of new tokens that will be generated to incentivize the blockchain ' +
-    'network. (Example 110000000)'
+    'network. (Example 110000000)';
 
   const lead6 = 'Total Inflation'
   const leader6 = 'is the Total Supply plus the Initial Amount of Inflation.' + 
@@ -190,26 +190,26 @@
     'Once a maximum supply is reached, the network will become reliant on transaction fees to incentivize its continued ' +
     'operations. (Example 210000000)'
 
-  const lead7 = 'Inflation Starting Time'
-  const leader7 = 'is the calendar date the inflation commences.'
+  const lead7 = 'Inflation Starting Time';
+  const leader7 = 'is the calendar date the inflation commences.';
 
-  const lead8 = 'Deflation Ratio'
+  const lead8 = 'Deflation Ratio';
   const leader8 = 'is the rate at which the creation of new tokens (inflation) will be decreased at a ' +
-    'set interval of time. (example; 0.4 % Deflation Ration).'
+    'set interval of time. (example; 0.4 % Deflation Ration).';
 
-  const lead9 = 'Interval'
-  const leader9 = '(in days): The frequency which the deflation ratio is enforced to decrease the creation of new tokens over time. (example 30 days)'
+  const lead9 = 'Interval';
+  const leader9 = '(in days): The frequency which the deflation ratio is enforced to decrease the creation of new tokens over time. (example 30 days)';
   
   const tchipprops = {
-    color: "blue-grey",
+    color: 'blue-grey',
     raised: true,
     large: true,
     label: true,
     dark: true,
     raised: true,
     'elevation-24': true,
-    style: "justify=center align=center"
-  }
+    style: 'justify=center align=center'
+  };
 
   export default {
     name: 'Tokenomics',
@@ -238,5 +238,5 @@
         tchipprops   
         }
       }
-    }
+    };
 </script>

@@ -48,5 +48,5 @@
     data: () => ({
       titlewords: 'Example Values',
     })
-  }
+  };
 </script>

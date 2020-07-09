@@ -214,14 +214,15 @@
 <script>
 // beware: arrow functions cause problems with 'this'
 
-import Vue from "vue";
+// import Vue from "vue";
 import axios from "axios";
+import store from "../../../store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
 // import FullCard from "@/views/dashboard/components/FullCard";
 // import EmptyComp from "@/views/dashboard/components/EmptyComp";
 
-import axiosRetry from "axios-retry";
+// import axiosRetry from "axios-retry";
 
 const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const restTypes = "GET, POST, HEAD, UPDATE, PUT";
@@ -235,32 +236,31 @@ const axiosi = axios.create({
       post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
       get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
       common: { acctlOrig: "*" }
-    }
-  }
+    },
+  },
 });
-const self = this
-console.log("this1: " + this)
 
-var dirPath = "http://localhost:8084/static/"
-self.$store.dispatch('gDirPathAct', dirPath)
-var plotname1 = "cube.svg"  // not in store
+var dirPath = 'http://localhost:8084/static/'
+store.dispatch('gDirPathAct', dirPath);
+var plotname1 = "cube.svg";  // not in store
 
-var imgName = "cube2.svg"         // replace this one with real plot 
-self.$store.dispatch('gImgNameAct', imgName)  //real plot
+var imgName = "cube2.svg" ;        // replace this one with real plot 
+store.dispatch('gImgNameAct', imgName) ; //real plot
 
-var plotpath1 = `${dirPath}${plotname1}`
-console.log("plotpath1: " + plotpath1)
+var plotpath1 = `${dirPath}${plotname1}`;
+console.log("plotpath1: " + plotpath1);
 
 var juststarting = 0;
-const chooseDefault = "Choose"
+const chooseDefault = "Choose";
 
 const plotpad = {
-  class: "padplot pl-2",
+  class: 'padplot pl-2',
   raised: true,
   'elevation-24': true,
-  'min-height': "22",
-  'min-width': "222",
+  'min-height': '22',
+  'min-width': '222',
 }
+
 var plotlist = [];
 console.log("this2: " + this)
 
@@ -294,21 +294,16 @@ export default {
   },
  
   computed: {
-    plotpath2 () {
-      console.log("this3: " + this)
-
-      selff = this
-      let dpath = selff.$store.gDirPathGet()
-      let plotn = selff.$store.gImgNameGet()    // real plot
-      let pn = `${dpath}${plotn}`  
+    plotpath2: function ()  {
+      // console.log("this3: " + this)
+      let dpath = this.store.gDirPathGet();
+      let plotn = this.store.gImgNameGet();   // real plot
+      let pn =  "`${dpath}${plotn}`";  
       console.log("plotpath2: " + pn)
       return pn
     }
   },
-
   created() {
-    console.log("this4: " + this);
-
   },  
   mounted() {
     this.juststarting = 0;
@@ -316,11 +311,10 @@ export default {
   },
   methods: {
     asyncRequestPython(baseurl) {
-      console.log("this5: " + this);
-
+      // console.log("this5: " + this);
       try {
         console.log("inside asyncRequestPython: " + baseurl);
-        (async () => {
+        ;(async () => {
           let response = await axiosi({
             url: baseurl,
             method: "post"
@@ -328,8 +322,7 @@ export default {
         })();
       } catch (e) {
         console.log(e);
-      }
-      return 1
+      };
     },
     makePlot(aa, bb, cc, dd, ee) {
       let a = "100,000,000"  // default
@@ -337,11 +330,11 @@ export default {
       let c = "12"     // default
       let d = "110,000,000"    // default
       let e = "2"     // default
-      if (aa.length > 4) { a = aa }
-      if (bb.length > 4) { b = bb }
-      if (dd.length > 4) { d = dd }
-      if (cc.length > 1) { c = dd }
-      if (ee.length > 0) { e = ee }
+      if (aa.length > 4) { a = aa; }
+      if (bb.length > 4) { b = bb; }
+      if (dd.length > 4) { d = dd; }
+      if (cc.length > 1) { c = dd; }
+      if (ee.length > 0) { e = ee; }
 
       console.log(`a is ${a} ${a.length}`);
       console.log(`b is ${b} ${b.length}`);
@@ -350,14 +343,14 @@ export default {
       let ddte = Date.now().toString();
       var tdate = ddte.substring(7,13);
       this.$store.dispatch('gSessionStrAct', tdate);
-      console.log("this6 : " + this);
-      console.log(`tdate makePlot: ${tdate}\njuststarting: ${this.juststarting}`);
+      // console.log("this6 : " + this);
+      console.log(`tdate makePlot: ${tdate}  juststarting: ${this.juststarting}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
-      let aw = '&initsup=' + a.replace(/,/g, '')
-      let bw = '&anninf=' + b.replace(/,/g, '')
-      let cw = '&startinf=' + c
-      let dw = '&stopinf=' + d.replace(/,/g, '')
+      let aw = '&initsup=' + a.replace(/,/g, '');
+      let bw = '&anninf=' + b.replace(/,/g, '');
+      let cw = '&startinf=' + c;
+      let dw = '&stopinf=' + d.replace(/,/g, '');
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
       let results = 0;
@@ -365,7 +358,7 @@ export default {
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
       // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app  //let baseUrl = "http://westteam.nulstar.com:8084";
       
-      let baseUrl = "http://localhost:8084";
+      let baseUrl = 'http://localhost:8084';
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/public/plot${tdate}.svg`;
@@ -387,7 +380,6 @@ export default {
     },
     keepplot() {
       console.log("in keepplot");
-
     }
   }
 };
