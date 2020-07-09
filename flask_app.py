@@ -26,7 +26,7 @@ def getpy():
     if len(formdata) > 2:
         if os.name == 'nt':
             basedir = "E:/wsvue/tokenlifevue/static"
-            basedirp = "E:/wsvue/tokenlifevue/public/plots"
+            basedirp = "E:/wsvue/tokenlifevue/public"
 
         else:  # linux
             basedir = "/usr/share/nginx/html/tokenlife/static"

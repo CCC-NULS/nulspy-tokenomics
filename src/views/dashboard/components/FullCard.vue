@@ -1,12 +1,8 @@
 <template>
-  <v-card
-    id="asynccard"
-    name="asynccard"
-  >
-    <v-img
-      :src="ploturl"
-    />
-  </v-card>
+  <v-img
+    :src="ploturl"
+    :key="chgdate"
+  />
 </template>
 
 <script>
@@ -17,11 +13,15 @@
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   export default {
-    name: 'AsyncCard',
+    name: 'FullCard',
     data: () => ({
       dataloaded: false,
     }),
+
     computed: {
+      chgdate () { 
+        return this.$store.state.gSessionStr 
+      },
       ploturl () { 
         let svgst = ".svg"
         let ddate = this.$store.state.gSessionStr 
@@ -30,8 +30,14 @@
         return theurl
       }
     },
+    
+    watch: {
+      '$store.state.gSessionStr'(value, oldValue) {
+      },
+    },     
+    
     mounted () {
-        console.log("mounted AsyncCard")
+        console.log("mounted FullCard")
     },    
-  }
+ }
 </script>

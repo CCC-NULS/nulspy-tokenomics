@@ -73,8 +73,7 @@
                       class="margleft"
                       type="string"
                       label="Initial Token Supply"
-                      :value="initsupply[0]"
-                      :placeholder="initsupply[0]"                     
+                      :placeholder="chooseDefault"                      
                       :items="initsupply"
                     />
                   </v-col>
@@ -89,8 +88,7 @@
                       v-model="vmd2"
                       type="string"
                       label="Annual Inflation"
-                      :value="aninflation[0]"
-                      :placeholder="aninflation[0]"
+                      :placeholder="chooseDefault"                      
                       :items="aninflation"                     
                     />
                   </v-col>
@@ -108,8 +106,7 @@
                       type="string"
                       label="Inflation Interval"
                       class="margleft"
-                      :value="inflatervals[0]"                   
-                      :placeholder="inflatervals[0]"
+                      :placeholder="chooseDefault"                      
                       :items="inflatervals"
                     />
                   </v-col>
@@ -122,11 +119,9 @@
                     <v-select
                       id="vselfour"
                       v-model="vmd4"
-
                       type="string"
-                      label="Stop Inflation "
-                      :value="stopinflation[0]"
-                      :placeholder="stopinflation[0]"                      
+                      label="Stop Inflation"
+                      :placeholder="chooseDefault"                      
                       :items="stopinflation"
                     />
                   </v-col>
@@ -142,6 +137,7 @@
                       type="string"
                       label="Disinflation Ratio %"
                       class="margright"
+                      :placeholder="chooseDefault"                      
                       :items="disinflation"
                     />
                   </v-col>
@@ -175,9 +171,9 @@
           id="plotcard"
           v-bind="plotpad"
         >
-          <component 
-            :is="pcard" 
-          />
+          <img 
+            :src="require(`${plotpath}`)" 
+          >                 
         </v-card>
         <v-card
           id="buttoncard"
@@ -219,7 +215,7 @@ import Vue from "vue";
 import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-import AsyncCard from "@/views/dashboard/components/AsyncCard";
+import FullCard from "@/views/dashboard/components/FullCard";
 import EmptyComp from "@/views/dashboard/components/EmptyComp";
 
 import axiosRetry from "axios-retry";
@@ -239,8 +235,17 @@ const axiosi = axios.create({
     }
   }
 });
-var juststarting = 0;
 
+var pubpath = 'http://localhost:8084/public/'
+var plotname = 'cube.svg'         
+
+plotpath = `${pubdir}${plotname}`
+console.log("plotpath: " + plotpath)
+
+var juststarting = 0;
+const chooseDefault = "Choose"
+
+const chdis = "Disinflation"
 const plotpad = {
   class: "padplot pl-2",
   raised: true,
@@ -254,18 +259,19 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    EmptyComp,
-    AsyncCard
+
   },
   data: () => ({
     datestr: 'g',
+    chdis,
+    chooseDefault,
     chipprops: {
       class: "v_chip_small",
       small: true,
       dark: false
     },
     pcard: '',
-    plotpad,
+    plotpath,
     resetform: 0,
     alert: false,
     vmd1: '',
@@ -279,12 +285,21 @@ export default {
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["0", "1", "2", "3", "4", "5"]
   }),
+
+  computed: {
+    vplotname () {
+      var pubdir = this.pubpath
+      var plotn = this.plotname         
+      return `${pubdir}${plotn}`
+    }
+  },
+
   created(){
-    this.pcard = false
+    this.pcard = this.EmptyComp
     setTimeout(()=>{
       this.alert=false
     },100)
-  },
+  },  
   mounted() {
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
@@ -304,7 +319,22 @@ export default {
       }
       return 1
     },
-    makePlot(a, b, c, d, e) {
+    makePlot(aa, bb, cc, dd, ee) {
+      let a = "100,000,000"  // default
+      let b = "1,000,000"  // default
+      let c = "12"     // default
+      let d = "110,000,000"    // default
+      let e = "2"     // default
+      if (aa.length > 4) { a = aa }
+      if (bb.length > 4) { b = bb }
+      if (dd.length > 4) { d = dd }
+      if (cc.length > 1) { c = dd }
+      if (ee.length > 0) { e = ee }
+
+      console.log(`a is ${a} ${a.length}`);
+      console.log(`b is ${b} ${b.length}`);
+      console.log(`d is ${d} ${d.length}`);
+
       let ddte = Date.now().toString()
       var tdate = ddte.substring(7,13)
       this.$store.dispatch('gSessionStrAct', tdate)
@@ -326,7 +356,7 @@ export default {
       let baseUrl = "http://localhost:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
-      let mainplot = `${baseUrl}/static/plot${tdate}.svg`;
+      let mainplot = `${baseUrl}/public/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
       try {
         let results = this.asyncRequestPython(pythonUrl);
@@ -335,6 +365,8 @@ export default {
       }
       console.log(`The plot Url is: ${mainplot}`);
       this.juststarting = +1;
+      this.plotname = mainplot
+
       console.log("results: " + this.results);
     },
     resetc() {

@@ -436,14 +436,8 @@
     exec('ls -la')
   }
   function submitfiles () {
-<<<<<<< HEAD
-    console.log('submitting this:')
-    console.log(optionAxios)
-    axios.post(mainurl, formData, optionAxios)
-=======
     console.log('submitting')
     instance.post('http://127.0.0.1:5002/postdir', formData)
->>>>>>> dev
       .then(function (response) {
         console.log('got a response')
         console.log(response)
