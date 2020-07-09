@@ -11,45 +11,41 @@ export default new Router({
       path: '/',
       component: () => import('@/views/dashboard/Index'),
       children: [
-        // Dashboard
-        {
-          name: 'Dashboard',
-          path: '',
-          component: () => import('@/views/dashboard/Dashboard'),
-        },
         // Pages
         {
           name: 'Create Graph',
-          path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
-        },
-        // {
-        //   name: 'Inflation',
-        //   path: 'components/notifications',
-        //   component: () => import('@/views/dashboard/component/Notifications'),
-        // },
-        // {
-        //   name: 'Nodes',
-        //   path: 'components/icons',
-        //   component: () => import('@/views/dashboard/component/Icons'),
-        // },
+          path: 'pages/creategraph',
+          component: () => import('@/views/dashboard/pages/CreateGraph'),
+        }, 
         {
-          name: 'Staking',
-          path: 'components/typography',
-          component: () => import('@/views/dashboard/component/Typography'),
+          name: 'Saved Graphs',
+          path: 'pages/savedgraphs',
+          component: () => import('@/views/dashboard/pages/SavedGraphs'),
         },
+        {
+          name: 'Tokenomics',
+          path: 'pages/tokenomics',
+          component: () => import('@/views/dashboard/pages/Tokenomics'),
+        },
+        // {
+        //   name: 'TimedFile',
+        //   path: 'assets/plots',
+        //   component: () => import('@/assets/plots/plotnone'),
+        // },
+        
+        // Dashboard
+        // {
+        //   name: 'Dashboard',
+        //   path: 'dashboard',
+        //   component: () => import('@/views/dashboard/Dashboard'),
+        // },        
         // Tables
-        {
-          name: 'Blockchain',
-          path: 'tables/regular-tables',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
-        },
-        // Maps
-        {
-          name: 'View Graph',
-          path: 'maps/google-maps',
-          component: () => import('@/views/dashboard/maps/GoogleMaps'),
-        },
+        // {
+        //   name: 'Blockchain',
+        //   path: 'tables/regular-tables',
+        //   component: () => import('@/views/dashboard/tables/RegularTables'),
+        // },
+        // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
         // {
         //   name: 'Profile Card',
         //   path: 'componentsns',

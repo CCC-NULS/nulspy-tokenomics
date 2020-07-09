@@ -5,7 +5,7 @@
     <dashboard-core-drawer />
 
     <dashboard-core-view />
-
+   
     <dashboard-core-settings />
   </v-app>
 </template>

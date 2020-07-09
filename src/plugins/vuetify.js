@@ -14,9 +14,10 @@ const theme = {
   success: '#00BFA5',
   accent: '#212121',
   info: '#651FFF',
-  error: '512DA8',
+  error: '#512DA8',
   warning: '#455A64',
   darkgrey: '#212121',
+  orangeaccent: '#FF8A65',
 }
 
 export default new Vuetify({

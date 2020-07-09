@@ -6,7 +6,7 @@
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-    mobile-break-point="960"
+    mobile-breakpoint="960"
     app
     width="260"
     v-bind="$attrs"
@@ -32,8 +32,8 @@
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            src="@/assets/images/nulsWhiteLogo40.jpg"
+            max-height="45"
           />
         </v-list-item-avatar>
 
@@ -94,10 +94,7 @@
 <script>
   // Utilities
 
-  import {
-    mapState,
-  } from 'vuex'
-
+  import {  mapState  } from 'vuex'
   export default {
     name: 'DashboardCoreDrawer',
     props: {
@@ -109,36 +106,45 @@
 
     data: () => ({
       items: [
+
+        {
+          title: 'creategraph',
+          icon: 'mdi-chart-areaspline',
+          to: '/pages/creategraph',
+        },           
+        // {
+        //   title: 'savedgraphs',
+        //   icon: 'mdi-poll',
+        //   to: '/pages/savedgraphs',
+        // },
+        {
+          title: 'tokenomics',
+          icon: 'mdi-electron-framework',
+          to: '/pages/tokenomics',
+        },
+
         // {
         //   icon: 'mdi-view-dashboard',
         //   title: 'dashboard',
         //   to: '/',
         // },
-        {
-          icon: 'mdi-poll',
-          title: 'user',
-          to: '/pages/user',
-        },
         // {
         //   title: 'rtables',
         //   icon: 'mdi-clipboard-outline',
         //   to: '/tables/regular-tables',
-        // },
-        {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
-        },
+        // },        
         // {
         //   title: 'icons',
         //   icon: 'mdi-chart-bubble',
         //   to: '/components/icons',
         // },
-        {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
-        },
+        // {     
+        //   title: 'google',
+        //   icon: 'mdi-bookmark',
+        //   to: '/maps/google-maps',
+        // },
+        // mdi-electron-framework
+
         // {
         //   title: 'notifications',
         //   icon: 'mdi-bell',

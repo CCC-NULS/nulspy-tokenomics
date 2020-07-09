@@ -13,7 +13,7 @@
   "example": "Example",
   "forms": "Forms",
   "fullscreen": "Full Screen Map",
-  "google": "Graphs",
+  "google": "Maps",
   "grid": "Grid System",
   "icons": "Icons",
   "lock": "Lock Screen Page",
@@ -34,12 +34,13 @@
   "settings": "Settings",
   "tables": "Tables",
   "tabs": "Tabs",
-  "tim": "Creative NULS",
+  "tim": "NULS Blockchain",
   "timeline": "Timeline",
-  "typography": "NULS",
   "upgrade": " ",
-  "user": "Create Graph",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
-  "wizard": "Wizard"
+  "wizard": "Wizard",
+  "creategraph": "Create Graph",
+  "savedgraphs": "Saved Graphs",
+  "tokenomics": "Tokenomics"
 }
