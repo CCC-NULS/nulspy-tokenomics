@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 // console.log("this in store: " + this)
 
 export default new Vuex.Store({
-  plugins: [createPersistedState()],
+  // plugins: [createPersistedState()],
   state: {
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
@@ -22,10 +22,10 @@ export default new Vuex.Store({
     gSessionStr: 'a',
   },
   mutations: {
-    SET_BAR_IMAGE (state, payload) {
+    SET_BAR_IMAGE(state, payload) {
       state.barImage = payload
     },
-    SET_DRAWER (state, payload) {
+    SET_DRAWER(state, payload) {
       state.drawer = payload
     },
     // gCounterMut(state, theval) {
@@ -61,18 +61,12 @@ export default new Vuex.Store({
     // gTimedPlotPathGet: state => state.gTimedPlotPath,
     // gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
     // gSaveOneGet: state => state.gSaveOne,
-    gDirPathGet () {
-      return state.gDirPath
-    },
-    gImgNameGet() {
-      return state.gImgName
-    },
-    gSessionStrGet () {
-      return state.gSessionStr
-    },
-    getSession () {
-      return state.gSessionStr
-    }
+
+    gDirPathGet: state => state.gDirPath,
+    gImgNameGet: state => state.gImgName,
+    gSessionStrGet: state => state.gSessionStr,
+
+    
   },
   actions: {
     // gCounterAct (context, theval) {
@@ -93,14 +87,15 @@ export default new Vuex.Store({
     // gShowMeAct (context, theval) {
     //   context.commit('gShowMeMut', theval)
     // },
-    gImgNameAct (context, theval) {
+    gImgNameAct(context, theval) {
       context.commit('gImgNameMut', theval)
     },
-    gDirPathAct (context, theval) {
+    
+    gDirPathAct(context, theval) {
       context.commit('gDirPathMut', theval)
     },
-    gSessionStrAct (context, theval) {
+    gSessionStrAct(context, theval) {
       context.commit('gSessionStrMut', theval)
     }
   }
-})
+});

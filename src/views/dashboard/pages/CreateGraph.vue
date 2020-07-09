@@ -170,13 +170,11 @@
         <v-card
           id="plotcard"
           v-bind="plotpad"
+          :img="plotpath2"
         >
-          <!-- <img 
-            :src="`${plotpath1}`"
-          >      
           <img 
-            src="`plotpath2()`"
-          >             -->
+            :src="plotpath2"
+          >
         </v-card>
         <v-card
           id="buttoncard"
@@ -216,13 +214,9 @@
 
 // import Vue from "vue";
 import axios from "axios";
-import store from "../../../store";
+import store from "@/store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-// import FullCard from "@/views/dashboard/components/FullCard";
-// import EmptyComp from "@/views/dashboard/components/EmptyComp";
-
-// import axiosRetry from "axios-retry";
 
 const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const restTypes = "GET, POST, HEAD, UPDATE, PUT";
@@ -241,12 +235,12 @@ const axiosi = axios.create({
 });
 
 var dirPath = 'http://localhost:8084/static/'
-store.dispatch('gDirPathAct', dirPath);
+this.$store.dispatch('gDirPathAct', dirPath);
 var plotname1 = "cube.svg";  // not in store
 
 var imgName = "cube2.svg" ;        // replace this one with real plot 
-store.dispatch('gImgNameAct', imgName) ; //real plot
-
+// Root.store.dispatch('gImgNameAct', imgName) ; //real plot
+this.$store.dispatch('gImgNameAct', imgName)
 var plotpath1 = `${dirPath}${plotname1}`;
 console.log("plotpath1: " + plotpath1);
 
@@ -269,9 +263,9 @@ export default {
   components: {
     TopWords,
   },
-  data () {
-    return {
+  data: () => ({
     chooseDefault,
+    plotpad,
     chipprops: {
       class: "v_chip_small",
       small: true,
@@ -290,15 +284,14 @@ export default {
     inflatervals: ["12", "18", "24", "36", "48"],
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["0", "1", "2", "3", "4", "5"]
-    }
-  },
- 
+    }),
+  
   computed: {
     plotpath2: function ()  {
       // console.log("this3: " + this)
-      let dpath = this.store.gDirPathGet();
-      let plotn = this.store.gImgNameGet();   // real plot
-      let pn =  "`${dpath}${plotn}`";  
+      let dpath = this.$store.gDirPathGet;
+      let plotn = this.$store.gImgNameGet;   // real plot
+      let pn =  `${dpath}${plotn}`;  
       console.log("plotpath2: " + pn)
       return pn
     }
@@ -332,8 +325,8 @@ export default {
       let e = "2"     // default
       if (aa.length > 4) { a = aa; }
       if (bb.length > 4) { b = bb; }
+      if (cc.length > 1) { c = cc; }
       if (dd.length > 4) { d = dd; }
-      if (cc.length > 1) { c = dd; }
       if (ee.length > 0) { e = ee; }
 
       console.log(`a is ${a} ${a.length}`);
