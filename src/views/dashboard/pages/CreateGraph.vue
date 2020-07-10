@@ -168,8 +168,17 @@
       >
         <v-card
           id="plotcard"
-          :img="plotpath2"
-        />
+          color="success"
+          min-height="300px"
+          min-width="600px"
+        >
+          <div 
+            v-for="(data, key) in imgURL" 
+            :key="key"
+          >
+            <ImgComp :url="data" />
+          </div>
+        </v-card>
         <v-card
           id="buttoncard"
           color="success"
@@ -211,7 +220,7 @@ import axios from "axios";
 // import store from "@/store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-
+import ImgComp from "@/views/dashboard/components/ImgComp"
 const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const restTypes = "GET, POST, HEAD, UPDATE, PUT";
 const acctlMeths = "Access-Control-Allow-Methods";
@@ -228,19 +237,14 @@ const axiosi = axios.create({
   },
 });
 var self = this
-// this.$store.dispatch('gDirPathAct', dirPath);
-// Root.store.dispatch('gImgNameAct', imgName) ; //real plot
-// this.$store.dispatch('gImgNameAct', imgName)
-
-
-var plotname1 = "cube.svg";  // not in store
+var plott = "777777";  // not in store
 var pythonHost= "http://127.0.0.1:8084/"
-var plotpath1 = `${pythonHost}static/${plotname1}`;
-console.log("plotpath1: " + plotpath1);
+var cubepath = `${pythonHost}static/plot${plott}.svg`;
+console.log("cubepath: " + cubepath);
 
 var juststarting = 0;
 const chooseDefault = "Choose";
-
+var vari = '777779'
 // const plotpad = {
 //   class: 'padplot pl-2',
 //   raised: true,
@@ -256,8 +260,13 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
+    ImgComp,
   },
   data: () => ({
+    "imgURL": {
+      test1: "777777",  // base empty
+      test2: vari,
+    },
     chooseDefault,
     // plotpad,
     chipprops: {
@@ -265,8 +274,9 @@ export default {
       small: true,
       dark: false
     },
-    plotpath1,  // not real plot
+    cubepath,  // not real plot
     resetform: 0,
+    globDate: "777777",
     alert: false,
     vmd1: '',
     vmd2: '',
@@ -282,20 +292,48 @@ export default {
   
   computed: {
     plotpath2: function ()  {
+      // http://127.0.0.1:8084/static/plot766080.svg
       var pythHost= "http://127.0.0.1:8084/"
-      var ptwo = "cube2.svg" ;        // replace this one with real plot 
-      var plottwo = `${pythHost}static/${ptwo}`;  // reading from here
+      let ptwo = this.globDate  // 
+      var plottwo = `${pythHost}static/plot${ptwo}.svg`;  // reading from here
+
+      console.log("computed date: " + ptwo)
+      //var ptwo = "cube2.svg" ;        // replace this one with real plot 
       console.log("plottwo: " + plottwo)
       return plottwo
     }
   },
+
   created() {
-  },  
+    this.getLink();
+  },
+ 
   mounted() {
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
   },
   methods: {     
+    read_plot () {
+    if (el.length) {
+        // Do something with el
+      } else {
+        setTimeout(pollDOM, 300); // try again in 300 milliseconds
+      }
+    },
+    getRealImg(baseurl) {
+      try {
+        console.log("inside getRealImg: " + baseurl);
+        (async () => {
+          let response = await axiosi({
+            url: baseurl,
+            method: "get"
+          });
+        })();
+      } catch (e) {
+        console.log(e);
+      }
+      // this.showme = true
+    },
    arPython(baseurl) {
       try {
         console.log("inside arPython: " + baseurl);
@@ -309,6 +347,14 @@ export default {
         console.log(e);
       }
       // this.showme = true
+    },
+    async getLink(newvar){
+      let response = await cksame({
+        imgURL : this.url
+    })
+    console.log(response.data)
+    this.link = response.data
+      }
     },
     makePlot(aa, bb, cc, dd, ee) {
       let a = "100,000,000"  // default
@@ -329,6 +375,7 @@ export default {
       let ddte = Date.now().toString();
       var tdate = ddte.substring(7,13);
       this.$store.dispatch('gSessionStrAct', tdate);
+      this.globDate = tdate
       // console.log("this6 : " + this);
       console.log(`tdate makePlot: ${tdate}  juststarting: ${this.juststarting}`);
 
@@ -363,7 +410,8 @@ export default {
       console.log("in keepplot");
     }
   }
-}
+
+
 //      // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 
 </script>
