@@ -46,11 +46,9 @@
               <v-col
                 cols="1"
                 md="1"
-                align="left"
               />
               <v-col 
                 cols="9"
-                align="left"
               />
               <br>
       
@@ -123,6 +121,7 @@
                  
                 <v-chip
                   v-bind="tchipprops"
+                  class="display-3"
                 >
                   {{ lead7 }}&nbsp;&nbsp;
                 </v-chip>
@@ -158,7 +157,7 @@
     'that offers fast-track business solutions for developers.';
   
   var mat2 = 'NULS sets a new industry standard ';
-  var mat2b = 'in streamlining blockchain adoption';
+  var mat3 = 'in streamlining blockchain adoption';
   
   const leader1 = 'Featuring microservices, smart contracts, cross-chain interoperability, and instant ' +
     'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' ;
@@ -206,9 +205,7 @@
     large: true,
     label: true,
     dark: true,
-    raised: true,
     'elevation-24': true,
-    style: 'justify=center align=center'
   };
 
   export default {
@@ -217,7 +214,7 @@
       return {  
         mat1,
         mat2,
-        mat2b,
+        mat3,
         leader1,
         leader2,
         lead2,

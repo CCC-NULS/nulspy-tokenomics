@@ -30,7 +30,7 @@ def getpy():
 
         else:  # linux
             basedir = "/usr/share/nginx/html/tokenlife/static"
-            basedirp = "/usr/share/nginx/html/tokenlife/public/plots"
+            basedirp = "/usr/share/nginx/html/tokenlife/public"
 
         formdict = {"initial_supply_y": formdata.get('initsup'),
                     "annual_inflation": formdata.get('anninf'),

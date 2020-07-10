@@ -303,19 +303,16 @@ export default {
     console.log("in mounted: juststarting: " + this.juststarting);
   },
   methods: {
-    asyncRequestPython(baseurl) {
       // console.log("this5: " + this);
+    // async function callAsync() {
+    //     try {  await schrödinger2();      console.log("caught error", e); //<-- yet, this is never reached
+    //     } }
+    async asyncRequestPython ()  {
       try {
-        console.log("inside asyncRequestPython: " + baseurl);
-        ;(async () => {
-          let response = await axiosi({
-            url: baseurl,
-            method: "post"
-          });
-        })();
+        await axiosi({  url: baseurl,   method: "post"  });
       } catch (e) {
-        console.log(e);
-      };
+        console.log("caught error", e);    //<-- yet, this is never reached
+      }
     },
     makePlot(aa, bb, cc, dd, ee) {
       let a = "100,000,000"  // default
@@ -356,26 +353,23 @@ export default {
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/public/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
-      try {
-        let results = this.asyncRequestPython(pythonUrl);
-      } catch (e) {
-        console.log(e);
-      }
+      this.asyncRequestPython(pythonUrl);
+
       console.log(`The plot Url is: ${mainplot}`);
       this.juststarting = +1;
 
-      console.log("results: " + this.results);
+      // console.log("results: " + this.results);
     },
     resetc() {
       console.log("resetting form");
-      this.resetform += 1;
-      this.alert = true;
+      // this.resetform += 1;
+      // this.alert = true;
     },
     keepplot() {
       console.log("in keepplot");
     }
   }
-};
+}
 //      // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 
 </script>
