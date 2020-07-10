@@ -228,14 +228,14 @@ const axiosi = axios.create({
   },
 });
 var self = this
-var dirPath = "http://localhost:8084/static/"
-this.$store.dispatch('gDirPathAct', dirPath);
-var plotname1 = "cube.svg";  // not in store
-
-var imgName = "cube2.svg" ;        // replace this one with real plot 
+// this.$store.dispatch('gDirPathAct', dirPath);
 // Root.store.dispatch('gImgNameAct', imgName) ; //real plot
-this.$store.dispatch('gImgNameAct', imgName)
-var plotpath1 = `${dirPath}${plotname1}`;
+// this.$store.dispatch('gImgNameAct', imgName)
+
+
+var plotname1 = "cube.svg";  // not in store
+var pythonHost= "http://127.0.0.1:8084/"
+var plotpath1 = `${pythonHost}static/${plotname1}`;
 console.log("plotpath1: " + plotpath1);
 
 var juststarting = 0;
@@ -259,7 +259,7 @@ export default {
   },
   data: () => ({
     chooseDefault,
-    plotpad,
+    // plotpad,
     chipprops: {
       class: "v_chip_small",
       small: true,
@@ -282,12 +282,11 @@ export default {
   
   computed: {
     plotpath2: function ()  {
-      // console.log("this3: " + this)
-      let dpath = this.$store.gDirPathGet;
-      let plotn = this.$store.gImgNameGet;   // real plot
-      let pn =  `${dpath}${plotn}`;  
-      console.log("plotpath2: " + pn)
-      return pn
+      var pythHost= "http://127.0.0.1:8084/"
+      var ptwo = "cube2.svg" ;        // replace this one with real plot 
+      var plottwo = `${pythHost}static/${ptwo}`;  // reading from here
+      console.log("plottwo: " + plottwo)
+      return plottwo
     }
   },
   created() {
@@ -296,11 +295,7 @@ export default {
     this.juststarting = 0;
     console.log("in mounted: juststarting: " + this.juststarting);
   },
-  methods: {
-      // console.log("this5: " + this);
-    // async function callAsync() {
-    //     try {  await schrödinger2();      console.log("caught error", e); //<-- yet, this is never reached
-    //      
+  methods: {     
    arPython(baseurl) {
       try {
         console.log("inside arPython: " + baseurl);
@@ -347,16 +342,14 @@ export default {
       let results = 0;
 
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app  //let baseUrl = "http://westteam.nulstar.com:8084";
-      
-      let baseUrl = "http://0.0.0.0:8084";
+      var pythonIPport = "http://127.0.0.1:8084"
 
-      let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
-      let mainplot = `${baseUrl}/public/plot${tdate}.svg`;
+      let pythonUrl = `${pythonIPport}/getpy?${requestVars}`;
+      let createdGraph = `${pythonIPport}/static/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
       this.arPython(pythonUrl);
 
-      console.log(`The plot Url is: ${mainplot}`);
+      console.log(`The plot Url is: ${createdGraph}`);
       this.juststarting = +1;
 
       // console.log("results: " + this.results);
