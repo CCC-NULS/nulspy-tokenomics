@@ -4,10 +4,10 @@
     fluid
     tag="section"
   >
-    <!-- <base-v-component
+    <base-v-component
       heading="About Tokenomics"
       link="pages/tokenomics"
-    /> -->
+    /> 
 
     <v-row
       align="center"
@@ -17,7 +17,7 @@
         cols="12"
         md="9"
       >
-        <base-material-card
+        <!-- <base-material-card
           color="blue-grey"
           elevation-24
           raised
@@ -69,14 +69,14 @@
                 style="justify=center"
               >
                 <v-card-title
-                  class="display-2"
+                  class="display-4"
                 >
                   &nbsp; {{ mat2 }}  &nbsp;   &nbsp;
                 </v-card-title>
               </v-card>
               <br>
               <div
-                class="display-2"
+                class="display-4"
               >
                 {{ mat3 }}<br><br>
 
@@ -144,7 +144,7 @@
               </div>
             </v-row>
           </v-card>
-        </base-material-card>
+        </base-material-card> -->
       </v-col>
     </v-row>
   </v-container>

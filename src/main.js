@@ -20,8 +20,6 @@ import './plugins/chartist'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import 'material-icons'
-import 'cross-spawn'
-// require('@/assets/styles/mystyle.css')
 
 Vue.config.productionTip = false
 
@@ -33,4 +31,3 @@ new Vue({
   iconfont: 'mdi',
   render: h => h(App)
 }).$mount('#app')
-

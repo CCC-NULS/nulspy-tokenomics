@@ -50,7 +50,6 @@
                   >
                     <v-chip
                       id="choicechip"
-                      v-bind="chipprops"
                       class="margleft"
                       elevation-14
                       raised
@@ -169,13 +168,8 @@
       >
         <v-card
           id="plotcard"
-          v-bind="plotpad"
           :img="plotpath2"
-        >
-          <img 
-            :src="plotpath2"
-          >
-        </v-card>
+        />
         <v-card
           id="buttoncard"
           color="success"
@@ -214,7 +208,7 @@
 
 // import Vue from "vue";
 import axios from "axios";
-import store from "@/store";
+// import store from "@/store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
 
@@ -233,8 +227,8 @@ const axiosi = axios.create({
     },
   },
 });
-
-var dirPath = 'http://localhost:8084/static/'
+var self = this
+var dirPath = "http://localhost:8084/static/"
 this.$store.dispatch('gDirPathAct', dirPath);
 var plotname1 = "cube.svg";  // not in store
 
@@ -247,13 +241,13 @@ console.log("plotpath1: " + plotpath1);
 var juststarting = 0;
 const chooseDefault = "Choose";
 
-const plotpad = {
-  class: 'padplot pl-2',
-  raised: true,
-  'elevation-24': true,
-  'min-height': '22',
-  'min-width': '222',
-}
+// const plotpad = {
+//   class: 'padplot pl-2',
+//   raised: true,
+//   'elevation-24': true,
+//   'min-height': '22',
+//   'min-width': '222',
+// }
 
 var plotlist = [];
 console.log("this2: " + this)
@@ -306,13 +300,20 @@ export default {
       // console.log("this5: " + this);
     // async function callAsync() {
     //     try {  await schrödinger2();      console.log("caught error", e); //<-- yet, this is never reached
-    //     } }
-    async asyncRequestPython ()  {
+    //      
+   arPython(baseurl) {
       try {
-        await axiosi({  url: baseurl,   method: "post"  });
+        console.log("inside arPython: " + baseurl);
+        (async () => {
+          let response = await axiosi({
+            url: baseurl,
+            method: "post"
+          });
+        })();
       } catch (e) {
-        console.log("caught error", e);    //<-- yet, this is never reached
+        console.log(e);
       }
+      // this.showme = true
     },
     makePlot(aa, bb, cc, dd, ee) {
       let a = "100,000,000"  // default
@@ -348,12 +349,12 @@ export default {
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
       // let baseUrl = "http://0.0.0.0:8084";  // 8084 is the flask_app  //let baseUrl = "http://westteam.nulstar.com:8084";
       
-      let baseUrl = 'http://localhost:8084';
+      let baseUrl = "http://0.0.0.0:8084";
 
       let pythonUrl = `${baseUrl}/getpy?${requestVars}`;
       let mainplot = `${baseUrl}/public/plot${tdate}.svg`;
       console.log("juststarting before request: " + this.juststarting);
-      this.asyncRequestPython(pythonUrl);
+      this.arPython(pythonUrl);
 
       console.log(`The plot Url is: ${mainplot}`);
       this.juststarting = +1;
