@@ -216,6 +216,8 @@
 // beware: arrow functions cause problems with 'this'
 
 // import Vue from "vue";
+const rax = require('retry-axios');
+
 import axios from "axios";
 // import store from "@/store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
