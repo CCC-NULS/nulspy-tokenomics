@@ -12,9 +12,9 @@
       >
     </v-card>
 
-  <!-- %%%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%%%  PLOT 1 -->  
   </v-container>
 </template>
+  <!-- %%%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%%%   -->  
 
 <script>
   import axios from "axios";

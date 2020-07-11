@@ -166,19 +166,8 @@
         cols="12"
         md="11"
       >
-        <v-card
-          id="plotcard"
-          color="success"
-          min-height="300px"
-          min-width="600px"
-        >
-          <div 
-            v-for="(data, key) in imgURL" 
-            :key="key"
-          >
-            <ImgComp :url="data" />
-          </div>
-        </v-card>
+        <newcomp />
+
         <v-card
           id="buttoncard"
           color="success"
@@ -215,11 +204,7 @@
 <script>
 // beware: arrow functions cause problems with 'this'
 
-// import Vue from "vue";
-const rax = require('retry-axios');
-
 import axios from "axios";
-// import store from "@/store";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
 import ImgComp from "@/views/dashboard/components/ImgComp"
@@ -238,45 +223,27 @@ const axiosi = axios.create({
     },
   },
 });
-var self = this
 var plott = "777777";  // not in store
 var pythonHost= "http://127.0.0.1:8084/"
-var cubepath = `${pythonHost}static/plot${plott}.svg`;
-console.log("cubepath: " + cubepath);
 
 var juststarting = 0;
 const chooseDefault = "Choose";
-var vari = '777779'
-// const plotpad = {
-//   class: 'padplot pl-2',
-//   raised: true,
-//   'elevation-24': true,
-//   'min-height': '22',
-//   'min-width': '222',
-// }
+var testPath = `${pythonHost}static/plot${777777}.svg`;
 
-var plotlist = [];
-console.log("this2: " + this)
 
 export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    ImgComp,
+    newcomp: ImgComp(testPath),
   },
   data: () => ({
-    "imgURL": {
-      test1: "777777",  // base empty
-      test2: vari,
-    },
     chooseDefault,
-    // plotpad,
     chipprops: {
       class: "v_chip_small",
       small: true,
       dark: false
     },
-    cubepath,  // not real plot
     resetform: 0,
     globDate: "777777",
     alert: false,
@@ -300,42 +267,15 @@ export default {
       var plottwo = `${pythHost}static/plot${ptwo}.svg`;  // reading from here
 
       console.log("computed date: " + ptwo)
-      //var ptwo = "cube2.svg" ;        // replace this one with real plot 
       console.log("plottwo: " + plottwo)
       return plottwo
     }
   },
 
-  created() {
-    this.getLink();
-  },
- 
+
   mounted() {
-    this.juststarting = 0;
-    console.log("in mounted: juststarting: " + this.juststarting);
   },
   methods: {     
-    read_plot () {
-    if (el.length) {
-        // Do something with el
-      } else {
-        setTimeout(pollDOM, 300); // try again in 300 milliseconds
-      }
-    },
-    getRealImg(baseurl) {
-      try {
-        console.log("inside getRealImg: " + baseurl);
-        (async () => {
-          let response = await axiosi({
-            url: baseurl,
-            method: "get"
-          });
-        })();
-      } catch (e) {
-        console.log(e);
-      }
-      // this.showme = true
-    },
    arPython(baseurl) {
       try {
         console.log("inside arPython: " + baseurl);
@@ -347,15 +287,6 @@ export default {
         })();
       } catch (e) {
         console.log(e);
-      }
-      // this.showme = true
-    },
-    async getLink(newvar){
-      let response = await cksame({
-        imgURL : this.url
-    })
-    console.log(response.data)
-    this.link = response.data
       }
     },
     makePlot(aa, bb, cc, dd, ee) {
@@ -370,15 +301,12 @@ export default {
       if (dd.length > 4) { d = dd; }
       if (ee.length > 0) { e = ee; }
 
-      console.log(`a is ${a} ${a.length}`);
-      console.log(`b is ${b} ${b.length}`);
-      console.log(`d is ${d} ${d.length}`);
+      console.log(`a is ${a} ${a.length} b is ${b} ${b.length} d is ${d} ${d.length}`);
 
       let ddte = Date.now().toString();
       var tdate = ddte.substring(7,13);
       this.$store.dispatch('gSessionStrAct', tdate);
       this.globDate = tdate
-      // console.log("this6 : " + this);
       console.log(`tdate makePlot: ${tdate}  juststarting: ${this.juststarting}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
@@ -395,27 +323,19 @@ export default {
 
       let pythonUrl = `${pythonIPport}/getpy?${requestVars}`;
       let createdGraph = `${pythonIPport}/static/plot${tdate}.svg`;
-      console.log("juststarting before request: " + this.juststarting);
       this.arPython(pythonUrl);
 
       console.log(`The plot Url is: ${createdGraph}`);
-      this.juststarting = +1;
-
-      // console.log("results: " + this.results);
     },
     resetc() {
       console.log("resetting form");
-      // this.resetform += 1;
-      // this.alert = true;
     },
     keepplot() {
       console.log("in keepplot");
     }
   }
-
-
-//      // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
-
+}
+ // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
 <style src="@/assets/styles/mystyle.css">
 </style>
