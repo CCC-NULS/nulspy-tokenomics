@@ -168,7 +168,8 @@
       >
         <v-card
           v-if="showme"
-          color="teal"
+          color="teal lighten-4"
+          class="justify=center mb-5 pb-5"
         >
           <img
             v-if="showme"
@@ -211,33 +212,12 @@ import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
 
-const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-const restTypes = "GET, POST, HEAD, UPDATE, PUT";
-const acctlMeths = "Access-Control-Allow-Methods";
-const acctlOrig = "Access-Control-Allow-Origin";
-const appJson = "application/json";
-const ctType = "Content-Type";
-const axiosi = axios.create({
-  defaults: {
-    headers: {
-      post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
-      get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
-      common: { acctlOrig: "*" }
-    },
-  },
-});
-const retry = require('retry');
-const chooseDefault = "Choose";
-
-var finalImgUrl
-const axiosGet = axios.create()
-    
-const operation = retry.operation({
-  retries: 10,
-  factor: 3,
-  minTimeout: 1000,
-  maxTimeout: 40000,
-});
+var acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+var restTypes = "GET, POST, HEAD, UPDATE, PUT";
+var acctlMeths = "Access-Control-Allow-Methods";
+var acctlOrig = "Access-Control-Allow-Origin";
+var appJson = "application/json";
+var ctType = "Content-Type";
 
 export default {
   name: "CreateGraph",
@@ -246,15 +226,14 @@ export default {
   },
   data: () => ({
     showme: false,
-    chooseDefault,
+    chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
       small: true,
       dark: false
     },
     resetform: 0,
-    finalImgUrl,
-    globDate,
+    finalImgUrl: '',
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -266,10 +245,18 @@ export default {
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["0", "1", "2", "3", "4", "5"]
     }),
-  created () {
-  },
   methods: {   
     checkPic () {
+      const axiosGet = axios.create()
+      const retry = require('retry');
+
+      const operation = retry.operation({
+        retries: 10,
+        factor: 3,
+        minTimeout: 1000,
+        maxTimeout: 40000,
+      });
+
       operation.attempt(async (currentAttempt) => {
         console.log('sending request: ', currentAttempt, ' attempt');
         try {
@@ -285,6 +272,14 @@ export default {
       }) 
     }, 
     axiosPost(baseurl) {
+      const axiosi = axios.create({
+        defaults: {
+          headers: {
+            post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
+            common: { acctlOrig: "*" }
+          },
+        },
+      });
       try {
         console.log("inside axiosPost: " + baseurl);
         (async () => {
@@ -314,7 +309,6 @@ export default {
       let ddte = Date.now().toString();
       var gDate = ddte.substring(7,13);
       this.$store.dispatch('gSessionStrAct', gDate);
-      this.globDate = gDate
       console.log(`gDate makePlot: ${gDate}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
@@ -332,6 +326,7 @@ export default {
 
       this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
       console.log(`The plot Url is: ${this.finalImgUrl}`);
+      this.checkPic()
     },
     resetc() {
       console.log("resetting form");
