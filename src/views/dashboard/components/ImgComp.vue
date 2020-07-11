@@ -36,13 +36,14 @@
         required: true,
         type: String,
         default: 'none',
+      },
     },
     data: () =>  ({
       showme: false,
-      myurl,
     }),
     mounted() {
-      console.log("starting in mounted")
+      
+      console.log("starting in mounted: " + myurl)
       operation.attempt(async (currentAttempt) => {
         console.log('sending request: ', currentAttempt, ' attempt');
         try {
@@ -59,7 +60,7 @@
     },
     methods: {
       operation,
-    }
+    },
   }
 
 </script>

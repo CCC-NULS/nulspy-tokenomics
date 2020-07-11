@@ -166,7 +166,15 @@
         cols="12"
         md="11"
       >
-        <newcomp />
+        <v-card
+          v-if="showme"
+          color="teal"
+        >
+          <img
+            v-if="showme"
+            :src="finalImgUrl"
+          >
+        </v-card>
 
         <v-card
           id="buttoncard"
@@ -181,12 +189,7 @@
           >
             Redo
           </v-btn>
-          <v-alert 
-            type="success" 
-            :value="alert"
-          >
-            You have reset the values
-          </v-alert>
+
           <v-btn
             id="savebtn"
             color="purple"
@@ -207,7 +210,7 @@
 import axios from "axios";
 import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-import ImgComp from "@/views/dashboard/components/ImgComp"
+
 const acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const restTypes = "GET, POST, HEAD, UPDATE, PUT";
 const acctlMeths = "Access-Control-Allow-Methods";
@@ -223,21 +226,26 @@ const axiosi = axios.create({
     },
   },
 });
-var plott = "777777";  // not in store
-var pythonHost= "http://127.0.0.1:8084/"
-
-var juststarting = 0;
+const retry = require('retry');
 const chooseDefault = "Choose";
-var testPath = `${pythonHost}static/plot${777777}.svg`;
 
+var finalImgUrl
+const axiosGet = axios.create()
+    
+const operation = retry.operation({
+  retries: 10,
+  factor: 3,
+  minTimeout: 1000,
+  maxTimeout: 40000,
+});
 
 export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    newcomp: ImgComp(testPath),
   },
   data: () => ({
+    showme: false,
     chooseDefault,
     chipprops: {
       class: "v_chip_small",
@@ -245,8 +253,8 @@ export default {
       dark: false
     },
     resetform: 0,
-    globDate: "777777",
-    alert: false,
+    finalImgUrl,
+    globDate,
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -258,27 +266,27 @@ export default {
     stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
     disinflation: ["0", "1", "2", "3", "4", "5"]
     }),
-  
-  computed: {
-    plotpath2: function ()  {
-      // http://127.0.0.1:8084/static/plot766080.svg
-      var pythHost= "http://127.0.0.1:8084/"
-      let ptwo = this.globDate  // 
-      var plottwo = `${pythHost}static/plot${ptwo}.svg`;  // reading from here
-
-      console.log("computed date: " + ptwo)
-      console.log("plottwo: " + plottwo)
-      return plottwo
-    }
+  created () {
   },
-
-
-  mounted() {
-  },
-  methods: {     
-   arPython(baseurl) {
+  methods: {   
+    checkPic () {
+      operation.attempt(async (currentAttempt) => {
+        console.log('sending request: ', currentAttempt, ' attempt');
+        try {
+          await axiosGet.get(this.finalImgUrl);
+        } catch (e) {
+          if (operation.retry(e)) { return; }
+        }
+        let opAttempts = operation.attempts()
+        console.log("retries: " + opAttempts)
+        if (opAttempts < 15) {
+          this.showme = true
+        }
+      }) 
+    }, 
+    axiosPost(baseurl) {
       try {
-        console.log("inside arPython: " + baseurl);
+        console.log("inside axiosPost: " + baseurl);
         (async () => {
           let response = await axiosi({
             url: baseurl,
@@ -304,10 +312,10 @@ export default {
       console.log(`a is ${a} ${a.length} b is ${b} ${b.length} d is ${d} ${d.length}`);
 
       let ddte = Date.now().toString();
-      var tdate = ddte.substring(7,13);
-      this.$store.dispatch('gSessionStrAct', tdate);
-      this.globDate = tdate
-      console.log(`tdate makePlot: ${tdate}  juststarting: ${this.juststarting}`);
+      var gDate = ddte.substring(7,13);
+      this.$store.dispatch('gSessionStrAct', gDate);
+      this.globDate = gDate
+      console.log(`gDate makePlot: ${gDate}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
       let aw = '&initsup=' + a.replace(/,/g, '');
@@ -316,16 +324,14 @@ export default {
       let dw = '&stopinf=' + d.replace(/,/g, '');
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
-      let results = 0;
+      let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
+      var pyHost = "http://127.0.0.1:8084"
 
-      let requestVars = aw + bw + cw + dw + ew + `&timestp=${tdate}`;
-      var pythonIPport = "http://127.0.0.1:8084"
+      let pythonRequest = `${pyHost}/getpy?${requestVars}`;
+      this.axiosPost(pythonRequest);
 
-      let pythonUrl = `${pythonIPport}/getpy?${requestVars}`;
-      let createdGraph = `${pythonIPport}/static/plot${tdate}.svg`;
-      this.arPython(pythonUrl);
-
-      console.log(`The plot Url is: ${createdGraph}`);
+      this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
+      console.log(`The plot Url is: ${this.finalImgUrl}`);
     },
     resetc() {
       console.log("resetting form");
