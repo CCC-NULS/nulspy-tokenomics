@@ -166,16 +166,16 @@
         cols="12"
         md="11"
       >
-        <v-card
+        <base-material-card
           v-if="showme"
-          color="teal lighten-4"
-          class="justify=center mb-5 pb-5"
+          color="tertiary"
+          class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
           <img
             v-if="showme"
             :src="finalImgUrl"
           >
-        </v-card>
+        </base-material-card>
 
         <v-card
           id="buttoncard"
@@ -225,7 +225,8 @@ export default {
     TopWords,
   },
   data: () => ({
-    showme: false,
+    showme: true,
+    // showme: false,
     chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
@@ -233,7 +234,7 @@ export default {
       dark: false
     },
     resetform: 0,
-    finalImgUrl: '',
+    finalImgUrl: "http://127.0.0.1:8084/static/plot155414.svg",
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -324,16 +325,20 @@ export default {
       let pythonRequest = `${pyHost}/getpy?${requestVars}`;
       this.axiosPost(pythonRequest);
 
-      this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
-      console.log(`The plot Url is: ${this.finalImgUrl}`);
+      // this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
+      this.finalImgUrl = `${pyHost}/static/plot155414.svg`;
+
+console.log(`The plot Url is: ${this.finalImgUrl}`);
       this.checkPic()
     },
     resetc() {
       console.log("resetting form");
+      resetform += 1;
+      alert("You have reset the form")
     },
     keepplot() {
       console.log("in keepplot");
-    }
+    },
   }
 }
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";

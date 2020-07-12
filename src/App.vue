@@ -4,7 +4,7 @@
       <router-link to="/">
         Home
       </router-link> |
-      <router-link to="/about">
+      <router-link to="pages/tokenomics">
         About
       </router-link>
     </div>

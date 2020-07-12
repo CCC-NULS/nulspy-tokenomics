@@ -2,20 +2,26 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    class="gradientdd"
-    :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
+    class="gradientnuls"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
+    :dark="barColor !== 'gradientnuls'"
+
     mobile-breakpoint="960"
     app
     width="260"
     v-bind="$attrs"
   >
-    <!-- from above :src="barImage" -->
+    <!-- from above :src="barImage" 
+      //  :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
+:dark="barColor !== 'gradientnuls'"
+             :gradient="`to bottom, ${barColor}`"
+ 
+-->
 
     <template v-slot:img="props">
       <v-img
-        :gradient="`to bottom, ${barColor}`"
+        :gradient="gradientnuls"
         v-bind="props"
       />
     </template>

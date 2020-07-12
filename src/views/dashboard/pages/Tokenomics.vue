@@ -17,7 +17,7 @@
         cols="12"
         md="9"
       >
-        <!-- <base-material-card
+        <base-material-card
           color="blue-grey"
           elevation-24
           raised
@@ -40,54 +40,29 @@
             elevation-24
             raised
           >
+            <v-col
+              cols="1"
+              md="1"
+            />
+            <v-col 
+              cols="9"
+            />
+
+            <!--   | | |   -->
+            
             <v-row
-              align="left"
+              align="center"
+              justify="center"
             >
-              <v-col
-                cols="1"
-                md="1"
-              />
-              <v-col 
-                cols="9"
-              />
-              <br>
-      
-              <v-card
-                center
-                flat
-              >
-                <v-card-title
-                  class="display-2"
-                >
-                  {{ mat1 }} <br>
-                </v-card-title>
-              </v-card>
-              <v-card
-                color="error"
-                dark
-                label
-                style="justify=center"
-              >
-                <v-card-title
-                  class="display-4"
-                >
-                  &nbsp; {{ mat2 }}  &nbsp;   &nbsp;
-                </v-card-title>
-              </v-card>
-              <br>
               <div
-                class="display-4"
+                class="display-2"
               >
-                {{ mat3 }}<br><br>
-
                 {{ leader1 }}<br><br>
-
                 <v-chip
                   v-bind="tchipprops"
                 >
-                  {{ lead2 }}<br>
+                  {{ lead2 }} 
                 </v-chip>
-                 
                 {{ leader2 }}<br><br>
 
                 <v-chip
@@ -121,7 +96,6 @@
                  
                 <v-chip
                   v-bind="tchipprops"
-                  class="display-3"
                 >
                   {{ lead7 }}&nbsp;&nbsp;
                 </v-chip>
@@ -144,7 +118,7 @@
               </div>
             </v-row>
           </v-card>
-        </base-material-card> -->
+        </base-material-card>
       </v-col>
     </v-row>
   </v-container>
@@ -153,11 +127,10 @@
 <script>
 
   // const tHeader = 'About NULS'
-  const mat1 = 'NULS is an open-source, enterprise-grade, adaptive blockchain platform ' +
-    'that offers fast-track business solutions for developers.';
+  const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'
   
-  var mat2 = 'NULS sets a new industry standard ';
-  var mat3 = 'in streamlining blockchain adoption';
+  var mat2 = 'NULS - A Fast-track business solutions for developers offers a ' +
+    'new industry standard in streamlining blockchain adoption';
   
   const leader1 = 'Featuring microservices, smart contracts, cross-chain interoperability, and instant ' +
     'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' ;
@@ -202,7 +175,7 @@
   const tchipprops = {
     color: 'blue-grey',
     raised: true,
-    large: true,
+    medium: true,
     label: true,
     dark: true,
     'elevation-24': true,
@@ -212,9 +185,6 @@
     name: 'Tokenomics',
     data () {
       return {  
-        mat1,
-        mat2,
-        mat3,
         leader1,
         leader2,
         lead2,
@@ -237,3 +207,8 @@
       }
     };
 </script>
+<style>
+  .v-chip__content {
+    font-size: 16px;
+  }
+</style>
