@@ -171,6 +171,7 @@
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
           <img
+            :key="resetImage"
             :src="finalImgUrl"
           >
         </base-material-card>
@@ -235,7 +236,6 @@ export default {
   data: () => ({
     showme: true,
     alert: false,
-    dimform: false,
     chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
@@ -243,6 +243,7 @@ export default {
       dark: false
     },
     resetform: 0,
+    resetImage: 0,
     // finalImgUrl: "http://127.0.0.1:8084/static/plot155414.svg",  // for test only
     finalImgUrl: '',
     vmd1: '',
@@ -258,7 +259,6 @@ export default {
     }),
   methods: {   
     checkPic () {
-      this.dimform = true
       const axiosGet = axios.create({
         defaults: {
           headers: {
@@ -284,6 +284,7 @@ export default {
         }
         let opAttempts = operation.attempts()
         console.log("retries: " + opAttempts)
+        this.resetImage += 1;
         // if (opAttempts < 15) {
         //   this.showme = true
         // }
@@ -344,10 +345,10 @@ export default {
 
       var pyHostWest = "http://116.202.157.151:8084"  //westteam
       // var pyHostNginx = "http://116.202.157.151"  // westteam
-      var pyHostNginx = "http://westteam.nulstar.com:8084"  // westteam
+      var pyHostNginxGet = "http://westteam.nulstar.com"  // westteam
 
       let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
-      this.finalImgUrl = `${pyHostNginx}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
+      this.finalImgUrl = `${pyHostNginxGet}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
 
       this.axiosPost(pythonRequest);  // all locations
 
