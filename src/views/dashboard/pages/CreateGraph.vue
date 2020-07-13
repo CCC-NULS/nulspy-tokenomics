@@ -168,7 +168,7 @@
       >
         <base-material-card
           v-if="showme"
-          color="tertiary"
+          color="success"
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
           <img
@@ -186,21 +186,31 @@
         >
           <v-btn
             id="redobtn"
-            @click="resetc"
+            href="/"
           >
-            Redo
+            Redo - Start Over
           </v-btn>
 
-          <v-btn
+          <!-- <v-btn
             id="savebtn"
             color="purple"
             @click="keepplot"
           >
-            Show Plot
-          </v-btn>
+            Save Plot           
+          </v-btn> -->
         </v-card>
       </v-col>
     </v-row>
+    <v-alert
+      v-model="alert"
+      border="left"
+      close-text="Close Alert"
+      color="deep-purple accent-4"
+      dark
+      dismissible
+    >
+      Your plot has been saved.
+    </v-alert>
   </v-container>
 </template>
 
@@ -225,8 +235,8 @@ export default {
     TopWords,
   },
   data: () => ({
-    showme: true,
-    // showme: false,
+    showme: false,
+    alert: false,
     chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
@@ -234,7 +244,8 @@ export default {
       dark: false
     },
     resetform: 0,
-    finalImgUrl: "http://127.0.0.1:8084/static/plot155414.svg",
+    // finalImgUrl: "http://127.0.0.1:8084/static/plot155414.svg",  // for test only
+    finalImgUrl: '',
     vmd1: '',
     vmd2: '',
     vmd3: '',
@@ -250,9 +261,8 @@ export default {
     checkPic () {
       const axiosGet = axios.create()
       const retry = require('retry');
-
       const operation = retry.operation({
-        retries: 10,
+        retries: 15,
         factor: 3,
         minTimeout: 1000,
         maxTimeout: 40000,
@@ -325,10 +335,10 @@ export default {
       let pythonRequest = `${pyHost}/getpy?${requestVars}`;
       this.axiosPost(pythonRequest);
 
-      // this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
-      this.finalImgUrl = `${pyHost}/static/plot155414.svg`;
+      this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
+      // this.finalImgUrl = `${pyHost}/static/plot155414.svg`;   // hard coded for test only
 
-console.log(`The plot Url is: ${this.finalImgUrl}`);
+      console.log(`The plot Url is: ${this.finalImgUrl}`);
       this.checkPic()
     },
     resetc() {
@@ -338,6 +348,7 @@ console.log(`The plot Url is: ${this.finalImgUrl}`);
     },
     keepplot() {
       console.log("in keepplot");
+      this.alert=true
     },
   }
 }

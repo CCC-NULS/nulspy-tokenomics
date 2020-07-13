@@ -5,10 +5,6 @@
       fluid
       tag="section"
     >
-      <base-v-component
-        heading="About"
-        link="about"
-      /> 
       <v-row
         align="center"
         justify="center"

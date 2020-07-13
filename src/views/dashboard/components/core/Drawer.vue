@@ -2,10 +2,10 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    class="gradientnuls"
+    class="gradientnuls2"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-    :dark="barColor !== 'gradientnuls'"
+    :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
 
     mobile-breakpoint="960"
     app
@@ -21,7 +21,6 @@
 
     <template v-slot:img="props">
       <v-img
-        :gradient="gradientnuls"
         v-bind="props"
       />
     </template>
@@ -118,16 +117,21 @@
           icon: 'mdi-chart-areaspline',
           to: '/pages/creategraph',
         },           
-        {
-          title: 'savedgraphs',
-          icon: 'mdi-poll',
-          to: '/pages/savedgraphs',
-        },
+        // {
+        //   title: 'savedgraphs',
+        //   icon: 'mdi-poll',
+        //   to: '/pages/savedgraphs',
+        // },
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
           to: '/pages/tokenomics',
         },
+        // {
+        //   title: 'tokenomics',
+        //   icon: 'mdi-electron-framework',
+        //   to: '/pages/tokenomics',
+        // },
 
         // {
         //   icon: 'mdi-view-dashboard',
@@ -247,4 +251,10 @@
 
           +rtl()
             margin-left: 8px
+  
+
+  .gradientnuls2
+    background-image: linear-gradient(306deg, rgba(54, 54, 54, 0.05) 0%, rgba(54, 54, 54, 0.05) 33.333%,rgba(85, 85, 85, 0.05) 33.333%, rgba(85, 85, 85, 0.05) 66.666%,rgba(255, 255, 255, 0.05) 66.666%, rgba(255, 255, 255, 0.05) 99.999%),linear-gradient(353deg, rgba(81, 81, 81, 0.05) 0%, rgba(81, 81, 81, 0.05) 33.333%,rgba(238, 238, 238, 0.05) 33.333%, rgba(238, 238, 238, 0.05) 66.666%,rgba(32, 32, 32, 0.05) 66.666%, rgba(32, 32, 32, 0.05) 99.999%),linear-gradient(140deg, rgba(192, 192, 192, 0.05) 0%, rgba(192, 192, 192, 0.05) 33.333%,rgba(109, 109, 109, 0.05) 33.333%, rgba(109, 109, 109, 0.05) 66.666%,rgba(30, 30, 30, 0.05) 66.666%, rgba(30, 30, 30, 0.05) 99.999%),linear-gradient(189deg, rgba(77, 77, 77, 0.05) 0%, rgba(77, 77, 77, 0.05) 33.333%,rgba(55, 55, 55, 0.05) 33.333%, rgba(55, 55, 55, 0.05) 66.666%,rgba(145, 145, 145, 0.05) 66.666%, rgba(145, 145, 145, 0.05) 99.999%),linear-gradient(90deg, rgb(9, 201, 186),rgb(10,64,108))
+
+
 </style>

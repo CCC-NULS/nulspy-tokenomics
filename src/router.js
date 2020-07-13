@@ -27,6 +27,11 @@ export default new Router({
           path: 'pages/tokenomics',
           component: () => import('@/views/dashboard/pages/Tokenomics'),
         },
+        {
+          name: 'About',
+          path: 'about',
+          component: () => import('@/views/dashboard/pages/Tokenomics'),
+        },
         // {
         //   name: 'TimedFile',
         //   path: 'assets/plots',

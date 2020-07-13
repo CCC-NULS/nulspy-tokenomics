@@ -18,6 +18,21 @@ const theme = {
   warning: '#455A64',
   darkgrey: '#212121',
   orangeaccent: '#FF8A65',
+  mywhite: "#FFFFFF"
+}
+
+const dtheme = {
+  primary: '#37474F',
+  secondary: '#651FFF',
+  tertiary: '#009688',
+  success: '#00BFA5',
+  accent: '#212121',
+  info: '#651FFF',
+  error: '#512DA8',
+  warning: '#455A64',
+  darkgrey: '#212121',
+  orangeaccent: '#FF8A65',
+  mywhite: "#000000"
 }
 
 export default new Vuetify({
@@ -28,7 +43,7 @@ export default new Vuetify({
   },
   theme: {
     themes: {
-      dark: theme,
+      dark: dtheme,
       light: theme,
     },
   },

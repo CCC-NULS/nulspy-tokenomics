@@ -31,7 +31,7 @@
         class="text-center mb-0"
         width="300"
       >
-        <v-card-text>
+        <!-- <v-card-text>
           <strong class="mb-3 d-inline-block">SIDEBAR FILTERS</strong>
 
           <v-item-group v-model="color">
@@ -50,32 +50,32 @@
                 />
               </template>
             </v-item>
-          </v-item-group>
+          </v-item-group> -->
 
-          <v-divider class="my-4 secondary" />
+        <v-divider class="my-4 secondary" />
 
-          <v-row
-            align="center"
-            no-gutters
-          >
-            <v-col cols="auto">
-              Dark Mode
-            </v-col>
+        <v-row
+          align="center"
+          no-gutters
+        >
+          <v-col cols="auto">
+            Dark Mode
+          </v-col>
 
-            <v-spacer />
+          <v-spacer />
 
-            <v-col cols="auto">
-              <v-switch
-                v-model="$vuetify.theme.dark"
-                class="ma-0 pa-0"
-                color="secondary"
-                hide-details
-              />
-            </v-col>
-          </v-row>
+          <v-col cols="auto">
+            <v-switch
+              v-model="$vuetify.theme.dark"
+              class="ma-0 pa-0"
+              color="secondary"
+              hide-details
+            />
+          </v-col>
+        </v-row>
 
-          <v-divider class="my-4 secondary" />
-
+        <!--      <v-divider class="my-4 secondary" />
+          
           <v-row
             align="center"
             no-gutters
@@ -177,8 +177,8 @@
           >
             <v-icon>mdi-facebook</v-icon>
             - 50
-          </v-btn>
-        </v-card-text>
+          </v-btn> 
+        </v-card-text>-->
       </v-card>
     </v-menu>
   </div>
