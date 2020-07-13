@@ -345,7 +345,7 @@ export default {
 
       // this.finalImgUrl = `${pyHostHOME}/static/plot${gDate}.svg`;   // home
 
-      this.finalImgUrl = `${pyHostNginx}/static/plot${gDate}.svg`;  // westteam -only for viewing image
+      this.finalImgUrl = `${pyHostNginx}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
       // this.finalImgUrl = `${pyHostHOME}/static/plot155414.svg`;   // hard coded for test only
 
       console.log(`The plot Url is: ${this.finalImgUrl}`);
