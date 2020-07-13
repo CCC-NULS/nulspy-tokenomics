@@ -167,7 +167,6 @@
         md="11"
       >
         <base-material-card
-          v-if="showme"
           color="success"
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
@@ -261,7 +260,14 @@ export default {
   methods: {   
     checkPic () {
       this.dimform = true
-      const axiosGet = axios.create()
+      const axiosGet = axios.create({
+        defaults: {
+          headers: {
+            get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
+            common: { acctlOrig: "*" }
+          },
+        },
+      });
       const retry = require('retry');
       const operation = retry.operation({
         retries: 15,
@@ -334,19 +340,17 @@ export default {
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
       // var pyHostHOME = "http://127.0.0.1:8084"  // home
-      var pyHostWest = "http://116.202.157.151:8084"  //westteam
-      var pyHostNginx = "http://116.202.157.151"  // westteam
-
       // let pythonRequest = `${pyHostHOME}/getpy?${requestVars}`;  // home
-
-      let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
-
-      this.axiosPost(pythonRequest);  // all locations
-
       // this.finalImgUrl = `${pyHostHOME}/static/plot${gDate}.svg`;   // home
 
+      var pyHostWest = "http://116.202.157.151:8084"  //westteam
+      // var pyHostNginx = "http://116.202.157.151"  // westteam
+      var pyHostNginx = "http://0.0.0.0"  // westteam
+
+      let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
       this.finalImgUrl = `${pyHostNginx}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
-      // this.finalImgUrl = `${pyHostHOME}/static/plot155414.svg`;   // hard coded for test only
+
+      this.axiosPost(pythonRequest);  // all locations
 
       console.log(`The plot Url is: ${this.finalImgUrl}`);
       this.checkPic()
