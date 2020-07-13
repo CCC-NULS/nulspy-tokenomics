@@ -171,7 +171,6 @@
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
           <img
-            v-if="showme"
             :src="finalImgUrl"
           >
         </base-material-card>
@@ -234,7 +233,7 @@ export default {
     TopWords,
   },
   data: () => ({
-    showme: false,
+    showme: true,
     alert: false,
     dimform: false,
     chooseDefault: "Choose",
@@ -285,9 +284,9 @@ export default {
         }
         let opAttempts = operation.attempts()
         console.log("retries: " + opAttempts)
-        if (opAttempts < 15) {
-          this.showme = true
-        }
+        // if (opAttempts < 15) {
+        //   this.showme = true
+        // }
       }) 
     }, 
     axiosPost(baseurl) {
@@ -345,7 +344,7 @@ export default {
 
       var pyHostWest = "http://116.202.157.151:8084"  //westteam
       // var pyHostNginx = "http://116.202.157.151"  // westteam
-      var pyHostNginx = "http://0.0.0.0"  // westteam
+      var pyHostNginx = "http://westteam.nulstar.com:8084"  // westteam
 
       let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
       this.finalImgUrl = `${pyHostNginx}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
