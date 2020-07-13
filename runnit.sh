@@ -14,6 +14,9 @@ git pull origin dev7
 
 sudo netstat -anp | grep node
 
+npm run build
+
+
 
 
 
