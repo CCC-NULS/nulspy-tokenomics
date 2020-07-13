@@ -332,7 +332,8 @@ export default {
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
-      var pyHost = "http://127.0.0.1:8084"
+      // var pyHost = "http://127.0.0.1:8084"  // local
+      var pyHost = "http://116.202.157.151:8084"  //westeam
 
       let pythonRequest = `${pyHost}/getpy?${requestVars}`;
       this.axiosPost(pythonRequest);
