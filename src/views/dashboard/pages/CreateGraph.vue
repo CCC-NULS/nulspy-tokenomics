@@ -332,14 +332,21 @@ export default {
       let ew = "&disinf=" + e;
       // need to remove comma's twice from a, b, d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
-      // var pyHost = "http://127.0.0.1:8084"  // local
-      var pyHost = "http://116.202.157.151:8084"  //westeam
 
-      let pythonRequest = `${pyHost}/getpy?${requestVars}`;
-      this.axiosPost(pythonRequest);
+      // var pyHostHOME = "http://127.0.0.1:8084"  // home
+      var pyHostWest = "http://116.202.157.151:8084"  //westteam
+      var pyHostNginx = "http://116.202.157.151"  // westteam
 
-      this.finalImgUrl = `${pyHost}/static/plot${gDate}.svg`;
-      // this.finalImgUrl = `${pyHost}/static/plot155414.svg`;   // hard coded for test only
+      // let pythonRequest = `${pyHostHOME}/getpy?${requestVars}`;  // home
+
+      let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
+
+      this.axiosPost(pythonRequest);  // all locations
+
+      // this.finalImgUrl = `${pyHostHOME}/static/plot${gDate}.svg`;   // home
+
+      this.finalImgUrl = `${pyHostNginx}/static/plot${gDate}.svg`;  // westteam -only for viewing image
+      // this.finalImgUrl = `${pyHostHOME}/static/plot155414.svg`;   // hard coded for test only
 
       console.log(`The plot Url is: ${this.finalImgUrl}`);
       this.checkPic()
