@@ -150,7 +150,7 @@
                   @submit.prevent
                   @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
-                  submitform
+                  submit form
                 </v-btn>
                 <div>
                   <br>
@@ -237,6 +237,7 @@ export default {
   data: () => ({
     showme: false,
     alert: false,
+    dimform: false,
     chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
@@ -259,6 +260,7 @@ export default {
     }),
   methods: {   
     checkPic () {
+      this.dimform = true
       const axiosGet = axios.create()
       const retry = require('retry');
       const operation = retry.operation({
