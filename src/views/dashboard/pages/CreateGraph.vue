@@ -103,7 +103,7 @@
                       id="vselthree"
                       v-model="vmd3"
                       type="string"
-                      label="Inflation Interval"
+                      label="# of Intervals before Inflation/Disinflation Start"
                       class="margleft"
                       :placeholder="chooseDefault"                      
                       :items="inflatervals"
@@ -141,14 +141,26 @@
                     />
                   </v-col>
                 </v-row>
-
+                <v-card
+                  width="120px"
+                  flat
+                >
+                  <v-text-field
+                    id="testfield"
+                    v-model="vmd6"
+                    type="string" 
+                    label="label"                 
+                  >
+                    Test Field Input
+                  </v-text-field>
+                </v-card>
                 <v-btn
                   id="submitmain"
                   type="submit"
                   size="large"
                   color="warning"
                   @submit.prevent
-                  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)"
                 >
                   submit form
                 </v-btn>
@@ -172,7 +184,7 @@
         >
           <img
             :key="resetImage"
-            :src="finalImgUrl"
+            :src="finalIMAGE"
           >
         </base-material-card>
 
@@ -244,18 +256,21 @@ export default {
     },
     resetform: 0,
     resetImage: 0,
-    // finalImgUrl: "http://127.0.0.1:8084/static/plot155414.svg",  // for test only
-    finalImgUrl: '',
+    // finalIMAGE: "http://127.0.0.1:8084/static/plot155414.svg",  // for test only
+    finalIMAGE: '',
     vmd1: '',
     vmd2: '',
     vmd3: '',
     vmd4: '',
     vmd5: '',
-    initsupply: ["300,000,000","260,000,000","225,000,000","200,000,000", "175,000,000","150,000,000","100,000,000",],
+    vmd6: '',
+
+    initsupply: ["100,000,000", "150,000,000", "175,000,000", "200,000,000", "225,000,000", "260,000,000", "300,000,000"],
     aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
-    inflatervals: ["12", "18", "24", "36", "48"],
-    stopinflation: ["510,000,000","450,000,000","350,000,000", "310,000,000", "250,000,000", "155,000,000", "120,000,000"],
-    disinflation: ["0", "1", "2", "3", "4", "5"]
+    inflatervals: ["0", "1", "2", "3", "4", "6", "12", "18", "24", "36", "48"],
+    stopinflation: [ "50,000,000",  "100,000,000", "150,000,000", "200,000,000", "250,000,000",  "310,000,000", "350,000,000", "450,000,000", "510,000,000"],
+    disinflation: ["0", "0.1%", "0.2%", "0.3%", "0.4%", "0.5%", "0.6%", "0.7%"]
+  
     }),
   methods: {   
     checkPic () {
@@ -278,7 +293,7 @@ export default {
       operation.attempt(async (currentAttempt) => {
         console.log('sending request: ', currentAttempt, ' attempt');
         try {
-          await axiosGet.get(this.finalImgUrl);
+          await axiosGet.get(this.finalIMAGE);
         } catch (e) {
           if (operation.retry(e)) { return; }
         }
@@ -311,7 +326,11 @@ export default {
         console.log(e);
       }
     },
-    makePlot(aa, bb, cc, dd, ee) {
+    makePlot(aa, bb, cc, dd, eee, ff) {
+      let ee = eee.substring(2,3)
+      console.log("ee: " + ee)
+      console.log("ff: " + ff)
+
       let a = "100,000,000"  // default
       let b = "1,000,000"  // default
       let c = "12"     // default
@@ -339,20 +358,29 @@ export default {
       // need to remove comma's twice from a, b, d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
-      // var pyHostHOME = "http://127.0.0.1:8084"  // home
-      // let pythonRequest = `${pyHostHOME}/getpy?${requestVars}`;  // home
-      // this.finalImgUrl = `${pyHostHOME}/static/plot${gDate}.svg`;   // home
+      var homeBASE = "http://127.0.0.1"  // home
+      var homePORT = `${homeBASE}:8084` // home
+      var homeIMAGE = `${homePORT}/static/plot${gDate}.svg`;  // westteam -only for viewing image
 
-      var pyHostWest = "http://116.202.157.151:8084"  //westteam
-      // var pyHostNginx = "http://116.202.157.151"  // westteam
-      var pyHostNginxGet = "http://westteam.nulstar.com"  // westteam
+      var westBASE = "http://116.202.157.151"  //westteam   "http://116.202.157.151"
+      var westPORT = `${westBASE}:8084` // home
+      var westIMAGE = `${westBASE}/tokenlife/static/plot${gDate}.svg`;  // westteam - nginx-only for viewing image
+                                      // image doesn't need port on westteam
 
-      let pythonRequest = `${pyHostWest}/getpy?${requestVars}`;    // westteam
-      this.finalImgUrl = `${pyHostNginxGet}/tokenlife/static/plot${gDate}.svg`;  // westteam -only for viewing image
+      // -- -- -- -- switch :
+      let finalBASE = homeBASE  // home
+      let finalPORT = homePORT  // home
+      this.finalIMAGE = homeIMAGE   // home
+
+      // let finalBASE = westBASE  // west
+      // let finalPORT = westPORT  // west
+      // this.finalIMAGE = westIMAGE   // west
+      
+      let pythonRequest = `${finalPORT}/getpy?${requestVars}`;    // either
 
       this.axiosPost(pythonRequest);  // all locations
 
-      console.log(`The plot Url is: ${this.finalImgUrl}`);
+      console.log(`The plot Url is: ${this.finalIMAGE}`);
       this.checkPic()
     },
     resetc() {

@@ -43,7 +43,7 @@ class AppSupport:
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
 
-        start_inflation = start_inflation / 1000
+        # start_inflation = start_inflation / 1000
 
         tokens = self.initial_supply_y
         self.interval_limit_x = 75 * 12

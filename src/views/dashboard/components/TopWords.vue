@@ -2,7 +2,7 @@
   <div
     id="firstdiv"
     shaped
-    class="displaynms font-weight-light"
+    class="displaynmstwo font-weight-light"
   >
     <v-chip
       medium
@@ -14,29 +14,33 @@
     <br>
     <ul>
       <li>
-        Initial Token Supply: &nbsp; 100,000,000<br>
+        One Interval = 30 days<br>
       </li>
       <li>
-        Inflation begins in how many intervals? &nbsp; 24 = 2 yrs
+        Initial Supply: &nbsp; 100,000,000<br>
+      </li>
+      <li>
+        Inflation begins in X months? &nbsp; 12 mos = 1 yr
         <br>
       </li>
       <li>
-        Inflation tokens per 12 intervals? &nbsp;5,000,000 /12 (416,666.66) <br>
+        Inflation per year: &nbsp; <br>
       </li>
       <li>
-        Inflation is turned off at: &emsp;&emsp; 210,000,000<br>
+        Inflation stops at: &emsp;&emsp; 210,000,000<br>
       </li>
       <li>
-        De-inflation ratio: &emsp;&emsp; 0.004 ( 0.01 = 1% )  <br><br>
+        Disinflation ratio: &emsp;&emsp;(  0% to 0.7% )  <br><br>
       </li>
     </ul>
     <v-chip
       color="info"
       medium
       raised
-      style="font-size=17px!important"
     >
-      Inflation and de-inflation begin at the same time
+      <span class="vchipontent">
+        Inflation and de-inflation begin at the same time
+      </span>
     </v-chip>
   </div>
 </template>
@@ -46,7 +50,13 @@
   export default {
     name: 'TopWords',
     data: () => ({
-      titlewords: 'Example Values',
+      titlewords: 'Note on Values',
     })
   };
 </script>
+
+<style scoped>
+.vchipontent {
+    font-size: 12px!important;
+}
+</style>
