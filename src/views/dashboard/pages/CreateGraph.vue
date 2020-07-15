@@ -167,7 +167,7 @@
                   size="large"
                   color="warning"
                   @submit.prevent
-                  @click="validate([vmd1, vmd2, vmd3, vmd4, vmd5, vmd6])"
+                  @click="validate(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)"
                 >
                   submit form
                 </v-btn>
@@ -176,10 +176,10 @@
           </v-form>
         </base-material-card>
         <v-alert
-          v-model="alert"
-          border="left"
+          id="alertm"
+          v-model="alertm"
           close-text="Close Alert"
-          color="deep-purple accent-4"
+          color="orange lighten-1"
           dark
           dismissible
           width="200px"
@@ -194,6 +194,8 @@
         md="11"
       >
         <base-material-card
+          v-if="keyShowCard"
+          :key="keyShowCard"
           color="success"
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
@@ -265,6 +267,7 @@ export default {
       dark: false
     },
     resetform: 0,
+    keyShowCard: false,
     resetImage: 0,
     finalIMAGEp1,
     finalIPwPORT,
@@ -284,18 +287,22 @@ export default {
   mounted () {
     this.$refs.formref.reset()
     this.alertm = false;
-
+    this.keyShowCard = false
   },
   methods: {   
-    validate (inp) {
+    validate (v1, v2, v3, v4, v5, v6) {
       if (this.$refs.formref.validate()) {
-        console.log("valid - making plot")
-        makePlot(inp[0],inp[1],inp[2],inp[3],inp[4],inp[5])
+        console.log("Validation complete - making plot")
+        this.keyShowCard = true
+        this.makePlot(v1, v2, v3, v4, v5, v6)
       } else {
+        this.$refs.formref.resetValidation()
         this.alertm = true;
       }
     },
     checkPic (finimag) {
+      this.keyShowCard += 1;
+
       const axiosGet = axios.create({
         defaults: {
           headers: {
@@ -349,11 +356,8 @@ export default {
       }
     },
     makePlot(aa, bb, cc, dd, eee, ff) {  
-      
-      var x = this.$refs.formref.validate() 
-      console.log("validatation: " + x)
-
-      let ee = eee.substring(2,3)
+    
+      let ee = eee.substring(2,3)   // the percent string ie: 0.2%
       console.log("ee: " + ee)
       console.log("ff: " + ff)
 
@@ -361,7 +365,7 @@ export default {
       let b = "1,000,000"  // default
       let c = "12"     // default
       let d = "110,000,000"    // default
-      let e = "2"     // default
+      let e = "0.2%"     // default
       if (aa.length > 4) { a = aa; }
       if (bb.length > 4) { b = bb; }
       if (cc.length > 1) { c = cc; }
@@ -398,11 +402,11 @@ export default {
     resetc() {
       console.log("resetting form");
       this.$refs.formref.reset() 
-      alert("You have reset the form")
+      // alert("You have reset the form")
     },
     keepplot() {
       console.log("in keepplot");
-      this.alert=true
+      // this.alert=true
     },
   }
 }
