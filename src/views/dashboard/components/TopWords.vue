@@ -24,7 +24,7 @@
         <br>
       </li>
       <li>
-        Inflation per year: &nbsp; <br>
+        Inflation per year: &nbsp; 5,000,000 <br>
       </li>
       <li>
         Inflation stops at: &emsp;&emsp; 210,000,000<br>
@@ -39,7 +39,7 @@
       raised
     >
       <span class="vchipontent">
-        Inflation and de-inflation begin at the same time
+        Inflation and disinflation begin at the same time
       </span>
     </v-chip>
   </div>
@@ -50,7 +50,7 @@
   export default {
     name: 'TopWords',
     data: () => ({
-      titlewords: 'Note on Values',
+      titlewords: 'some example values . . .',
     })
   };
 </script>

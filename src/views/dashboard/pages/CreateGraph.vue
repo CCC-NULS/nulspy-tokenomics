@@ -228,14 +228,18 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
 import { initsupply, aninflation, inflatervals, stopinflation, disinflation, acceptStr,
-  restTypes, varacctlMeths, varacctlOrig, varappJson, varctType, finIPwPORT, finalIMAGEp1 } 
+  restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateCars.js"
+import {required, minLength, maxLength } from 'vuelidate/lib/validators' 
 
 // import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import TopWords from "@/views/dashboard/components/TopWords";
-console.log("cars: ", cars)
+console.log("initsupply: ", initsupply)
+console.log("finalIPwPORT at top: ", finalIPwPORT)
+console.log("finalIMAGEp1 at top: ", finalIMAGEp1)
+
 
 export default {
   name: "CreateGraph",
@@ -254,6 +258,8 @@ export default {
     },
     resetform: 0,
     resetImage: 0,
+    finalIMAGEp1,
+    finalIPwPORT,
     finalIMAGE: '',
     vmd1: '',
     vmd2: '',
@@ -267,8 +273,14 @@ export default {
     stopinflation,
     disinflation
     }),
+  validations: {
+    testfield:  { 
+      required, 
+      minLength: minLength(3), 
+    }             
+  },
   methods: {   
-    checkPic () {
+    checkPic (finimag) {
       const axiosGet = axios.create({
         defaults: {
           headers: {
@@ -288,7 +300,7 @@ export default {
       operation.attempt(async (currentAttempt) => {
         console.log('sending request: ', currentAttempt, ' attempt');
         try {
-          await axiosGet.get(this.finalIMAGE);
+          await axiosGet.get(finimag);
         } catch (e) {
           if (operation.retry(e)) { return; }
         }
@@ -340,7 +352,7 @@ export default {
       console.log(`a is ${a} ${a.length} b is ${b} ${b.length} d is ${d} ${d.length}`);
 
       let ddte = Date.now().toString();
-      var gDate = ddte.substring(7,13);
+      const gDate = ddte.substring(7,13);
       this.$store.dispatch('gSessionStrAct', gDate);
       console.log(`gDate makePlot: ${gDate}`);
 
@@ -353,11 +365,16 @@ export default {
       // need to remove comma's twice from a, b, d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
-      let pythonRequest = `${this.finIPwPORT}/getpy?${requestVars}`;    // either
       this.finalIMAGE = `${this.finalIMAGEp1}${gDate}.svg`
-      this.axiosPost(pythonRequest);  // all locations
+      let pyReq = `${this.finalIPwPORT}/getpy?${requestVars}`;    // either
+
+      console.log('The this.finalIPwPORT is: ' + this.finalIPwPORT);
+      console.log(`The finalIMAGEp1 is: ${this.finalIMAGEp1}`);      
+      console.log(`The pyReq is: ${pyReq}`);
       console.log(`The plot Url is: ${this.finalIMAGE}`);
-      this.checkPic()
+
+      this.axiosPost(pyReq);  // all locations
+      this.checkPic(this.finalIMAGE)
     },
     resetc() {
       console.log("resetting form");
