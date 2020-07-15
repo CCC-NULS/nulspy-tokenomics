@@ -146,31 +146,46 @@
                   flat
                 >
                   <v-text-field
-                    id="testfield"
+                    id="vmd6"
                     v-model="vmd6"
                     type="string" 
-                    label="label"                 
+                    :rules="nameRules"
+                    minlength="9"
+                    maxlength="16"
+                    required  
                   >
                     Test Field Input
                   </v-text-field>
                 </v-card>
+                <!-- @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)" -->
+
+
+
                 <v-btn
                   id="submitmain"
                   type="submit"
                   size="large"
                   color="warning"
                   @submit.prevent
-                  @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)"
+                  @click="validate([vmd1, vmd2, vmd3, vmd4, vmd5, vmd6])"
                 >
                   submit form
                 </v-btn>
-                <div>
-                  <br>
-                </div>
-              </v-card>
+              </v-card>    
             </v-container>
           </v-form>
         </base-material-card>
+        <v-alert
+          v-model="alert"
+          border="left"
+          close-text="Close Alert"
+          color="deep-purple accent-4"
+          dark
+          dismissible
+          width="200px"
+        >
+          Inputs not valid.
+        </v-alert>
       </v-col>
     </v-row>
     <v-row>
@@ -212,16 +227,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-alert
-      v-model="alert"
-      border="left"
-      close-text="Close Alert"
-      color="deep-purple accent-4"
-      dark
-      dismissible
-    >
-      Your plot has been saved.
-    </v-alert>
   </v-container>
 </template>
 
@@ -230,9 +235,7 @@
 import { initsupply, aninflation, inflatervals, stopinflation, disinflation, acceptStr,
   restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateCars.js"
-import {required, minLength, maxLength } from 'vuelidate/lib/validators' 
 
-// import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import TopWords from "@/views/dashboard/components/TopWords";
@@ -247,8 +250,13 @@ export default {
     TopWords,
   },
   data: () => ({
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    ],
+    rules6: [v => v.length <= 12 && v.length >= 7 || 'Min 7 max 12 characters'],
     showme: true,
-    alert: false,
+    alertm: false,
     initsupply,
     chooseDefault: "Choose",
     chipprops: {
@@ -273,13 +281,20 @@ export default {
     stopinflation,
     disinflation
     }),
-  validations: {
-    testfield:  { 
-      required, 
-      minLength: minLength(3), 
-    }             
+  mounted () {
+    this.$refs.formref.reset()
+    this.alertm = false;
+
   },
   methods: {   
+    validate (inp) {
+      if (this.$refs.formref.validate()) {
+        console.log("valid - making plot")
+        makePlot(inp[0],inp[1],inp[2],inp[3],inp[4],inp[5])
+      } else {
+        this.alertm = true;
+      }
+    },
     checkPic (finimag) {
       const axiosGet = axios.create({
         defaults: {
@@ -333,7 +348,11 @@ export default {
         console.log(e);
       }
     },
-    makePlot(aa, bb, cc, dd, eee, ff) {   
+    makePlot(aa, bb, cc, dd, eee, ff) {  
+      
+      var x = this.$refs.formref.validate() 
+      console.log("validatation: " + x)
+
       let ee = eee.substring(2,3)
       console.log("ee: " + ee)
       console.log("ff: " + ff)
@@ -378,7 +397,7 @@ export default {
     },
     resetc() {
       console.log("resetting form");
-      resetform += 1;
+      this.$refs.formref.reset() 
       alert("You have reset the form")
     },
     keepplot() {
