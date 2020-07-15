@@ -20,10 +20,14 @@ import './plugins/chartist'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import 'material-icons'
+import vuelidate from 'vuelidate'
+import ISCENTOS from './constants.js'
 
 Vue.config.productionTip = false
 
 new Vue({
+  ISCENTOS,
+  vuelidate,
   router,
   store,
   vuetify,

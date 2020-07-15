@@ -227,18 +227,15 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
+import { initsupply, aninflation, inflatervals, stopinflation, disinflation, acceptStr,
+  restTypes, varacctlMeths, varacctlOrig, varappJson, varctType, finIPwPORT, finalIMAGEp1 } 
+  from "./CreateCars.js"
+
+// import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 // beware: arrow functions cause problems with 'this'
-
 import axios from "axios";
-import { mapState, mapMutations, mapActions, mapGetter } from "vuex";
 import TopWords from "@/views/dashboard/components/TopWords";
-
-var acceptStr ="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-var restTypes = "GET, POST, HEAD, UPDATE, PUT";
-var acctlMeths = "Access-Control-Allow-Methods";
-var acctlOrig = "Access-Control-Allow-Origin";
-var appJson = "application/json";
-var ctType = "Content-Type";
+console.log("cars: ", cars)
 
 export default {
   name: "CreateGraph",
@@ -248,6 +245,7 @@ export default {
   data: () => ({
     showme: true,
     alert: false,
+    initsupply,
     chooseDefault: "Choose",
     chipprops: {
       class: "v_chip_small",
@@ -256,7 +254,6 @@ export default {
     },
     resetform: 0,
     resetImage: 0,
-    // finalIMAGE: "http://127.0.0.1:8084/static/plot155414.svg",  // for test only
     finalIMAGE: '',
     vmd1: '',
     vmd2: '',
@@ -264,13 +261,11 @@ export default {
     vmd4: '',
     vmd5: '',
     vmd6: '',
-
-    initsupply: ["100,000,000", "150,000,000", "175,000,000", "200,000,000", "225,000,000", "260,000,000", "300,000,000"],
-    aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
-    inflatervals: ["0", "1", "2", "3", "4", "6", "12", "18", "24", "36", "48"],
-    stopinflation: [ "50,000,000",  "100,000,000", "150,000,000", "200,000,000", "250,000,000",  "310,000,000", "350,000,000", "450,000,000", "510,000,000"],
-    disinflation: ["0", "0.1%", "0.2%", "0.3%", "0.4%", "0.5%", "0.6%", "0.7%"]
-  
+    initsupply,
+    aninflation,
+    inflatervals,
+    stopinflation,
+    disinflation
     }),
   methods: {   
     checkPic () {
@@ -326,7 +321,7 @@ export default {
         console.log(e);
       }
     },
-    makePlot(aa, bb, cc, dd, eee, ff) {
+    makePlot(aa, bb, cc, dd, eee, ff) {   
       let ee = eee.substring(2,3)
       console.log("ee: " + ee)
       console.log("ff: " + ff)
@@ -358,28 +353,9 @@ export default {
       // need to remove comma's twice from a, b, d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
-      var homeBASE = "http://127.0.0.1"  // home
-      var homePORT = `${homeBASE}:8084` // home
-      var homeIMAGE = `${homePORT}/static/plot${gDate}.svg`;  // westteam -only for viewing image
-
-      var westBASE = "http://116.202.157.151"  //westteam   "http://116.202.157.151"
-      var westPORT = `${westBASE}:8084` // home
-      var westIMAGE = `${westBASE}/tokenlife/static/plot${gDate}.svg`;  // westteam - nginx-only for viewing image
-                                      // image doesn't need port on westteam
-
-      // -- -- -- -- switch :
-      let finalBASE = homeBASE  // home
-      let finalPORT = homePORT  // home
-      this.finalIMAGE = homeIMAGE   // home
-
-      // let finalBASE = westBASE  // west
-      // let finalPORT = westPORT  // west
-      // this.finalIMAGE = westIMAGE   // west
-      
-      let pythonRequest = `${finalPORT}/getpy?${requestVars}`;    // either
-
+      let pythonRequest = `${this.finIPwPORT}/getpy?${requestVars}`;    // either
+      this.finalIMAGE = `${this.finalIMAGEp1}${gDate}.svg`
       this.axiosPost(pythonRequest);  // all locations
-
       console.log(`The plot Url is: ${this.finalIMAGE}`);
       this.checkPic()
     },
