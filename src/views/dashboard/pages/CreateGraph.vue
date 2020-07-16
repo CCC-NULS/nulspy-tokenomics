@@ -156,22 +156,44 @@
                   >
                     Test Field Input
                   </v-text-field>
-                </v-card>
-                <!-- @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)" -->
 
+                  <!-- begin input *-* *-* *-* *-* *-* *-*  -->
+                  <!-- begin input *-* *-* *-* *-* *-* *-*  -->
 
+                  <v-card
+                    id="curcard"
+                    name="curcard"
+                    color="alert"
+                  >                  
+                    <v-text-field 
+                      v-currency="{
+                        locale: 'en',
+                        currency: 'USD',
+                        valueAsInteger: false,
+                        distractionFree: true,
+                        precision: 5,
+                        autoDecimalMode: true,
+                        valueRange: { min: 0 },
+                        allowNegative: false
+                      }"
+                    >
+                      Enter Text Field 
+                    </v-text-field>
+                  </v-card>
+                  <!-- @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)" -->
 
-                <v-btn
-                  id="submitmain"
-                  type="submit"
-                  size="large"
-                  color="warning"
-                  @submit.prevent
-                  @click="validate(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)"
-                >
-                  submit form
-                </v-btn>
-              </v-card>    
+                  <v-btn
+                    id="submitmain"
+                    type="submit"
+                    size="large"
+                    color="warning"
+                    @submit.prevent
+                    @click="validate(vmd1, vmd2, vmd3, vmd4, vmd5, vmd6)"
+                  >
+                    submit form
+                  </v-btn>
+                </v-card>    
+              </v-card> 
             </v-container>
           </v-form>
         </base-material-card>
@@ -237,6 +259,7 @@
 import { initsupply, aninflation, inflatervals, stopinflation, disinflation, acceptStr,
   restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateCars.js"
+import { VueCurrencyInput, CurrencyDirective, setValue } from 'vue-currency-input'
 
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
@@ -251,7 +274,11 @@ export default {
   components: {
     TopWords,
   },
+  directives: {
+    currency: CurrencyDirective
+  },
   data: () => ({
+    value: 1000,
     nameRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -290,6 +317,9 @@ export default {
     this.keyShowCard = false
   },
   methods: {   
+     onClick() {
+      setValue(this.$refs.input, 100)
+    },
     validate (v1, v2, v3, v4, v5, v6) {
       if (this.$refs.formref.validate()) {
         console.log("Validation complete - making plot")

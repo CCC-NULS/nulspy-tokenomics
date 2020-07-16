@@ -22,8 +22,20 @@ import i18n from './i18n'
 import 'material-icons'
 import vuelidate from 'vuelidate'
 import ISCENTOS from './constants.js'
+import VueCurrencyInput from 'vue-currency-input'
 
+// Vue.use(VueCurrencyInput)
 Vue.config.productionTip = false
+
+const pluginOptions = {
+  globalOptions: {
+    locale: 'en',
+    precision: '0',
+    'value-as-integer': 'true',
+    'allow-negative': 'false',
+  }
+}
+Vue.use(VueCurrencyInput, pluginOptions)
 
 new Vue({
   ISCENTOS,
