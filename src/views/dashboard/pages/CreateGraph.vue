@@ -100,23 +100,26 @@
                     md="4"
                   >
                     <v-card
-                      class="pa-4 vmd3color"
+                      id="vmd3card"
+                      class="vmdinps"
                       flat
                     >
-                      <v-card-subtitle>
-                        # of Intervals before <br>
-                        Inflation/Disinflation Starts
-                      </v-card-subtitle>
+                      Disinflation Starts in
 
                       <vue-numeric-input
-                        id="vselthreenew"
-                        v-model="vmd3" 
+                        id="vmd3id"
+                        v-model="vmd3"
+                        :value="vmd3"
                         :min="0" 
                         :max="100" 
                         :step="1"
                         :precision="0"
-                        class="biggernumber18; margleft"
-                      />
+                        size="22"
+                        controls-type="updown"
+                        align="center"
+                      /> 
+                      <br>
+                      &nbsp;&nbsp; Intervals
                     </v-card>
 
                   <!-- <v-select id="vselthree" v-model="vmd3" type="string" label="# of Intervals before Inflation/Disinflation Start" class="margleft" :placeholder="chooseDefault" :items="inflatervals" /> -->
@@ -127,58 +130,63 @@
                     cols="12"
                     md="4"
                   >
-                    <v-select
-                      id="vselfour"
-                      v-model="vmd4"
-                      type="string"
-                      label="Stop Inflation"
-                      :placeholder="chooseDefault"                      
-                      :items="stopinflation"
-                    />
+                    <v-card
+                      id="vmd4card"
+                      class="vmdinps2"
+                    >
+                      Stop Inflation
+                      <vue-numeric-input
+                        id="vmd4id"
+                        v-model="vmd4" 
+                        :value="vmd4"
+                        :min="50000" 
+                        :max="5000000000" 
+                        :step="10000"
+                        :precision="0"
+                        size="25"
+                        controls-type="updown"
+                        align="center"
+                      />
+                    </v-card>                   
                   </v-col>
 
                   <v-col
                     cols="12"
                     md="3"
                   >
-                    <div>
+                    <v-card
+                      id="vmd5card"
+                      class="vmdinps"
+                      flat
+                    >
                       Disinflation Ratio %
-                      <vue-numeric-input  
-                        v-model="valuedis" 
+                      <vue-numeric-input
+                        id="vmd5id"
+                        v-model="vmd5" 
+                        :value="vmd5"
                         :min="0" 
                         :max="2" 
-                        :step=".02"
+                        :step=".01"
                         :precision="2"
-                        class="biggernumber"
+                        size="22"
+                        controls-type="updown"
+                        align="center"
                       />
-                    </div>
+                    </v-card>
                   </v-col>
                 </v-row>
                 <v-card
                   width="120px"
                   flat
                 >
-                  <v-text-field
-                    id="vmd6"
-                    v-model="vmd6"
-                    type="string" 
-                    :rules="nameRules"
-                    minlength="9"
-                    maxlength="16"
-                    required  
-                  >
-                    Test Field Input
-                  </v-text-field>
-
-                  <!-- begin input *-* *-* *-* *-* *-* *-*  -->
-                  <!-- begin input *-* *-* *-* *-* *-* *-*  -->
+                  <!-- submit button *-* *-* *-* *-* *-* *-*  -->
                   <v-btn
                     id="submitmain"
                     type="submit"
                     size="large"
                     color="warning"
                     @submit.prevent
-                    @click="makePlot(vmd1, vmd2, vmd3, vmd4, valuedis, vmd6)"
+                    @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
                     submit form
                   </v-btn>
@@ -239,25 +247,6 @@
             Save Plot           
           </v-btn> -->
         </v-card>
-        <v-row 
-          justify="center"
-        >
-          <v-card
-            color="pink lighten-2"
-            width="300px"
-            height="50px"
-          >
-            <div>
-              <vue-numeric-input  
-                v-model="value" 
-                :min="0" 
-                :max="1" 
-                :step=".05"
-                :precision="2"
-              />
-            </div>
-          </v-card>
-        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -297,23 +286,13 @@ export default {
   },
 
   data: () => ({
-    value: .40,
-    valuedis: .40,
-    fontx: "font-size=16",
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    rules6: [v => v.length <= 12 && v.length >= 7 || 'Min 7 max 12 characters'],
-    showme: true,
+    // nameRules: [
+    //   v => !!v || 'Name is required',
+    //   v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    // ],
+    // rules6: [v => v.length <= 12 && v.length >= 7 || 'Min 7 max 12 characters'],
     alertm: false,
-    initsupply,
     chooseDefault: "Choose",
-    chipprops: {
-      class: "v_chip_small",
-      small: true,
-      dark: false
-    },
     resetform: 0,
     keyShowCard: false,
     resetImage: 0,
@@ -322,19 +301,16 @@ export default {
     finalIMAGE: '',
     vmd1: '',
     vmd2: '',
-    vmd3: '12',
-    vmd4: '',
-    // vmd5: '',
-    vmd6: '',
+    vmd3: 12,
+    vmd4: 50000,
+    vmd5: .40,
     initsupply,
     aninflation,
-    inflatervals,
-    stopinflation,
-    disinflation
     }),
+
   mounted () {
     // this.$refs.formref.reset()
-    // this.alertm = false;
+    this.alertm = false;
     // this.keyShowCard = false
   },
   methods: {   
@@ -406,11 +382,10 @@ export default {
         console.log(e);
       }
     },
-    makePlot(aa, bb, cc, dd, eee, ff) {  
-    
-      let ee = eee.substring(2,3)   // the percent string ie: 0.2%
-      console.log("ee: " + ee)
-      // console.log("ff: " + ff)
+    makePlot(aa, bb, cc, dd, eeee) {  
+      let eee = eeee.toString()
+      let ee = eee.substring(2,4)   // the percent string ie: 0.2%
+      console.log("eee: " + eee)
 
       let a = "100,000,000"  // default
       let b = "1,000,000"  // default
@@ -427,7 +402,7 @@ export default {
 
       let ddte = Date.now().toString();
       const gDate = ddte.substring(7,13);
-      this.$store.dispatch('gSessionStrAct', gDate);
+      // this.$store.dispatch('gSessionStrAct', gDate);
       console.log(`gDate makePlot: ${gDate}`);
 
       console.log("a: " + a + " b: " + b + " d: " + d);
@@ -464,7 +439,46 @@ export default {
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
 <style src="@/assets/styles/mystyle.css">
-  .vmd3color {
-      background-color: teal lighten-4;
+
+.vue-numeric-input .numeric-input {
+  width: 77px;
+}
+
+.numeric-input {
+      background: #6fbbff!important;
+    } 
+.vue-numeric-input .btn-decrement .btn-icon:before {
+      background-color: #6fbbff!important;
+}
+/* 
+  #style1.vue-numeric-input.updown {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
+  #style1.vue-numeric-input.updown .numeric-input {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+  } 
+  #vmd3id.button.btn.btn-decrement {
+    background-color: #45857f !important;
+  }
+  #vmd3id.vue-numeric-input.updown .btn {
+    background: #45857f !important;
+  }
+  #style1.vue-numeric-input.updown .btn-increment {
+    height: 1.5rem;
+    width: 100%;
+    right: 0 !important;
+    left:0 !important;
+    top: 0 !important;
+    bottom: auto !important;
+  }
+  #style1.vue-numeric-input.updown .btn-decrement {
+    height: 1.5rem;
+    width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+  } */
 </style>
