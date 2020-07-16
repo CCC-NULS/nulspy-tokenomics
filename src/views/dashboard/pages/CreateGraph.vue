@@ -99,17 +99,29 @@
                     cols="12"
                     md="4"
                   >
-                    <v-select
-                      id="vselthree"
-                      v-model="vmd3"
-                      type="string"
-                      label="# of Intervals before Inflation/Disinflation Start"
-                      class="margleft"
-                      :placeholder="chooseDefault"                      
-                      :items="inflatervals"
-                    />
-                  </v-col>
+                    <v-card
+                      class="pa-4 vmd3color"
+                      flat
+                    >
+                      <v-card-subtitle>
+                        # of Intervals before <br>
+                        Inflation/Disinflation Starts
+                      </v-card-subtitle>
+
+                      <vue-numeric-input
+                        id="vselthreenew"
+                        v-model="vmd3" 
+                        :min="0" 
+                        :max="100" 
+                        :step="1"
+                        :precision="0"
+                        class="biggernumber18; margleft"
+                      />
+                    </v-card>
+
+                  <!-- <v-select id="vselthree" v-model="vmd3" type="string" label="# of Intervals before Inflation/Disinflation Start" class="margleft" :placeholder="chooseDefault" :items="inflatervals" /> -->
                   <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
+                  </v-col>
 
                   <v-col
                     cols="12"
@@ -129,15 +141,17 @@
                     cols="12"
                     md="3"
                   >
-                    Disinflation Ratio %
-                    <vue-numeric-input  
-                      v-model="valuedis" 
-                      :min="0" 
-                      :max="2" 
-                      :step=".02"
-                      :precision="2"
-                      class="biggernumber"
-                    />
+                    <div>
+                      Disinflation Ratio %
+                      <vue-numeric-input  
+                        v-model="valuedis" 
+                        :min="0" 
+                        :max="2" 
+                        :step=".02"
+                        :precision="2"
+                        class="biggernumber"
+                      />
+                    </div>
                   </v-col>
                 </v-row>
                 <v-card
@@ -308,9 +322,9 @@ export default {
     finalIMAGE: '',
     vmd1: '',
     vmd2: '',
-    vmd3: '',
+    vmd3: '12',
     vmd4: '',
-    vmd5: '',
+    // vmd5: '',
     vmd6: '',
     initsupply,
     aninflation,
@@ -450,7 +464,7 @@ export default {
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
 <style src="@/assets/styles/mystyle.css">
-  .thisnumber {
-      font-size: 16px!important;
+  .vmd3color {
+      background-color: teal lighten-4;
   }
 </style>
