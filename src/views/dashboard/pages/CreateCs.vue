@@ -1,30 +1,84 @@
 <template>
-  <div>
-    <br>
-  </div>
+  <v-container
+    id="createcs"
+    fluid
+  >
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col 
+        cols="12"
+        md="9"
+      >
+        <base-material-card
+          color="blue-grey"
+          elevation-24
+          raised
+        >
+          <div>
+            <v-card
+              id="vmd4card"
+              color="teal lighten-5"
+              width="175px"
+              height="79px"
+              class="vmdinps3 pa-3 cyan--text text--darken-2"
+            >
+              <span>Enter Value</span>
+              <vue-autonumeric
+                v-model="myValue"
+                :placeholder="'Enter your value here'"
+                :options="myopts"
+                :style="myfont" 
+              />
+            </v-card>    
+          </div>
+        </base-material-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+// import VueNumeric from 'vue-numeric'
+import VueAutonumeric from '../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
+// E:\wsvue\tokenlifevue/node_modules/vue-autonumeric/src/components/VueAutonumeric.vue
+//                 :style="{'font-size': '18px'}" 
+//   myfont: "font-size:18px",
 
-  var cars = new Array("Saab", "Volvo", "BMW");
-  const initsupply = '["100,000,000", "150,000,000", "175,000,000", "200,000,000", "225,000,000", "260,000,000", "300,000,000"]'
-
-  const CreateList = {
-    initsupply2: ["100,000,000", "150,000,000", "175,000,000", "200,000,000", "225,000,000", "260,000,000", "300,000,000"],
-    aninflation: ["2,000,000", "3,000,000", "4,000,000", "5,000,000", "6,000,000"],
-    inflatervals:["0", "1", "2", "3", "4", "6", "12", "18", "24", "36", "48"],
-    stopinflation: ["50,000,000", "100,000,000", "150,000,000", "200,000,000", "250,000,000",  "310,000,000", "350,000,000", "450,000,000", "510,000,000"],
-    disinflation: ["0", "0.1%", "0.2%", "0.3%", "0.4%", "0.5%", "0.6%", "0.7%"],
-  }
-
-  const insupp = CreateList.initsupply
-  console.log("insupp: " + insupp)
+const myopts = {
+    digitGroupSeparator: ',',
+    currencySymbol: '',
+    // roundingMethod: 'U',
+    minimumValue: '1000',
+    maximumValue: '900000000000',
+    decimalPlaces: 0,
+}
 
 export default {
   name: 'CreateCs',
+  components: {
+    VueAutonumeric
+  },
   data: () => ({
-    cars,
-    initsupply,
-  })
+    myopts,
+    myfont: "font-size:18px; width:129px; justify-center",
+    myValue: 5000,
+    placeh: 'only number allowed'
+  }),
 }
 </script>
+<style scoped>
+  .vmdinps3 {
+      font-size: 16px!important;
+      line-height: 30px;
+      margin-top: 0px!important;
+
+      padding-bottom: 2px!important;
+      justify-content: center!important;
+      text-align: center!important;
+  }
+  .my18font {
+    font-size:  '18px',
+  }
+</style>

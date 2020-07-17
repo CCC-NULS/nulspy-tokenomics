@@ -63,33 +63,39 @@
                     cols="12"
                     md="4"
                   >
-                    <!-- choice chip:  # # # #  # # # #  # # # #  -->
+                    <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
                     <!--:items="initsupply" -->
-
-                    <v-select
-                      id="vselone"
-                      v-model="vmd1"
-                      class="margleft"
-                      type="string"
-                      label="Initial Token Supply"
-                      :placeholder="chooseDefault"                      
-                      :items="initsupply"
-                    />
-                  </v-col>
+                    <v-card 
+                      id="vmd1card"
+                      v-bind="gcardProps" 
+                    >                        
+                      Initial Token Supply
+                      <vue-autonumeric
+                        v-model="vmd1"
+                        :placeholder="vmdHold"
+                        :options="vmd1opts"
+                        :style="vmdInputBox" 
+                      /><br>
+                    </v-card>    
+                  </v-col> 
 
                   <!--2   annual inflation:  2  # # # #  # # # #  # # # #  -->
                   <v-col
                     cols="12"
                     md="4"
                   >
-                    <v-select
-                      id="vseltwo"
-                      v-model="vmd2"
-                      type="string"
-                      label="Annual Inflation"
-                      :placeholder="chooseDefault"                      
-                      :items="aninflation"                     
-                    />
+                    <v-card 
+                      id="vmd2card"
+                      v-bind="gcardProps"                   
+                    >
+                      Annual Inflation
+                      <vue-autonumeric
+                        v-model="vmd2"
+                        :placeholder="vmdHold"
+                        :options="vmd2opts"
+                        :style="vmdInputBox" 
+                      /><br>
+                    </v-card>    
                   </v-col>
                 </v-row>
 
@@ -98,31 +104,19 @@
                   <v-col
                     cols="12"
                     md="4"
-                  >
-                    <v-card
+                  >                    
+                    <v-card 
                       id="vmd3card"
-                      class="vmdinps"
-                      flat
+                      v-bind="gcardProps" 
                     >
-                      Disinflation Starts in
-
-                      <vue-numeric-input
-                        id="vmd3id"
+                      <span>Disinflation Starts in</span>
+                      <vue-autonumeric
                         v-model="vmd3"
-                        :value="vmd3"
-                        :min="0" 
-                        :max="100" 
-                        :step="1"
-                        :precision="0"
-                        size="22"
-                        controls-type="updown"
-                        align="center"
-                      /> 
-                      <br>
-                      &nbsp;&nbsp; Intervals
-                    </v-card>
-
-                  <!-- <v-select id="vselthree" v-model="vmd3" type="string" label="# of Intervals before Inflation/Disinflation Start" class="margleft" :placeholder="chooseDefault" :items="inflatervals" /> -->
+                        :placeholder="vmdHold"
+                        :options="vmd3opts"
+                        :style="vmdInputBox" 
+                      /><br><span>how many intervals</span>
+                    </v-card>                                           
                   <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
                   </v-col>
 
@@ -130,49 +124,40 @@
                     cols="12"
                     md="4"
                   >
-                    <v-card
+                    <!-- <v-select id="start 4" # # # # stop inflation  # # # ## # # #  # # # #  -->
+                    
+                    <v-card 
                       id="vmd4card"
-                      class="vmdinps2"
+                      v-bind="gcardProps" 
                     >
-                      Stop Inflation
-                      <vue-numeric-input
-                        id="vmd4id"
-                        v-model="vmd4" 
-                        :value="vmd4"
-                        :min="50000" 
-                        :max="5000000000" 
-                        :step="10000"
-                        :precision="0"
-                        size="25"
-                        controls-type="updown"
-                        align="center"
-                      />
-                    </v-card>                   
+                      <span>Stop Inflation</span>
+                      <vue-autonumeric
+                        v-model="vmd4"
+                        :placeholder="vmdHold"
+                        :options="vmd4opts"
+                        :style="vmdInputBox" 
+                      /><br>
+                      <span>Max Supply</span>
+                    </v-card>                                     
                   </v-col>
-
+                  <!-- <v-select id="end 4" # # # #  # # # ## # # #  # # # #  -->
                   <v-col
                     cols="12"
                     md="3"
-                  >
-                    <v-card
+                  >                  
+                    <v-card 
                       id="vmd5card"
-                      class="vmdinps"
-                      flat
+                      v-bind="gcardProps" 
                     >
-                      Disinflation Ratio %
-                      <vue-numeric-input
-                        id="vmd5id"
-                        v-model="vmd5" 
-                        :value="vmd5"
-                        :min="0" 
-                        :max="2" 
-                        :step=".01"
-                        :precision="2"
-                        size="22"
-                        controls-type="updown"
-                        align="center"
-                      />
-                    </v-card>
+                      <span>Disinflation</span>
+                      <vue-autonumeric
+                        v-model="vmd5"
+                        :placeholder="vmdHold"
+                        :options="vmd5opts"
+                        :style="vmdInputBox" 
+                      /><br>
+                      <span>Ratio</span>
+                    </v-card>                                      
                   </v-col>
                 </v-row>
                 <v-card
@@ -196,6 +181,7 @@
           </v-form>
         </base-material-card>
         <v-alert
+          v-show="false"
           id="alertm"
           v-model="alertm"
           close-text="Close Alert"
@@ -238,14 +224,6 @@
           >
             Redo - Start Over
           </v-btn>
-
-          <!-- <v-btn
-            id="savebtn"
-            color="purple"
-            @click="keepplot"
-          >
-            Save Plot           
-          </v-btn> -->
         </v-card>
       </v-col>
     </v-row>
@@ -254,79 +232,108 @@
 
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
 <script>
-import { initsupply, aninflation, inflatervals, stopinflation, disinflation, acceptStr,
-  restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
+import Vue from 'vue'
+import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateCars.js"
 
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import TopWords from "@/views/dashboard/components/TopWords";
+import VueAutonumeric from '../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 
-import Vue from 'vue'
 import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
 import { max,  min,  numeric,   required, } from 'vee-validate/dist/rules'
-// console.log("initsupply: ", initsupply)
-// console.log("finalIPwPORT at top: ", finalIPwPORT)
-// console.log("finalIMAGEp1 at top: ", finalIMAGEp1)
+// console.log("initsupply finalIPwPORT at top: " + initsupply, finalIPwPORT +  finalIMAGEp1)
 extend('max', max)
 extend('min', min)
 extend('numeric', numeric)
 extend('required', required)
-
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)
-import VueNumericInput from 'vue-numeric-input'
- 
+
+const vmdopts = {
+  digitGroupSeparator: ',',
+  currencySymbol: '',
+  minimumValue: '1',
+  decimalPlaces: 0,
+}
+const vmdopts3 = {
+  currencySymbol: '%',
+  minimumValue: '0.01',
+  decimalPlaces: 2,
+}
+const vmd1Val = {
+  maximumValue: '10000000000000',  // 10 trillion
+}
+const vmd2Val = {
+  maximumValue: '10000000',  // 10 billion  annual inflation
+}
+const vmd3Val = {
+  maximumValue: '1000',  //  one thousand intervals
+}
+const vmd4Val = {
+  maximumValue: '10000000000000',  // 10 trillion
+}
+const vmd5Val = {
+  maximumValue: '2',  //  one thousand intervals
+}
+
+
+const vmd1opts = { ...vmdopts, ...vmd1Val }
+const vmd2opts = { ...vmdopts, ...vmd2Val }
+const vmd3opts = { ...vmdopts, ...vmd3Val }
+const vmd4opts = { ...vmdopts, ...vmd4Val }
+const vmd5opts = { ...vmdopts, ...vmd5Val }
+
+const vmdInputBox = "font-size:18px; width:179px; font-weight:500; justify-center"
+const placeh = 'only number allowed'
+const vmdHold = 'only number allowed'
+const chooseDefault = "Choose"
+const gcardProps = {
+  color: "teal lighten-5",
+  width: "205px",
+  height: "79px",
+  class: "vmdCardStyle pl-5 pt-2 cyan--text text--darken-2"
+  }
 
 export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    VueNumericInput,
+    VueAutonumeric
   },
 
   data: () => ({
-    // nameRules: [
-    //   v => !!v || 'Name is required',
-    //   v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    // ],
-    // rules6: [v => v.length <= 12 && v.length >= 7 || 'Min 7 max 12 characters'],
-    alertm: false,
-    chooseDefault: "Choose",
+    vmd1opts,
+    vmd2opts,
+    vmd3opts,
+    vmd4opts,
+    vmd5opts,
+    vmdInputBox,
+    placeh,
+    gcardProps,
+    vmdHold,
+    chooseDefault,
     resetform: 0,
     keyShowCard: false,
     resetImage: 0,
     finalIMAGEp1,
     finalIPwPORT,
     finalIMAGE: '',
-    vmd1: '',
-    vmd2: '',
-    vmd3: 12,
-    vmd4: 50000,
-    vmd5: .40,
-    initsupply,
-    aninflation,
+    vmd1: 1,
+    vmd2: 1,
+    vmd3: 1,
+    vmd4: 1,
+    vmd5: 0,
     }),
 
   mounted () {
-    // this.$refs.formref.reset()
+    this.$refs.formref.reset()
     this.alertm = false;
-    // this.keyShowCard = false
+    this.keyShowCard = false
   },
   methods: {   
-     onClick() {
-      // setValue(this.$refs.input, 100)
-    },
-    validate (v1, v2, v3, v4, v5, v6) {
-      if (this.$refs.formref.validate()) {
-        console.log("Validation complete - making plot")
-        this.keyShowCard = true
-        this.makePlot(v1, v2, v3, v4, v5, v6)
-      } else {
-        this.$refs.formref.resetValidation()
-        this.alertm = true;
-      }
-    },
+
     checkPic (finimag) {
       this.keyShowCard += 1;
 
@@ -447,38 +454,20 @@ export default {
 .numeric-input {
       background: #6fbbff!important;
     } 
+
 .vue-numeric-input .btn-decrement .btn-icon:before {
       background-color: #6fbbff!important;
 }
-/* 
-  #style1.vue-numeric-input.updown {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-  #style1.vue-numeric-input.updown .numeric-input {
-    padding-right: 5px !important;
-    padding-left: 5px !important;
-  } 
-  #vmd3id.button.btn.btn-decrement {
-    background-color: #45857f !important;
-  }
-  #vmd3id.vue-numeric-input.updown .btn {
-    background: #45857f !important;
-  }
-  #style1.vue-numeric-input.updown .btn-increment {
-    height: 1.5rem;
-    width: 100%;
-    right: 0 !important;
-    left:0 !important;
-    top: 0 !important;
-    bottom: auto !important;
-  }
-  #style1.vue-numeric-input.updown .btn-decrement {
-    height: 1.5rem;
-    width: 100%;
-    left: 0 !important;
-    right: 0 !important;
-    top: auto !important;
-    bottom: 0 !important;
-  } */
+
+.vmdCardStyle {
+    font-size: 18px!important;
+    line-height: 30px;
+    margin-top: 0px!important;
+    font-weight: 700!important;
+    
+    padding-bottom: 2px!important;
+    justify-content: center!important;
+    text-align: center!important;
+}
+
 </style>

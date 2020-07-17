@@ -42,5 +42,6 @@
   "wizard": "Wizard",
   "creategraph": "Create Graph",
   "savedgraphs": "Saved Graphs",
-  "tokenomics": "Tokenomics"
+  "tokenomics": "Tokenomics",
+  "createcs" : "Create Cs"
 }

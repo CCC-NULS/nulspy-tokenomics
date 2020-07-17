@@ -32,6 +32,11 @@ export default new Router({
           path: 'about',
           component: () => import('@/views/dashboard/pages/Tokenomics'),
         },
+        {
+          name: 'Create Cs',
+          path: 'pages/createcs',
+          component: () => import('@/views/dashboard/pages/CreateCs'),
+        }, 
         // {
         //   name: 'TimedFile',
         //   path: 'assets/plots',
