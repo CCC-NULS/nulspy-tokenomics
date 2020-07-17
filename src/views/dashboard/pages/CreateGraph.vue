@@ -37,11 +37,11 @@
             >
               <v-card
                 id="vcardform"
-                color="#cfcfcf"
+                color="warning lighten-1"
                 align="center"
                 pr-5
                 pl-5
-                elevation-26
+                elevation-24
                 raised
               >
                 <v-row>
@@ -49,14 +49,11 @@
                     cols="12"
                     md="6"
                   >
-                    <v-chip
-                      id="choicechip"
-                      class="margleft"
-                      elevation-14
-                      raised
-                    >
-                      Make Your Choices:&emsp;
-                    </v-chip>
+                    <h2 
+                      class="display-3 font-weight-light white--text "
+                    >                  
+                      Make Your Choices
+                    </h2>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -157,7 +154,7 @@
                         :options="vmd4opts"
                         :style="vmdInputBox" 
                       /><br>
-                      <span>Max Supply</span>
+                      <span style="padding-top:4px;">Max Supply</span>
                     </v-card>                                     
                   </v-col>
                   <!-- <v-select id="end 4" # # # #  # # # ## # # #  # # # #  -->
@@ -169,7 +166,7 @@
                       id="vmd5card"
                       color="teal lighten-5"
                       width="255px"
-                      height="125px"
+                      height="137px"
                       class="pl-3"
                     >
                       <v-card-subtitle
@@ -190,26 +187,28 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    md="3"
-                  >  
-                    <v-col
-                      cols="12"
-                      md="9"
-                      class="justify-center"
-                    >                 
+                    md="12"
+                  >
+                    <v-card
+                      class="justify=center ml-10"
+                      width="500px"
+                      color="warning lighten-1"
+                      flat
+                    >
                       <!-- submit button *-* *-* *-* *-* *-* *-*  -->
                       <v-btn
                         id="submitmain"
                         type="submit"
-                        size="x-large"
-                        color="warning"
-                        class="mb-3"
+                        shaped
+                        width="345px"
+                        color="success"
+                        class="mb-3 justify-center"
                         @submit.prevent
                         @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                       >
                         submit form
                       </v-btn>
-                    </v-col>
+                    </v-card>
                   </v-col>
                 </v-row>
               </v-card> 
@@ -249,7 +248,7 @@
 
         <v-card
           id="buttoncard"
-          color="success"
+          color="success lighten-1"
           class="padbotcard"
           elevation-24
           raised
@@ -318,16 +317,20 @@ const vmd5opts = {
   decimalPlacesRawValue: 2,
   minimumValue: 0,
   decimalPlaces: 2,
-  maximumValue: 2
+  maximumValue: 2,
+  focus: true
 }
-const vmdInputBox = "font-size:16px; width:179px; font-weight: 500; justify-center; pl-2"
-const vmdInputBoxSm = "font-size:16px; width:63px; font-weight: 500; justify-center; pl-3 ml-2"
+const vmdInputBox = "font-size:16px; width:179px;font-weight: 500; justify-center; pl-2; \
+  background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
+const vmdInputBoxSm = 
+  "font-size:16px; width:63px; font-weight:500; justify-center; pl-3; \
+  ml-2; background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;"
 
 const vmdHold = 'numbers only'
 const gcardProps = {
   color: "teal lighten-5",
   width: "245px",
-  height: "125px",
+  height: "137px",
   class: "pa-1"
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
