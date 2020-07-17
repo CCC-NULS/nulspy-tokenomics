@@ -11,7 +11,7 @@ const theme = {
   primary: '#37474F',
   secondary: '#651FFF',
   tertiary: '#009688',
-  success: '#00BFA5',
+  success: '#651FFF',
   accent: '#212121',
   info: '#651FFF',
   error: '#512DA8',
