@@ -379,6 +379,7 @@ export default {
 
     checkPic (finimag) {
       this.keyShowCard += 1;
+      this.$refs.formref.reset() 
 
       const axiosGet = axios.create({
         defaults: {
@@ -400,8 +401,8 @@ export default {
         console.log('sending request: ', currentAttempt, ' attempt');
         try {
           await axiosGet.get(finimag);
-        } catch (e) {
-          if (operation.retry(e)) { return; }
+        } catch (err) {
+          if (operation.retry(err)) { return; }
         }
         let opAttempts = operation.attempts()
         console.log("retries: " + opAttempts)
@@ -432,36 +433,35 @@ export default {
         console.log(e);
       }
     },
-    makePlot(aa, bb, cc, dd, eeee) {  
-      let eee = eeee.toString()
-      let ee = eee.substring(2,4)   // the percent string ie: 0.2%
-      console.log("eee: " + eee)
+    makePlot(a_inp, b_inp, c_inp, d_inp, e_inp_lg) {  
+      let e_inp_lg_str = e_inp_lg.toString()
+      let e_inp = e_inp_lg_str.substring(2,4)   // the percent string ie: 0.2%
+      console.log("e_inp: " + e_inp)
 
-      let a = "100,000,000"  // default
-      let b = "1,000,000"  // default
-      let c = "12"     // default
-      let d = "110,000,000"    // default
-      let e = "0.2%"     // default
-      if (aa.length > 4) { a = aa; }
-      if (bb.length > 4) { b = bb; }
-      if (cc.length > 1) { c = cc; }
-      if (dd.length > 4) { d = dd; }
-      if (ee.length > 0) { e = ee; }
+      let final_a = "100,000,000"  // default
+      let final_b = "1,000,000"  // default
+      let final_c = "12"     // default
+      let final_d = "110,000,000"    // default
+      let final_e = "0.2%"     // default
+      if (a_inp.length > 0) { final_a = a_inp; }
+      if (b_inp.length > 0) { final_b = b_inp; }
+      if (c_inp.length > 0) { final_c = c_inp; }
+      if (d_inp.length > 0) { final_d = d_inp; }
+      if (e_inp.length > 0) { final_e = e_inp; }
 
-      console.log(`a is ${a} ${a.length} b is ${b} ${b.length} d is ${d} ${d.length}`);
+      console.log(`InitSupply is ${final_a}; anninf is ${final_b}; startinf is ${final_c}; /
+        StopInflation/MaxSupply is ${final_d}; Disinflation is ${final_c};`);
 
       let ddte = Date.now().toString();
       const gDate = ddte.substring(7,13);
-      // this.$store.dispatch('gSessionStrAct', gDate);
       console.log(`gDate makePlot: ${gDate}`);
 
-      console.log("a: " + a + " b: " + b + " d: " + d);
-      let aw = '&initsup=' + a.replace(/,/g, '');
-      let bw = '&anninf=' + b.replace(/,/g, '');
-      let cw = '&startinf=' + c;
-      let dw = '&stopinf=' + d.replace(/,/g, '');
-      let ew = "&disinf=" + e;
-      // need to remove comma's twice from a, b, d
+      let aw = '&initsup=' + final_a.replace(/,/g, '');
+      let bw = '&anninf=' + final_b.replace(/,/g, '');
+      let cw = '&startinf=' + final_c;
+      let dw = '&stopinf=' + final_d.replace(/,/g, '');
+      let ew = "&disinf=" + final_e;
+      // need to remove comma's twice from final_a, final_b, final_d
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
       this.finalIMAGE = `${this.finalIMAGEp1}${gDate}.svg`
@@ -488,7 +488,7 @@ export default {
 }
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
-<style src="@/assets/styles/mystyle.css">
+<style scoped src="@/assets/styles/mystyle.css">
 
 .vue-numeric-input .numeric-input {
   width: 77px;

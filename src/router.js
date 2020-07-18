@@ -32,41 +32,17 @@ export default new Router({
           path: 'about',
           component: () => import('@/views/dashboard/pages/Tokenomics'),
         },
+        // {
+        //   name: 'Create Cs',
+        //   path: 'pages/createcs',
+        //   component: () => import('@/views/dashboard/pages/CreateCs'),
+        // },
         {
-          name: 'Create Cs',
-          path: 'pages/createcs',
-          component: () => import('@/views/dashboard/pages/CreateCs'),
+          name: 'Landing',
+          path: 'pages/landing',
+          component: () => import('@/views/dashboard/pages/Landing'),
         }, 
-        // {
-        //   name: 'TimedFile',
-        //   path: 'assets/plots',
-        //   component: () => import('@/assets/plots/plotnone'),
-        // },
-        
-        // Dashboard
-        // {
-        //   name: 'Dashboard',
-        //   path: 'dashboard',
-        //   component: () => import('@/views/dashboard/Dashboard'),
-        // },        
-        // Tables
-        // {
-        //   name: 'Blockchain',
-        //   path: 'tables/regular-tables',
-        //   component: () => import('@/views/dashboard/tables/RegularTables'),
-        // },
-        // E:\wsvue\vuetify-material-dashboard-master\src\views\dashboard\components\svgs
-        // {
-        //   name: 'Profile Card',
-        //   path: 'componentsns',
-        //   component: () => import('@/views/dashboard/componentsns/ProfileCardNs'),
-        // },
-        // Upgrade
-        // {
-        //   name: 'Upgrade',
-        //   path: 'upgrade',
-        //   component: () => import('@/views/dashboard/Upgrade'),
-        // },
+      
       ],
     },
   ],

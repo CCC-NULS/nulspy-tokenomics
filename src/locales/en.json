@@ -43,5 +43,6 @@
   "creategraph": "Create Graph",
   "savedgraphs": "Saved Graphs",
   "tokenomics": "Tokenomics",
-  "createcs" : "Create Cs"
+  "createcs" : "Create Cs",
+  "landing" : "Landing"
 }

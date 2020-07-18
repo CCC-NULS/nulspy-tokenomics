@@ -1,6 +1,7 @@
 <template>
   <v-main>
     <router-view />
+    <Landing />
 
     <dashboard-core-footer />
   </v-main>
@@ -11,6 +12,8 @@
     name: 'DashboardCoreView',
 
     components: {
+      Landing: () => import('@/views/dashboard/pages/Landing'),
+
       DashboardCoreFooter: () => import('./Footer'),
     },
   }
