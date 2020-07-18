@@ -443,11 +443,17 @@ export default {
       let final_c = "12"     // default
       let final_d = "110,000,000"    // default
       let final_e = "0.2%"     // default
-      if (a_inp.length > 0) { final_a = a_inp; }
-      if (b_inp.length > 0) { final_b = b_inp; }
-      if (c_inp.length > 0) { final_c = c_inp; }
-      if (d_inp.length > 0) { final_d = d_inp; }
-      if (e_inp.length > 0) { final_e = e_inp; }
+      // if (a_inp.length > 0) { final_a = a_inp; }
+      // if (b_inp.length > 0) { final_b = b_inp; }
+      // if (c_inp.length > 0) { final_c = c_inp; }
+      // if (d_inp.length > 0) { final_d = d_inp; }
+      // if (e_inp.length > 0) { final_e = e_inp; }
+
+      final_a = a_inp.toString(); 
+      final_b = b_inp.toString(); 
+      final_c = c_inp.toString(); 
+      final_d = d_inp.toString(); 
+      final_e = e_inp.toString(); 
 
       console.log(`InitSupply is ${final_a}; anninf is ${final_b}; startinf is ${final_c}; /
         StopInflation/MaxSupply is ${final_d}; Disinflation is ${final_c};`);
