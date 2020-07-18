@@ -5,11 +5,11 @@
     class="displaynmstwo font-weight-light"
   >
     <v-chip
-      medium
       dark
       color="tertiary"
+      large
     >
-      {{ titlewords }}
+      <span class="vchip2"> {{ titlewords }}  </span>
     </v-chip>
     <br>
     <ul>
@@ -55,8 +55,12 @@
   };
 </script>
 
-<style scoped>
-.vchipontent {
-    font-size: 12px!important;
-}
+<style>
+  .vchipontent {
+      font-size: 12px!important; 
+      font-style: italic;
+  }
+  .vchip2 {
+      font-size: 19px!important;
+  }
 </style>

@@ -20,7 +20,7 @@
           centered
           outlined
           class="background-color=cyan"
-          :class="matstyle"
+          :class="`{ justify-content: center!important;  }`"
         >
           <template v-slot:heading>
             <div class="display-3 font-weight-light">
@@ -75,7 +75,7 @@ export default {
   }),
 }
 </script>
-<style scoped>
+<style>
   .matstyle {
     justify-content: center!important;
   }

@@ -34,6 +34,8 @@
             class="pr-9 pl-9 ml-9 mr-9"
             elevation-24
             raised
+            outlined
+            color="tertiary lighten-5"
           >
             <v-col
               cols="1"
@@ -124,17 +126,17 @@
   // const tHeader = 'About NULS'
   const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'
   
-  var mat2 = 'NULS - A Fast-track business solutions for developers offers a ' +
-    'new industry standard in streamlining blockchain adoption';
+  var mat2 = 'NULS - A Fast-track business solution for developers offering a ' +
+    'new industry standard in streamlining blockchain adoption.';
   
-  const leader1 = 'Featuring microservices, smart contracts, cross-chain interoperability, and instant ' +
+  const leader1 = 'Featuring microservices, smart contracts, cross-chain interoperability, and ' +
     'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' ;
   
   const lead2 = 'Total Supply';
   const leader2 = 'is the initial total token supply that will be created for the new blockchain. ' +
-    'There are many variables to consider when selecting an initial total token supply including; valuation, ' +
-    'funding strategy, consensus node rewards, application use case (s), number/size of transactions, number of users, ' +
-    'use case road map and community incentive programs. (Example: 100,000,000)';
+    'There are many variables to consider when selecting an initial total token supply including valuation, ' +
+    'funding strategy, consensus node rewards, application use case(s), number/size of transactions, number of users, ' +
+    'use case road map and community incentive programs.';
   
   const lead3 = 'Decimal';
   const leader3 = '8 is the maximum needed. 8 decimal places are used by large public blockchain projects such as ' +
@@ -146,26 +148,26 @@
 
   const lead5 ='Initial Inflation';
   const leader5 = 'is the fixed number of new tokens that will be generated to incentivize the blockchain ' +
-    'network. (Example 110000000)';
+    'network.';
 
   const lead6 = 'Total Inflation'
   const leader6 = 'is the Total Supply plus the Initial Amount of Inflation.' + 
-    'This will be the maximum supply of tokens for the blockchain. The maximum supply can not be changed ' +
-    'in the future unless the code of blockchain is hard forked. The establishment of a maximum supply triggers ' +
-    'the need for a deflation rate in order to reach the maximum supply. Most blockchains opt for a maximum supply ' +
+    'The maximum supply of tokens for the blockchain. It cannot be changed ' +
+    'in the future unless blockchain is hard-forked. The establishment of a maximum supply triggers ' +
+    'the need for a disinflation rate in order to reach the maximum supply. Most blockchains opt for a maximum supply ' +
     'or a deflationary token because it creates token scarcity which may lead to an increased token value over time. ' +
     'Once a maximum supply is reached, the network will become reliant on transaction fees to incentivize its continued ' +
-    'operations. (Example 210000000)'
+    'operation.'
 
   const lead7 = 'Inflation Starting Time';
-  const leader7 = 'is the calendar date the inflation commences.';
+  const leader7 = 'is the calendar date the inflation begins.';
 
-  const lead8 = 'Deflation Ratio';
+  const lead8 = 'Disinflation Ratio';
   const leader8 = 'is the rate at which the creation of new tokens (inflation) will be decreased at a ' +
-    'set interval of time. (example; 0.4 % Deflation Ration).';
+    'set point and interval of time. (example: 0.4 %).';
 
   const lead9 = 'Interval';
-  const leader9 = '(in days): The frequency which the deflation ratio is enforced to decrease the creation of new tokens over time. (example 30 days)';
+  const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days)';
   
   const tchipprops = {
     color: 'blue-grey',

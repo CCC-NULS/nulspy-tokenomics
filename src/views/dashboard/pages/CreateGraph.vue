@@ -488,7 +488,7 @@ export default {
 }
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
-<style scoped src="@/assets/styles/mystyle.css">
+<style src="@/assets/styles/mystyle.css">
 
 .vue-numeric-input .numeric-input {
   width: 77px;
