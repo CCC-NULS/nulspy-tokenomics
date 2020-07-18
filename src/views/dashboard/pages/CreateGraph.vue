@@ -236,7 +236,7 @@
       >
         <base-material-card
           v-if="keyShowCard"
-          :key="keyShowCard"
+          :key="resetImage"
           color="success"
           class="justify=center ml-6 mb-5 pb-5 pt-9"
         >
@@ -370,7 +370,7 @@ export default {
 
   mounted () {
     this.alertm = false;
-    this.keyShowCard = false
+    // this.keyShowCard = false
   },
   created () {
     // this.$refs.formref.reset()
@@ -379,8 +379,6 @@ export default {
 
     checkPic (finimag) {
       this.keyShowCard += 1;
-      this.$refs.formref.reset() 
-
       const axiosGet = axios.create({
         defaults: {
           headers: {
@@ -391,9 +389,9 @@ export default {
       });
       const retry = require('retry');
       const operation = retry.operation({
-        retries: 15,
+        retries: 19,
         factor: 3,
-        minTimeout: 1000,
+        minTimeout: 500,
         maxTimeout: 40000,
       });
 
@@ -479,6 +477,7 @@ export default {
       console.log(`The plot Url is: ${this.finalIMAGE}`);
 
       this.axiosPost(pyReq);  // all locations
+      this.keyShowCard = true
       this.checkPic(this.finalIMAGE)
     },
     resetc() {

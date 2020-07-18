@@ -1,7 +1,7 @@
 // edit this only!
 //var ISCENTOS = false
-//var ISCENTOS = true
-import { ISCENTOS } from  '../../../constants.js'
+const ISCENTOS = true
+// import { ISCENTOS } from  '../../../constants.js'
 // end user edits - = - =  - = - = - = - = - = - = - = - = - = - = - = - = - = - = //
 
 var westPortOnly = "8084"
