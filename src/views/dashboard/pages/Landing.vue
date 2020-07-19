@@ -29,11 +29,12 @@
           </template>             
           <v-card
             id="emptyplacer"
+            color="transparent"
             flat
             land1
             class="d-flex justify-center"
             width="99%"
-            height="70%"
+            height="50%"
           >
             <v-card
               id="tealplacer"

@@ -36,7 +36,7 @@ class AppSupport:
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000
+        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/10000  # comes as 2-digit whole number
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
@@ -44,7 +44,7 @@ class AppSupport:
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
 
         tokens = self.initial_supply_y
-        self.interval_limit_x = 75 * 12
+        self.interval_limit_x = 30 * 12  # changed 75 to 30 (now 30 years)
         monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
         interval_count = 1
 
@@ -83,14 +83,11 @@ class AppSupport:
         dt = dtt[0:-7]
 
         disinflation_ratio = self.disinflation_ratio
-        disinflation = "{:.1%}".format(disinflation_ratio)
+        disinflation = "{:.01%}".format(disinflation_ratio)
         initial_sup_formatted = "{:,}".format(self.initial_supply_y)
         stp_inf_formatted = "{:,}".format(self.stop_inflation_y)
 
         max_text = 'Max Supply = ' + str(stp_inf_formatted)
-        init_str = "               Initial Supply: " + initial_sup_formatted
-        stop_str = "   Stop Inflation: " + str(stp_inf_formatted)
-        bigstr = init_str + stop_str
 
         plt.margins(x=.1, y=.001, tight=False)
 
@@ -112,11 +109,9 @@ class AppSupport:
         plt.subplots_adjust(left=0.17, bottom=0.19)  # controls amount of room left and below
         plt.axhline(y=stp_inf, xmin=0, xmax=top_x, linewidth=2, linestyle='-.', color='r')
         plt.text(100, text_loc, max_text, color='r', size='large', weight='bold')
-        plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
+        plt.text(100, ylocation, '---- Token Growth in 360 Intervals (~ 30 yrs)', color='purple', size='x-large',
                  weight='bold')
 
-        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=11, weight='bold')  # bottom lines
-        plt.figtext(0.007, 0.007, dt,  color='b',  size=7)   # datestamp left bottom
 
         # -- -- -- -- TICKS -- -- -- -- -- -- --  #
 
@@ -125,7 +120,7 @@ class AppSupport:
         major_ticks_x = np.arange(0, top_x, major_x_gaps)
 
         gy = int(top_y / 10)
-        major_y_gaps = self.round_up_to_multiple(gy, 1000000)
+        major_y_gaps = self.round_up_to_multiple(gy, 10000)  # was 1000000
         major_ticks_y = np.arange(bottom_y, top_y, major_y_gaps)
 
         big_x = top_x + top_x/10
@@ -143,12 +138,16 @@ class AppSupport:
         # an_infl = str("{:,}".format(round(self.annual_inflation / 12)))
         an_infl = str("{:,}".format(self.annual_inflation))
 
-        part2 = " Disinflation: "
-        xlabel_str = "30 day Interval, Inflation: " + an_infl + part2 + disinflation
         ylabel_str = 'Total Supply'
 
         plt.ylabel(ylabel_str, size=14, color="green", labelpad=7)
-        plt.xlabel(xlabel_str, size=14, labelpad=20, color="blue", weight="bold")
+
+        bottom_str_top = "  Initial Supply: " + initial_sup_formatted + "     Max Supply: " + str(stp_inf_formatted)
+        bottom_str_bottom = "       30 day Intervals, Annual Inflation: " + an_infl + ", Disinflation: " + disinflation
+        plt.figtext(0.1, 0.05, bottom_str_bottom,  color='b',  size=11, weight='bold')  # bottom lines
+        plt.figtext(0.007, 0.007, dt,  color='b',  size=7)   # datestamp left bottom
+
+        plt.xlabel(bottom_str_top, size=14, labelpad=20, color="blue", weight="bold")
 
         plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))  # No decimal places
 

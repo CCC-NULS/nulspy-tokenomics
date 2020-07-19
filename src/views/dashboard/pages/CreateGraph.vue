@@ -73,9 +73,9 @@
                       </v-card-subtitle>
 
                       <vue-autonumeric
+                        id="vmd1auto"
                         v-model="vmd1"
-                        :value="2444444"
-                        :placeholder="myvaluestr"
+                        :options="newvmd1opts"
                         :style="vmdInputBox" 
                       /><br>
                     </v-card>    
@@ -175,7 +175,8 @@
                       id="vmd5card"
                       color="teal lighten-5"
                       width="255px"
-                      height="137px"
+                      height="177px"
+                      class="gcard5Props"
                     >
                       <v-card-subtitle
                         :class="cardSubtitle" 
@@ -293,6 +294,7 @@ import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwP
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import TopWords from "@/views/dashboard/components/TopWords";
+import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
 
@@ -309,27 +311,28 @@ import VueNumericInput from 'vue-numeric-input'
 const vmdopts = {
   digitGroupSeparator: ',',
   currencySymbol: '',
-  minimumValue: 1,
   decimalPlaces: 0,
   overrideMinMaxLimits: 'invalid'
 }
-
-const vmd1Val = {
-  maximumValue: 10000000000000,  // 10 trillion
+const newvmd1opts = {
+  digitGroupSeparator: ',',
+  currencySymbol: '',
+  minimumValue: 10000,
+  decimalPlaces: 0,
+  focus: true,
+  maximumValue: 10000000000000,
+  overrideMinMaxLimits: 'invalid',
 }
 const vmd2Val = {
+  minimumValue: 1000,  // one thousand
   maximumValue: 10000000,  // 10 billion  annual inflation
 }
-const vmd3Val = {
-  maximumValue: 1000,  //  one thousand intervals
-}
 const vmd4Val = {
-  maximumValue: 10000000000000,  // 10 trillion
+  minimumValue: 10000,  // one thousand
+  maximumValue: 10000000,  // 10 million
 }
 
-// const vmd1opts = { ...vmdopts, ...vmd1Val }
 const vmd2opts = { ...vmdopts, ...vmd2Val }
-const vmd3opts = { ...vmdopts, ...vmd3Val }
 const vmd4opts = { ...vmdopts, ...vmd4Val }
 
 const vmd5opts = {
@@ -340,11 +343,9 @@ const vmd5opts = {
   maximumValue: 2,
   focus: true
 }
+
 const vmdInputBox = "font-size:22px; width:179px;font-weight: 500; justify-center; pl-2; \
   background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
-// const vmdInputBoxSm = 
-//   "font-size:16px; width:63px; font-weight:500; justify-center; pl-3; \
-//   ml-2; background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;"
 
 const arrowbox = "font-size:20px; background-color:#ffffff; "
 
@@ -354,10 +355,20 @@ const vmdHold = 'numbers only'
 const gcardProps = {
   color: "teal lighten-5",
   width: "245px",
-  height: "137px",
+  height: "177px",
+  "min-height": "137px",
+  "min-width": "245px",
+  class: "pa-1"
+  }
+const gcard5Props = {
+  color: "teal lighten-5",
+  "min-height": "147px",
+  "min-width": "215px",
   class: "pa-1"
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
+AutoNumeric.set('vmd1auto', 42)
+
 
 export default {
   name: "CreateGraph",
@@ -369,20 +380,21 @@ export default {
 
   data: () => ({
     // vmd1opts,
+    newvmd1opts,
     vmd2opts,
-    vmd3opts,
+    // vmd3opts,
     vmd4opts,
     vmd5opts,
     arrowvuenumeric,
     vmdInputBox,
-    vmd1: 1,
-    vmd2: 1,
+    vmd1: "10000",
+    vmd2: "1000",
     vmd3: 1,
-    vmd4: 1,
+    vmd4: "10000",
     vmd5: 0,   
-    placeOne: "1000000",
     alertm: false,
     gcardProps,
+    gcard5Props,
     cardSubtitle,
     vmdHold,
     resetform: 0,
@@ -391,9 +403,6 @@ export default {
     finalIMAGEp1,
     finalIPwPORT,
     finalIMAGE: '',
-    myvalue: "1000000",
-    myvaluestr: "1000000",
-
     }),
 
   mounted () {
@@ -458,6 +467,7 @@ export default {
       } catch (e) {
         console.log(e);
       }
+      this.$refs.formref.reset() 
     },
     makePlot(a_inp, b_inp, c_inp, d_inp, e_inp_lg) {  
       let e_inp_lg_str = e_inp_lg.toString()
@@ -542,11 +552,6 @@ export default {
 }
 .vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
       background-color: #ffffff!important;
-}
-.vuenumeric {
-  font-size:26px; 
-  height: 30px;
-  width: 127px;
 }
 
 
