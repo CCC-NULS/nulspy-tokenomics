@@ -36,13 +36,22 @@ class AppSupport:
         initsupply_y = args_dict.get("initial_supply_y")  # 100,000,000  NULS
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/10000  # comes as 2-digit whole number
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
         start_inflation = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
+        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000  # comes as 2-digit whole number
 
+        disratio = args_dict.get("disinflation_ratio")
+        print("disratio: " + str(disratio))
+        disratio_int = int(disratio)
+        disratio_len = len(str(disratio_int))
+        print("xarglen of xarglen: " + str(disratio_len))
+        if disratio_len > 1:
+            self.disinflation_ratio = self.disinflation_ratio / 10   # divide again for extra digit like .42 or .54
+
+        print("self.disinflation_ratio: " + str(self.disinflation_ratio))
         tokens = self.initial_supply_y
         self.interval_limit_x = 30 * 12  # changed 75 to 30 (now 30 years)
         monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
@@ -141,9 +150,9 @@ class AppSupport:
         ylabel_str = 'Total Supply'
 
         plt.ylabel(ylabel_str, size=14, color="green", labelpad=7)
-
+        spacer = "                       "
         bottom_str_top = "  Initial Supply: " + initial_sup_formatted + "     Max Supply: " + str(stp_inf_formatted)
-        bottom_str_bottom = "       30 day Intervals, Annual Inflation: " + an_infl + ", Disinflation: " + disinflation
+        bottom_str_bottom = spacer + "30 day Intervals, Annual Inflation: " + an_infl + ", Disinflation: " + disinflation
         plt.figtext(0.1, 0.05, bottom_str_bottom,  color='b',  size=11, weight='bold')  # bottom lines
         plt.figtext(0.007, 0.007, dt,  color='b',  size=7)   # datestamp left bottom
 

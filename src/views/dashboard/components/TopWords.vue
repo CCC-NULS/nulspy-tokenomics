@@ -8,40 +8,33 @@
       dark
       color="tertiary"
       large
+      class="mb-1"
     >
       <span class="vchip2"> {{ titlewords }}  </span>
     </v-chip>
-    <br>
+    
     <ul>
-      <li>
-        One Interval = 30 days<br>
-      </li>
       <li>
         Initial Supply: &nbsp; 100,000,000<br>
       </li>
       <li>
-        Inflation begins in X months? &nbsp; 12 mos = 1 yr
+        Max Supply: &emsp;&emsp; 210,000,000<br>
+      </li>
+      <li>
+        One Interval = 30 days<br>
+      </li>
+      <li>
+        Inflation begins in 24 intervals
         <br>
       </li>
       <li>
-        Inflation per year: &nbsp; 5,000,000 <br>
+        Annual Inflation: &nbsp; 5,000,000 <br>
       </li>
+
       <li>
-        Inflation stops at: &emsp;&emsp; 210,000,000<br>
-      </li>
-      <li>
-        Disinflation ratio: &emsp;&emsp;(  0% to 0.7% )  <br><br>
+        Disinflation ratio: 0.4% &emsp;&emsp;(  0 to 2.0% )  <br><br>
       </li>
     </ul>
-    <v-chip
-      color="info"
-      medium
-      raised
-    >
-      <span class="vchipontent">
-        Inflation and disinflation begin at the same time
-      </span>
-    </v-chip>
   </div>
 </template>
 

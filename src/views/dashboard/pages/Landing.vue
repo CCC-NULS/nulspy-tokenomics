@@ -14,7 +14,7 @@
         <base-material-card
           id="land1"
           color="blue-grey"
-          height="400px"
+          height="250px"
           elevation-24
           raised
           centered
@@ -32,24 +32,24 @@
             color="transparent"
             flat
             land1
-            class="d-flex justify-center"
-            width="99%"
-            height="50%"
+            class="margin-top=-25px; d-flex justify-center pl-3 mt-2"
+            width="100%"
+            height="100px"
           >
             <v-card
               id="tealplacer"
               emptyplacer
               shaped
               width="90%"
-              height="40%"
-              class="d-flex justify-center pa-3 cyan--text text--darken-2 creategreygrad"
+              height="90%"
+              class="d-flex justify-center pa-2 cyan--text text--darken-2 creategreygrad"
             >
               <!--  button *-* *-* *-* *-* *-* *-*  -->
               <v-btn
                 id="gocreate"
                 tealplacer
                 width="50%"
-                height="70%"
+                height="90%"
                 dark
                 color="success"
                 class="mb-3 justify-center createbtn"

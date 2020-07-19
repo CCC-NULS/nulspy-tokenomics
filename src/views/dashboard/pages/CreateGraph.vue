@@ -33,25 +33,40 @@
           >
             <v-container
               id="vcontain"
-              class="py-4"
+              class="py-3"
             >
               <v-card
                 id="vcardform"
-                color="warning lighten-1"
                 elevation-24
+                color="#607d8b"
                 raised
-                class="pa-1"
+                class="pa-1 greygrad"
               >
                 <v-row>
                   <v-col
                     cols="12"
                     md="6"
                   >
-                    <h2 
-                      class="display-3 font-weight-light white--text "
+                    <span 
+                      class="display-4 testfont font-weight-bold white--text"
+                      style="testfont"
                     >                  
-                      Make Your Choices
-                    </h2>
+                      &nbsp;  &emsp; design your graph
+                    </span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
+                    <v-chip
+                      color="info"
+                      medium
+                      raised
+                    >
+                      <span class="vchipontent">
+                        Inflation and disinflation begin at the same time
+                      </span>
+                    </v-chip>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -226,7 +241,7 @@
                         @submit.prevent
                         @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                       >
-                        submit form
+                        <h1> submit </h1>
                       </v-btn>
                     </v-card>
                   </v-col>
@@ -318,9 +333,11 @@ const newvmd1opts = {
   digitGroupSeparator: ',',
   currencySymbol: '',
   minimumValue: 10000,
+  rawValue: 10000,
+  initialValueOnFirstKeydown: 10000,
   decimalPlaces: 0,
-  focus: true,
   maximumValue: 10000000000000,
+
   overrideMinMaxLimits: 'invalid',
 }
 const vmd2Val = {
@@ -335,19 +352,18 @@ const vmd4Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }
 const vmd4opts = { ...vmdopts, ...vmd4Val }
 
-const vmd5opts = {
-  currencySymbol: '%',
-  decimalPlacesRawValue: 2,
-  minimumValue: 0,
-  decimalPlaces: 2,
-  maximumValue: 2,
-  focus: true
-}
+// const vmd5opts = {
+//   currencySymbol: '%',
+//   decimalPlacesRawValue: 2,
+//   minimumValue: 0,
+//   decimalPlaces: 2,
+//   maximumValue: 2,
+// }
 
-const vmdInputBox = "font-size:22px; width:179px;font-weight: 500; justify-center; pl-2; \
+const vmdInputBox = "font-size:22px; width:179px;font-weight:500; justify:center; pl-2; \
   background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
 
-const arrowbox = "font-size:20px; background-color:#ffffff; "
+// const arrowbox = "font-size:20px; background-color:#ffffff; "
 
 const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-color:#ffffff;"
 
@@ -367,8 +383,6 @@ const gcard5Props = {
   class: "pa-1"
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
-AutoNumeric.set('vmd1auto', 42)
-
 
 export default {
   name: "CreateGraph",
@@ -384,10 +398,10 @@ export default {
     vmd2opts,
     // vmd3opts,
     vmd4opts,
-    vmd5opts,
+    // vmd5opts,
     arrowvuenumeric,
     vmdInputBox,
-    vmd1: "10000",
+    vmd1: 10000,
     vmd2: "1000",
     vmd3: 1,
     vmd4: "10000",
@@ -467,7 +481,9 @@ export default {
       } catch (e) {
         console.log(e);
       }
-      this.$refs.formref.reset() 
+      this.$refs.formref.reset()
+      console.log(`The plot Url is: ${this.finalIMAGE}`);
+
     },
     makePlot(a_inp, b_inp, c_inp, d_inp, e_inp_lg) {  
       let e_inp_lg_str = e_inp_lg.toString()
@@ -533,6 +549,7 @@ export default {
 </script>
 <style src="@/assets/styles/mystyle.css">
 
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
 
 .vmdFontStyle {
     font-size: 18px!important;
@@ -545,6 +562,9 @@ export default {
     padding-bottom: 2px!important;
     justify-content: center!important;
 }
+.greygrady {
+  background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)!important;
+}
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
@@ -553,7 +573,9 @@ export default {
 .vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
       background-color: #ffffff!important;
 }
-
+.testfont {
+  font-family: 'La Belle Aurore';
+}
 
 </style>
  

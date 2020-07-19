@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
+// import Vuetify from 'vuetify/lib'
 import i18n from '@/i18n'
 import '@/sass/overrides.sass'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vuetify from 'vuetify'
 
 Vue.use(Vuetify, VueAxios, axios)
 
