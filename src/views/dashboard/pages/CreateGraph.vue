@@ -38,12 +38,9 @@
               <v-card
                 id="vcardform"
                 color="warning lighten-1"
-                align="center"
-                pr-5
-                pl-5
                 elevation-24
                 raised
-                class="creategreygrad"
+                class="pa-1"
               >
                 <v-row>
                   <v-col
@@ -67,6 +64,7 @@
                     <v-card 
                       id="vmd1card"
                       v-bind="gcardProps"
+                      class="ml-5"
                     >
                       <v-card-subtitle
                         :class="cardSubtitle" 
@@ -76,8 +74,8 @@
 
                       <vue-autonumeric
                         v-model="vmd1"
-                        :placeholder="vmdHold"
-                        :options="vmd1opts"
+                        :value="2444444"
+                        :placeholder="myvaluestr"
                         :style="vmdInputBox" 
                       /><br>
                     </v-card>    
@@ -124,12 +122,22 @@
                       >                       
                         Disinflation Starts in
                       </v-card-subtitle>
-                      <vue-autonumeric
-                        v-model="vmd3"
-                        :placeholder="vmdHold"
-                        :options="vmd3opts"
-                        :style="vmdInputBox" 
-                      /><br><span>how many intervals</span>
+                      <vue-numeric-input
+                        id="vmd3id"
+                        v-model="vmd3" 
+                        :value="vmd3"
+                        size="30px"
+                        :min="0" 
+                        :max="100" 
+                        :step="1"
+                        :precision="0"
+                        vmd3card
+                        controls-type="updown"
+                        align="center"
+                        :style="arrowvuenumeric"
+                      />
+                      <br>
+                      <span style="padding-top:6px;">How many Invervals<br>(Usually Months)</span>                    
                     </v-card>                                           
                   <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
                   </v-col>
@@ -201,7 +209,7 @@
                     md="12"
                   >
                     <v-card
-                      class="justify=center ml-10"
+                      class="justify-center ml-10"
                       width="500px"
                       color="transparent"
                       flat
@@ -249,7 +257,7 @@
           v-if="keyShowCard"
           :key="resetImage"
           color="success"
-          class="justify=center ml-6 mb-5 pb-5 pt-9"
+          class="justify-center ml-6 mb-5 pb-5 pt-9"
         >
           <img
             :key="resetImage"
@@ -319,7 +327,7 @@ const vmd4Val = {
   maximumValue: 10000000000000,  // 10 trillion
 }
 
-const vmd1opts = { ...vmdopts, ...vmd1Val }
+// const vmd1opts = { ...vmdopts, ...vmd1Val }
 const vmd2opts = { ...vmdopts, ...vmd2Val }
 const vmd3opts = { ...vmdopts, ...vmd3Val }
 const vmd4opts = { ...vmdopts, ...vmd4Val }
@@ -332,7 +340,7 @@ const vmd5opts = {
   maximumValue: 2,
   focus: true
 }
-const vmdInputBox = "font-size:16px; width:179px;font-weight: 500; justify-center; pl-2; \
+const vmdInputBox = "font-size:22px; width:179px;font-weight: 500; justify-center; pl-2; \
   background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
 // const vmdInputBoxSm = 
 //   "font-size:16px; width:63px; font-weight:500; justify-center; pl-3; \
@@ -340,7 +348,7 @@ const vmdInputBox = "font-size:16px; width:179px;font-weight: 500; justify-cente
 
 const arrowbox = "font-size:20px; background-color:#ffffff; "
 
-const arrowvuenumeric = "font-size:26px; height:30px; width: 127px;background-color:#ffffff;"
+const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-color:#ffffff;"
 
 const vmdHold = 'numbers only'
 const gcardProps = {
@@ -360,7 +368,7 @@ export default {
   },
 
   data: () => ({
-    vmd1opts,
+    // vmd1opts,
     vmd2opts,
     vmd3opts,
     vmd4opts,
@@ -371,7 +379,8 @@ export default {
     vmd2: 1,
     vmd3: 1,
     vmd4: 1,
-    vmd5: 0,    
+    vmd5: 0,   
+    placeOne: "1000000",
     alertm: false,
     gcardProps,
     cardSubtitle,
@@ -382,6 +391,8 @@ export default {
     finalIMAGEp1,
     finalIPwPORT,
     finalIMAGE: '',
+    myvalue: "1000000",
+    myvaluestr: "1000000",
 
     }),
 
@@ -537,44 +548,7 @@ export default {
   height: 30px;
   width: 127px;
 }
-.arrowpercent {
-  font-size: 30px;
-}
 
 
 </style>
-  // padding-right: 5px !important;
-  // padding-left: 5px !important;
-// /* 
-//   #style1.vue-numeric-input.updown {
-//     padding-top: 1.5rem;
-//     padding-bottom: 1.5rem;
-//   }
-//   #style1.vue-numeric-input.updown .numeric-input {
-//     padding-right: 5px !important;
-//     padding-left: 5px !important;
-//   } 
-//   #vmd3id.button.btn.btn-decrement {
-//     background-color: #45857f !important;
-//   }
-//   #vmd3id.vue-numeric-input.updown .btn {
-//     background: #45857f !important;
-//   }
-//   #style1.vue-numeric-input.updown .btn-increment {
-//     height: 1.5rem;
-//     width: 100%;
-//     right: 0 !important;
-//     left:0 !important;
-//     top: 0 !important;
-//     bottom: auto !important;
-//   }
-//   #style1.vue-numeric-input.updown .btn-decrement {
-//     height: 1.5rem;
-//     width: 100%;
-//     left: 0 !important;
-//     right: 0 !important;
-//     top: auto !important;
-//     bottom: 0 !important;
-//    */
-
-
+ 
