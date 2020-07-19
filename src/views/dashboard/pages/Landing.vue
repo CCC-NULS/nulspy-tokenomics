@@ -14,7 +14,7 @@
         <base-material-card
           id="land1"
           color="blue-grey"
-          height="500px"
+          height="400px"
           elevation-24
           raised
           centered
@@ -39,10 +39,9 @@
               id="tealplacer"
               emptyplacer
               shaped
-              color="teal lighten-4"
               width="90%"
               height="40%"
-              class="d-flex justify-center pa-3 cyan--text text--darken-2"
+              class="d-flex justify-center pa-3 cyan--text text--darken-2 creategreygrad"
             >
               <!--  button *-* *-* *-* *-* *-* *-*  -->
               <v-btn
@@ -52,7 +51,7 @@
                 height="70%"
                 dark
                 color="success"
-                class="mb-3 justify-center"
+                class="mb-3 justify-center createbtn"
                 to="/pages/creategraph"
               >
                 <h1>Create Plot</h1>
@@ -87,4 +86,16 @@ export default {
   .justifycontent {
     justify-content: center!important;
   } 
+
+  .createbtn {
+    background-image: linear-gradient(306deg, #651FFF 0%, #5812F2 100%);
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+  .creategreygrad {
+    background-image: linear-gradient(306deg, #607d8b 0%, #93B0BE 100%);
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
 </style>

@@ -132,11 +132,11 @@
       //     icon: 'mdi-electron-framework',
       //     to: '/pages/landing',
       //   },        
-        // {
-        //   title: 'createcs',
-        //   icon: 'mdi-electron-framework',
-        //   to: '/pages/createcs',
-        // },
+        {
+          title: 'createcs',
+          icon: 'mdi-electron-framework',
+          to: '/pages/createcs',
+        },
         // {
         //   title: 'tokenomics',
         //   icon: 'mdi-electron-framework',

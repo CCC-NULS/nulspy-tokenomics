@@ -43,6 +43,7 @@
                 pl-5
                 elevation-24
                 raised
+                class="creategreygrad"
               >
                 <v-row>
                   <v-col
@@ -167,7 +168,6 @@
                       color="teal lighten-5"
                       width="255px"
                       height="137px"
-                      class="pl-3"
                     >
                       <v-card-subtitle
                         :class="cardSubtitle" 
@@ -175,12 +175,23 @@
                         Disinflation
                       </v-card-subtitle>
                       
-                      <vue-autonumeric
-                        v-model="vmd5"
-                        :options="vmd5opts"
-                        :style="vmdInputBoxSm" 
-                      /><br>
-                      <span>Ratio</span>
+                      <vue-numeric-input
+                        id="vmd5id"
+                        v-model="vmd5" 
+                        :value="vmd5"
+                        size="30px"
+                        :min="0" 
+                        :max="2" 
+                        :step=".01"
+                        :precision="2"
+                        vmd5card
+                        controls-type="updown"
+                        align="center"
+                        :style="arrowvuenumeric"
+                      />
+                      <span style="font-size:24px"> % </span>
+                      <br>
+                      <span>Ratio<br>Min 0, Max 2</span>
                     </v-card>                                      
                   </v-col>
                 </v-row>
@@ -192,7 +203,7 @@
                     <v-card
                       class="justify=center ml-10"
                       width="500px"
-                      color="warning lighten-1"
+                      color="transparent"
                       flat
                     >
                       <!-- submit button *-* *-* *-* *-* *-* *-*  -->
@@ -275,6 +286,7 @@ import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwP
 import axios from "axios";
 import TopWords from "@/views/dashboard/components/TopWords";
 import VueAutonumeric from '../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
+import VueNumericInput from 'vue-numeric-input'
 
 // import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
 // import { max,  min,  numeric,   required, } from 'vee-validate/dist/rules'
@@ -322,9 +334,13 @@ const vmd5opts = {
 }
 const vmdInputBox = "font-size:16px; width:179px;font-weight: 500; justify-center; pl-2; \
   background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
-const vmdInputBoxSm = 
-  "font-size:16px; width:63px; font-weight:500; justify-center; pl-3; \
-  ml-2; background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;"
+// const vmdInputBoxSm = 
+//   "font-size:16px; width:63px; font-weight:500; justify-center; pl-3; \
+//   ml-2; background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;"
+
+const arrowbox = "font-size:20px; background-color:#ffffff; "
+
+const arrowvuenumeric = "font-size:26px; height:30px; width: 127px;background-color:#ffffff;"
 
 const vmdHold = 'numbers only'
 const gcardProps = {
@@ -339,7 +355,8 @@ export default {
   name: "CreateGraph",
   components: {
     TopWords,
-    VueAutonumeric
+    VueAutonumeric,
+    VueNumericInput
   },
 
   data: () => ({
@@ -348,13 +365,13 @@ export default {
     vmd3opts,
     vmd4opts,
     vmd5opts,
+    arrowvuenumeric,
     vmdInputBox,
-    vmdInputBoxSm,
     vmd1: 1,
     vmd2: 1,
     vmd3: 1,
     vmd4: 1,
-    vmd5: null,    
+    vmd5: 0,    
     alertm: false,
     gcardProps,
     cardSubtitle,
@@ -495,17 +512,6 @@ export default {
 </script>
 <style src="@/assets/styles/mystyle.css">
 
-.vue-numeric-input .numeric-input {
-  width: 77px;
-}
-
-.numeric-input {
-      background: #6fbbff!important;
-    } 
-
-.vue-numeric-input .btn-decrement .btn-icon:before {
-      background-color: #6fbbff!important;
-}
 
 .vmdFontStyle {
     font-size: 18px!important;
@@ -518,4 +524,57 @@ export default {
     padding-bottom: 2px!important;
     justify-content: center!important;
 }
+.creategreygrad {
+    background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
+.vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
+      background-color: #ffffff!important;
+}
+.vuenumeric {
+  font-size:26px; 
+  height: 30px;
+  width: 127px;
+}
+.arrowpercent {
+  font-size: 30px;
+}
+
+
 </style>
+  // padding-right: 5px !important;
+  // padding-left: 5px !important;
+// /* 
+//   #style1.vue-numeric-input.updown {
+//     padding-top: 1.5rem;
+//     padding-bottom: 1.5rem;
+//   }
+//   #style1.vue-numeric-input.updown .numeric-input {
+//     padding-right: 5px !important;
+//     padding-left: 5px !important;
+//   } 
+//   #vmd3id.button.btn.btn-decrement {
+//     background-color: #45857f !important;
+//   }
+//   #vmd3id.vue-numeric-input.updown .btn {
+//     background: #45857f !important;
+//   }
+//   #style1.vue-numeric-input.updown .btn-increment {
+//     height: 1.5rem;
+//     width: 100%;
+//     right: 0 !important;
+//     left:0 !important;
+//     top: 0 !important;
+//     bottom: auto !important;
+//   }
+//   #style1.vue-numeric-input.updown .btn-decrement {
+//     height: 1.5rem;
+//     width: 100%;
+//     left: 0 !important;
+//     right: 0 !important;
+//     top: auto !important;
+//     bottom: 0 !important;
+//    */
+
+

@@ -77,7 +77,7 @@ class AppSupport:
 
     def plot_graph(self, plotpath_timed, plotpath_timed2):
         plt.ioff()
-        font = {'size': 12}
+        font = {'size': 11}
         stp_inf = self.stop_inflation_y
         dtt = str(datetime.now())
         dt = dtt[0:-7]
@@ -98,7 +98,7 @@ class AppSupport:
         bottom_y = self.initial_supply_y
         top_count = self.token_count_list_y[-1]
         top_y = int(top_count)
-        vpadding = top_y / 22
+        vpadding = top_y / 20
         text_loc = self.stop_inflation_y + (vpadding/5)
         ylocation = bottom_y + vpadding
 
@@ -115,7 +115,7 @@ class AppSupport:
         plt.text(100, ylocation, '-----  Token Growth Over Time', color='purple', size='x-large',
                  weight='bold')
 
-        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=14, weight='bold')  # bottom lines
+        plt.figtext(0.1, 0.05, bigstr,  color='b',  size=11, weight='bold')  # bottom lines
         plt.figtext(0.007, 0.007, dt,  color='b',  size=7)   # datestamp left bottom
 
         # -- -- -- -- TICKS -- -- -- -- -- -- --  #
@@ -140,13 +140,15 @@ class AppSupport:
 
         ax.grid(which='both')
 
-        an_infl = str("{:,}".format(round(self.annual_inflation / 12)))
-        part2 = " Inflation, and Disinflation Ratio: "
-        xlabel_str = "30 day Intervals, " + an_infl + part2 + disinflation
+        # an_infl = str("{:,}".format(round(self.annual_inflation / 12)))
+        an_infl = str("{:,}".format(self.annual_inflation))
+
+        part2 = " Disinflation: "
+        xlabel_str = "30 day Interval, Inflation: " + an_infl + part2 + disinflation
         ylabel_str = 'Total Supply'
 
         plt.ylabel(ylabel_str, size=14, color="green", labelpad=7)
-        plt.xlabel(xlabel_str, size=16, labelpad=20, color="blue", weight="bold")
+        plt.xlabel(xlabel_str, size=14, labelpad=20, color="blue", weight="bold")
 
         plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))  # No decimal places
 
