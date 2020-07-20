@@ -38,7 +38,8 @@
                 elevation-24
                 color="#607d8b"
                 raised
-                class="greygrady d-flex flex-wrap align-content-start justify-space-between pa-7"
+                class="d-flex flex-wrap align-content-start justify-space-between pa-7"
+                style="`background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)`"
               >
                 <span 
                   class="display-4 testfont font-weight-bold white--text mb-9"
@@ -398,7 +399,7 @@ export default {
       });
       const retry = require('retry');
       const operation = retry.operation({
-        retries: 19,
+        retries: 10,
         factor: 3,
         minTimeout: 500,
         maxTimeout: 40000,
@@ -521,7 +522,7 @@ export default {
     justify-content: center!important;
 }
 .greygrady {
-  background-image: linear-gradient(306deg, #3A0765 0%, #476472 100%)!important;
+  background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)!important;
 }
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);

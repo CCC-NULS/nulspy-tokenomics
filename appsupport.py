@@ -41,33 +41,55 @@ class AppSupport:
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
-        origdis_ratint = int(args_dict.get("disinflation_ratio"))
-
-        # code for later if we do two digit disinflation
-        # if len(origdis_ratstr) > 1:
-        #     firstchar = origdis_ratstr[0]
-        #     if firstchar == '0':   # like "04"
-        #         origdis_ratstr = origdis_ratstr[1]
-        #     else:
-        #         origdis_ratstr = int(origdis_ratstr)/10   # like 4.5
-
-        self.disinflation_ratio = float(origdis_ratint)/1000  # comes as 1-digit whole number
-                # 4 must become .4% or .004
-
+        disinfla_int = int(args_dict.get("disinflation_ratio"))
+        print("max supply: " + str(self.stop_inflation_y))
+        print("start_inflation: " + str(start_inflation))
+        print("annual_inflation: " + str(self.annual_inflation))
+        if disinfla_int != 0:
+            self.disinflation_ratio = float(disinfla_int)/1000  # comes as 1-digit whole number
+        else:
+            self.disinflation_ratio = 0
         print("self.disinflation_ratio: " + str(self.disinflation_ratio))
         tokens = self.initial_supply_y
+
+            #  mean length of the Gregorian calendar year is:
+            # 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days    5.2425 /365.2425= 0.0143534774841373
+                                # 0.0143534774841373 - subtract this from yearly then divide into intervals
+        # new math:
+        yrdivisor = 0.0143534774841373  #  5.2425 /365.2425
+        annualAdjustedInflationFor360days = self.annual_inflation * yrdivisor
+        realcnt = self.annual_inflation - annualAdjustedInflationFor360days
+                # 4 must become .4% or .004
+
         self.interval_limit_x = 30 * 12  # changed 75 to 30 (now 30 years)
-        monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
+
+        monthly_inflation = realcnt / 12  # 5,000,000 NULS
+        old_monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
+
         interval_count = 1
+        print("new monthly_inflation: " + str(monthly_inflation))
+        print("OLD monthly_inflation: " + str(old_monthly_inflation))
+        print("start inflation: " + str(start_inflation))
+
+
+        print('interval - inflation - tokens')
 
         while interval_count <= self.interval_limit_x:
+
             # deflation = False
             if (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation):
                 # deflation = True
                 monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
                 tokens = tokens + monthly_inflation
 
-            self.token_count_list_y.append(round(tokens))
+                inflstr = "{:,}".format(round(monthly_inflation))
+                newtokens = "{:,}".format(round(tokens))
+                print(str(interval_count) + '    ' + str(inflstr) + '    ' + str(newtokens))
+
+            else:
+                print(str(interval_count) + '               ' + str("{:,}".format(round(tokens))))
+
+            self.token_count_list_y.append(round(tokens, 0))
             self.initial_supply_list.append(self.initial_supply_y)
             self.token_interval_list.append(interval_count)
             interval_count += 1
@@ -128,7 +150,7 @@ class AppSupport:
         # -- -- -- -- TICKS -- -- -- -- -- -- --  #
 
         gx = int(top_x / 10)
-        major_x_gaps = self.round_up_to_multiple(gx, 100)
+        major_x_gaps = self.round_up_to_multiple(gx, 50)  # was 100
         major_ticks_x = np.arange(0, top_x, major_x_gaps)
 
         gy = int(top_y / 10)

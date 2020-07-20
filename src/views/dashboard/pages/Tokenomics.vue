@@ -35,7 +35,7 @@
             elevation-24
             raised
             outlined
-            color="tertiary lighten-5"
+            :style="`background-image: radial-gradient(circle, #E1C9BD, #f3dbcf)!important;`"
           >
             <v-col
               cols="1"

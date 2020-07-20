@@ -9,57 +9,68 @@
     >
       <v-col 
         cols="12"
-        md="7"
+        md="12"
       >
-        <base-material-card
-          id="land1"
-          color="blue-grey"
-          height="250px"
-          elevation-24
-          raised
-          centered
-          outlined
-          class="background-color=cyan"
-          :class="`{ justify-content: center!important;  }`"
+        <v-card
+          width="1200px"
+          color="teal lighten-2"
+          :style="`background-image: linear-gradient(306deg, #fdfcfb 0%, #2d1c3 100%);`"
         >
-          <template v-slot:heading>
-            <div class="display-3 font-weight-light">
-              <h3> Welcome to NULS Tokenomics </h3>
-            </div>
-          </template>             
-          <v-card
-            id="emptyplacer"
-            color="transparent"
-            flat
-            land1
-            class="margin-top=-25px; d-flex justify-center pl-3 mt-2"
-            width="100%"
-            height="100px"
+          <v-col 
+            cols="12"
+            md="12"
           >
-            <v-card
-              id="tealplacer"
-              emptyplacer
-              shaped
-              width="90%"
-              height="90%"
-              class="d-flex justify-center pa-2 cyan--text text--darken-2 creategreygrad"
+            <base-material-card
+              id="land1"
+              color="blue-grey"
+              height="250px"
+              elevation-24
+              raised
+              centered
+              outlined
+              class="background-color=cyan"
+              :class="`{ justify-content: center!important;  }`"
             >
-              <!--  button *-* *-* *-* *-* *-* *-*  -->
-              <v-btn
-                id="gocreate"
-                tealplacer
-                width="50%"
-                height="90%"
-                dark
-                color="success"
-                class="mb-3 justify-center createbtn"
-                to="/pages/creategraph"
+              <template v-slot:heading>
+                <div class="display-3 font-weight-light">
+                  <h3> Welcome to NULS Tokenomics </h3>
+                </div>
+              </template>             
+              <v-card
+                id="emptyplacer"
+                color="transparent"
+                flat
+                land1
+                class="margin-top=-25px; d-flex justify-center pl-3 mt-2"
+                width="100%"
+                height="100px"
               >
-                <h1>Create Plot</h1>
-              </v-btn>
-            </v-card>    
-          </v-card>   
-        </base-material-card>
+                <v-card
+                  id="tealplacer"
+                  emptyplacer
+                  shaped
+                  width="90%"
+                  height="90%"
+                  class="d-flex justify-center pa-2 cyan--text text--darken-2 creategreygrad"
+                >
+                  <!--  button *-* *-* *-* *-* *-* *-*  -->
+                  <v-btn
+                    id="gocreate"
+                    tealplacer
+                    width="50%"
+                    height="90%"
+                    dark
+                    color="success"
+                    class="mb-3 justify-center createbtn"
+                    to="/pages/creategraph"
+                  >
+                    <h1>Create Plot</h1>
+                  </v-btn>
+                </v-card>    
+              </v-card>   
+            </base-material-card>
+          </v-col>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
