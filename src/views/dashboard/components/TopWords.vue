@@ -21,9 +21,6 @@
         Max Supply: &emsp;&emsp; 210,000,000<br>
       </li>
       <li>
-        One Interval = 30 days<br>
-      </li>
-      <li>
         Inflation begins in 24 intervals
         <br>
       </li>
@@ -32,7 +29,7 @@
       </li>
 
       <li>
-        Disinflation ratio: 0.4% &emsp;&emsp;(  0 to 2.0% )  <br><br>
+        Disinflation ratio: 0.4% &emsp;&emsp;(  0 to .9% )  <br><br>
       </li>
     </ul>
   </div>

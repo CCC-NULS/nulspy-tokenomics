@@ -33,6 +33,53 @@
               />
             </v-card>    
           </div>
+          <div>
+            <v-card
+              id="vmd4cardgg"
+              width="700px"
+              height="1200px"
+              class="d-flex flex-wrap align-content-start justify-space-between pa-4"
+            >
+              <v-card
+                id="vmd4cardgg1"
+                color="success"
+
+                width="200px"
+                height="200px"
+                class="d-flex"
+              >
+                hi1
+              </v-card>
+              <v-card
+                id="vmd4cardgg2"
+                color="tertiary"
+                width="200px"
+                height="200px"
+                class="d-flex"
+              >
+                hi2
+              </v-card>
+
+              <v-card
+                id="vmd4cardgg3"
+                color="green"
+                width="200px"
+                height="200px"
+                class="d-flex"
+              >
+                hi3
+              </v-card>
+              <v-card
+                id="vmd4cardgg4"
+                color="pink"
+                width="200px"
+                height="200px"
+                class="d-flex"
+              >
+                hi4
+              </v-card>
+            </v-card>    
+          </div>
         </base-material-card>
       </v-col>
     </v-row>

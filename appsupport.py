@@ -41,15 +41,18 @@ class AppSupport:
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
-        self.disinflation_ratio = float(args_dict.get("disinflation_ratio"))/1000  # comes as 2-digit whole number
+        origdis_ratint = int(args_dict.get("disinflation_ratio"))
 
-        disratio = args_dict.get("disinflation_ratio")
-        print("disratio: " + str(disratio))
-        disratio_int = int(disratio)
-        disratio_len = len(str(disratio_int))
-        print("xarglen of xarglen: " + str(disratio_len))
-        if disratio_len > 1:
-            self.disinflation_ratio = self.disinflation_ratio / 10   # divide again for extra digit like .42 or .54
+        # code for later if we do two digit disinflation
+        # if len(origdis_ratstr) > 1:
+        #     firstchar = origdis_ratstr[0]
+        #     if firstchar == '0':   # like "04"
+        #         origdis_ratstr = origdis_ratstr[1]
+        #     else:
+        #         origdis_ratstr = int(origdis_ratstr)/10   # like 4.5
+
+        self.disinflation_ratio = float(origdis_ratint)/1000  # comes as 1-digit whole number
+                # 4 must become .4% or .004
 
         print("self.disinflation_ratio: " + str(self.disinflation_ratio))
         tokens = self.initial_supply_y

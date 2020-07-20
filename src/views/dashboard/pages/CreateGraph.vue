@@ -21,10 +21,8 @@
               <TopWords />
             </div>
           </template>
-
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--             v-model="formvmodel"   -->
-
           <v-form
             id="mainform"
             ref="formref"
@@ -40,216 +38,173 @@
                 elevation-24
                 color="#607d8b"
                 raised
-                class="pa-1 greygrad"
+                class="greygrady d-flex flex-wrap align-content-start justify-space-between pa-7"
               >
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="6"
-                  >
-                    <span 
-                      class="display-4 testfont font-weight-bold white--text"
-                      style="testfont"
-                    >                  
-                      &nbsp;  &emsp; design your graph
-                    </span>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="6"
-                  >
-                    <v-chip
-                      color="info"
-                      medium
-                      raised
-                    >
-                      <span class="vchipontent">
-                        Inflation and disinflation begin at the same time
-                      </span>
-                    </v-chip>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="5"
-                  >
-                    <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-                    <!--:items="initsupply" -->
-                    <v-card 
-                      id="vmd1card"
-                      v-bind="gcardProps"
-                      class="ml-5"
-                    >
-                      <v-card-subtitle
-                        :class="cardSubtitle" 
-                      >                       
-                        Initial Token Supply
-                      </v-card-subtitle>
+                <span 
+                  class="display-4 testfont font-weight-bold white--text mb-9"
+                  style="testfont"
+                >                  
+                  &nbsp;  &emsp; design your graph
+                </span>
+                <v-chip
+                  color="info"
+                  medium
+                  raised
+                >
+                  <span class="vchipontent">
+                    Inflation and disinflation begin at the same time
+                  </span>
+                </v-chip>
+                <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
+                <!--:items="initsupply" -->
+                <v-card 
+                  id="vmd1card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Initial Token Supply
+                  </v-card-subtitle>
 
-                      <vue-autonumeric
-                        id="vmd1auto"
-                        v-model="vmd1"
-                        :options="newvmd1opts"
-                        :style="vmdInputBox" 
-                      /><br>
-                    </v-card>    
-                  </v-col> 
+                  <vue-autonumeric
+                    id="vmd1auto"
+                    v-model="vmd1"
+                    :options="newvmd1opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                </v-card>    
 
-                  <!--2   annual inflation:  2  # # # #  # # # #  # # # #  -->
-                  <v-col
-                    cols="12"
-                    md="5"
-                  >
-                    <v-card 
-                      id="vmd2card"
-                      v-bind="gcardProps"
-                    >
-                      <v-card-subtitle
-                        :class="cardSubtitle" 
-                      >                       
-                        Annual Inflation
-                      </v-card-subtitle>
 
-                      <vue-autonumeric
-                        v-model="vmd2"
-                        :placeholder="vmdHold"
-                        :options="vmd2opts"
-                        :style="vmdInputBox" 
-                      /><br>
-                    </v-card>    
-                  </v-col>
-                </v-row>
+                <!--2   annual inflation:  2  # # # #  # # # #  # # # #  -->
 
-                <v-row>
-                  <!-- 3  inflatervals Inflation Interval:  3  # # # #  # # # #  # # # #  -->
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >                    
-                    <v-card 
-                      id="vmd3card"
-                      v-bind="gcardProps"
-                      class="ml-4"
-                    >
-                      <v-card-subtitle
-                        :class="cardSubtitle" 
-                      >                       
-                        Disinflation Starts in
-                      </v-card-subtitle>
-                      <vue-numeric-input
-                        id="vmd3id"
-                        v-model="vmd3" 
-                        :value="vmd3"
-                        size="30px"
-                        :min="0" 
-                        :max="100" 
-                        :step="1"
-                        :precision="0"
-                        vmd3card
-                        controls-type="updown"
-                        align="center"
-                        :style="arrowvuenumeric"
-                      />
-                      <br>
-                      <span style="padding-top:6px;">How many Invervals<br>(Usually Months)</span>                    
-                    </v-card>                                           
-                  <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
-                  </v-col>
+                <v-card 
+                  id="vmd2card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Annual Inflation
+                  </v-card-subtitle>
 
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <!-- <v-select id="start 4" # # # # stop inflation  # # # ## # # #  # # # #  -->
+                  <vue-autonumeric
+                    v-model="vmd2"
+                    :placeholder="vmdHold"
+                    :options="vmd2opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                </v-card>    
+
+                <!-- 3  inflatervals Inflation Interval:  3  # # # #  # # # #  # # # #  -->
                     
-                    <v-card 
-                      id="vmd4card"
-                      v-bind="gcardProps"
-                    >
-                      <v-card-subtitle
-                        :class="cardSubtitle" 
-                      >                       
-                        Stop Inflation
-                      </v-card-subtitle>
-                      <vue-autonumeric
-                        v-model="vmd4"
-                        :placeholder="vmdHold"
-                        :options="vmd4opts"
-                        :style="vmdInputBox" 
-                      /><br>
-                      <span style="padding-top:4px;">Max Supply</span>
-                    </v-card>                                     
-                  </v-col>
-                  <!-- <v-select id="end 4" # # # #  # # # ## # # #  # # # #  -->
-                  <v-col
-                    cols="12"
-                    md="3"
-                  >                  
-                    <v-card 
-                      id="vmd5card"
-                      color="teal lighten-5"
-                      width="255px"
-                      height="177px"
-                      class="gcard5Props"
-                    >
-                      <v-card-subtitle
-                        :class="cardSubtitle" 
-                      >
-                        Disinflation
-                      </v-card-subtitle>
-                      
-                      <vue-numeric-input
-                        id="vmd5id"
-                        v-model="vmd5" 
-                        :value="vmd5"
-                        size="30px"
-                        :min="0" 
-                        :max="2" 
-                        :step=".01"
-                        :precision="2"
-                        vmd5card
-                        controls-type="updown"
-                        align="center"
-                        :style="arrowvuenumeric"
-                      />
-                      <span style="font-size:24px"> % </span>
-                      <br>
-                      <span>Ratio<br>Min 0, Max 2</span>
-                    </v-card>                                      
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="12"
+                <v-card 
+                  id="vmd3card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Disinflation Starts in
+                  </v-card-subtitle>
+                  <vue-numeric-input
+                    id="vmd3id"
+                    v-model="vmd3" 
+                    :value="vmd3"
+                    size="30px"
+                    :min="0" 
+                    :max="100" 
+                    :step="1"
+                    :precision="0"
+                    vmd3card
+                    controls-type="updown"
+                    align="center"
+                    :style="arrowvuenumeric"
+                  />
+                  <br>
+                  <span style="padding-top:6px;">How many Invervals<br>(Usually Months)</span>                    
+                </v-card>                                           
+                <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
+                <!-- <v-select id="start 4" # # # # stop inflation  # # # ## # # #  # # # #  -->
+                   
+                <v-card 
+                  id="vmd4card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Stop Inflation
+                  </v-card-subtitle>
+                  <vue-autonumeric
+                    v-model="vmd4"
+                    :placeholder="vmdHold"
+                    :options="vmd4opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                  <span style="padding-top:4px;">
+                    Max Supply - Must be 
+                    <br>
+                    more than initial Supply
+                  </span>
+                </v-card>                                     
+                <!-- <v-select id="end 4" # # # #  # # # ## # # #  # # # #  -->
+               
+                <v-card 
+                  id="vmd5card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
                   >
-                    <v-card
-                      class="justify-center ml-10"
-                      width="500px"
-                      color="transparent"
-                      flat
-                    >
-                      <!-- submit button *-* *-* *-* *-* *-* *-*  -->
-                      <v-btn
-                        id="submitmain"
-                        type="submit"
-                        shaped
-                        width="345px"
-                        color="success"
-                        class="mb-3 justify-center"
-                        @submit.prevent
-                        @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
-                      >
-                        <h1> submit </h1>
-                      </v-btn>
-                    </v-card>
-                  </v-col>
-                </v-row>
+                    Disinflation
+                  </v-card-subtitle>
+                      
+                  <vue-numeric-input
+                    id="vmd5id"
+                    v-model="vmd5" 
+                    :value="vmd5"
+                    size="30px"
+                    :min="0" 
+                    :max=".9" 
+                    :step=".1"
+                    :precision="1"
+                    vmd5card
+                    controls-type="updown"
+                    align="center"
+                    :style="arrowvuenumeric"
+                  />
+                  <span style="font-size:24px"> % </span>
+                  <br>
+                  <span>Ratio<br>Min 0, Max .9</span>
+                </v-card>                                      
+
+
+                <v-card
+                  class="justify-center ml-10"
+                  width="500px"
+                  color="transparent"
+                  flat
+                >
+                  <!-- submit button *-* *-* *-* *-* *-* *-*  -->
+                  <v-btn
+                    id="submitmain"
+                    type="submit"
+                    shaped
+                    width="345px"
+                    color="success"
+                    class="mb-3 justify-center"
+                    @submit.prevent
+                    @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                  >
+                    <h1> submit </h1>
+                  </v-btn>
+                </v-card>
               </v-card> 
             </v-container>
           </v-form>
         </base-material-card>
+
         <v-alert
           v-show="false"
           id="alertm"
@@ -370,17 +325,20 @@ const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-co
 const vmdHold = 'numbers only'
 const gcardProps = {
   color: "teal lighten-5",
-  width: "245px",
+  width: "295px",
   height: "177px",
-  "min-height": "137px",
+  "min-height": "147px",
   "min-width": "245px",
-  class: "pa-1"
+  class: "pa-1 ma-7"
+
   }
 const gcard5Props = {
   color: "teal lighten-5",
-  "min-height": "147px",
-  "min-width": "215px",
-  class: "pa-1"
+  width: "295px",
+  height: "177px",
+  "min-height": "177px",
+  "min-width": "295px",
+  class: "pa-1 ma-7"
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
 
@@ -563,7 +521,7 @@ export default {
     justify-content: center!important;
 }
 .greygrady {
-  background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)!important;
+  background-image: linear-gradient(306deg, #3A0765 0%, #476472 100%)!important;
 }
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
