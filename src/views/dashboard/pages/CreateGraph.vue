@@ -38,8 +38,8 @@
                 elevation-24
                 color="#607d8b"
                 raised
-                class="d-flex flex-wrap align-content-start justify-space-between pa-7"
-                style="`background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)`"
+                class="d-flex flex-wrap align-content-start justify-space-between pa-3"
+                style="`background-image: linear-gradient(306deg, #3A5765, #476472)`"
               >
                 <span 
                   class="display-4 testfont font-weight-bold white--text mb-9"
@@ -71,16 +71,41 @@
                   <vue-autonumeric
                     id="vmd1auto"
                     v-model="vmd1"
-                    :options="newvmd1opts"
+                    :options="vmd1opts"
                     :style="vmdInputBox" 
                   /><br>
                 </v-card>    
 
-
-                <!--2   annual inflation:  2  # # # #  # # # #  # # # #  -->
-
+                <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
+                <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
+                   
                 <v-card 
                   id="vmd2card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Max Supply
+                  </v-card-subtitle>
+                  <vue-autonumeric
+                    v-model="vmd2"
+                    :placeholder="vmdHold"
+                    :options="vmd2opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                  <span style="padding-top:4px;">
+                    Level when Inflation Ends 
+                    <br>
+                    Must be more than Initial Supply
+                  </span>
+                </v-card>                                     
+                <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
+               
+                <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
+
+                <v-card 
+                  id="vmd3card"
                   v-bind="gcardProps"
                 >
                   <v-card-subtitle
@@ -90,17 +115,17 @@
                   </v-card-subtitle>
 
                   <vue-autonumeric
-                    v-model="vmd2"
+                    v-model="vmd3"
                     :placeholder="vmdHold"
-                    :options="vmd2opts"
+                    :options="vmd3opts"
                     :style="vmdInputBox" 
                   /><br>
                 </v-card>    
 
-                <!-- 3  inflatervals Inflation Interval:  3  # # # #  # # # #  # # # #  -->
+                <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
                     
                 <v-card 
-                  id="vmd3card"
+                  id="vmd4card"
                   v-bind="gcardProps"
                 >
                   <v-card-subtitle
@@ -109,15 +134,15 @@
                     Disinflation Starts in
                   </v-card-subtitle>
                   <vue-numeric-input
-                    id="vmd3id"
-                    v-model="vmd3" 
-                    :value="vmd3"
+                    id="vmd4id"
+                    v-model="vmd4" 
+                    :value="vmd4"
                     size="30px"
                     :min="0" 
                     :max="100" 
                     :step="1"
                     :precision="0"
-                    vmd3card
+                    vmd4card
                     controls-type="updown"
                     align="center"
                     :style="arrowvuenumeric"
@@ -125,32 +150,9 @@
                   <br>
                   <span style="padding-top:6px;">How many Invervals<br>(Usually Months)</span>                    
                 </v-card>                                           
-                <!-- stop inflation: 4  # # # # stopinflation 4  # # # #  # # # #  -->
-                <!-- <v-select id="start 4" # # # # stop inflation  # # # ## # # #  # # # #  -->
-                   
-                <v-card 
-                  id="vmd4card"
-                  v-bind="gcardProps"
-                >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
-                  >                       
-                    Stop Inflation
-                  </v-card-subtitle>
-                  <vue-autonumeric
-                    v-model="vmd4"
-                    :placeholder="vmdHold"
-                    :options="vmd4opts"
-                    :style="vmdInputBox" 
-                  /><br>
-                  <span style="padding-top:4px;">
-                    Max Supply - Must be 
-                    <br>
-                    more than initial Supply
-                  </span>
-                </v-card>                                     
-                <!-- <v-select id="end 4" # # # #  # # # ## # # #  # # # #  -->
-               
+                <!-- 5  5  5  # # # #  # # # #  # # # #  -->
+                <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
+
                 <v-card 
                   id="vmd5card"
                   v-bind="gcardProps"
@@ -285,7 +287,7 @@ const vmdopts = {
   decimalPlaces: 0,
   overrideMinMaxLimits: 'invalid'
 }
-const newvmd1opts = {
+const vmd1opts = {
   digitGroupSeparator: ',',
   currencySymbol: '',
   minimumValue: 10000,
@@ -293,31 +295,23 @@ const newvmd1opts = {
   initialValueOnFirstKeydown: 10000,
   decimalPlaces: 0,
   maximumValue: 10000000000000,
-
   overrideMinMaxLimits: 'invalid',
 }
-const vmd2Val = {
+const vmd2Val = {         // max supply
+  minimumValue: 10000,  // 10 thousand
+  maximumValue: 10000000000,  // 10 trillion
+}
+const vmd3Val = {
   minimumValue: 1000,  // one thousand
-  maximumValue: 10000000,  // 10 billion  annual inflation
-}
-const vmd4Val = {
-  minimumValue: 10000,  // one thousand
-  maximumValue: 10000000,  // 10 million
+  maximumValue: 10000000,  // 10 million  annual inflation
 }
 
-const vmd2opts = { ...vmdopts, ...vmd2Val }
-const vmd4opts = { ...vmdopts, ...vmd4Val }
-
-// const vmd5opts = {
-//   currencySymbol: '%',
-//   decimalPlacesRawValue: 2,
-//   minimumValue: 0,
-//   decimalPlaces: 2,
-//   maximumValue: 2,
-// }
+const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
+const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
 const vmdInputBox = "font-size:22px; width:179px;font-weight:500; justify:center; pl-2; \
-  background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;margin-bottom:2px;"
+  background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;\
+  margin-bottom:2px;"
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
 
@@ -339,7 +333,7 @@ const gcard5Props = {
   height: "177px",
   "min-height": "177px",
   "min-width": "295px",
-  class: "pa-1 ma-7"
+  class: "pa-1 ma-3"
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
 
@@ -352,19 +346,16 @@ export default {
   },
 
   data: () => ({
-    // vmd1opts,
-    newvmd1opts,
+    vmd1opts,
     vmd2opts,
-    // vmd3opts,
-    vmd4opts,
-    // vmd5opts,
+    vmd3opts,
     arrowvuenumeric,
     vmdInputBox,
-    vmd1: 10000,
-    vmd2: "1000",
-    vmd3: 1,
-    vmd4: "10000",
-    vmd5: 0,   
+    vmd1: 10000,  // start supply
+    vmd2: 10001,   // max supply
+    vmd3: 1000,   // annual inflation
+    vmd4: 1,    // when inflation starts
+    vmd5: 0,   // Disinflation
     alertm: false,
     gcardProps,
     gcard5Props,
@@ -444,41 +435,44 @@ export default {
       console.log(`The plot Url is: ${this.finalIMAGE}`);
 
     },
-    makePlot(a_inp, b_inp, c_inp, d_inp, e_inp_lg) {  
-      let e_inp_lg_str = e_inp_lg.toString()
-      let e_inp = e_inp_lg_str.substring(2,4)   // the percent string ie: 0.2%
+    makePlot(a_inp, d_inp, b_inp, c_inp, e_inp_lg) {  // order changed moved d to b
+      // let e_inp_lg_str = e_inp_lg.toString()
+      let e_inp = e_inp_lg.toString().substring(2,4)   // the percent string ie: 0.2%
+      // let e_inp = e_inp_lg_str.substring(2,4)   // the percent string ie: 0.2%
       console.log("e_inp: " + e_inp)
 
-      let final_a = "100,000,000"  // default
-      let final_b = "1,000,000"  // default
-      let final_c = "12"     // default
-      let final_d = "110,000,000"    // default
-      let final_e = "0.2%"     // default
-      // if (a_inp.length > 0) { final_a = a_inp; }
-      // if (b_inp.length > 0) { final_b = b_inp; }
-      // if (c_inp.length > 0) { final_c = c_inp; }
-      // if (d_inp.length > 0) { final_d = d_inp; }
-      // if (e_inp.length > 0) { final_e = e_inp; }
+      let fin_a_init_supply = "100,000,000"  // default start supply
+      let fin_d_max_supply = "110,000,000"    // default max supply
+      let fin_b_ann_infl = "1,000,000"  // default annual inflation
+      let fin_c_start_time = "12"     // default start interval
+      let fin_e_dis_rat = "0.2%"     // default
 
-      final_a = a_inp.toString(); 
-      final_b = b_inp.toString(); 
-      final_c = c_inp.toString(); 
-      final_d = d_inp.toString(); 
-      final_e = e_inp.toString(); 
+      fin_a_init_supply = a_inp.toString(); 
+      fin_d_max_supply = d_inp.toString(); 
+      fin_b_ann_infl = b_inp.toString(); 
+      fin_c_start_time = c_inp.toString(); 
+      fin_e_dis_rat = e_inp.toString(); 
 
-      console.log(`InitSupply is ${final_a}; anninf is ${final_b}; startinf is ${final_c}; /
-        StopInflation/MaxSupply is ${final_d}; Disinflation is ${final_c};`);
+      let safeTenPercent = fin_a_init_supply.toNumber / 10
+      if (fin_d_max_supply < fin_a_init_supply)
+        fin_d_init_supply = fin_a_init_supply.toNumber + safeTenPercent
+      
+      if (fin_b_ann_infl > fin_a_init_supply.toNumber /3)
+        fin_b_ann_infl = safeTenPercent
+      console.log(`InitSupply is ${fin_a_init_supply}; anninf is ${fin_b_ann_infl}; startinf is ${fin_c_start_time}; /
+        StopInflation/MaxSupply is ${fin_d_max_supply}; Disinflation is ${fin_c_start_time};`);
 
-      let ddte = Date.now().toString();
-      const gDate = ddte.substring(7,13);
+      // let ddte = Date.now().toString();
+      const gDate = Date.now().toString().substring(7,13);
+//      const gDate = ddte.substring(7,13);
       console.log(`gDate makePlot: ${gDate}`);
 
-      let aw = '&initsup=' + final_a.replace(/,/g, '');
-      let bw = '&anninf=' + final_b.replace(/,/g, '');
-      let cw = '&startinf=' + final_c;
-      let dw = '&stopinf=' + final_d.replace(/,/g, '');
-      let ew = "&disinf=" + final_e;
-      // need to remove comma's twice from final_a, final_b, final_d
+      let aw = '&initsup=' + fin_a_init_supply.replace(/,/g, '');
+      let dw = '&stopinf=' + fin_d_max_supply.replace(/,/g, '');  // still send in old order
+      let bw = '&anninf=' + fin_b_ann_infl.replace(/,/g, '');
+      let cw = '&startinf=' + fin_c_start_time;
+      let ew = "&disinf=" + fin_e_dis_rat;
+      // need to remove comma's twice from fin_a_init_supply, fin_b_ann_infl, fin_d_max_supply
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
       this.finalIMAGE = `${this.finalIMAGEp1}${gDate}.svg`
