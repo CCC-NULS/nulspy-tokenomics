@@ -10,7 +10,7 @@
         md="8"
       >
         <base-material-card
-          color="tertiary"
+          color="blue-grey lighten-1"
         >
           <template v-slot:heading>
             <div
@@ -38,22 +38,24 @@
                 elevation-24
                 color="#607d8b"
                 raised
-                class="d-flex flex-wrap align-content-start justify-space-between pa-3"
+                class="d-flex flex-wrap align-content-start justify-left pa-3"
                 style="`background-image: linear-gradient(306deg, #3A5765, #476472)`"
               >
                 <span 
-                  class="display-4 testfont font-weight-bold white--text mb-9"
-                  style="testfont"
+                  class="display-4 font-weight-bold orange--text text--lighten-5 mb-9"
+                  :style="`text-shadow: 2px 2px 2px #0a406c;`"
                 >                  
                   &nbsp;  &emsp; design your graph
                 </span>
                 <v-chip
-                  color="info"
-                  medium
-                  raised
+                  color="transparent"
+                  class="ml-3 pa-4 elevation-24 raised white--text"
+                  large
+                  
+                  :style="`font-size: 10px!important;`"
                 >
-                  <span class="vchipontent">
-                    Inflation and disinflation begin at the same time
+                  <span>
+                    Inflation and disinflation <br>begin at the same time
                   </span>
                 </v-chip>
                 <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
@@ -195,7 +197,7 @@
                     type="submit"
                     shaped
                     width="345px"
-                    color="success"
+                    color="info"
                     class="mb-3 justify-center"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
@@ -237,11 +239,12 @@
             :key="resetImage"
             :src="finalIMAGE"
           >
+          Right click image to save
         </base-material-card>
 
         <v-card
           id="buttoncard"
-          color="success lighten-1"
+          color="info"
           class="padbotcard"
           elevation-24
           raised
@@ -324,7 +327,7 @@ const gcardProps = {
   height: "177px",
   "min-height": "147px",
   "min-width": "245px",
-  class: "pa-1 ma-7"
+  class: "pa-1 ma-3"
 
   }
 const gcard5Props = {
@@ -333,7 +336,7 @@ const gcard5Props = {
   height: "177px",
   "min-height": "177px",
   "min-width": "295px",
-  class: "pa-1 ma-3"
+  class: "pa-1 ma-3",
   }
 const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
 
@@ -374,10 +377,9 @@ export default {
     // this.keyShowCard = false
   },
   created () {
-    // this.$refs.formref.reset()
+   // this.$refs.formref.reset()
   },
   methods: {   
-
     checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({
@@ -502,7 +504,6 @@ export default {
 </script>
 <style src="@/assets/styles/mystyle.css">
 
-@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
 
 .vmdFontStyle {
     font-size: 18px!important;

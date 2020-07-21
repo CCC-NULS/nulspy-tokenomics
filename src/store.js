@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // gTimeNAMEonly: '',
     // gTimedPlotPath: '',
     // gPlotPATHARRAY: [],
-    // gShowMe: false,
+    gShowMe: false,
     gImgName: '',
     gDirPath: '',
     gSessionStr: 'a',
@@ -43,9 +43,9 @@ export default new Vuex.Store({
     // gTimeNAMEonlyMut(state, theval) {
     //   state.gTimeNAMEonly = theval
     // },
-    // gShowMeMut(state, theval) {
-    //   state.gShowMe = theval
-    // },
+    gShowMeMut(state, theval) {
+      state.gShowMe = theval
+    },
     gImgNameMut(state, theval) {
       state.gImgName = theval
     },
@@ -84,9 +84,9 @@ export default new Vuex.Store({
     // gTimeNAMEonlyAct (context, theval) {
     //   context.commit('gTimeNAMEonlyMut', theval)
     // },
-    // gShowMeAct (context, theval) {
-    //   context.commit('gShowMeMut', theval)
-    // },
+    gShowMeAct (context, theval) {
+      context.commit('gShowMeMut', theval)
+    },
     gImgNameAct(context, theval) {
       context.commit('gImgNameMut', theval)
     },

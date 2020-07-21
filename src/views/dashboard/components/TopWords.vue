@@ -5,31 +5,26 @@
     class="displaynmstwo font-weight-light"
   >
     <v-chip
-      dark
-      color="tertiary"
+      color="transparent"
       large
       class="mb-1"
     >
-      <span class="vchip2"> {{ titlewords }}  </span>
+      <span 
+        class="vchip2 orange--text text--lighten-5"
+      > 
+        {{ titlewords }}  </span>
     </v-chip>
     
     <ul>
       <li>
-        Initial Supply: &nbsp; 100,000,000<br>
-      </li>
-      <li>
-        Max Supply: &emsp;&emsp; 210,000,000<br>
+        Initial Supply: &nbsp; 100,000,000   &emsp;&emsp;&emsp;&emsp;    Max Supply: &emsp;&emsp; 210,000,000<br>
       </li>
       <li>
         Inflation begins in 24 intervals
         <br>
       </li>
       <li>
-        Annual Inflation: &nbsp; 5,000,000 <br>
-      </li>
-
-      <li>
-        Disinflation ratio: 0.4% &emsp;&emsp;(  0 to .9% )  <br><br>
+        Annual Inflation: &nbsp; 5,000,000   &emsp;&emsp;&emsp;&emsp;  Disinflation ratio: 0.4% &emsp;&emsp;(  0 to .9% )  <br><br>
       </li>
     </ul>
   </div>
@@ -46,11 +41,15 @@
 </script>
 
 <style>
-  .vchipontent {
+  /* .vchipontent {
       font-size: 12px!important; 
       font-style: italic;
-  }
+  } */
   .vchip2 {
-      font-size: 19px!important;
+      font-size: 22px!important;
+      text-shadow: 2 2 2 #FFFFFF;
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-weight: 700;
+      
   }
 </style>

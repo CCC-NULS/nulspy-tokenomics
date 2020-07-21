@@ -12,6 +12,7 @@
         md="12"
       >
         <v-card
+          id="landingcard"
           width="1200px"
           color="teal lighten-2"
           :style="`background-image: linear-gradient(306deg, #fdfcfb 0%, #2d1c3 100%);`"
@@ -23,7 +24,7 @@
             <base-material-card
               id="land1"
               color="blue-grey"
-              height="250px"
+              height="200px"
               elevation-24
               raised
               centered
@@ -41,7 +42,7 @@
                 color="transparent"
                 flat
                 land1
-                class="margin-top=-25px; d-flex justify-center pl-3 mt-2"
+                class="margin-top=-25px; d-flex justify-center pl-3"
                 width="100%"
                 height="100px"
               >
@@ -51,7 +52,7 @@
                   shaped
                   width="90%"
                   height="90%"
-                  class="d-flex justify-center pa-2 cyan--text text--darken-2 creategreygrad"
+                  class="d-flex justify-center pa-2 cyan--text text--darken-2 creategreygrad mt-1"
                 >
                   <!--  button *-* *-* *-* *-* *-* *-*  -->
                   <v-btn

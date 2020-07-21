@@ -35,7 +35,7 @@
 
     <v-btn
       class="ml-2"
-      color="orange darken-2"
+      color="teal"
       text
       dark
       large
