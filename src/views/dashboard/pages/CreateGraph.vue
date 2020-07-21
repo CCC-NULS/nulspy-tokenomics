@@ -7,7 +7,7 @@
     <v-row justify="center">
       <v-col
         cols="12"
-        md="8"
+        md="9"
       >
         <base-material-card
           color="blue-grey lighten-1"
