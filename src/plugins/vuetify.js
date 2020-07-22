@@ -9,31 +9,47 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify, VueAxios, axios)
 
 const theme = {
-  primary: '#607D8B',     // blue-grey
-  secondary: '#673AB7',  // deep purple 
-  tertiary: '#009688',  // teal
-  success: '#673AB7',  // deep purple 
+  primary: '#009688',     // teal
+  secondary: '#673AB7',  // deep purple  673AB7
+  success: '#FF5722',   // deep-orange 
   accent: '#00BCD4',    // cyan
-  info: '#0a406c',   //  blue from gradient
+  info: 'grey',              //   grey 
   error: '#F44336',   // red
   warning: '#FF5722',    // deep-orange
+
   darkgrey: '#212121',    // almost black
-  orangeaccent: '#FF5722',  // deep-orange
-  mywhite: "#FFFFFF"
+  pagegrey: 'grey darken-4',
+
+  mytext: "#000000",   // black
+  alwayswhite: "#FFFFFF",  // white
+
+  tertiary:  '#212121',     // darkdarkgrey
+
 }
+// teal=009688
+ // deep purple  673AB7
+ //  blue #0a406c from gradient
+// #00BCD4',    // cyan
+// #FF5722',    // deep-orange
+//  '#F44336',   // red
+// darkgrey: '#212121'
 
 const dtheme = {
-  primary: '#607D8B',     // blue-grey
+  primary: '#009688',     // teal
   secondary: '#673AB7',  // deep purple 
-  tertiary: '#009688',  // teal
-  success: '#673AB7',  // deep purple 
+  success: '#FF5722',   // deep-orange 
   accent: '#00BCD4',    // cyan
-  info: '#0a406c',   //  blue from gradient
+  info: 'grey',   //  grey
   error: '#F44336',   // red
   warning: '#FF5722',    // deep-orange
   darkgrey: '#212121',    // almost black
-  orangeaccent: '#FF5722',  // deep-orange
-  mywhite: "#000000"
+  pagegrey: 'grey darken-4',
+
+  mytext: "#FFFFFF",        // white
+  alwayswhite: '#FFFFFF',     // white
+
+  tertiary:  '#212121',     // darkdarkgrey
+
 }
 
 export default new Vuetify({

@@ -13,7 +13,7 @@
         md="9"
       >
         <base-material-card
-          color="blue-grey"
+          color="primary"
           elevation-24
           raised
         >
@@ -22,7 +22,10 @@
               NULS Blockchain
             </div>
 
-            <div class="display-4 font-weight-heavy">
+            <div 
+              class="display-4 font-weight-heavy"
+              :style="`text-shadow: 3px 3px 3px 2px 3px purple darken-1`"
+            >
               All About Tokenomics
             </div>
           </template>
@@ -30,12 +33,13 @@
 
           <v-card
             id="vcard2"
+            color="primary darken-2"
             align="left"
             class="pr-9 pl-9 ml-9 mr-9"
             elevation-24
             raised
             outlined
-            :style="`background-image: radial-gradient(circle, #E1C9BD, #f3dbcf)!important;`"
+            :style="`{ text-shadow: 3px 3px 3px 2px 3px purple darken-1}`"
           >
             <v-col
               cols="1"
@@ -170,7 +174,7 @@
   const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days)';
   
   const tchipprops = {
-    color: 'blue-grey',
+    color: 'primary',
     raised: true,
     medium: true,
     label: true,

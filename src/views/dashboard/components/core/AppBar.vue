@@ -45,7 +45,7 @@
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
     <v-chip
-      color="mywhite"
+      color="mywhitetext"
       flat
     />
     <!-- <v-menu
