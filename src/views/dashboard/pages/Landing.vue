@@ -48,6 +48,7 @@
                 height="100px"
               >
                 <v-card
+                  v-if="$store.state.gShowMe"
                   id="tealplacer"
                   emptyplacer
                   shaped
@@ -58,6 +59,7 @@
                 >
                   <!--  button *-* *-* *-* *-* *-* *-*  -->
                   <v-btn
+                    v-if="$store.state.gShowMe"
                     id="gocreate"
                     tealplacer
                     width="90%"
@@ -66,6 +68,7 @@
                     color="success"
                     class="mb-3 justify-center createbtn"
                     to="/pages/creategraph"
+                    @onClick="onClickB"
                   >
                     <h1>Create Plot</h1>
                   </v-btn>
@@ -80,6 +83,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 
 export default {
   name: 'Landing',
@@ -87,6 +91,19 @@ export default {
     centerme: "{centered: true}",
     placeh: 'only number allowed'
   }),
+  created () {
+   // this.$refs.formref.reset()
+    var localShowMe =  this.$store.state.gShowMe
+    console.log("localshowme in landing: " + localShowMe)
+  },
+  methods: {
+    onClickB() {
+      this.$forceUpdate();
+    },
+    reload() {
+      this.$forceUpdate();
+    }
+  },
 }
 </script>
 <style>

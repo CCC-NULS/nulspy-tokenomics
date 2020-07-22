@@ -375,14 +375,22 @@ export default {
     finalIPwPORT,
     finalIMAGE: '',
     }),
-
+  computed: {
+    aShowMe () {
+      return this.$store.state.gShowMe;
+    }  
+  },  
   mounted () {
     this.alertm = false;
     // this.keyShowCard = false
   },
+
   created () {
    // this.$refs.formref.reset()
+    var localShowMe =  this.$store.dispatch("gShowMeAct", false)
+    console.log("localshowme in createpage: " + localShowMe)
   },
+
   methods: {   
     checkPic (finimag) {
       this.keyShowCard += 1;

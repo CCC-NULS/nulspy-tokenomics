@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // gTimeNAMEonly: '',
     // gTimedPlotPath: '',
     // gPlotPATHARRAY: [],
-    gShowMe: false,
+    gShowMe: true,
     gImgName: '',
     gDirPath: '',
     gSessionStr: 'a',
@@ -61,6 +61,7 @@ export default new Vuex.Store({
     // gTimedPlotPathGet: state => state.gTimedPlotPath,
     // gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
     // gSaveOneGet: state => state.gSaveOne,
+    gShowMeGet: state => state.gShowMe,
 
     gDirPathGet: state => state.gDirPath,
     gImgNameGet: state => state.gImgName,
