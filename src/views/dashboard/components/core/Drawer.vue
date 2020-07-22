@@ -89,7 +89,7 @@
         :item="{
           title: $t('upgrade'),
           icon: 'mdi-package-up',
-          to: '/upgrade',
+          to: '/landing',
         }"
       />
     </template>

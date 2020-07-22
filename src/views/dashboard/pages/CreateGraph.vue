@@ -10,7 +10,7 @@
         md="9"
       >
         <base-material-card
-          color="blue-grey lighten-1"
+          color="primary lighten-1"
         >
           <template v-slot:heading>
             <div
@@ -36,14 +36,14 @@
               <v-card
                 id="vcardform"
                 elevation-24
-                color="#607d8b"
+                color="primary darken-1"
                 raised
                 class="d-flex flex-wrap align-content-start justify-left pa-3"
                 style="`background-image: linear-gradient(306deg, #3A5765, #476472)`"
               >
                 <span 
                   class="display-4 font-weight-bold orange--text text--lighten-5 mb-9"
-                  :style="`text-shadow: 2px 2px 2px #0a406c;`"
+                  :style="`text-shadow: 2px 2px 2px colors.grey.base;`"
                 >                  
                   &nbsp;  &emsp; design your graph
                 </span>
@@ -195,14 +195,15 @@
                   <v-btn
                     id="submitmain"
                     type="submit"
+                    dark
                     shaped
                     width="345px"
-                    color="info"
+                    color="secondary"
                     class="mb-3 justify-center"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
-                    <h1> submit </h1>
+                    <h1> make my chart </h1>
                   </v-btn>
                 </v-card>
               </v-card> 
@@ -215,7 +216,7 @@
           id="alertm"
           v-model="alertm"
           close-text="Close Alert"
-          color="orange lighten-1"
+          color="warning lighten-1"
           dark
           dismissible
           width="200px"
@@ -232,7 +233,7 @@
         <base-material-card
           v-if="keyShowCard"
           :key="resetImage"
-          color="success"
+          color="secondary"
           class="justify-center ml-6 mb-5 pb-5 pt-9"
         >
           <img
@@ -244,14 +245,17 @@
 
         <v-card
           id="buttoncard"
-          color="info"
+          color="primary"
           class="padbotcard"
           elevation-24
           raised
         >
           <v-btn
             id="redobtn"
+            class="display-2"
+            large
             href="/"
+            color="success"
           >
             Redo - Start Over
           </v-btn>
@@ -322,7 +326,7 @@ const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-co
 
 const vmdHold = 'numbers only'
 const gcardProps = {
-  color: "teal lighten-5",
+  color: "primary lighten-5",
   width: "295px",
   height: "177px",
   "min-height": "147px",
@@ -331,14 +335,14 @@ const gcardProps = {
 
   }
 const gcard5Props = {
-  color: "teal lighten-5",
+  color: "primary lighten-5",
   width: "295px",
   height: "177px",
   "min-height": "177px",
   "min-width": "295px",
-  class: "pa-1 ma-3",
+  class: "pa-1 ma-3 boxshade",
   }
-const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
+const cardSubtitle = "cyan--text text--darken-3 font-weight-bold font-size=15px"
 
 export default {
   name: "CreateGraph",
@@ -355,7 +359,7 @@ export default {
     arrowvuenumeric,
     vmdInputBox,
     vmd1: 10000,  // start supply
-    vmd2: 10001,   // max supply
+    vmd2: 10000,   // max supply
     vmd3: 1000,   // annual inflation
     vmd4: 1,    // when inflation starts
     vmd5: 0,   // Disinflation
@@ -527,9 +531,13 @@ export default {
 .vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
       background-color: #ffffff!important;
 }
-.testfont {
-  font-family: 'La Belle Aurore';
-}
 
+.boxshadeorig {
+      box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
+.boxshade {
+      box-shadow: 0px 3px 5px purple !important;
+}
 </style>
  

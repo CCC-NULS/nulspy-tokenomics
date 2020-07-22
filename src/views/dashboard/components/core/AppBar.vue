@@ -35,7 +35,7 @@
 
     <v-btn
       class="ml-2"
-      color="teal"
+      color="secondary"
       text
       dark
       large
@@ -45,7 +45,7 @@
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
     <v-chip
-      color="mywhite"
+      color="mywhitetext"
       flat
     />
     <!-- <v-menu

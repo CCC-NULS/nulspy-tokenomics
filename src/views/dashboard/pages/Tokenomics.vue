@@ -13,29 +13,42 @@
         md="9"
       >
         <base-material-card
-          color="blue-grey"
+          color="primary"
           elevation-24
           raised
         >
           <template v-slot:heading>
-            <div class="display-5 font-weight-heavy">
+            <div 
+              class="display-5 font-weight-heavy" 
+            >
               NULS Blockchain
             </div>
 
-            <div class="display-4 font-weight-heavy">
-              All About Tokenomics
+            <div 
+              class="display-4 font-weight-heavy"
+            >
+              All About Tokenomics 
             </div>
           </template>
 
 
+          <!-- <template v-slot:after-heading>
+            <div 
+              class="display-4 font-weight-heavy"
+            >              
+              All About test 
+            </div>
+          </template> -->
+
+
           <v-card
             id="vcard2"
+            color="primarydark"
             align="left"
             class="pr-9 pl-9 ml-9 mr-9"
             elevation-24
             raised
             outlined
-            :style="`background-image: radial-gradient(circle, #E1C9BD, #f3dbcf)!important;`"
           >
             <v-col
               cols="1"
@@ -52,7 +65,8 @@
               justify="center"
             >
               <div
-                class="display-2"
+                class="display-2 primarydark"
+                :class="fontcol"
               >
                 {{ leader1 }}<br><br>
                 <v-chip
@@ -122,6 +136,7 @@
 </template>
 
 <script>
+import colors from 'vuetify/lib/util/colors'
 
   // const tHeader = 'About NULS'
   const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'
@@ -167,12 +182,14 @@
     'set point and interval of time. (example: 0.4 %).';
 
   const lead9 = 'Interval';
-  const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days)';
+  const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days).';
   
+  const fontcol = "deep-orange--text text--lighten-5"
+
   const tchipprops = {
-    color: 'blue-grey',
+    color: 'secondary',
     raised: true,
-    medium: true,
+    large: true,
     label: true,
     dark: true,
     'elevation-24': true,
@@ -182,6 +199,7 @@
     name: 'Tokenomics',
     data () {
       return {  
+        fontcol,
         leader1,
         leader2,
         lead2,
@@ -205,7 +223,19 @@
     };
 </script>
 <style>
-  /* .v-chip__content {
-    font-size: 16px;
-  } */
+
+
+.v-chip__content {
+    font-size: 22px!important;
+    font-weight: 400;
+    text-shadow: 1px 1px 1px #7F7F7F;
+
+}
+ .unusedstyle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42!important;
+  font-weight: 700;
+  color:white;
+  text-shadow: 3px 4px 4px #000000;
+} 
 </style>
