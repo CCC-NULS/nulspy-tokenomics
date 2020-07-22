@@ -43,7 +43,7 @@
               >
                 <span 
                   class="display-4 font-weight-bold orange--text text--lighten-5 mb-9"
-                  :style="`text-shadow: 2px 2px 2px purple;`"
+                  :style="`text-shadow: 2px 2px 2px colors.grey.base;`"
                 >                  
                   &nbsp;  &emsp; design your graph
                 </span>
@@ -203,7 +203,7 @@
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
-                    <h1> submit </h1>
+                    <h1> make my chart </h1>
                   </v-btn>
                 </v-card>
               </v-card> 
@@ -233,7 +233,7 @@
         <base-material-card
           v-if="keyShowCard"
           :key="resetImage"
-          color="success"
+          color="secondary"
           class="justify-center ml-6 mb-5 pb-5 pt-9"
         >
           <img
@@ -245,14 +245,17 @@
 
         <v-card
           id="buttoncard"
-          color="info"
+          color="primary"
           class="padbotcard"
           elevation-24
           raised
         >
           <v-btn
             id="redobtn"
+            class="display-2"
+            large
             href="/"
+            color="success"
           >
             Redo - Start Over
           </v-btn>
@@ -356,7 +359,7 @@ export default {
     arrowvuenumeric,
     vmdInputBox,
     vmd1: 10000,  // start supply
-    vmd2: 10001,   // max supply
+    vmd2: 10000,   // max supply
     vmd3: 1000,   // annual inflation
     vmd4: 1,    // when inflation starts
     vmd5: 0,   // Disinflation

@@ -17,14 +17,14 @@
     
     <ul>
       <li>
-        Initial Supply: &nbsp; 100,000,000   	&#8195;	&#8195;	&#8195;   Max Supply: &emsp;&emsp; 210,000,000<br>
+        Initial Supply: &nbsp; 100,000,000  	&#8195;	&#8195;   Max Supply: &emsp;&emsp; 210,000,000<br>
       </li>
       <li>
         Inflation begins in 24 intervals
         <br>
       </li>
       <li>
-        Annual Inflation: &nbsp; 5,000,000   &#8195;	&#8195;	&#8195; &#8195;	&#8195;	&#8195; &#8195;	&#8195;	&#8195;   Disinflation ratio: 0.4% &emsp;&emsp;(  0 to .9% )  <br><br>
+        Annual Inflation: &nbsp; 5,000,000    &nbsp; &nbsp; &nbsp;  Disinflation ratio: 0.4% &emsp;&emsp;(  0 to .9% )  <br><br>
       </li>
     </ul>
   </div>
