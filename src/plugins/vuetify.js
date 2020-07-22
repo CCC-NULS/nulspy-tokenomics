@@ -12,7 +12,6 @@ Vue.use(Vuetify, VueAxios, axios)
 const theme = {
   primary: colors.teal.base, // #009688
   primarydark: colors.teal.darken1, // # 
-
   secondary: colors.deepPurple.base,  // deep purple  673AB7
   success: colors.cyan.base,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
@@ -22,11 +21,13 @@ const theme = {
   warning: colors.deepOrange.base,    // deep-orange
 
   pagegrey: colors.grey.lighten4,   // off-white page backgrounds
-  tertiary: colors.grey.darken2,     // darkdarkgrey
+  pagegreytext: colors.white,   // off-white page backgrounds
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5 e7
    
   mytext: colors.black,               // black for light them
-  alwayswhite: colors.white,          // white  
+  alwayswhite: colors.white,          // white 
+  
+  tertiary: colors.grey.darken2,     // darkdarkgrey
  
 }
 // teal=009688
@@ -40,23 +41,24 @@ const theme = {
   // lighttext: '#FBE9E7',     //'deep-orange lighten-5 e7'
 
 const dtheme = {
-  primary: '#009688',     // teal
+  primary: colors.teal.base, // #009688
   primarydark: colors.teal.darken1, // # 
-  secondary: '#673AB7',  // deep purple 67
-  success: '#00BCD4',   // 00BCD4 cyan
-  accent: '#FF5722',    // deep-orangeFF5722
-  info: 'grey',   //  grey
-  error: '#F44336',   // red
-  warning: '#FF5722',    // deep-orangeFF5722
-  darkgrey: '#212121',    // almost black
-  pagegrey: 'grey darken-4',
-  lighttext: '#FBE9E7',     //'deep-orange lighten-5 e7'
 
-  mytext: "#FFFFFF",        // white
-  alwayswhite: '#FFFFFF',     // white
+  secondary: colors.deepPurple.base,  // deep purple  673AB7
+  success: colors.cyan.base,   // cyan
+  accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
+  info: colors.grey.base,              //   grey 
+  error: colors.red.base,   // red
+  warning: colors.deepOrange.base,    // deep-orange
 
-  tertiary:  '#212121',     // darkdarkgrey
+  pagegrey: colors.grey.darken2,   // off-white page backgrounds
+  pagegreytext: colors.white,   // off-white page backgrounds
+  lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5  
+ 
+  mytext: colors.white,        // white
+  alwayswhite: colors.white,      // white
 
+  tertiary: colors.grey.darken2,     // darkdarkgrey
 }
 
 export default new Vuetify({
