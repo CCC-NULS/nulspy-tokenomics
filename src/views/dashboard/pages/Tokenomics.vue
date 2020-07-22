@@ -18,15 +18,16 @@
           raised
         >
           <template v-slot:heading>
-            <div class="display-5 font-weight-heavy">
+            <div 
+              class="display-5 font-weight-heavy" 
+            >
               NULS Blockchain
             </div>
 
             <div 
               class="display-4 font-weight-heavy"
-              :style="`text-shadow: 3px 3px 3px 2px 3px purple darken-1`"
             >
-              All About Tokenomics
+              All About Tokenomics 
             </div>
           </template>
 
@@ -39,7 +40,6 @@
             elevation-24
             raised
             outlined
-            :style="`{ text-shadow: 3px 3px 3px 2px 3px purple darken-1}`"
           >
             <v-col
               cols="1"
@@ -56,11 +56,13 @@
               justify="center"
             >
               <div
-                class="display-2"
+                class="display-2 white--text"
               >
                 {{ leader1 }}<br><br>
                 <v-chip
+                  class="display-3"
                   v-bind="tchipprops"
+                  :style="`font-size:16px!important;`"
                 >
                   {{ lead2 }} 
                 </v-chip>
@@ -174,12 +176,14 @@
   const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days)';
   
   const tchipprops = {
-    color: 'primary',
+    color: 'secondary',
+    class: "display-3",
     raised: true,
     medium: true,
     label: true,
     dark: true,
     'elevation-24': true,
+    
   };
 
   export default {
@@ -209,7 +213,20 @@
     };
 </script>
 <style>
-  /* .v-chip__content {
-    font-size: 16px;
-  } */
+
+ .txtshd {
+  text-shadow: 3px 4px 4px #000000;
+ }
+.v-chip__content {
+    font-size: 16px!important;
+    font-weight: 700;
+}
+
+ .unusedstyle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42!important;
+  font-weight: 700;
+  color:white;
+  text-shadow: 3px 4px 4px #000000;
+} 
 </style>

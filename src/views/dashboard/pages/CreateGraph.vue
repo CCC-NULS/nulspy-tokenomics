@@ -339,7 +339,7 @@ const gcard5Props = {
   "min-width": "295px",
   class: "pa-1 ma-3 boxshade",
   }
-const cardSubtitle = "cyan--text text--darken-2 font-weight-bold font-size=15px"
+const cardSubtitle = "cyan--text text--darken-3 font-weight-bold font-size=15px"
 
 export default {
   name: "CreateGraph",
