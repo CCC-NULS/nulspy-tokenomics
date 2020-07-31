@@ -12,20 +12,21 @@
         cols="12"
         md="9"
       >
-        <base-material-card
-          color="primary"
+        <base-material-cardn
+          color="black"
           elevation-24
           raised
         >
           <template v-slot:heading>
             <div 
-              class="display-5 font-weight-heavy" 
+              class="display-5 font-weight-light" 
+              :style="`font-family:Montserrat,sans-serif;`"
             >
               NULS Blockchain
             </div>
 
             <div 
-              class="display-4 font-weight-heavy"
+              class="display-4 font-weight-light"
             >
               All About Tokenomics 
             </div>
@@ -40,15 +41,19 @@
             </div>
           </template> -->
 
+          <!-- img="`linear-gradient(306deg, rgb(251, 233, 231) 0%, #4DB6AC 100%)!important;`" -->
+
 
           <v-card
             id="vcard2"
-            color="primarydark"
+            color="deep-orange lighten-5"
             align="left"
-            class="pr-9 pl-9 ml-9 mr-9"
+            class="pr-9 pl-9 ml-9 mr-9 rounded-tl-xl"
+            shaped
             elevation-24
             raised
-            outlined
+            filled="true"
+            :style="`font-size:16px;background-image: linear-gradient(306deg, #fbe9e7 0%, #FFCCBC 100%)!important;`"
           >
             <v-col
               cols="1"
@@ -65,12 +70,13 @@
               justify="center"
             >
               <div
-                class="display-2 primarydark"
+                class="transparent"
                 :class="fontcol"
               >
                 {{ leader1 }}<br><br>
                 <v-chip
                   v-bind="tchipprops"
+                  elevation-19
                 >
                   {{ lead2 }} 
                 </v-chip>
@@ -129,7 +135,7 @@
               </div>
             </v-row>
           </v-card>
-        </base-material-card>
+        </base-material-cardn>
       </v-col>
     </v-row>
   </v-container>
@@ -184,22 +190,24 @@ import colors from 'vuetify/lib/util/colors'
   const lead9 = 'Interval';
   const leader9 = '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time. (example 30 days).';
   
-  const fontcol = "deep-orange--text text--lighten-5"
+  const fontpeach = "deep-orange lighten-4"
 
   const tchipprops = {
-    color: 'secondary',
+    color: 'teal lighten-5',
+    shaped: true,
     raised: true,
-    large: true,
+    filled: true,
+    medium: true,
     label: true,
-    dark: true,
     'elevation-24': true,
+    class: 'montser', 
   };
 
   export default {
     name: 'Tokenomics',
     data () {
       return {  
-        fontcol,
+        fontpeach,
         leader1,
         leader2,
         lead2,
@@ -224,11 +232,22 @@ import colors from 'vuetify/lib/util/colors'
 </script>
 <style>
 
+.montser {
+  font-family: 'Montserrat', sans-serif !important;
+}
+.ortext {
+  font-family: 'Montserrat', sans-serif !important;
+  
+}
+.v-chip{
+    padding-right:6px;
 
+}
 .v-chip__content {
-    font-size: 22px!important;
+    font-size: 16px!important;
+    padding-right:2px;
     font-weight: 400;
-    text-shadow: 1px 1px 1px #7F7F7F;
+    font-family: 'Montserrat', sans-serif !important;
 
 }
  .unusedstyle {
@@ -237,5 +256,7 @@ import colors from 'vuetify/lib/util/colors'
   font-weight: 700;
   color:white;
   text-shadow: 3px 4px 4px #000000;
+  text-shadow: 1px 1px 1px #7F7F7F;
+
 } 
 </style>

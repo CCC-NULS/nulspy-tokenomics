@@ -10,7 +10,7 @@
         md="9"
       >
         <base-material-card
-          color="primary lighten-1"
+          color="black lighten-2"
         >
           <template v-slot:heading>
             <div
@@ -36,10 +36,10 @@
               <v-card
                 id="vcardform"
                 elevation-24
-                color="primary darken-1"
+                color="#4DB6AC"
                 raised
                 class="d-flex flex-wrap align-content-start justify-left pa-3"
-                style="`background-image: linear-gradient(306deg, #3A5765, #476472)`"
+                :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
               >
                 <span 
                   class="display-4 font-weight-bold orange--text text--lighten-5 mb-9"
@@ -195,11 +195,14 @@
                   <v-btn
                     id="submitmain"
                     type="submit"
+                    elevation-24
+                    raised
                     dark
                     shaped
+                    filled="true"
                     width="345px"
-                    color="secondary"
-                    class="mb-3 justify-center"
+                    color="grey darken-1"
+                    class="mb-3 justify-center rounded-tl-xl"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
@@ -328,10 +331,10 @@ const vmdHold = 'numbers only'
 const gcardProps = {
   color: "primary lighten-5",
   width: "295px",
-  height: "177px",
-  "min-height": "147px",
+  height: "127px",
+  "min-height": "117px",
   "min-width": "245px",
-  class: "pa-1 ma-3"
+  class: "pa-1 ma-1"
 
   }
 const gcard5Props = {
@@ -387,7 +390,7 @@ export default {
 
   created () {
    // this.$refs.formref.reset()
-    var localShowMe =  this.$store.dispatch("gShowMeAct", false)
+    var localShowMe =  this.$store.dispatch("gShowMeAct", true)
     console.log("localshowme in createpage: " + localShowMe)
   },
 

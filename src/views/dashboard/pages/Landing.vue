@@ -11,72 +11,29 @@
         cols="12"
         md="12"
       >
-        <v-card
-          id="landingcard"
-          width="1200px"
-          color="primary lighten-2"
-          :style="`background-image: linear-gradient(306deg, #fdfcfb 0%, #2d1c3 100%);`"
+        <v-col 
+          cols="12"
+          md="12"
         >
-          <v-col 
-            cols="12"
-            md="12"
+          <base-material-cardn
+            id="land1"
+            color="teal lighten-4"
+            height="700px"
+            elevation-24
+            raised
+            centered
+            outlined
+            :class="`{ justify-content: center!important;  }`"
           >
-            <base-material-card
-              id="land1"
-              color="primary"
-              height="190px"
-              elevation-24
-              raised
-              centered
-              outlined
-              :class="`{ justify-content: center!important;  }`"
-            >
-              <template v-slot:heading>
-                <div class="display-3 font-weight-light">
-                  <h3 :style="`text-shadow: 2px 2px 2px #000000;`">                
-                    Welcome to NULS Tokenomics
-                  </h3>
-                </div>
-              </template>             
-              <v-card
-                id="emptyplacer"
-                color="transparent"
-                flat
-                land1
-                class="margin-top=-25px; margin-bottom=-25px; d-flex justify-center pl-3"
-                width="100%"
-                height="100px"
-              >
-                <v-card
-                  v-if="$store.state.gShowMe"
-                  id="tealplacer"
-                  emptyplacer
-                  shaped
-                  width="30%"
-                  height="70%"
-                  :style="`margin-top:-12!important;`"
-                  class="d-flex justify-center pa-2 creategreygrad"
-                >
-                  <!--  button *-* *-* *-* *-* *-* *-*  -->
-                  <v-btn
-                    v-if="$store.state.gShowMe"
-                    id="gocreate"
-                    tealplacer
-                    width="90%"
-                    height="90%"
-                    dark
-                    color="success"
-                    class="mb-3 justify-center createbtn"
-                    to="/pages/creategraph"
-                    @onClick="onClickB"
-                  >
-                    <h1>Create Plot</h1>
-                  </v-btn>
-                </v-card>    
-              </v-card>   
-            </base-material-card>
-          </v-col>
-        </v-card>
+            <template v-slot:heading>
+              <div class="display-3 font-weight-light">
+                <h3 :style="`text-shadow: 1px 2px 2px #000000;font-family:Montserrat,sans-serif;`">                
+                  NULS Tokenomics
+                </h3>
+              </div>
+            </template>              
+          </base-material-cardn>
+        </v-col>
       </v-col>
     </v-row>
   </v-container>
@@ -107,6 +64,11 @@ export default {
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
+
   .matstyle {
     justify-content: center!important;
   }
@@ -120,7 +82,7 @@ export default {
   } 
 
   .createbtn {
-    background-image: linear-gradient(306deg, #651FFF 0%, #5812F2 100%);
+    /* background-image: linear-gradient(306deg, #651FFF 0%, #5812F2 100%); */
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
       0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
 }
