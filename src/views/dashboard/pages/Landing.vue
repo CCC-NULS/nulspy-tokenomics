@@ -16,6 +16,7 @@
           md="12"
         >
           <base-material-cardn
+            v-if="$store.state.gShowMe"
             id="land1"
             color="teal lighten-4"
             height="700px"

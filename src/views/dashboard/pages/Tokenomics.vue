@@ -205,6 +205,7 @@ import colors from 'vuetify/lib/util/colors'
 
   export default {
     name: 'Tokenomics',
+
     data () {
       return {  
         fontpeach,
@@ -227,8 +228,11 @@ import colors from 'vuetify/lib/util/colors'
         lead9,
         tchipprops   
         }
-      }
-    };
+      },
+    mounted () {
+      this.$store.dispatch("gShowMeAct", false)
+    },
+  };
 </script>
 <style>
 

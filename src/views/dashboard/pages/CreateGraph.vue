@@ -9,7 +9,7 @@
         cols="12"
         md="9"
       >
-        <base-material-card
+        <base-material-cardn
           color="black lighten-2"
         >
           <template v-slot:heading>
@@ -18,7 +18,7 @@
               shaped
               class="displaynms font-weight-light"
             >
-              <TopWords />
+              <span>Tokenomics</span>
             </div>
           </template>
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
@@ -150,7 +150,7 @@
                     :style="arrowvuenumeric"
                   />
                   <br>
-                  <span style="padding-top:6px;">How many Invervals<br>(Usually Months)</span>                    
+                  <span style="padding-top:6px;">How many Invervals - (Usually Months)</span>                    
                 </v-card>                                           
                 <!-- 5  5  5  # # # #  # # # #  # # # #  -->
                 <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
@@ -181,8 +181,16 @@
                   />
                   <span style="font-size:24px"> % </span>
                   <br>
-                  <span>Ratio<br>Min 0, Max .9</span>
+                  <span>Ratio:  Min 0, Max .9</span>
                 </v-card>                                      
+
+                <v-card 
+                  id="vmd6card"
+                >
+                  <TopWords />
+                </v-card>
+
+
 
 
                 <v-card
@@ -198,11 +206,13 @@
                     elevation-24
                     raised
                     dark
+                    hover
                     shaped
                     filled="true"
                     width="345px"
-                    color="grey darken-1"
+                    color="deep-orange lighten-1"
                     class="mb-3 justify-center rounded-tl-xl"
+                    :style="`text-transform:lowercase;`"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
@@ -212,7 +222,7 @@
               </v-card> 
             </v-container>
           </v-form>
-        </base-material-card>
+        </base-material-cardn>
 
         <v-alert
           v-show="false"
@@ -319,8 +329,8 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "font-size:22px; width:179px;font-weight:500; justify:center; pl-2; \
-  background-color:#ffffff; line-height:42px; padding-left:5px; padding-right:4px;text-align:right;\
+const vmdInputBox = "font-size:20px; width:179px;font-weight:500; justify:left; \
+  background-color:#ffffff; line-height:30px; padding-left:2px; padding-right:2px;text-align:right;\
   margin-bottom:2px;"
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
@@ -329,23 +339,23 @@ const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-co
 
 const vmdHold = 'numbers only'
 const gcardProps = {
-  color: "primary lighten-5",
-  width: "295px",
+  color: "dark-orange lighten-3",
+  width: "400px",
   height: "127px",
   "min-height": "117px",
   "min-width": "245px",
-  class: "pa-1 ma-1"
+  class: "pa-1 ma-3"
 
   }
 const gcard5Props = {
-  color: "primary lighten-5",
-  width: "295px",
+  color: "dark-orange lighten-3",
+  width: "400px",
   height: "177px",
   "min-height": "177px",
   "min-width": "295px",
   class: "pa-1 ma-3 boxshade",
   }
-const cardSubtitle = "cyan--text text--darken-3 font-weight-bold font-size=15px"
+const cardSubtitle = "deep-purple--text text--darken-4 font-size=12px justify-left"
 
 export default {
   name: "CreateGraph",
@@ -385,13 +395,13 @@ export default {
   },  
   mounted () {
     this.alertm = false;
+    this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
   },
 
   created () {
    // this.$refs.formref.reset()
-    var localShowMe =  this.$store.dispatch("gShowMeAct", true)
-    console.log("localshowme in createpage: " + localShowMe)
+    // console.log("localshowme in createpage: " + localShowMe)
   },
 
   methods: {   

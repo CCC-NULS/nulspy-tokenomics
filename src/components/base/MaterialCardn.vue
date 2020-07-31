@@ -40,7 +40,6 @@
         <div
           v-else-if="title && !icon"
           class="display-1 font-weight-light"
-          :style="`background-image: linear-gradient(306deg, #ffffff 0%, #000000 100%);`"
           v-text="title"
         />
 
