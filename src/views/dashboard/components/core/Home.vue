@@ -20,7 +20,7 @@
               v-if="$store.state.gShowMe"
               id="land1"
               color="teal lighten-4"
-              height="700px"
+              height="300px"
               elevation-24
               raised
               centered

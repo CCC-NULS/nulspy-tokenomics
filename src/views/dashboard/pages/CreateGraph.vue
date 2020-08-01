@@ -14,11 +14,10 @@
         >
           <template v-slot:heading>
             <div
-              id="firstdiv"
-              shaped
-              class="displaynms font-weight-light"
-            >
-              <span>Tokenomics</span>
+              id="firstdiv"              
+              class="display-4 font-weight-light orange--text text--lighten-5"
+              :style="`font-family:'Rubik-Italic', sans-serif;text-shadow: 1px 1px 1px black;`">
+              design your graph
             </div>
           </template>
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
@@ -36,17 +35,14 @@
             <v-card
               id="vcardform"
               elevation-24
-              color="#4DB6AC"
+              height="777px"
+              color="deep-orange lighten-5"
               raised
-              class="d-flex flex-wrap align-content-start justify-left pa-3"
+              shaped
+              filled="true"
+              class="pa-3"
               :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
             >
-              <span 
-                class="display-4 font-weight-bold orange--text text--lighten-5 mb-9"
-                :style="`text-shadow: 2px 2px 2px colors.grey.base;`"
-              >                  
-                &nbsp;  &emsp; design your graph
-              </span>
               <v-chip
                 color="transparent"
                 class="ml-3 pa-4 elevation-24 raised white--text"
@@ -59,135 +55,149 @@
                 </span>
               </v-chip>
               <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-              <!--:items="initsupply" -->
-              <v-card 
-                id="vmd1card"
-                v-bind="gcardProps"
+              <!-- wrapped to align cards-->
+              <v-card
+                id="wrapper1"
+                color="transparent"
+                class="d-flex flex-column"
               >
-                <v-card-subtitle
-                  :class="cardSubtitle" 
-                >                       
-                  Initial Token Supply
-                </v-card-subtitle>
+                <!--:items="initsupply" -->
+                <v-card 
+                  id="vmd1card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Initial Token Supply
+                  </v-card-subtitle>
 
-                <vue-autonumeric
-                  id="vmd1auto"
-                  v-model="vmd1"
-                  :options="vmd1opts"
-                  :style="vmdInputBox" 
-                /><br>
-              </v-card>    
+                  <vue-autonumeric
+                    id="vmd1auto"
+                    v-model="vmd1"
+                    :options="vmd1opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                </v-card>    
 
-              <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
-              <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
-                  
-              <v-card 
-                id="vmd2card"
-                v-bind="gcardProps"
-              >
-                <v-card-subtitle
-                  :class="cardSubtitle" 
-                >                       
-                  Max Supply
-                </v-card-subtitle>
-                <vue-autonumeric
-                  v-model="vmd2"
-                  :placeholder="vmdHold"
-                  :options="vmd2opts"
-                  :style="vmdInputBox" 
-                /><br>
-                <span style="padding-top:4px;">
-                  Level when Inflation Ends 
-                  <br>
-                  Must be more than Initial Supply
-                </span>
-              </v-card>                                     
-              <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
-              
-              <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
+                <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
+                <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
+                    
+                <v-card 
+                  id="vmd2card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Max Supply
+                  </v-card-subtitle>
+                  <vue-autonumeric
+                    v-model="vmd2"
+                    :placeholder="vmdHold"
+                    :options="vmd2opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                  <span style="padding-top:4px;">
+                    Level when Inflation Ends 
+                    <br>
+                    Must be more than Initial Supply
+                  </span>
+                </v-card>                                     
+                <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
+                
+                <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
 
-              <v-card 
-                id="vmd3card"
-                v-bind="gcardProps"
-              >
-                <v-card-subtitle
-                  :class="cardSubtitle" 
-                >                       
-                  Annual Inflation
-                </v-card-subtitle>
+                <v-card 
+                  id="vmd3card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Annual Inflation
+                  </v-card-subtitle>
 
-                <vue-autonumeric
-                  v-model="vmd3"
-                  :placeholder="vmdHold"
-                  :options="vmd3opts"
-                  :style="vmdInputBox" 
-                /><br>
+                  <vue-autonumeric
+                    v-model="vmd3"
+                    :placeholder="vmdHold"
+                    :options="vmd3opts"
+                    :style="vmdInputBox" 
+                  /><br>
+                </v-card>    
               </v-card>    
 
               <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
                   
-              <v-card 
-                id="vmd4card"
-                v-bind="gcardProps"
+              <!-- wrapped to align cards-->
+              <v-card
+                id="wrapper2"
+                color="transparent"
+                class="d-flex flex-column"
               >
-                <v-card-subtitle
-                  :class="cardSubtitle" 
-                >                       
-                  Disinflation Starts in
-                </v-card-subtitle>
-                <vue-numeric-input
-                  id="vmd4id"
-                  v-model="vmd4" 
-                  :value="vmd4"
-                  size="30px"
-                  :min="0" 
-                  :max="100" 
-                  :step="1"
-                  :precision="0"
-                  vmd4card
-                  controls-type="updown"
-                  align="center"
-                  :style="arrowvuenumeric"
-                />
-                <br>
-                <span style="padding-top:6px;">How many Invervals - (Usually Months)</span>                    
-              </v-card>                                           
-              <!-- 5  5  5  # # # #  # # # #  # # # #  -->
-              <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
-
-              <v-card 
-                id="vmd5card"
-                v-bind="gcardProps"
-              >
-                <v-card-subtitle
-                  :class="cardSubtitle" 
+                <v-card 
+                  id="vmd4card"
+                  v-bind="gcardProps"
                 >
-                  Disinflation
-                </v-card-subtitle>
-                    
-                <vue-numeric-input
-                  id="vmd5id"
-                  v-model="vmd5" 
-                  :value="vmd5"
-                  size="30px"
-                  :min="0" 
-                  :max=".9" 
-                  :step=".1"
-                  :precision="1"
-                  vmd5card
-                  controls-type="updown"
-                  align="center"
-                  :style="arrowvuenumeric"
-                />
-                <span style="font-size:24px"> % </span>
-                <br>
-                <span>Ratio:  Min 0, Max .9</span>
-              </v-card>                                      
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >                       
+                    Disinflation Starts in
+                  </v-card-subtitle>
+                  <vue-numeric-input
+                    id="vmd4id"
+                    v-model="vmd4" 
+                    :value="vmd4"
+                    size="30px"
+                    :min="0" 
+                    :max="100" 
+                    :step="1"
+                    :precision="0"
+                    vmd4card
+                    controls-type="updown"
+                    align="center"
+                    :style="arrowvuenumeric"
+                  />
+                  <br>
+                  <span style="padding-top:6px;">How many Invervals - (Usually Months)</span>                    
+                </v-card>                                           
+                <!-- 5  5  5  # # # #  # # # #  # # # #  -->
+                <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
 
-              <v-card 
-                id="vmd6card"
-              >
-                Explain
+                <v-card 
+                  id="vmd5card"
+                  v-bind="gcardProps"
+                >
+                  <v-card-subtitle
+                    :class="cardSubtitle" 
+                  >
+                    Disinflation
+                  </v-card-subtitle>
+                      
+                  <vue-numeric-input
+                    id="vmd5id"
+                    v-model="vmd5" 
+                    :value="vmd5"
+                    size="30px"
+                    :min="0" 
+                    :max=".9" 
+                    :step=".1"
+                    :precision="1"
+                    vmd5card
+                    controls-type="updown"
+                    align="center"
+                    :style="arrowvuenumeric"
+                  />
+                  <span style="font-size:24px"> % </span>
+                  <br>
+                  <span>Ratio:  Min 0, Max .9</span>
+                </v-card>                                      
+
+                <v-card 
+                  id="vmd6card"
+                >
+                  Explain
+                </v-card>
               </v-card>
 
 
@@ -253,24 +263,6 @@
           >
           Right click image to save
         </base-material-card>
-
-        <v-card
-          id="buttoncard"
-          color="primary"
-          class="padbotcard"
-          elevation-24
-          raised
-        >
-          <v-btn
-            id="redobtn"
-            class="display-2"
-            large
-            href="/"
-            color="success"
-          >
-            Redo - Start Over
-          </v-btn>
-        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -354,7 +346,7 @@ const gcard5Props = {
   "min-width": "295px",
   class: "pa-1 ma-3 boxshade",
   }
-const cardSubtitle = "deep-purple--text text--darken-4 font-size=12px justify-left"
+const cardSubtitle = "deep-purple--text text--darken-4 font-size=11px justify-left"
 
 export default {
   name: "CreateGraph",
@@ -529,7 +521,10 @@ export default {
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
 </script>
 <style src="@/assets/styles/mystyle.css">
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
 
 .vmdFontStyle {
     font-size: 18px!important;
@@ -560,6 +555,11 @@ export default {
 }
 .boxshade {
       box-shadow: 0px 3px 5px purple !important;
+}
+.topheadingclass {
+  line-height: 1.7em;
+  font-size: 22px!important;
+  padding-left: 9px!important;
 }
 </style>
  

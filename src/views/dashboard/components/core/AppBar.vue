@@ -41,9 +41,9 @@
       text
       dark
       large
-      to="/"
+      href="https://nuls.io"
     > 
-      Home <pre>&emsp;</pre> 
+      NULS <pre>&emsp;</pre> 
     </v-btn>
   </v-app-bar>
 </template>

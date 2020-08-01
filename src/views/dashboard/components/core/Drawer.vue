@@ -111,7 +111,11 @@
 
     data: () => ({
       items: [
-
+       {
+          title: 'home',
+          icon: 'mdi-poll',
+          to: '/',
+        }, 
         {
           title: 'creategraph',
           icon: 'mdi-chart-areaspline',
@@ -123,11 +127,7 @@
           icon: 'mdi-electron-framework',
           to: '/pages/tokenomics',
         },
-       {
-          title: 'home',
-          icon: 'mdi-poll',
-          to: '/index',
-        }, 
+
         
         // {
         //   title: 'savedgraphs',

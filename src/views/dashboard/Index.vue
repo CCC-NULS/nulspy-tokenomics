@@ -4,7 +4,7 @@
 
     <dashboard-core-drawer />
 
-    <dashboard-core-view />
+    <core-view />
    
     <dashboard-core-settings />
   </v-app>
@@ -20,7 +20,7 @@
       DashboardCoreAppBar: () => import('./components/core/AppBar'),
       DashboardCoreDrawer: () => import('./components/core/Drawer'),
       DashboardCoreSettings: () => import('./components/core/Settings'),
-      DashboardCoreView: () => import('./components/core/View'),
+      CoreView: () => import('./components/core/View'),
     },
 
     data: () => ({

@@ -53,7 +53,7 @@
             elevation-24
             raised
             filled="true"
-            :style="`font-size:16px;background-image: linear-gradient(306deg, #fbe9e7 0%, #FFCCBC 100%)!important;`"
+            :style="`font-size:16px;background-image: linear-gradient(306deg, #E0F2F1 0%, #fbe9e7 100%)!important;`"
           >
             <v-col
               cols="1"

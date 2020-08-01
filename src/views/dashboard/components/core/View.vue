@@ -10,7 +10,6 @@
 
 <script>
   import {  mapState  } from 'vuex'
-  this.$store.commit('gShowMe', true)
   export default {
     name: 'CoreView',
 
