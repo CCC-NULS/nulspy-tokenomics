@@ -2,19 +2,21 @@
   <v-main>
     <router-view />
   
-    <Landing />
+    <Home />
 
-    <dashboard-core-footer />
+    <CoreFooter />
   </v-main>
 </template>
 
 <script>
+  import {  mapState  } from 'vuex'
+  this.$store.commit('gShowMe', true)
   export default {
-    name: 'DashboardCoreView',
+    name: 'CoreView',
 
     components: {
-      Landing: () => import('@/views/dashboard/pages/Landing'),
-      DashboardCoreFooter: () => import('./Footer'),
+      Home: () => import('./Home'),
+      CoreFooter: () => import('./Footer'),
     },
   }
 </script>

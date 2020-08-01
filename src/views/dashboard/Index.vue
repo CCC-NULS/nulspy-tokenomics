@@ -11,8 +11,10 @@
 </template>
 
 <script>
+
+
   export default {
-    name: 'DashboardIndex',
+    name: 'Index',
 
     components: {
       DashboardCoreAppBar: () => import('./components/core/AppBar'),
@@ -23,6 +25,7 @@
 
     data: () => ({
       expandOnHover: false,
+
     }),
   }
 </script>

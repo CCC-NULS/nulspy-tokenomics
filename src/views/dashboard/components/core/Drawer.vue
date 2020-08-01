@@ -87,9 +87,9 @@
       <base-item
         dark
         :item="{
-          title: $t('upgrade'),
+          title: $t('home'),
           icon: 'mdi-package-up',
-          to: '/landing',
+          to: '/',
         }"
       />
     </template>
@@ -117,21 +117,23 @@
           icon: 'mdi-chart-areaspline',
           to: '/pages/creategraph',
         },           
-        // {
-        //   title: 'savedgraphs',
-        //   icon: 'mdi-poll',
-        //   to: '/pages/savedgraphs',
-        // },
+
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
           to: '/pages/tokenomics',
         },
-      //  {
-      //     title: 'landing',
-      //     icon: 'mdi-electron-framework',
-      //     to: '/pages/landing',
-      //   },        
+       {
+          title: 'home',
+          icon: 'mdi-poll',
+          to: '/index',
+        }, 
+        
+        // {
+        //   title: 'savedgraphs',
+        //   icon: 'mdi-poll',
+        //   to: '/pages/savedgraphs',
+        // },
         // {
         //   title: 'createcs',
         //   icon: 'mdi-electron-framework',

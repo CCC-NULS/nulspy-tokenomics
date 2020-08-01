@@ -8,6 +8,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      name: 'Home',
       path: '/',
       component: () => import('@/views/dashboard/Index'),
       children: [
@@ -27,21 +28,16 @@ export default new Router({
           path: 'pages/tokenomics',
           component: () => import('@/views/dashboard/pages/Tokenomics'),
         },
-        {
-          name: 'About',
-          path: 'about',
-          component: () => import('@/views/dashboard/pages/Tokenomics'),
-        },
+        // {
+        //   name: 'About',
+        //   path: 'about',
+        //   component: () => import('@/views/dashboard/pages/Tokenomics'),
+        // },
         {
           name: 'Create Cs',
           path: 'pages/createcs',
           component: () => import('@/views/dashboard/pages/CreateCs'),
         },
-        {
-          name: 'Landing',
-          path: 'pages/landing',
-          component: () => import('@/views/dashboard/pages/Landing'),
-        }, 
       
       ],
     },
