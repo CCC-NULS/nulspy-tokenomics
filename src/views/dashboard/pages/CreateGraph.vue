@@ -28,178 +28,207 @@
             :key="resetform"
             @submit.prevent
           >
-            <!-- <v-container
-              id="vcontain"
-              class="py-3"
-            > -->
             <v-card
               id="vcardform"
               elevation-24
-              height="777px"
+              height="547px"
               color="deep-orange lighten-5"
               raised
               shaped
               filled="true"
-              class="pa-3"
+              class="pa-9 mx-9"
               :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
             >
               <v-chip
                 color="transparent"
-                class="ml-3 pa-4 elevation-24 raised white--text"
+                class="pa-2 white--text"
                 large
-                
-                :style="`font-size: 10px!important;`"
               >
-                <span>
-                  Inflation and disinflation <br>begin at the same time
+                <span :style="`font-size:16px;font-family:'Montserrat', sans-serif;`">
+                  Inflation and disinflation begin at the same time
                 </span>
               </v-chip>
               <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-              <!-- wrapped to align cards-->
-              <v-card
-                id="wrapper1"
-                color="transparent"
-                class="d-flex flex-column"
+              <!--:items="initsupply" -->
+              <v-card 
+                id="vmd1card"
+                class="pa-1 ma-1"
+                color="#ECEFF1"
               >
-                <!--:items="initsupply" -->
-                <v-card 
-                  id="vmd1card"
-                  v-bind="gcardProps"
+                <v-row
+                  :style="`text-align:left;`"
                 >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
-                  >                       
+                  <v-col
+                    cols="3"
+                    :style="`text-align:right;`"
+                  >
                     Initial Token Supply
-                  </v-card-subtitle>
-
-                  <vue-autonumeric
-                    id="vmd1auto"
-                    v-model="vmd1"
-                    :options="vmd1opts"
-                    :style="vmdInputBox" 
-                  /><br>
-                </v-card>    
-
-                <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
-                <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
-                    
-                <v-card 
-                  id="vmd2card"
-                  v-bind="gcardProps"
-                >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
-                  >                       
-                    Max Supply
-                  </v-card-subtitle>
-                  <vue-autonumeric
-                    v-model="vmd2"
-                    :placeholder="vmdHold"
-                    :options="vmd2opts"
-                    :style="vmdInputBox" 
-                  /><br>
-                  <span style="padding-top:4px;">
-                    Level when Inflation Ends 
-                    <br>
-                    Must be more than Initial Supply
-                  </span>
-                </v-card>                                     
-                <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
-                
-                <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
-
-                <v-card 
-                  id="vmd3card"
-                  v-bind="gcardProps"
-                >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
-                  >                       
-                    Annual Inflation
-                  </v-card-subtitle>
-
-                  <vue-autonumeric
-                    v-model="vmd3"
-                    :placeholder="vmdHold"
-                    :options="vmd3opts"
-                    :style="vmdInputBox" 
-                  /><br>
-                </v-card>    
+                  </v-col>
+                  <v-col cols="3">                
+                    <vue-autonumeric
+                      id="vmd1auto"
+                      v-model="vmd1"
+                      :options="vmd1opts"
+                      :style="vmdInputBox" 
+                    />
+                  </v-col>
+                  <v-col cols="6">
+                    {{ initsup }}
+                  </v-col> 
+                </v-row>
               </v-card>    
 
+              <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
+              <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
+                  
+              <v-card 
+                id="vmd2card"
+                class="pa-1 ma-1"
+                color="#ECEFF1"
+              >
+                <v-row
+                  :style="`text-align:left;`"
+                >
+                  <v-col
+                    cols="3"
+                    :style="`text-align:right;`"
+                  >           
+                    Max Supply
+                  </v-col>
+                  <v-col
+                    cols="3"
+                  >                    
+                    <vue-autonumeric
+                      v-model="vmd2"
+                      :placeholder="vmdHold"
+                      :options="vmd2opts"
+                      :style="vmdInputBox" 
+                    />
+                  </v-col>
+                  <v-col cols="6">
+                    Total supply when inflation ends.  
+                    Must be more than Initial Supply. Try: 210,000,000
+                  </v-col>
+                </v-row>
+              </v-card>                                       
+              <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
+              
+              <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
+
+              <v-card 
+                id="vmd3card"
+                class="pa-1 ma-1"
+                color="#ECEFF1"
+              >
+                <v-row
+                  :style="`text-align:left;`"
+                >
+                  <v-col
+                    cols="3"
+                    :style="`text-align:right;`"
+                  >
+                    Annual Inflation
+                  </v-col>
+                  <v-col cols="3">                
+                    <vue-autonumeric
+                      id="vmd3auto"
+                      v-model="vmd3"
+                      :options="vmd3opts"
+                      :style="vmdInputBox" 
+                    />
+                  </v-col>
+                  <v-col 
+                    cols="6"
+                  > 
+                    Try: 5,000,000
+                  </v-col>
+                </v-row>
+              </v-card> 
               <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
                   
+                
               <!-- wrapped to align cards-->
-              <v-card
-                id="wrapper2"
-                color="transparent"
-                class="d-flex flex-column"
+              <v-card 
+                id="vmd4card"
+                class="pa-1 ma-1"
+                color="#ECEFF1"
               >
-                <v-card 
-                  id="vmd4card"
-                  v-bind="gcardProps"
+                <v-row
+                  :style="`text-align:left;`"
                 >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
-                  >                       
+                  <v-col
+                    cols="3"
+                    :style="`text-align:right;`"
+                  >
                     Disinflation Starts in
-                  </v-card-subtitle>
-                  <vue-numeric-input
-                    id="vmd4id"
-                    v-model="vmd4" 
-                    :value="vmd4"
-                    size="30px"
-                    :min="0" 
-                    :max="100" 
-                    :step="1"
-                    :precision="0"
-                    vmd4card
-                    controls-type="updown"
-                    align="center"
-                    :style="arrowvuenumeric"
-                  />
-                  <br>
-                  <span style="padding-top:6px;">How many Invervals - (Usually Months)</span>                    
-                </v-card>                                           
-                <!-- 5  5  5  # # # #  # # # #  # # # #  -->
-                <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
-
-                <v-card 
-                  id="vmd5card"
-                  v-bind="gcardProps"
+                  </v-col>
+                  <v-col 
+                    cols="3"
+                    flex-column
+                    direction-end
+                  >                
+                    <vue-numeric-input
+                      id="vmd4id"
+                      v-model="vmd4" 
+                      :value="vmd4"
+                      size="30px"
+                      :min="0" 
+                      :max="100" 
+                      :step="1"
+                      :precision="0"
+                      vmd4card
+                      controls-type="updown"
+                      align="center"
+                      :style="arrowvuenumeric"                     
+                    />                
+                  </v-col>                
+                  <v-col
+                    cols="6"
+                    :style="`text-align:left;`"
+                  >
+                    How many Invervals - (Usually Months) Try: 24
+                  </v-col>                
+                </v-row>
+              </v-card>                                           
+              <!-- 5  5  5  # # # #  # # # #  # # # #  -->
+              <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
+                  
+              <v-card 
+                id="vmd5card"
+                class="pa-1 ma-1"
+                color="#ECEFF1"
+              >
+                <v-row
+                  :style="`text-align:left;`"
                 >
-                  <v-card-subtitle
-                    :class="cardSubtitle" 
+                  <v-col
+                    cols="3"
+                    :style="`text-align:right;`"
                   >
                     Disinflation
-                  </v-card-subtitle>
-                      
-                  <vue-numeric-input
-                    id="vmd5id"
-                    v-model="vmd5" 
-                    :value="vmd5"
-                    size="30px"
-                    :min="0" 
-                    :max=".9" 
-                    :step=".1"
-                    :precision="1"
-                    vmd5card
-                    controls-type="updown"
-                    align="center"
-                    :style="arrowvuenumeric"
-                  />
-                  <span style="font-size:24px"> % </span>
-                  <br>
-                  <span>Ratio:  Min 0, Max .9</span>
-                </v-card>                                      
-
-                <v-card 
-                  id="vmd6card"
-                >
-                  Explain
-                </v-card>
-              </v-card>
-
+                  </v-col>
+                  <v-col cols="3">
+                    <vue-numeric-input
+                      id="vmd5id"
+                      v-model="vmd5" 
+                      :value="vmd5"
+                      :min="0" 
+                      :max=".9" 
+                      :step=".1"
+                      :precision="1"
+                      size="30px"
+                      vmd5card
+                      controls-type="updown"
+                      align="center"
+                      :style="arrowvuenumeric"
+                    />
+                    <span style="font-size:14px"> % </span>
+                  </v-col>
+                  <v-col cols="6">
+                    Ratio:  Min 0, Max .9  Try: 0.4
+                  </v-col>
+                </v-row>
+              </v-card>                                                                          
 
               <v-card
                 class="justify-center ml-10"
@@ -224,11 +253,10 @@
                   @submit.prevent
                   @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                 >
-                  <h1> make my chart </h1>
+                  <h1> make graph </h1>
                 </v-btn>
               </v-card>
-            </v-card> 
-            <!-- </v-container> -->
+            </v-card>                                      
           </v-form>
         </base-material-cardn>
 
@@ -320,8 +348,8 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "font-size:16px; width:179px; font-weight:500; justify:left; \
-  background-color:#FFCCBC; line-height:30px; padding-left:2px; padding-right:2px;text-align:right;\
+const vmdInputBox = "font-size:16px; width:172px; font-weight:500; justify:right; \
+  background-color:#FFCCBC; line-height:30px; padding-left:2px; padding-right:3px;text-align:right;\
   margin-bottom:2px;"
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
@@ -331,11 +359,10 @@ const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-co
 const vmdHold = 'numbers only'
 const gcardProps = {
   color: "dark-orange lighten-5",
-  width: "400px",
-  height: "100px",
-  "min-height": "100px",
-  "min-width": "245px",
-  class: "pa-1 ma-3"
+  width: "600px",
+  height: "70px",
+  "min-height": "50px",
+  "min-width": "555px",
 
   }
 const gcard5Props = {
@@ -344,7 +371,7 @@ const gcard5Props = {
   height: "100px",
   "min-height": "100px",
   "min-width": "295px",
-  class: "pa-1 ma-3 boxshade",
+  class: "pa-1 ma-1 boxshade",
   }
 const cardSubtitle = "deep-purple--text text--darken-4 font-size=11px justify-left"
 

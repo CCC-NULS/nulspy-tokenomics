@@ -129,9 +129,9 @@
                 <v-chip
                   v-bind="tchipprops"
                 >
-                  {{ lead9 }}&nbsp;&nbsp;
+                  {{ lead9 }} &nbsp;&nbsp;
                 </v-chip>
-                {{ leader9 }}<br><br>
+                {{ leader9 }} <br><br>
               </div>
             </v-row>
           </v-card>
@@ -193,7 +193,8 @@ import colors from 'vuetify/lib/util/colors'
   const fontpeach = "deep-orange lighten-4"
 
   const tchipprops = {
-    color: 'teal lighten-5',
+    color: 'white',
+    textColor: 'blue-grey darken-4',
     shaped: true,
     raised: true,
     filled: true,
@@ -201,6 +202,8 @@ import colors from 'vuetify/lib/util/colors'
     label: true,
     'elevation-24': true,
     class: 'montser', 
+    style: "box-shadow: 0px 2px 2px -1px grey"
+
   };
 
   export default {
@@ -244,15 +247,20 @@ import colors from 'vuetify/lib/util/colors'
   
 }
 .v-chip{
-    padding-right:6px;
+    padding-right:2px;padding-left:2px;padding-bottom:2px;padding-top:2px;
 
 }
 .v-chip__content {
-    font-size: 16px!important;
+    font-size: 14px!important;
+    color: deep-purple--text;
+  
     padding-right:2px;
-    font-weight: 400;
+    font-weight: 700;
     font-family: 'Montserrat', sans-serif !important;
 
+}
+.theme--light.v-chip {
+  color: purple;
 }
  .unusedstyle {
   font-family: 'Montserrat', sans-serif;

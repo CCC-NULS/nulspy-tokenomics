@@ -22,10 +22,14 @@
       DashboardCoreSettings: () => import('./components/core/Settings'),
       CoreView: () => import('./components/core/View'),
     },
-
     data: () => ({
       expandOnHover: false,
 
-    }),
+    }),    
+    
+    mounted () {
+      this.$store.dispatch('gShowMeAct', true)
+    },
+
   }
 </script>

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {  mapState  } from 'vuex'
 
 Vue.use(Router)
 
@@ -11,6 +12,7 @@ export default new Router({
       name: 'Home',
       path: '/',
       component: () => import('@/views/dashboard/Index'),
+
       children: [
         // Pages
         {
