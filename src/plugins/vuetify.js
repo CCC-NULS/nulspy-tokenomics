@@ -22,7 +22,7 @@ const theme = {
    
   switchtext:colors.black, 
   switchpaper: colors.grey.lighten3,
-  switchtab: colors.deepOrange.lighten4,
+  switchtab: colors.deepOrange.lighten5,
   tertiary: colors.grey.darken2,     // darkdarkgrey
  
 }

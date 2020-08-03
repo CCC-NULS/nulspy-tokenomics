@@ -77,9 +77,6 @@
           :item="item"
         />
       </template>
-
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
 
@@ -97,8 +94,6 @@
 </template>
 
 <script>
-  // Utilities
-
   import {  mapState  } from 'vuex'
   export default {
     name: 'DashboardCoreDrawer',
@@ -127,51 +122,6 @@
           icon: 'mdi-electron-framework',
           to: '/pages/tokenomics',
         },
-
-        
-        // {
-        //   title: 'savedgraphs',
-        //   icon: 'mdi-poll',
-        //   to: '/pages/savedgraphs',
-        // },
-        // {
-        //   title: 'createcs',
-        //   icon: 'mdi-electron-framework',
-        //   to: '/pages/createcs',
-        // },
-        // {
-        //   title: 'tokenomics',
-        //   icon: 'mdi-electron-framework',
-        //   to: '/pages/tokenomics',
-        // },
-
-        // {
-        //   icon: 'mdi-view-dashboard',
-        //   title: 'dashboard',
-        //   to: '/',
-        // },
-        // {
-        //   title: 'rtables',
-        //   icon: 'mdi-clipboard-outline',
-        //   to: '/tables/regular-tables',
-        // },        
-        // {
-        //   title: 'icons',
-        //   icon: 'mdi-chart-bubble',
-        //   to: '/components/icons',
-        // },
-        // {     
-        //   title: 'google',
-        //   icon: 'mdi-bookmark',
-        //   to: '/maps/google-maps',
-        // },
-        // mdi-electron-framework
-
-        // {
-        //   title: 'notifications',
-        //   icon: 'mdi-bell',
-        //   to: '/components/notifications',
-        // },
       ],
     }),
 

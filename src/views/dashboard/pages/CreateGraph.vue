@@ -61,6 +61,8 @@
                 >
                   <v-col
                     cols="3"
+                    md="3"
+                    sm="1"
                     :style="`text-align:right;`"
                   >
                     Initial Token Supply - Min 10,000
@@ -73,7 +75,10 @@
                       :style="vmdInputBox" 
                     />
                   </v-col>
-                  <v-col cols="6">
+                  <v-col 
+                    cols="6"
+                    md="6"
+                  >
                     {{ initsup }}
                   </v-col> 
                 </v-row>
@@ -92,12 +97,14 @@
                 >
                   <v-col
                     cols="3"
+                    md="3"
                     :style="`text-align:right;`"
                   >           
                     Max Supply
                   </v-col>
                   <v-col
                     cols="3"
+                    md="3"
                   >                    
                     <vue-autonumeric
                       v-model="vmd2"

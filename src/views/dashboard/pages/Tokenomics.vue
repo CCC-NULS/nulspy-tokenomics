@@ -72,7 +72,6 @@
             >
               <div
                 class="transparent"
-                :class="fontcol"
               >
                 {{ leader1 }}<br><br>
                 <v-chip

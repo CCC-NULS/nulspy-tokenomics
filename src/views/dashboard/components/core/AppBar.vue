@@ -59,29 +59,6 @@
     name: 'DashboardCoreAppBar',
 
     components: {
-      // AppBarItem: {
-      //   render (h) {
-      //     return h(VHover, {
-      //       scopedSlots: {
-      //         default: ({ hover }) => {
-      //           return h(VListItem, {
-      //             attrs: this.$attrs,
-      //             class: {
-      //               'black--text': !hover,
-      //               'white--text secondary elevation-12': hover,
-      //             },
-      //             props: {
-      //               activeClass: '',
-      //               dark: hover,
-      //               link: true,
-      //               ...this.$attrs,
-      //             },
-      //           }, this.$slots.default)
-      //         },
-      //       },
-      //     })
-      //   },
-      // },
     },
 
     props: {
@@ -94,9 +71,6 @@
     data: () => ({
       rlabel: "Restart",
       notifications: [
-        // 'You sold',
-        // 'Another Notification',
-        // 'Another one',
       ],
     }),
 

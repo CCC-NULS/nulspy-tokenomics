@@ -4,11 +4,11 @@
     <v-card
       id="settings"
       class="py-2 px-4"
-      color="switchtab"
+      color="rgba(117, 201, 181, 0.5)"
       flat
       link
       min-width="100"
-      style="position: fixed; top: 129px; right: -35px; border-radius: 8px;"
+      style="position: fixed; top: 229px; right: -35px; border-radius: 8px;"
     >
       <v-icon medium>
         mdi-settings

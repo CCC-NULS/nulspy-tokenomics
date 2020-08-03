@@ -1,8 +1,8 @@
 // edit this only!
 // const WESTTEAM = true
 const WESTTEAM = true
-// import { ISCENTOS } from  '../../../constants.js'
 // end user edits - = - =  - = - = - = - = - = - = - = - = - = - = - = - = - = - = //
+
 // var westPortOnly = "8084"
 // var homePort = "8084"
 
