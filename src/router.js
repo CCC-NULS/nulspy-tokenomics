@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {  mapState  } from 'vuex'
+import store from './store'
 
 Vue.use(Router)
 

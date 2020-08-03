@@ -16,7 +16,8 @@
             <div
               id="firstdiv"              
               class="display-4 font-weight-light orange--text text--lighten-5"
-              :style="`font-family:'Rubik-Italic', sans-serif;text-shadow: 1px 1px 1px black;`">
+              :style="`font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;`"
+            >
               design your graph
             </div>
           </template>
@@ -31,12 +32,12 @@
             <v-card
               id="vcardform"
               elevation-24
-              height="547px"
+              height="500px"
               color="deep-orange lighten-5"
               raised
               shaped
               filled="true"
-              class="pa-9 mx-9"
+              class="px-9 py-5 mx-9 mb-4"
               :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
             >
               <v-chip
@@ -52,8 +53,8 @@
               <!--:items="initsupply" -->
               <v-card 
                 id="vmd1card"
-                class="pa-1 ma-1"
-                color="#ECEFF1"
+                class="pa-1 ma-1 switchtext"
+                color="switchpaper"
               >
                 <v-row
                   :style="`text-align:left;`"
@@ -62,7 +63,7 @@
                     cols="3"
                     :style="`text-align:right;`"
                   >
-                    Initial Token Supply
+                    Initial Token Supply - Min 10,000
                   </v-col>
                   <v-col cols="3">                
                     <vue-autonumeric
@@ -83,8 +84,8 @@
                   
               <v-card 
                 id="vmd2card"
-                class="pa-1 ma-1"
-                color="#ECEFF1"
+                class="pa-1 ma-1 switchtext"
+                color="switchpaper"
               >
                 <v-row
                   :style="`text-align:left;`"
@@ -106,7 +107,7 @@
                     />
                   </v-col>
                   <v-col cols="6">
-                    Total supply when inflation ends.  
+                    Total supply when inflation ends - Min 20,000  
                     Must be more than Initial Supply. Try: 210,000,000
                   </v-col>
                 </v-row>
@@ -117,8 +118,8 @@
 
               <v-card 
                 id="vmd3card"
-                class="pa-1 ma-1"
-                color="#ECEFF1"
+                class="pa-1 ma-1 switchtext"
+                color="switchpaper"
               >
                 <v-row
                   :style="`text-align:left;`"
@@ -127,7 +128,7 @@
                     cols="3"
                     :style="`text-align:right;`"
                   >
-                    Annual Inflation
+                    Annual Inflation - Min 1,000
                   </v-col>
                   <v-col cols="3">                
                     <vue-autonumeric
@@ -150,8 +151,8 @@
               <!-- wrapped to align cards-->
               <v-card 
                 id="vmd4card"
-                class="pa-1 ma-1"
-                color="#ECEFF1"
+                class="pa-1 ma-1 switchtext"
+                color="switchpaper"
               >
                 <v-row
                   :style="`text-align:left;`"
@@ -195,8 +196,8 @@
                   
               <v-card 
                 id="vmd5card"
-                class="pa-1 ma-1"
-                color="#ECEFF1"
+                class="pa-1 ma-1 switchtext"
+                color="switchpaper"
               >
                 <v-row
                   :style="`text-align:left;`"
@@ -212,7 +213,7 @@
                       id="vmd5id"
                       v-model="vmd5" 
                       :value="vmd5"
-                      :min="0" 
+                      :min=".1" 
                       :max=".9" 
                       :step=".1"
                       :precision="1"
@@ -231,7 +232,7 @@
               </v-card>                                                                          
 
               <v-card
-                class="justify-center ml-10"
+                class="justify-center ml-10 mb-1"
                 width="500px"
                 color="transparent"
                 flat
@@ -279,18 +280,18 @@
         cols="12"
         md="11"
       >
-        <base-material-card
+        <base-material-cardn
           v-if="keyShowCard"
           :key="resetImage"
-          color="secondary"
-          class="justify-center ml-6 mb-5 pb-5 pt-9"
+          color="teal lighten-3"
+          class="justify-center ml-6 mb-5 pb-5 pt-7 mt-1"
         >
           <img
             :key="resetImage"
             :src="finalIMAGE"
           >
-          Right click image to save
-        </base-material-card>
+          To save - right click
+        </base-material-cardn>
       </v-col>
     </v-row>
   </v-container>
@@ -331,18 +332,21 @@ const vmd1opts = {
   currencySymbol: '',
   minimumValue: 10000,
   rawValue: 10000,
-  initialValueOnFirstKeydown: 10000,
+  initialValueOnFirstKeydown: 100000000,
   decimalPlaces: 0,
   maximumValue: 10000000000000,
   overrideMinMaxLimits: 'invalid',
 }
 const vmd2Val = {         // max supply
-  minimumValue: 10000,  // 10 thousand
+  minimumValue: 20000,  // 10 thousand
   maximumValue: 10000000000,  // 10 trillion
+  initialValueOnFirstKeydown: 210000000,
+
 }
 const vmd3Val = {
   minimumValue: 1000,  // one thousand
   maximumValue: 10000000,  // 10 million  annual inflation
+  initialValueOnFirstKeydown: 5000000,
 }
 
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
@@ -391,11 +395,11 @@ export default {
     vmd3opts,
     arrowvuenumeric,
     vmdInputBox,
-    vmd1: 10000,  // start supply
-    vmd2: 10000,   // max supply
-    vmd3: 1000,   // annual inflation
+    vmd1: 100000000,  // start supply
+    vmd2: 210000000,   // max supply
+    vmd3: 5000000,   // annual inflation
     vmd4: 1,    // when inflation starts
-    vmd5: 0,   // Disinflation
+    vmd5: .1,   // Disinflation
     alertm: false,
     gcardProps,
     gcard5Props,
@@ -483,9 +487,7 @@ export default {
 
     },
     makePlot(a_inp, d_inp, b_inp, c_inp, e_inp_lg) {  // order changed moved d to b
-      // let e_inp_lg_str = e_inp_lg.toString()
       let e_inp = e_inp_lg.toString().substring(2,4)   // the percent string ie: 0.2%
-      // let e_inp = e_inp_lg_str.substring(2,4)   // the percent string ie: 0.2%
       console.log("e_inp: " + e_inp)
 
       let fin_a_init_supply = "100,000,000"  // default start supply
@@ -509,9 +511,7 @@ export default {
       console.log(`InitSupply is ${fin_a_init_supply}; anninf is ${fin_b_ann_infl}; startinf is ${fin_c_start_time}; /
         StopInflation/MaxSupply is ${fin_d_max_supply}; Disinflation is ${fin_c_start_time};`);
 
-      // let ddte = Date.now().toString();
       const gDate = Date.now().toString().substring(7,13);
-//      const gDate = ddte.substring(7,13);
       console.log(`gDate makePlot: ${gDate}`);
 
       let aw = '&initsup=' + fin_a_init_supply.replace(/,/g, '');

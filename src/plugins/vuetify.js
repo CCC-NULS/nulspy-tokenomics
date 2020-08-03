@@ -11,22 +11,18 @@ Vue.use(Vuetify, VueAxios, axios)
 
 const theme = {
   primary: colors.teal.base, // #009688
-  primarydark: colors.teal.darken1, // # 
-  secondary: colors.deepPurple.base,  // deep purple  673AB7
+  secondary: colors.teal.base,  // deep purple  673AB7
   success: colors.cyan.base,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
   info: colors.grey.base,              //   grey 
-  
   error: colors.red.base,   // red
   warning: colors.deepOrange.base,    // deep-orange
 
-  pagegrey: colors.grey.lighten4,   // off-white page backgrounds
-  pagegreytext: colors.white,   // off-white page backgrounds
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5 e7
    
-  mytext: colors.black,               // black for light them
-  alwayswhite: colors.white,          // white 
-  
+  switchtext:colors.black, 
+  switchpaper: colors.grey.lighten3,
+  switchtab: colors.deepOrange.lighten4,
   tertiary: colors.grey.darken2,     // darkdarkgrey
  
 }
@@ -42,21 +38,18 @@ const theme = {
 
 const dtheme = {
   primary: colors.teal.base, // #009688
-  primarydark: colors.teal.darken1, // # 
-
-  secondary: colors.deepPurple.base,  // deep purple  673AB7
+  secondary: colors.teal.base,  // deep purple  673AB7
   success: colors.cyan.base,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
   info: colors.grey.base,              //   grey 
   error: colors.red.base,   // red
   warning: colors.deepOrange.base,    // deep-orange
 
-  pagegrey: colors.grey.darken2,   // off-white page backgrounds
-  pagegreytext: colors.white,   // off-white page backgrounds
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5  
  
-  mytext: colors.white,        // white
-  alwayswhite: colors.white,      // white
+  switchtext: colors.white, 
+  switchpaper: colors.grey.darken3,
+  switchtab: colors.deepOrange.lighten3,
 
   tertiary: colors.grey.darken2,     // darkdarkgrey
 }

@@ -47,8 +47,9 @@
           <v-card
             id="vcard2"
             color="deep-orange lighten-5"
+            dark
             align="left"
-            class="pr-9 pl-9 ml-9 mr-9 rounded-tl-xl"
+            class="black--text pr-9 pl-9 ml-9 mr-9 rounded-tl-xl"
             shaped
             elevation-24
             raised
@@ -193,16 +194,16 @@ import colors from 'vuetify/lib/util/colors'
   const fontpeach = "deep-orange lighten-4"
 
   const tchipprops = {
-    color: 'white',
-    textColor: 'blue-grey darken-4',
+    color: 'grey lighten-4',
+    textColor: 'black',
     shaped: true,
     raised: true,
     filled: true,
     medium: true,
     label: true,
     'elevation-24': true,
-    class: 'montser', 
-    style: "box-shadow: 0px 2px 2px -1px grey"
+    class: 'montser mb-0', 
+    style: "line-height:18px; box-shadow: 0px 2px 2px -1px grey"
 
   };
 

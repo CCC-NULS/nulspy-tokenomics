@@ -30,6 +30,8 @@
     mounted () {
       this.$store.dispatch('gShowMeAct', true)
     },
-
+    created () {
+      this.$store.dispatch('gShowMeAct', true)
+    },
   }
 </script>

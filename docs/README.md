@@ -49,8 +49,8 @@ nuls-tokenomics
 │   ├── App.vue
 │   ├── assets
 │   │   └── vuetify.svg
-│   │   └── plots
-│   │       └── <plots.svg>
+│   │   └── styles
+│   │       └── mystyle.css
 │   ├── components
 │   │   └── base
 │   │       ├── Card.vue
@@ -59,6 +59,7 @@ nuls-tokenomics
 │   │       ├── ItemSubGroup.vue
 │   │       ├── MaterialAlert.vue
 │   │       ├── MaterialCard.vue
+│   │       ├── MaterialCardn.vue
 │   │       ├── MaterialChartCard.vue
 │   │       ├── MaterialSnackbar.vue
 │   │       ├── MaterialStatsCard.vue
@@ -80,10 +81,8 @@ nuls-tokenomics
 │   │   ├── main.scss
 │   │   ├── overrides.sass
 │   │   └── vuetify-material
-│   │       └── _sidebar.sass
+│   │       └── <sass files>
 │   ├── store.js
-│   ├── styles
-│   │   └── mystyle.css
 │   └── views
 │       └── dashboard
 │           ├── Charts.vue
@@ -91,11 +90,9 @@ nuls-tokenomics
 │           ├── Index.vue
 │           ├── Widgets.vue
 │           ├── component
-│           │   ├── Buttons.vue
 │           │   ├── Grid.vue
 │           │   ├── Icons.vue
 │           │   ├── Notifications.vue
-│           │   ├── Tabs.vue
 │           │   └── Tokenomics.vue
 │           ├── components
 │           │   └── core
@@ -103,14 +100,19 @@ nuls-tokenomics
 │           │       ├── Drawer.vue
 │           │       ├── Footer.vue
 │           │       ├── Settings.vue
-│           │       └── View.vue
+│           │       └── CoreView.vue
 │           ├── maps
 │           │   └── GoogleMaps.vue
 │           ├── pages
 │           │   ├── CreateGraph.vue
 │           │   └── SavedGraphs.vue
+│           │   └── CreateCs.vue
+│           │   └── CreateVars.js
+│           │   └── SavedGraphs.vue
+│           │   └── Tokenomics.vue
+│           │   └── TopWords.js
 ├── vue.config.js
-└── pythonmod
+└── tokenlife
    └── <python directory files>
 
 ```
