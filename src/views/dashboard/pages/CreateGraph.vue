@@ -10,9 +10,14 @@
         sm="9"
       >
         <base-material-cardn
+          id="basematcard"
           color="black lighten-2"
+          width="1000px"
+          min-width="400px"
+
+          height="1400px"
           max-height="1500px"
-          class="d-flex flex-column justify-content=center"
+          class="d-flex flex-column flex-grow align-start justify-center"
         >
           <template v-slot:heading>
             <div
@@ -25,38 +30,43 @@
           </template>
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--             v-model="formvmodel"   -->
-          <v-form
-            id="mainform"
-            ref="formref"
-            :key="resetform"
-            @submit.prevent
+
+          <v-card
+            id="vcardform"
+            height="1200px"
+            max-height="1900px"
+            width="90%"
+            elevation-24
+            justify-center
+            align-start
+            raised
+            shaped
+            mainform
+            filled="true"
+            class="d-flex flex-column align-start text-align-start justify-center px-4 py-5 mx-4 mb-4"
+            :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
           >
-            <v-card
-              id="vcardform"
-              height="1200px"
-              max-height="1900px"
-              elevation-24
-              justify-center
-              raised
-              shaped
-              filled="true"
-              class="d-flex flex-column justify-content-center justify-content=center px-4 py-5 mx-4 mb-4"
-              :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
+            <v-chip
+              id="chipnote"
+              color="transparent"
+              class="pa-4 white--text ma-2 justify-right"
+              flat
+              large               
+              vcardform
             >
-              <v-chip
-                color="transparent"
-                class="pa-4 white--text ma-2 justify-right"
-                flat
-                large
-                
-                vcardform
-              >
-                <span :style="`font-size:20px;font-family:'Montserrat', sans-serif;padding-top:2px;`">
-                  Inflation and disinflation begin at the same time
-                </span>
-              </v-chip>
-              <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-              <!--:items="initsupply" -->
+              <span :style="`font-size:20px;font-family:'Montserrat', sans-serif;padding-top:2px;`">
+                Inflation and disinflation begin at the same time
+              </span>
+            </v-chip>
+            <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
+            <!--:items="initsupply" # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
+            <v-form
+              id="mainform"
+              ref="formref"
+              :key="resetform"
+              basematcard
+              @submit.prevent
+            >             
               <v-card 
                 id="vmd1card"
                 color="teal lighten-5"
@@ -66,7 +76,7 @@
                 height="100px"
                 max-height="360px"
                 min-height="60px"
-                class="d-flex flex-column flex-wrap my-1 ml-9 pa-2"
+                class="d-flex flex-column justify-left my-1 ml-2 pa-2"
               >
                 <v-card
                   id="vmd1cardsub1"
@@ -74,18 +84,17 @@
                   max-width="550px"
                   min-width="225px"
                   color="transparent"
-                  class="display-1 switchtext pa-1 ma-0"
+                  class="d-flex flex-wrap justify-left display-1 switchtext pa-1 ma-0"
                   flat
                   vmd1card
                 >
-                  Initial Token Supply - Min 10,000,  Suggestion: 100,000,000
+                  Initial Token Supply - Min 10,000,  Suggestion: 100,000,000: 
                 </v-card>
                 <v-card
                   id="vmd1cardsub2"
                   max-width="350px"
                   min-width="25px"
                   width="225px"
-                  class="pa-1 my-1 ml-9"
                   color="white"
                   outlined
                   elevation-24
@@ -93,6 +102,7 @@
                   vmd1card
                   focusable="true"
                   focus="true"
+                  class="pa-1 ma-1"
                 >                
                   <vue-autonumeric
                     id="vmd1auto"
@@ -292,9 +302,9 @@
                   <h1> make graph </h1>
                 </v-btn>
               </v-card>
-            </v-card>                                      
-          </v-form>
-        </base-material-cardn>
+           </v-card>                                      
+         </base-material-cardn>
+        </v-form>
 
         <v-alert
           v-show="false"
@@ -586,16 +596,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
-
-.vmdFontStyle {
-    font-size: 18px!important;
-    font-weight: 700!important;
-    text-align: center!important;
-    line-height: 30px;
-}
-.vmdMarginStyle {
-    justify-content: center!important;
-}
 
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
