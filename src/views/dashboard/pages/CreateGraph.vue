@@ -7,10 +7,12 @@
     <v-row justify="center">
       <v-col
         cols="12"
-        md="9"
+        sm="9"
       >
         <base-material-cardn
           color="black lighten-2"
+          max-height="1500px"
+          class="d-flex flex-column justify-content=center"
         >
           <template v-slot:heading>
             <div
@@ -31,21 +33,25 @@
           >
             <v-card
               id="vcardform"
+              height="1200px"
+              max-height="1900px"
               elevation-24
-              height="500px"
-              color="deep-orange lighten-5"
+              justify-center
               raised
               shaped
               filled="true"
-              class="px-9 py-5 mx-9 mb-4"
+              class="d-flex flex-column justify-content-center justify-content=center px-4 py-5 mx-4 mb-4"
               :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
             >
               <v-chip
                 color="transparent"
-                class="pa-2 white--text"
+                class="pa-4 white--text ma-2 justify-right"
+                flat
                 large
+                
+                vcardform
               >
-                <span :style="`font-size:16px;font-family:'Montserrat', sans-serif;`">
+                <span :style="`font-size:20px;font-family:'Montserrat', sans-serif;padding-top:2px;`">
                   Inflation and disinflation begin at the same time
                 </span>
               </v-chip>
@@ -53,35 +59,48 @@
               <!--:items="initsupply" -->
               <v-card 
                 id="vmd1card"
-                class="pa-1 ma-1 switchtext"
-                color="switchpaper"
+                color="teal lighten-5"
+                width="650px"
+                min-width="95px"               
+                max-width="650px"  
+                height="100px"
+                max-height="360px"
+                min-height="60px"
+                class="d-flex flex-column flex-wrap my-1 ml-9 pa-2"
               >
-                <v-row
-                  :style="`text-align:left;`"
+                <v-card
+                  id="vmd1cardsub1"
+                  width="550px"
+                  max-width="550px"
+                  min-width="225px"
+                  color="transparent"
+                  class="display-1 switchtext pa-1 ma-0"
+                  flat
+                  vmd1card
                 >
-                  <v-col
-                    cols="3"
-                    md="3"
-                    sm="1"
-                    :style="`text-align:right;`"
-                  >
-                    Initial Token Supply - Min 10,000
-                  </v-col>
-                  <v-col cols="3">                
-                    <vue-autonumeric
-                      id="vmd1auto"
-                      v-model="vmd1"
-                      :options="vmd1opts"
-                      :style="vmdInputBox" 
-                    />
-                  </v-col>
-                  <v-col 
-                    cols="6"
-                    md="6"
-                  >
-                    {{ initsup }}
-                  </v-col> 
-                </v-row>
+                  Initial Token Supply - Min 10,000,  Suggestion: 100,000,000
+                </v-card>
+                <v-card
+                  id="vmd1cardsub2"
+                  max-width="350px"
+                  min-width="25px"
+                  width="225px"
+                  class="pa-1 my-1 ml-9"
+                  color="white"
+                  outlined
+                  elevation-24
+                  raised
+                  vmd1card
+                  focusable="true"
+                  focus="true"
+                >                
+                  <vue-autonumeric
+                    id="vmd1auto"
+                    v-model="vmd1"
+                    :options="vmd1opts"
+                    :style="vmdInputBox"
+                  />
+                </v-card>
               </v-card>    
 
               <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
@@ -95,14 +114,14 @@
                 <v-row
                   :style="`text-align:left;`"
                 >
-                  <v-col
+                  <v-chip
                     cols="3"
                     md="3"
                     :style="`text-align:right;`"
                   >           
                     Max Supply
-                  </v-col>
-                  <v-col
+                  </v-chip>
+                  <v-chip
                     cols="3"
                     md="3"
                   >                    
@@ -112,11 +131,11 @@
                       :options="vmd2opts"
                       :style="vmdInputBox" 
                     />
-                  </v-col>
-                  <v-col cols="6">
+                  </v-chip>
+                  <v-chip cols="6">
                     Total supply when inflation ends - Min 20,000  
                     Must be more than Initial Supply. Try: 210,000,000
-                  </v-col>
+                  </v-chip>
                 </v-row>
               </v-card>                                       
               <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
@@ -131,25 +150,27 @@
                 <v-row
                   :style="`text-align:left;`"
                 >
-                  <v-col
+                  <v-chip
                     cols="3"
+                    md="3"
                     :style="`text-align:right;`"
                   >
                     Annual Inflation - Min 1,000
-                  </v-col>
-                  <v-col cols="3">                
+                  </v-chip>
+                  <v-chip cols="3">                
                     <vue-autonumeric
                       id="vmd3auto"
                       v-model="vmd3"
                       :options="vmd3opts"
                       :style="vmdInputBox" 
                     />
-                  </v-col>
-                  <v-col 
+                  </v-chip>
+                  <v-chip 
                     cols="6"
+                    md="6"
                   > 
                     Try: 5,000,000
-                  </v-col>
+                  </v-chip>
                 </v-row>
               </v-card> 
               <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
@@ -164,15 +185,18 @@
                 <v-row
                   :style="`text-align:left;`"
                 >
-                  <v-col
+                  <v-chip
                     cols="3"
+                    md="3"
                     :style="`text-align:right;`"
                   >
                     Disinflation Starts in
-                  </v-col>
-                  <v-col 
+                  </v-chip>
+                  <v-chip 
                     cols="3"
-                    flex-column
+                    md="3"
+                    flex-column 
+                    flex-wrap
                     direction-end
                   >                
                     <vue-numeric-input
@@ -189,13 +213,14 @@
                       align="center"
                       :style="arrowvuenumeric"                     
                     />                
-                  </v-col>                
-                  <v-col
+                  </v-chip>                
+                  <v-chip 
                     cols="6"
+                    md="6"
                     :style="`text-align:left;`"
                   >
                     How many Invervals - (Usually Months) Try: 24
-                  </v-col>                
+                  </v-chip>                
                 </v-row>
               </v-card>                                           
               <!-- 5  5  5  # # # #  # # # #  # # # #  -->
@@ -209,13 +234,14 @@
                 <v-row
                   :style="`text-align:left;`"
                 >
-                  <v-col
+                  <v-chip 
                     cols="3"
+                    md="3"
                     :style="`text-align:right;`"
                   >
                     Disinflation
-                  </v-col>
-                  <v-col cols="3">
+                  </v-chip>
+                  <v-chip cols="3">
                     <vue-numeric-input
                       id="vmd5id"
                       v-model="vmd5" 
@@ -231,16 +257,18 @@
                       :style="arrowvuenumeric"
                     />
                     <span style="font-size:14px"> % </span>
-                  </v-col>
-                  <v-col cols="6">
+                  </v-chip>
+                  <v-chip cols="6">
                     Ratio:  Min 0, Max .9  Try: 0.4
-                  </v-col>
+                  </v-chip>
                 </v-row>
               </v-card>                                                                          
 
               <v-card
                 class="justify-center ml-10 mb-1"
                 width="500px"
+                min-width="300px"
+
                 color="transparent"
                 flat
               >
@@ -311,7 +339,7 @@ import {  mapState  } from 'vuex'
 
 import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateVars.js"
-import {	initsup, infmsg, aninf } from "./TopWords.js"
+import {	initsup } from "./TopWords.js"
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import AutoNumeric from 'autonumeric'
@@ -359,31 +387,34 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "font-size:16px; width:172px; font-weight:500; justify:right; \
-  background-color:#FFCCBC; line-height:30px; padding-left:2px; padding-right:3px;text-align:right;\
-  margin-bottom:2px;"
+const vmdInputBox = "font-size:16px; width:122px; font-weight:500; justify:right; \
+  line-height:30px; padding-left:2px; margin-left:2px;\
+  padding-right:3px;text-align:right; margin-bottom:2px;"
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
 
-const arrowvuenumeric = "font-size:22px; height:30px; width: 127px;background-color:#ffffff;"
+const arrowvuenumeric = "font-size:20px; height:30px; width: 127px;background-color:#ffffff;"
 
 const vmdHold = 'numbers only'
-const gcardProps = {
-  color: "dark-orange lighten-5",
-  width: "600px",
-  height: "70px",
-  "min-height": "50px",
-  "min-width": "555px",
+// const gcardProps = {
+//   color: "dark-orange lighten-5",
+//   width: "500px",
+//   height: "70px",
+//   "max-height": "1000px",
+//   "min-height": "50px",
+//   "min-width": "155px",
 
-  }
-const gcard5Props = {
-  color: "dark-orange lighten-5",
-  width: "400px",
-  height: "100px",
-  "min-height": "100px",
-  "min-width": "295px",
-  class: "pa-1 ma-1 boxshade",
-  }
+//   }
+// const gcard5Props = {
+//   color: "dark-orange lighten-5",
+//   width: "400px",
+//   height: "100px",
+//   "max-height": "900px",
+//   "min-height": "100px",
+//   "min-width": "195px",
+//   class: "pa-1 ma-1 boxshade d-flex flex-wrap",
+//   }          
+
 const cardSubtitle = "deep-purple--text text--darken-4 font-size=11px justify-left"
 
 export default {
@@ -395,8 +426,6 @@ export default {
 
   data: () => ({
     initsup,
-	  infmsg,
-	  aninf,
     vmd1opts,
     vmd2opts,
     vmd3opts,
@@ -408,8 +437,6 @@ export default {
     vmd4: 1,    // when inflation starts
     vmd5: .1,   // Disinflation
     alertm: false,
-    gcardProps,
-    gcard5Props,
     cardSubtitle,
     vmdHold,
     resetform: 0,
@@ -567,13 +594,9 @@ export default {
     line-height: 30px;
 }
 .vmdMarginStyle {
-    margin-top: 0px!important;   
-    padding-bottom: 2px!important;
     justify-content: center!important;
 }
-.greygrady {
-  background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%)!important;
-}
+
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
@@ -587,13 +610,6 @@ export default {
       box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
       0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
 }
-.boxshade {
-      box-shadow: 0px 3px 5px purple !important;
-}
-.topheadingclass {
-  line-height: 1.7em;
-  font-size: 22px!important;
-  padding-left: 9px!important;
-}
+
 </style>
  

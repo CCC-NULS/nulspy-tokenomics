@@ -1,6 +1,6 @@
 // edit this only!
 // const WESTTEAM = true
-const WESTTEAM = true
+const WESTTEAM = false
 // end user edits - = - =  - = - = - = - = - = - = - = - = - = - = - = - = - = - = //
 
 // var westPortOnly = "8084"
