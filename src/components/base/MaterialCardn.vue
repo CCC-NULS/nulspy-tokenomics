@@ -4,7 +4,7 @@
     :class="classes"
     class="v-card--material pa-3"
   >
-    <div class="d-flex grow flex-wrap">
+    <div class="d-flex flex-wrap">
       <v-avatar
         v-if="avatar"
         size="128"

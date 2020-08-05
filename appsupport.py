@@ -41,14 +41,19 @@ class AppSupport:
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
-        disinfla_int = int(args_dict.get("disinflation_ratio"))
         print("max supply: " + str(self.stop_inflation_y))
         print("start_inflation: " + str(start_inflation))
         print("annual_inflation: " + str(self.annual_inflation))
+
+        disinfla_temp = args_dict.get("disinflation_ratio")
+
+        if not disinfla_temp:
+            disinfla_int = 0
+            self.disinflation_ratio = 0
+
         if disinfla_int != 0:
             self.disinflation_ratio = float(disinfla_int)/1000  # comes as 1-digit whole number
-        else:
-            self.disinflation_ratio = 0
+
         print("self.disinflation_ratio: " + str(self.disinflation_ratio))
         tokens = self.initial_supply_y
 
