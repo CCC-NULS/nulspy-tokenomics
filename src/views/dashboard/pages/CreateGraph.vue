@@ -4,24 +4,25 @@
     fluid
     tag="section"
   >
-    <v-row justify="center">
+    <v-row 
+      justify="center"
+    >
       <v-col
         cols="12"
-        sm="9"
+        sm="8"
       >
         <base-material-cardn
           id="basematcard"
           width="1000px"
           min-width="400px"
-
-          min-height="400px"
-          height="700px"
+          min-height="200px"
+          height="1500px"
           max-height="1500px"
-          class="d-flex flex-column grow align-start"
         >
           <template v-slot:heading>
             <div
-              id="firstdiv"              
+              id="firstdiv"
+              height="100px"              
               class="display-4 font-weight-light orange--text text--lighten-5"
               :style="`font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;`"
             >
@@ -33,22 +34,22 @@
 
           <v-card
             id="vcardform"
-            height="600px"
+            height="700px"
             max-height="1900px"
-            min-height="500px"
+            min-height="700px"
             width="90%"
             elevation-24
             raised
             shaped
             mainform
             filled="true"
-            class="d-flex flex-column flex-grow grow align-start text-align-start justify-start px-4 py-5 mx-4 mb-4"
+            class="px-2 py-4 mx-4 mb-2"
             :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
           >
             <v-chip
               id="chipnote"
               color="transparent"
-              class="pa-4 white--text ma-2 justify-right"
+              class="pa-4 white--text ma-2"
               flat
               large               
               vcardform
@@ -59,124 +60,107 @@
             </v-chip>
             <!-- choice chip: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!--:items="initsupply" # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
+
             <v-form
               id="mainform"
               ref="formref"
               :key="resetform"
               basematcard
-              class="d-flex flex-grow-1 flex-shrink-1 flex-wrap my-1 ml-4 pa-2"
-
               @submit.prevent
-            >             
+            >     
               <v-card 
-                id="vmd1card"
-                color="teal lighten-5"
-                width="450px"
-                min-width="65px"               
-                max-width="450px"  
-                height="110px"
-                max-height="360px"
-                min-height="100px"
-                class="d-flex flex-grow-1 flex-shrink-1 flex-wrap my-1 ml-4 pa-2"
+                class="justify-center=true"
               >
-                <v-card
-                  id="vmd1cardsub1"
-                  width="350px"
-                  max-width="450px"
-                  min-width="25px"
-                  height="70px"
-                  max-height="360px"
-                  min-height="50px"
-                  color="deep-orange lighten-2"
-                  flat
-                  vmd1card
-                  class="d-flex flex-grow-1 flex-shrink-1 my-1 ml-4 pa-2 display-1"
-                  :style="`text-align:right;`"
-                >
-                  Initial Token Supply - Min 10,000,  Suggestion: 100,000,000: 
-                </v-card>
-                <v-card
-                  id="vmd1cardsub2"
-                  height="50px"
-                  max-height="260px"
-                  min-height="50px"
+                <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
-                  width="225px"
-                  max-width="350px"
-                  min-width="25px"
-                  
-                  color="white"
-                  outlined
-                  elevation-24
-                  raised
-                  vmd1card
-                  focusable="true"
-                  focus="true"
-                  class="pa-1 ma-1"
-                >                
-                  <vue-autonumeric
-                    id="vmd1auto"
-                    v-model="vmd1"
-                    :options="vmd1opts"
-                    :style="vmdInputBox"
-                  />
-                </v-card>
-              </v-card>    
-
-              <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
-              <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
-                  
-              <v-card 
-                id="vmd2card"
-                class="pa-1 ma-1 switchtext"
-                color="switchpaper"
-              >
-                <v-row
-                  :style="`text-align:left;`"
+                <v-card 
+                  id="vmd1card"
+                  color="teal lighten-5"
+                  v-bind="gcardprops"
+                  class="justify-center my-1 ml-4 py-2 px-4"
                 >
-                  <v-chip
-                    cols="3"
-                    md="3"
-                    :style="`text-align:right;`"
-                  >           
-                    Max Supply
-                  </v-chip>
-                  <v-chip
-                    cols="3"
-                    md="3"
-                  >                    
+                  <v-card-subtitle
+                    id="vmd1cardsubt"
+                    vmd1card
+                    class="pb-1 mb-1"
+                    :style="`color:purple;font-family:Montserrat,sans-serif;\
+                      font-weight:700;`"
+                  >
+                    Initi                               al Token Supply - Min 10,000,  <br>Suggestion: 100,000,000: 
+                  </v-card-subtitle>
+                  <v-card
+                    id="vmd1cardsub"
+                    v-bind="subCardProps"                    
+                    color="white"
+                    outlined
+                    vmd1card
+                    class="pa-2 pl-5 ml-5 mr-1 mb-5 mt-0 justify-center"
+                  >                
+                    <vue-autonumeric
+                      id="vmd1auto"
+                      v-model="vmd1"
+                      :options="vmd1opts"
+                      :style="vmdInputBox"
+                    />
+                  </v-card>
+                </v-card>    
+
+                <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
+                <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  -->
+                      
+                <v-card 
+                  id="vmd2card"
+                  color="teal lighten-5"
+                  v-bind="gcardprops"
+                  class="d-flex flex-column flex-grow-1 flex-shrink-1 /
+                    justify-center my-1 ml-4 py-2 px-4"
+                >
+                  <v-card-subtitle
+                    id="vmd2cardsubt"
+                    vmd2card
+                    class="pb-1 mb-1"
+                    :style="`color:teal;font-family:Montserrat,sans-serif;\
+                      font-weight:700;`"
+                  >
+                    Max Supply - Total supply when inflation ends <br> Min 20,000  
+                    Must be more than Initial Supply. <br>Try: 210,000,000
+                  </v-card-subtitle>       
+
+                  <v-card
+                    id="vmd2cardsub"
+                    vmd2card
+                    color="white"
+                    v-bind="subCardProps"                  
+                    class="pa-2 pl-5 ml-5 mr-1 mb-5 mt-0 align-center"
+                  >                                   
                     <vue-autonumeric
                       v-model="vmd2"
                       :placeholder="vmdHold"
                       :options="vmd2opts"
                       :style="vmdInputBox" 
                     />
-                  </v-chip>
-                  <v-chip cols="6">
-                    Total supply when inflation ends - Min 20,000  
-                    Must be more than Initial Supply. Try: 210,000,000
-                  </v-chip>
-                </v-row>
-              </v-card>                                       
-              <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->
-              
-              <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
-
-              <v-card 
-                id="vmd3card"
-                class="pa-1 ma-1 switchtext"
-                color="switchpaper"
-              >
-                <v-row
-                  :style="`text-align:left;`"
+                  </v-card>
+                </v-card>    
+                                
+                <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->              
+                <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
+                      
+                <v-card 
+                  id="vmd3card"
+                  color="teal lighten-5"
+                  v-bind="gcardprops"
+                  class="d-flex flex-column flex-grow-1 flex-shrink-1 /
+                    justify-center my-1 ml-4 py-2 px-4"
                 >
-                  <v-chip
-                    cols="3"
-                    md="3"
-                    :style="`text-align:right;`"
+                  <v-card-subtitle
+                    id="vmd3cardsubt"
+                    vmd3card
+                    class="pb-1 mb-1"
+                    :style="`color:teal;font-family:Montserrat,sans-serif;\
+                      font-weight:700;`"
                   >
-                    Annual Inflation - Min 1,000
-                  </v-chip>
+                    Annual Inflation - Min 1,000 <br>  Try: 5,000,000
+                  </v-card-subtitle>
                   <v-chip cols="3">                
                     <vue-autonumeric
                       id="vmd3auto"
@@ -185,33 +169,28 @@
                       :style="vmdInputBox" 
                     />
                   </v-chip>
-                  <v-chip 
-                    cols="6"
-                    md="6"
-                  > 
-                    Try: 5,000,000
-                  </v-chip>
-                </v-row>
-              </v-card> 
-              <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
-                  
-                
-              <!-- wrapped to align cards-->
-              <v-card 
-                id="vmd4card"
-                class="pa-1 ma-1 switchtext"
-                color="switchpaper"
-              >
-                <v-row
-                  :style="`text-align:left;`"
+                </v-card>    
+
+                <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->
+                                
+                <!-- wrapped to align cards-->
+                <v-card 
+                  id="vmd4card"
+                  color="teal lighten-5"
+                  v-bind="gcardprops"
+                  class="d-flex flex-column flex-grow-1 flex-shrink-1 /
+                    justify-center my-1 ml-4 py-2 px-4"
                 >
-                  <v-chip
-                    cols="3"
-                    md="3"
-                    :style="`text-align:right;`"
-                  >
-                    Disinflation Starts in
-                  </v-chip>
+                  <v-card-subtitle
+                    id="vmd4cardsubt"
+                    vmd4card
+                    class="pb-1 mb-1"
+                    :style="`color:teal;font-family:Montserrat,sans-serif;\
+                      font-weight:700;`"
+                  >                  
+                    Disinflation Starts in How many Invervals <br>
+                    (Usually Months) Try: 24
+                  </v-card-subtitle>
                   <v-chip 
                     cols="3"
                     md="3"
@@ -234,33 +213,27 @@
                       :style="arrowvuenumeric"                     
                     />                
                   </v-chip>                
-                  <v-chip 
-                    cols="6"
-                    md="6"
-                    :style="`text-align:left;`"
-                  >
-                    How many Invervals - (Usually Months) Try: 24
-                  </v-chip>                
-                </v-row>
-              </v-card>                                           
-              <!-- 5  5  5  # # # #  # # # #  # # # #  -->
-              <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
-                  
-              <v-card 
-                id="vmd5card"
-                class="pa-1 ma-1 switchtext"
-                color="switchpaper"
-              >
-                <v-row
-                  :style="`text-align:left;`"
+                </v-card>                
+                <!-- 5  5  5  # # # #  # # # #  # # # #  -->
+                <!--  5  5  Disinflation ratio:   5  5  # # # #  # # # #  # # # #  -->
+                
+                <v-card 
+                  id="vmd5card"
+                  color="teal lighten-5"
+                  v-bind="gcardprops"
+                  class="d-flex flex-column flex-grow-1 flex-shrink-1 /
+                    justify-center my-1 ml-4 py-2 px-4"
                 >
-                  <v-chip 
-                    cols="3"
-                    md="3"
-                    :style="`text-align:right;`"
-                  >
-                    Disinflation
-                  </v-chip>
+                  <v-card-subtitle
+                    id="vmd5cardsubt"
+                    vmd5card
+                    class="pb-1 mb-1"
+                    :style="`color:teal;font-family:Montserrat,sans-serif;\
+                      font-weight:700;`"
+                  >                  
+                    Disinflation Ratio:  Min 0, Max .9  Try: 0.4
+                  </v-card-subtitle>
+
                   <v-chip cols="3">
                     <vue-numeric-input
                       id="vmd5id"
@@ -278,11 +251,9 @@
                     />
                     <span style="font-size:14px"> % </span>
                   </v-chip>
-                  <v-chip cols="6">
-                    Ratio:  Min 0, Max .9  Try: 0.4
-                  </v-chip>
-                </v-row>
-              </v-card>                                                                          
+                </v-card>   
+              </v-card>                                                        
+              <!-- # # # # # # #  *-* *-* *-* *-* *-* *-*  -->
 
               <v-card
                 class="justify-center ml-10 mb-1"
@@ -297,7 +268,6 @@
                   id="submitmain"
                   type="submit"
                   elevation-24
-                  raised
                   dark
                   hover
                   shaped
@@ -312,43 +282,31 @@
                   <h1> make graph </h1>
                 </v-btn>
               </v-card>
-            </v-form>
-          </v-card>                                      
+            </v-form>                
+          </v-card>
         </base-material-cardn>
-
-        <v-alert
-          v-show="false"
-          id="alertm"
-          v-model="alertm"
-          close-text="Close Alert"
-          color="warning lighten-1"
-          dark
-          dismissible
-          width="200px"
-        >
-          Inputs not valid.
-        </v-alert>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        md="11"
-      >
-        <base-material-cardn
-          v-if="keyShowCard"
-          :key="resetImage"
-          color="teal lighten-3"
-          class="justify-center ml-6 mb-5 pb-5 pt-7 mt-1"
-        >
-          <img
-            :key="resetImage"
-            :src="finalIMAGE"
+        <!-- plot shows up here # # # # # # # -->
+        <v-row>
+          <v-col
+            cols="12"
+            md="11"
           >
-          To save - right click
-        </base-material-cardn>
+            <base-material-cardn
+              v-if="keyShowCard"
+              :key="resetImage"
+              color="teal lighten-3"
+              class="justify-center ml-6 mb-5 pb-5 pt-7 mt-1"
+            >
+              <img
+                :key="resetImage"
+                :src="finalIMAGE"
+              >
+              To save - right click
+            </base-material-cardn>
+          </v-col>
+        </v-row>
       </v-col>
-    </v-row>
+    </v-row>     
   </v-container>
 </template>
 
@@ -396,7 +354,6 @@ const vmd2Val = {         // max supply
   minimumValue: 20000,  // 10 thousand
   maximumValue: 10000000000,  // 10 trillion
   initialValueOnFirstKeydown: 210000000,
-
 }
 const vmd3Val = {
   minimumValue: 1000,  // one thousand
@@ -407,35 +364,40 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "font-size:16px; width:122px; font-weight:500; justify:right; \
-  line-height:30px; padding-left:2px; margin-left:2px;\
-  padding-right:3px;text-align:right; margin-bottom:2px;"
+const vmdInputBox = "width:90px; font-size:16px;  font-weight:500; \
+  line-height:30px; text-align:right; \
+  padding-left:2px; margin-left:2px;\
+  padding-right:3px; \
+  margin-bottom:2px; padding-bottom:2px;"
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
 
-const arrowvuenumeric = "font-size:20px; height:30px; width: 127px;background-color:#ffffff;"
+const arrowvuenumeric = "font-size:20px; \
+  height:30px; width: 127px; background-color:#ffffff;"
 
 const vmdHold = 'numbers only'
-// const gcardProps = {
-//   color: "dark-orange lighten-5",
-//   width: "500px",
-//   height: "70px",
-//   "max-height": "1000px",
-//   "min-height": "50px",
-//   "min-width": "155px",
 
-//   }
-// const gcard5Props = {
-//   color: "dark-orange lighten-5",
-//   width: "400px",
-//   height: "100px",
-//   "max-height": "900px",
-//   "min-height": "100px",
-//   "min-width": "195px",
-//   class: "pa-1 ma-1 boxshade d-flex flex-wrap",
-//   }          
+var gcardprops = {
+  "width": "60%",
+  "min-width": "175px",              
+  "max-width": "450px",
+  "height": "110px",
+  "min-height": "100px",
+  "max-height": "360px",
+}
+
+const subCardProps = {
+  "width": "75px",
+  "min-width": "25px",              
+  "max-width": "150px",
+  "height": "34px",
+  "min-height": "50px",
+  "max-height": "60px",
+  "elevation-24": "true",
+}
 
 const cardSubtitle = "deep-purple--text text--darken-4 font-size=11px justify-left"
+
 
 export default {
   name: "CreateGraph",
@@ -445,10 +407,12 @@ export default {
   },
 
   data: () => ({
+    subCardProps,
     initsup,
     vmd1opts,
     vmd2opts,
     vmd3opts,
+    gcardprops,
     arrowvuenumeric,
     vmdInputBox,
     vmd1: 100000000,  // start supply
@@ -607,6 +571,14 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
 
+.ssubtstyle {
+  color:red!important;
+  text-align:left;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+}
 .creategreygrad {
     background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
@@ -620,6 +592,13 @@ export default {
       box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
       0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
 }
-
+.subtstyle {
+    color: #3A5765;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 4px; 
+    padding-bottom: 4px;
+  }
 </style>
  
