@@ -72,36 +72,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
 
-  .matstyle {
-    justify-content: center!important;
-  }
-  .vmdMarginStyle {
-      margin-top: 0px!important;   
-      padding-bottom: 2px!important;
-      justify-content: center!important;
-  }
-  .justifycontent {
-    justify-content: center!important;
-  } 
-
-  .createbtn {
-    /* background-image: linear-gradient(306deg, #651FFF 0%, #5812F2 100%); */
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
-      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
-}
-
-  .creategreygrad3 {
-    background-image: linear-gradient(306deg, #607d8b 0%, #93B0BE 100%);
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
-      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
-}
-  .creategreygrad {
-    background-image: linear-gradient(306deg, #1DE9B6 0%, #93B0BE 100%);
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
-      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
-}
-
-
 </style>
 
 

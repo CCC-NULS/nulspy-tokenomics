@@ -11,13 +11,13 @@
       >
         <base-material-cardn
           id="basematcard"
-          color="black lighten-2"
           width="1000px"
           min-width="400px"
 
-          height="1400px"
+          min-height="400px"
+          height="700px"
           max-height="1500px"
-          class="d-flex flex-column flex-grow align-start justify-center"
+          class="d-flex flex-column grow align-start"
         >
           <template v-slot:heading>
             <div
@@ -33,17 +33,16 @@
 
           <v-card
             id="vcardform"
-            height="1200px"
+            height="600px"
             max-height="1900px"
+            min-height="500px"
             width="90%"
             elevation-24
-            justify-center
-            align-start
             raised
             shaped
             mainform
             filled="true"
-            class="d-flex flex-column align-start text-align-start justify-center px-4 py-5 mx-4 mb-4"
+            class="d-flex flex-column flex-grow grow align-start text-align-start justify-start px-4 py-5 mx-4 mb-4"
             :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
           >
             <v-chip
@@ -65,36 +64,47 @@
               ref="formref"
               :key="resetform"
               basematcard
+              class="d-flex flex-grow-1 flex-shrink-1 flex-wrap my-1 ml-4 pa-2"
+
               @submit.prevent
             >             
               <v-card 
                 id="vmd1card"
                 color="teal lighten-5"
-                width="650px"
-                min-width="95px"               
-                max-width="650px"  
-                height="100px"
+                width="450px"
+                min-width="65px"               
+                max-width="450px"  
+                height="110px"
                 max-height="360px"
-                min-height="60px"
-                class="d-flex flex-column justify-left my-1 ml-2 pa-2"
+                min-height="100px"
+                class="d-flex flex-grow-1 flex-shrink-1 flex-wrap my-1 ml-4 pa-2"
               >
                 <v-card
                   id="vmd1cardsub1"
-                  width="550px"
-                  max-width="550px"
-                  min-width="225px"
-                  color="transparent"
-                  class="d-flex flex-wrap justify-left display-1 switchtext pa-1 ma-0"
+                  width="350px"
+                  max-width="450px"
+                  min-width="25px"
+                  height="70px"
+                  max-height="360px"
+                  min-height="50px"
+                  color="deep-orange lighten-2"
                   flat
                   vmd1card
+                  class="d-flex flex-grow-1 flex-shrink-1 my-1 ml-4 pa-2 display-1"
+                  :style="`text-align:right;`"
                 >
                   Initial Token Supply - Min 10,000,  Suggestion: 100,000,000: 
                 </v-card>
                 <v-card
                   id="vmd1cardsub2"
+                  height="50px"
+                  max-height="260px"
+                  min-height="50px"
+
+                  width="225px"
                   max-width="350px"
                   min-width="25px"
-                  width="225px"
+                  
                   color="white"
                   outlined
                   elevation-24
@@ -302,9 +312,9 @@
                   <h1> make graph </h1>
                 </v-btn>
               </v-card>
-           </v-card>                                      
-         </base-material-cardn>
-        </v-form>
+            </v-form>
+          </v-card>                                      
+        </base-material-cardn>
 
         <v-alert
           v-show="false"
