@@ -116,7 +116,11 @@
           icon: 'mdi-chart-areaspline',
           to: '/pages/creategraph',
         },           
-
+        {
+          title: 'createcs',
+          icon: 'mdi-chart-areaspline',
+          to: '/pages/createcs',
+        },    
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',

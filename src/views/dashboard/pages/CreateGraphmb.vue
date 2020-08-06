@@ -10,13 +10,13 @@
     >
       <v-col
         cols="12"
-        sm="3"
+        sm="8"
         md="8"
         class="justify-center"
       >
         <base-material-cardn
           id="basematcard"
-          width="95%"
+          width="1000px"
           min-width="400px"
           min-height="500px"
           height="1000px"
@@ -43,21 +43,27 @@
             max-height="2900px"
             min-height="700px"
             width="90%"
-            flat
+            elevation-24
+            raised
+            shaped
             mainform
-            class="d-flex flex-column flex-grow-1 px-2 pt-4 pb-9 mx-4 my-4 justify-center align-center" 
-            color="transparent"
+            filled="true"
+            class="d-flex hidden-sm-and-down flex-column flex-grow-1 flex-grow grow px-2 mx-4 my-4 pt-4 pb-9 justify-center align-center" 
+            :style="`background-image: linear-gradient(306deg, #4DB6AC, #000000)`"
           >
             <!-- invisible chip under sentence -->
             <v-chip
               id="chipnote"
-              color="cyan lighten-5"
-              class="switchtext pa-5 ma-5"
-              :style="`font-size:16px;font-family:'Montserrat',sans-serif;`"
-              x-large="true"               
-              vcard-for-form
+              color="transparent"
+              class="d-flex flex-column flex-grow-1 grow \
+                justify-center align-center pa-4 white--text px-2 py-1 mx-4 mt-5 mb-2"
+              flat
+              large               
+              vcardform
             >
-              Inflation and disinflation begin at the same time
+              <span :style="`font-size:16px;font-family:'Montserrat', sans-serif;padding-top:16px;`">
+                Inflation and disinflation begin at the same time
+              </span>
             </v-chip>
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
@@ -73,11 +79,13 @@
 
               <v-card
                 id="surroundcards"
-                width="96%"
-                flat
+                shaped="true"
+                filled="true"
+                elevation-24
+                raised
                 class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center /
-                  justify-around px-3 py-3 mx-3 mt-2 mb-12"
-                color="transparent"
+                  justify-around pt-6 mt-2 mx-3 mb-12 hidden-sm-and-down=true"
+                color="rgba(255, 255, 255, .3)"
               >
                 <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
@@ -85,8 +93,9 @@
                   id="vmd1card"
                   color="teal lighten-5"
                   shaped="true"
+                  filled="true"
                   v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center ml-2 my-1 mr-1 py-2 px-2"
                 >
                   <v-card-subtitle
                     id="vmd1cardsubt"
@@ -98,26 +107,19 @@
                     Initial Token Supply - Min 10,000,  <br>Suggestion: 100,000,000
                   </v-card-subtitle>
                   <v-chip 
-                    id="vchip1b"
-                    color="orange"
-                    x-large              
-                  >       
-                    sdfsdfsdf      
-                  </v-chip>        
-                  <v-chip 
                     id="vchip1"
-                    color="pink"
-                    x-large               
+                    color="white"
                     flat="true"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;height:95px`"
-                    class="justify-center align-center font-size=20px py-2"
-                  >        
+                    height="20px"
+                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    class="justify-center align-center font-size=20px"
+                  >            
                     <vue-autonumeric
                       id="vmd1auto"
                       v-model="vmd1"
                       :options="vmd1opts"
                       :style="vmdInputBox"
-                      vchip1
+                      vmd1cardsub
                     />
                   </v-chip>
                 </v-card>    
@@ -129,8 +131,9 @@
                   id="vmd2card"
                   color="teal lighten-5"
                   shaped="true"
+                  filled="true"
                   v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  class="justify-center ml-2 my-1 mr-2 py-2 px-4"
                 >
                   <v-card-subtitle
                     id="vmd2cardsubt"
@@ -168,7 +171,7 @@
                   shaped="true"
                   filled="true"
                   v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  class="justify-center ml-2 my-1 mr-2 py-2 px-4"
                 >
                   <v-card-subtitle
                     id="vmd3cardsubt"
@@ -202,14 +205,14 @@
                 <v-card 
                   id="vmd4card"
                   color="teal lighten-5"
-                  shaped="true"
-                  filled="true"
                   v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  class="justify-center ml-2 my-1 mr-2 py-2 px-4"
                 >
                   <v-card-subtitle
                     id="vmd4cardsubt"
-                    vmd4card                  
+                    vmd4card
+                    shaped="true"
+                    filled="true"                   
                     class="pb-1 mb-1"
                     :style="`color:#004D40;font-family:Roboto,sans-serif;font-size:15px!important;\
                       font-weight:600`"
@@ -251,12 +254,12 @@
                   shaped="true"
                   filled="true"                 
                   v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  class="justify-center ml-2 my-1 mr-2 py-2 px-4"
                 >
                   <v-card-subtitle
                     id="vmd5cardsubt"
                     vmd5card
-                    class="pa-1 mb-1"
+                    class="pb-1 mb-1"
                     :style="`color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;\
                       font-weight:600`"
                   >                  
@@ -417,14 +420,13 @@ const arrowvuenumeric = "font-size:20px; \
 const vmdHold = 'numbers only'
 
 var gcardprops = {
-  "width": "95%",
+  "width": "90%",
   "min-width": "25px",              
   "max-width": "450px",
   "height": "110px",
   "min-height": "100px",
   "max-height": "360px",
 }
-var windsma = false
 
 export default {
   name: "CreateGraph",
@@ -456,49 +458,17 @@ export default {
   computed: {
     aShowMe () {
       return this.$store.state.gShowMe;
-    },
-    gcardcolor () {
-      var colr = "E0F2F1" 
-      if (window.outerWidth < 960)
-        colr = "transparent" 
-      return colr  // #E0F2F1 = teal lighten-5
-    },
-    tcolor () {
-      var colr = false
-      if (window.outerWidth < 960)
-        colr = "transparent" 
-      return colr  // #E0F2F1 = teal lighten-5
-    },
-    bkgstyle1 () {
-      var gstyle = "transparent"
-      if (window.outerWidth > 959)
-        gstyle =  "`background-image: linear-gradient(306deg, #4DB6AC, #000000)`" 
-      return gstyle  // #E0F2F1 = teal lighten-5
-    },   
+    }  
   },  
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
-    this.gwin()
-
   },
+
   created () {
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)
   },
-
- mounted () {
-  },
-  methods: {
-    gwin: function () {
-      // alert(window.outerWidth+' x '+ window.outerHeight);
-      console.log (window.outerWidth+' x '+ window.outerHeight)
-      if (window.outerWidth < 960) 
-        console.log("win is small")
-        this.windsma = true
-    },
-  },
-
 
   methods: {   
     checkPic (finimag) {
