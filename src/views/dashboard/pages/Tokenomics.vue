@@ -201,7 +201,7 @@ import colors from 'vuetify/lib/util/colors'
     medium: true,
     label: true,
     'elevation-24': true,
-    class: 'montser mb-0', 
+    class: 'montser mb-0 pr-1', 
     style: "line-height:18px; box-shadow: 0px 2px 2px -1px grey"
 
   };

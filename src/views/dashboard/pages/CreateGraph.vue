@@ -44,7 +44,6 @@
             color="transparent" -->
           <v-card
             id="vcard-for-form"
-            v-bind="formcp"
             mainform="true"
             :class="flexlist"
             class="px-2 pt-1 pb-1 mx-1 my-1" 
@@ -75,12 +74,13 @@
                   color="rgba(251,233,231,1)"
                   height="39px"
                   shaped
+                  dark
                   raised
                   elevated-6
                   class="py-3 pl-3 pr-7 ma-3"
                 >
                   <span 
-                    style="font-size:16px;font-family:'Roboto',sans-serif;" 
+                    style="font-size:16px;font-family:'Roboto',sans-serif;color:black;" 
                   >
                     Inflation and disinflation begin together
                   </span>
@@ -104,6 +104,7 @@
        
                   <v-chip 
                     id="vchip1"
+                    ref="firstinput"
                     :style="chipstyle"
                     :class="chipclass"
                   >        
@@ -140,6 +141,7 @@
                     :class="chipclass"
                   >                                  
                     <vue-autonumeric
+                      id="vmd2auto"
                       v-model="vmd2"
                       :placeholder="vmdHold"
                       :options="vmd2opts"
@@ -384,7 +386,7 @@ const arrowvuenumeric = "font-size:20px; \
 const vmdHold = 'numbers only'
 
 var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
-
+var flexlist = "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around"
 
 export default {
   name: "CreateGraph",
@@ -395,11 +397,10 @@ export default {
 
   data: () => ({
     longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
-    cardclass: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-1 mx-2 my-2",
-    flexlist: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around",
+    flexlist,
+    cardclass: `${flexlist}` +  "px-2 py-1 mx-2 my-2",
     chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
     chipclass: "justify-center align-center white medium flat",
-    formcp,
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -426,6 +427,13 @@ export default {
       var stte = ' '
       if (window.outerWidth >= 960) {
         stte = "background-image: linear-gradient(306deg, #4DB6AC, #000000)" 
+      }
+      return stte
+    },
+    backgrad2 () {
+      var stte = ' '
+      if (window.outerWidth >= 960) {
+        stte = "background-image: linear-gradient(306deg, #E0F2F1, #D1C4E9)" 
       }
       return stte
     },
@@ -485,14 +493,20 @@ export default {
   },  
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
+    this.focusInput()
     // this.keyShowCard = false
 
   },
   created () {
+    this.focusInput()
+
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)
   },
   methods: {   
+    focusInput() {
+      this.$refs.firstinput.focus();
+    },
     checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({

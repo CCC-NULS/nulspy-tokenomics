@@ -19,7 +19,8 @@ const theme = {
   warning: colors.deepOrange.base,    // deep-orange
 
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5 e7
-   
+  stayblack: colors.black,
+ 
   switchtext:colors.black, 
   switchpaper: colors.grey.lighten3,
   switchtab: colors.deepOrange.lighten5,
@@ -47,7 +48,7 @@ const dtheme = {
   warning: colors.deepOrange.base,    // deep-orange
 
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5  
- 
+  stayblack: colors.black,
   switchtext: colors.white, 
   switchpaper: colors.grey.darken3,
   switchtab: colors.deepOrange.lighten3,
