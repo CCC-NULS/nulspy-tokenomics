@@ -42,20 +42,20 @@
             height="800px"
             max-height="2900px"
             min-height="700px"
-            width="90%"
+            width="95%"
             flat
-            mainform
+            mainform="true"
             class="d-flex flex-column flex-grow-1 px-2 pt-4 pb-9 mx-4 my-4 justify-center align-center" 
             color="transparent"
           >
             <!-- invisible chip under sentence -->
             <v-chip
               id="chipnote"
-              color="cyan lighten-5"
-              class="switchtext pa-5 ma-5"
-              :style="`font-size:16px;font-family:'Montserrat',sans-serif;`"
+              color="teal lighten-5"
+              class="switchtext pa-2 ma-2"
+              :style="`font-size:12px;font-family:'Montserrat',sans-serif;`"
               x-large="true"               
-              vcard-for-form
+              vcard-for-form="true"
             >
               Inflation and disinflation begin at the same time
             </v-chip>
@@ -97,20 +97,14 @@
                   >
                     Initial Token Supply - Min 10,000,  <br>Suggestion: 100,000,000
                   </v-card-subtitle>
-                  <v-chip 
-                    id="vchip1b"
-                    color="orange"
-                    x-large              
-                  >       
-                    sdfsdfsdf      
-                  </v-chip>        
+       
                   <v-chip 
                     id="vchip1"
-                    color="pink"
+                    color="white"
                     x-large               
                     flat="true"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;height:95px`"
-                    class="justify-center align-center font-size=20px py-2"
+                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    class="justify-center align-center font-size=20px py-3"
                   >        
                     <vue-autonumeric
                       id="vmd1auto"
@@ -331,13 +325,13 @@
               v-if="keyShowCard"
               :key="resetImage"
               color="teal lighten-3"
-              class="justify-center ml-6 mb-5 pb-5 pt-7 mt-1"
+              class="justify-center mx-3 mt-1 mb-5 pb-5 pt-7"
             >
               <img
                 :key="resetImage"
                 :src="finalIMAGE"
               >
-              To save - right click
+              <span style="align:left"> To save - right click on plot</span>
             </base-material-cardn>
           </v-col>
         </v-row>
@@ -406,8 +400,8 @@ const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
   padding-left:2px;\
   padding-right:3px; \
-  padding-bottom:2px; \
-  margin-bottom:2px; margin-left:2px; "
+  padding-bottom:2px;padding-top:2px;  \
+  margin-bottom:2px; margin-left:2px; margin-top:5px; color:blue; background-color:white; "
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
 

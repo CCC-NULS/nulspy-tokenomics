@@ -120,7 +120,9 @@ class AppSupport:
         stp_inf = self.stop_inflation_y
         dtt = str(datetime.now())
         dt = dtt[0:-7]
-
+        nulsattrib =  ' Plot by NULS Tokenlife'
+        dt = dt + nulsattrib
+        
         disinflation_ratio = self.disinflation_ratio
         disinflation = "{:.01%}".format(disinflation_ratio)
         initial_sup_formatted = "{:,}".format(self.initial_supply_y)
