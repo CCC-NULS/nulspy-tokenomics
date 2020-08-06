@@ -45,20 +45,24 @@
             width="95%"
             flat
             mainform="true"
-            class="d-flex flex-column flex-grow-1 px-2 pt-4 pb-9 mx-4 my-4 justify-center align-center" 
+            :class="flexlist"
+            class="px-2 pt-4 pb-9 mx-4 my-4" 
             color="transparent"
           >
-            <!-- invisible chip under sentence -->
-            <v-chip
+            <!-- invisible card under sentence -->
+            <v-card
               id="chipnote"
-              color="teal lighten-5"
-              class="switchtext pa-2 ma-2"
-              :style="`font-size:12px;font-family:'Montserrat',sans-serif;`"
-              x-large="true"               
-              vcard-for-form="true"
+              color="transparent"
+              height="45px"
+              class=" pa-3 ma-2"
             >
-              Inflation and disinflation begin at the same time
-            </v-chip>
+              <span 
+                style="font-size:16px;font-family:'Roboto',sans-serif;" 
+                class="switchtext"
+              >
+                Inflation and disinflation begin together
+              </span>
+            </v-card>
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
 
@@ -74,26 +78,22 @@
               <v-card
                 id="surroundcards"
                 width="96%"
-                flat
-                class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center /
-                  justify-around px-3 py-3 mx-3 mt-2 mb-12"
                 color="transparent"
+                :class="flexlist"
+                class="px-3 py-3 mx-3 mt-12 mb-12"
               >
                 <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
                 <v-card 
                   id="vmd1card"
-                  color="teal lighten-5"
-                  shaped="true"
-                  v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  v-bind="gcprops"
+                  :class="cardclass"
                 >
                   <v-card-subtitle
                     id="vmd1cardsubt"
                     vmd1card
                     class="pb-1 mb-1"
-                    :style="`color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;\
-                      font-weight:600`"
+                    :style="longstyle"
                   >
                     Initial Token Supply - Min 10,000,  <br>Suggestion: 100,000,000
                   </v-card-subtitle>
@@ -101,9 +101,9 @@
                   <v-chip 
                     id="vchip1"
                     color="white"
-                    x-large               
-                    flat="true"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    large               
+                    flat
+                    :style="chipstyle"
                     class="justify-center align-center font-size=20px py-3"
                   >        
                     <vue-autonumeric
@@ -121,27 +121,24 @@
                       
                 <v-card 
                   id="vmd2card"
-                  color="teal lighten-5"
-                  shaped="true"
-                  v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  v-bind="gcprops"
+                  :class="cardclass"
                 >
                   <v-card-subtitle
                     id="vmd2cardsubt"
                     vmd2card
-                    class="pb-1 mb-1"
-                    :style="`color:#004D40;font-family:Roboto,sans-serif;font-size:15px!important;\
-                      font-weight:600`"
+                    class="pb-1 mb-1 xyz"
+                    :style="longstyle"
                   >
-                    Max/Total supply when inflation ends - min: 20,000  
+                    Max/Total supply when inflation ends - min: 20,000<br> 
                     Must be > than Initial Supply. Try: 210,000,000
                   </v-card-subtitle>       
                   <v-chip 
                     id="vchip2"
                     color="white"
+                    large
                     flat="true"
-                    height="20px"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    :style="chipstyle"
                     class="justify-center align-center font-size=20px"
                   >                                  
                     <vue-autonumeric
@@ -158,27 +155,23 @@
                       
                 <v-card 
                   id="vmd3card"
-                  color="teal lighten-5"
-                  shaped="true"
-                  filled="true"
-                  v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  v-bind="gcprops"
+                  :class="cardclass"
                 >
                   <v-card-subtitle
                     id="vmd3cardsubt"
                     vmd3card
                     class="pb-1 mb-1"
-                    :style="`color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;\
-                      font-weight:600`"
+                    :style="longstyle"
                   >
                     Annual Inflation - Min 1,000 <br>  Try: 5,000,000
                   </v-card-subtitle>
                   <v-chip 
                     id="vchip3"
                     color="white"
+                    large
                     flat="true"
-                    height="20px"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    :style="chipstyle"
                     class="justify-center align-center font-size=20px"
                   >
                     <vue-autonumeric
@@ -195,18 +188,14 @@
                 <!-- wrapped to align cards-->
                 <v-card 
                   id="vmd4card"
-                  color="teal lighten-5"
-                  shaped="true"
-                  filled="true"
-                  v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  v-bind="gcprops"
+                  :class="cardclass"
                 >
                   <v-card-subtitle
                     id="vmd4cardsubt"
                     vmd4card                  
                     class="pb-1 mb-1"
-                    :style="`color:#004D40;font-family:Roboto,sans-serif;font-size:15px!important;\
-                      font-weight:600`"
+                    :style="longstyle"
                   >                  
                     Disinflation starts in how many intervals <br>
                     (usually months) Try: 24
@@ -215,8 +204,8 @@
                     id="vchip4"
                     color="white"
                     flat="true"
-                    height="20px"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    large
+                    :style="chipstyle"
                     class="justify-center align-center font-size=20px"
                   >            
                     <vue-numeric-input
@@ -229,7 +218,7 @@
                       :max="100" 
                       :step="1"
                       :precision="0"
-                      vmd4card
+                      vchip4
                       controls-type="updown"
                       align="center"
                       :style="arrowvuenumeric"                     
@@ -241,18 +230,14 @@
                 
                 <v-card 
                   id="vmd5card"
-                  color="teal lighten-5"
-                  shaped="true"
-                  filled="true"                 
-                  v-bind="gcardprops"
-                  class="d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1"
+                  v-bind="gcprops"
+                  :class="cardclass"
                 >
                   <v-card-subtitle
                     id="vmd5cardsubt"
                     vmd5card
                     class="pa-1 mb-1"
-                    :style="`color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;\
-                      font-weight:600`"
+                    :style="longstyle"
                   >                  
                     Disinflation Ratio:  Min 0, Max .9  Try: 0.4
                   </v-card-subtitle>
@@ -262,7 +247,7 @@
                     color="white"
                     flat="true"
                     height="20px"
-                    :style="`border-top-right-radius:1px;border-bottom-left-radius:1px;`"
+                    :style="chipstyle"
                     class="justify-center align-center font-size=20px"
                   >
                     <vue-numeric-input
@@ -401,7 +386,7 @@ const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
   padding-left:2px;\
   padding-right:3px; \
   padding-bottom:2px;padding-top:2px;  \
-  margin-bottom:2px; margin-left:2px; margin-top:5px; color:blue; background-color:white; "
+  margin-bottom:2px; margin-left:2px; margin-top:5px; color:purple; background-color:white; "
 
 // const arrowbox = "font-size:20px; background-color:#ffffff; "
 
@@ -418,7 +403,6 @@ var gcardprops = {
   "min-height": "100px",
   "max-height": "360px",
 }
-var windsma = false
 
 export default {
   name: "CreateGraph",
@@ -428,7 +412,11 @@ export default {
   },
 
   data: () => ({
-    gcardprops,
+    longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
+    cardclass: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1",
+    flexlist: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around",
+    chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
+
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -451,12 +439,50 @@ export default {
     aShowMe () {
       return this.$store.state.gShowMe;
     },
-    gcardcolor () {
-      var colr = "E0F2F1" 
-      if (window.outerWidth < 960)
-        colr = "transparent" 
-      return colr  // #E0F2F1 = teal lighten-5
+    gcprops () {
+      var sp
+      if (window.outerWidth < 960) {
+        sp = {
+          flat: true,
+          shaped: false,
+          raised: false,
+          "elevation-24": false,
+          color: "#E0F2F1"
+        }
+      }
+      else {
+          sp = {
+            flat: false,
+            shaped: true,
+            raised: true,
+            "elevation-24": true,
+            color: "#E0F2F1",
+            "min-width": "325px",              
+
+          }
+      }
+      return sp
     },
+
+
+    windsmall () {
+      if (window.outerWidth < 960) 
+         return true
+      else return false
+    },
+     windshaped () {
+      if (window.outerWidth < 960) 
+         return false
+      else return true
+    },   
+      gcardcolor () {
+      if (window.outerWidth < 960) {
+        console.log("window is small")
+        return "transparent"; 
+      }
+      else return "E0F2F1";  // #E0F2F1 = teal lighten-5
+    },
+    
     tcolor () {
       var colr = false
       if (window.outerWidth < 960)
@@ -473,27 +499,12 @@ export default {
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
-    this.gwin()
 
   },
   created () {
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)
   },
-
- mounted () {
-  },
-  methods: {
-    gwin: function () {
-      // alert(window.outerWidth+' x '+ window.outerHeight);
-      console.log (window.outerWidth+' x '+ window.outerHeight)
-      if (window.outerWidth < 960) 
-        console.log("win is small")
-        this.windsma = true
-    },
-  },
-
-
   methods: {   
     checkPic (finimag) {
       this.keyShowCard += 1;
@@ -648,5 +659,11 @@ export default {
   font-family:Roboto,sans-serif;
   font-size:15px!important;
   font-weight:600;
+}
+.xyz {
+  color:#BF360C;
+  font-family:Roboto,sans-serif;
+  font-size:15px!important;
+  font-weight:400;
 }
 </style>

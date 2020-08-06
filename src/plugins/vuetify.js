@@ -35,6 +35,7 @@ const theme = {
 // darkgrey: '#212121'
 //'deep-orange lighten-5'
   // lighttext: '#FBE9E7',     //'deep-orange lighten-5 e7'
+// teal lighten-5 #E0F2F1
 
 const dtheme = {
   primary: colors.teal.base, // #009688
