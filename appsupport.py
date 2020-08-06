@@ -45,14 +45,12 @@ class AppSupport:
         print("start_inflation: " + str(start_inflation))
         print("annual_inflation: " + str(self.annual_inflation))
 
-        disinfla_temp = args_dict.get("disinflation_ratio")
+        disinfla_sent = args_dict.get("disinflation_ratio")
 
-        if not disinfla_temp:
-            disinfla_int = 0
+        if not disinfla_sent:     # if it's empty  ie == 0
             self.disinflation_ratio = 0
-
-        if disinfla_int != 0:
-            self.disinflation_ratio = float(disinfla_int)/1000  # comes as 1-digit whole number
+        else:
+            self.disinflation_ratio = float(int(disinfla_sent))/1000  # comes as 1-digit whole number
 
         print("self.disinflation_ratio: " + str(self.disinflation_ratio))
         tokens = self.initial_supply_y
@@ -120,7 +118,7 @@ class AppSupport:
         stp_inf = self.stop_inflation_y
         dtt = str(datetime.now())
         dt = dtt[0:-7]
-        nulsattrib =  ' Plot by NULS Tokenlife'
+        nulsattrib = ' Plot by NULS Tokenlife'
         dt = dt + nulsattrib
         
         disinflation_ratio = self.disinflation_ratio
