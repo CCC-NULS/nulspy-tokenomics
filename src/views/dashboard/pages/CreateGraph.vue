@@ -104,7 +104,6 @@
        
                   <v-chip 
                     id="vchip1"
-                    ref="firstinput"
                     :style="chipstyle"
                     :class="chipclass"
                   >        
@@ -493,20 +492,15 @@ export default {
   },  
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
-    this.focusInput()
     // this.keyShowCard = false
 
   },
   created () {
-    this.focusInput()
 
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)
   },
   methods: {   
-    focusInput() {
-      this.$refs.firstinput.focus();
-    },
     checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({
