@@ -20,7 +20,7 @@
           min-width="400px"
           min-height="500px"
           height="1000px"
-          max-height="1500px"
+          max-height="1900px"
           class="justify-center"
         >
           <template v-slot:heading>
@@ -36,36 +36,22 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--        # # #   -->
           <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-
-          <v-card
-            id="vcard-for-form"
-            height="800px"
+          <!-- height="800px"
             max-height="2900px"
             min-height="700px"
             width="95%"
             flat
+            color="transparent" -->
+          <v-card
+            id="vcard-for-form"
+            v-bind="formcp"
             mainform="true"
             :class="flexlist"
-            class="px-2 pt-4 pb-9 mx-4 my-4" 
-            color="transparent"
+            class="px-2 pt-1 pb-1 mx-1 my-1" 
+            :style="backgrad"
           >
-            <!-- invisible card under sentence -->
-            <v-card
-              id="chipnote"
-              color="transparent"
-              height="45px"
-              class=" pa-3 ma-2"
-            >
-              <span 
-                style="font-size:16px;font-family:'Roboto',sans-serif;" 
-                class="switchtext"
-              >
-                Inflation and disinflation begin together
-              </span>
-            </v-card>
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
-
             <v-form
               id="mainform"
               ref="formref"
@@ -78,10 +64,28 @@
               <v-card
                 id="surroundcards"
                 width="96%"
+                flat
                 color="transparent"
                 :class="flexlist"
-                class="px-3 py-3 mx-3 mt-12 mb-12"
+                class="px-3 py-1 mx-3 mt-2 mb-2"
               >
+                <!-- chipnote card under sentence -->
+                <v-card
+                  id="chipnote"
+                  color="rgba(251,233,231,1)"
+                  height="39px"
+                  shaped
+                  raised
+                  elevated-6
+                  class="py-3 pl-3 pr-7 ma-3"
+                >
+                  <span 
+                    style="font-size:16px;font-family:'Roboto',sans-serif;" 
+                  >
+                    Inflation and disinflation begin together
+                  </span>
+                </v-card>
+            
                 <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
                 <v-card 
@@ -100,11 +104,8 @@
        
                   <v-chip 
                     id="vchip1"
-                    color="white"
-                    large               
-                    flat
                     :style="chipstyle"
-                    class="justify-center align-center font-size=20px py-3"
+                    :class="chipclass"
                   >        
                     <vue-autonumeric
                       id="vmd1auto"
@@ -135,11 +136,8 @@
                   </v-card-subtitle>       
                   <v-chip 
                     id="vchip2"
-                    color="white"
-                    large
-                    flat="true"
                     :style="chipstyle"
-                    class="justify-center align-center font-size=20px"
+                    :class="chipclass"
                   >                                  
                     <vue-autonumeric
                       v-model="vmd2"
@@ -168,11 +166,8 @@
                   </v-card-subtitle>
                   <v-chip 
                     id="vchip3"
-                    color="white"
-                    large
-                    flat="true"
                     :style="chipstyle"
-                    class="justify-center align-center font-size=20px"
+                    :class="chipclass"
                   >
                     <vue-autonumeric
                       id="vmd3auto"
@@ -202,11 +197,8 @@
                   </v-card-subtitle>
                   <v-chip 
                     id="vchip4"
-                    color="white"
-                    flat="true"
-                    large
                     :style="chipstyle"
-                    class="justify-center align-center font-size=20px"
+                    :class="chipclass"
                   >            
                     <vue-numeric-input
                       id="vmd4id"
@@ -244,11 +236,8 @@
 
                   <v-chip 
                     id="vchip5"
-                    color="white"
-                    flat="true"
-                    height="20px"
                     :style="chipstyle"
-                    class="justify-center align-center font-size=20px"
+                    :class="chipclass"
                   >
                     <vue-numeric-input
                       id="vmd5id"
@@ -304,13 +293,14 @@
         <v-row>
           <v-col
             cols="12"
-            md="11"
+            md="12"
           >
             <base-material-cardn
               v-if="keyShowCard"
               :key="resetImage"
+              width="100%"
               color="teal lighten-3"
-              class="justify-center mx-3 mt-1 mb-5 pb-5 pt-7"
+              class="justify-center mx-0 px-0 mt-1 mb-2 pb-5 pt-7"
             >
               <img
                 :key="resetImage"
@@ -384,25 +374,17 @@ const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
   padding-left:2px;\
-  padding-right:3px; \
+  padding-right:2px; \
   padding-bottom:2px;padding-top:2px;  \
-  margin-bottom:2px; margin-left:2px; margin-top:5px; color:purple; background-color:white; "
-
-// const arrowbox = "font-size:20px; background-color:#ffffff; "
+  margin-bottom:2px; margin-left:2px;margin-right:2px; margin-top:5px; color:purple; background-color:white; "
 
 const arrowvuenumeric = "font-size:20px; \
   height:23px; width: 110px; color:#ffffff;"
 
 const vmdHold = 'numbers only'
 
-var gcardprops = {
-  "width": "95%",
-  "min-width": "25px",              
-  "max-width": "450px",
-  "height": "110px",
-  "min-height": "100px",
-  "max-height": "360px",
-}
+var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
+
 
 export default {
   name: "CreateGraph",
@@ -413,10 +395,11 @@ export default {
 
   data: () => ({
     longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
-    cardclass: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-2 mx-2 my-1",
+    cardclass: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center px-2 py-1 mx-2 my-2",
     flexlist: "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around",
     chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
-
+    chipclass: "justify-center align-center white medium flat",
+    formcp,
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -439,6 +422,13 @@ export default {
     aShowMe () {
       return this.$store.state.gShowMe;
     },
+    backgrad () {
+      var stte = ' '
+      if (window.outerWidth >= 960) {
+        stte = "background-image: linear-gradient(306deg, #4DB6AC, #000000)" 
+      }
+      return stte
+    },
     gcprops () {
       var sp
       if (window.outerWidth < 960) {
@@ -446,7 +436,7 @@ export default {
           flat: true,
           shaped: false,
           raised: false,
-          "elevation-24": false,
+          "elevation": false,
           color: "#E0F2F1"
         }
       }
@@ -455,16 +445,13 @@ export default {
             flat: false,
             shaped: true,
             raised: true,
-            "elevation-24": true,
+            "elevation": 12,
             color: "#E0F2F1",
-            "min-width": "325px",              
-
+            "min-width": "445px",              
           }
       }
       return sp
     },
-
-
     windsmall () {
       if (window.outerWidth < 960) 
          return true
@@ -476,10 +463,10 @@ export default {
       else return true
     },   
       gcardcolor () {
-      if (window.outerWidth < 960) {
-        console.log("window is small")
-        return "transparent"; 
-      }
+        if (window.outerWidth < 960) {
+          console.log("window is small")
+          return "transparent"; 
+        }
       else return "E0F2F1";  // #E0F2F1 = teal lighten-5
     },
     
