@@ -16,11 +16,7 @@
       >
         <base-material-cardn
           id="basematcard"
-          width="95%"
-          min-width="400px"
-          min-height="500px"
-          height="1000px"
-          max-height="1900px"
+          v-bind="basecardprops"
           class="justify-center"
         >
           <template v-slot:heading>
@@ -36,17 +32,11 @@
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--        # # #   -->
           <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-          <!-- height="800px"
-            max-height="2900px"
-            min-height="700px"
-            width="95%"
-            flat
-            color="transparent" -->
           <v-card
             id="vcard-for-form"
-            mainform="true"
+            ref="formrefc"
+            class="px-2 py-1 ma-1" 
             :class="flexlist"
-            class="px-2 pt-1 pb-1 mx-1 my-1" 
             :style="backgrad"
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
@@ -55,7 +45,7 @@
               id="mainform"
               ref="formref"
               :key="resetform"
-              basematcard
+              vcard-for-form
               @submit.prevent
             >     
               <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
@@ -65,17 +55,13 @@
                 width="96%"
                 flat
                 color="transparent"
-                :class="flexlist"
-                class="px-3 py-1 mx-3 mt-2 mb-2"
+                :class="flexlist"               
+                class="px-3 py-1 ma-2"
               >
                 <!-- chipnote card under sentence -->
                 <v-card
                   id="chipnote"
-                  color="rgba(251,233,231,1)"
-                  height="39px"
-                  shaped
-                  dark
-                  raised
+                  v-bind="chipnoteprops"
                   elevated-6
                   class="py-3 pl-3 pr-7 ma-3"
                 >
@@ -91,6 +77,7 @@
                 <v-card 
                   id="vmd1card"
                   v-bind="gcprops"
+                  width="smallwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -122,6 +109,7 @@
                       
                 <v-card 
                   id="vmd2card"
+                  :width="`${smallwidth}`"
                   v-bind="gcprops"
                   :class="cardclass"
                 >
@@ -204,7 +192,6 @@
                     <vue-numeric-input
                       id="vmd4id"
                       v-model="vmd4" 
-                      color="pink"
                       :value="vmd4"
                       size="20px"
                       :min="0" 
@@ -379,6 +366,25 @@ const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
   padding-bottom:2px;padding-top:2px;  \
   margin-bottom:2px; margin-left:2px;margin-right:2px; margin-top:5px; color:purple; background-color:white; "
 
+const basecardprops = {
+  width: "95%",
+  "min-width": "400px",
+  "min-height": "500px",
+  "height": "1000px",
+  "max-height": "1900px",
+}
+const chipnoteprops = {
+  color: "rgba(251,233,231,1)",
+  height: "39px",
+  shaped: true,
+  dark: true,
+  raised: true,
+  }
+
+
+
+
+
 const arrowvuenumeric = "font-size:20px; \
   height:23px; width: 110px; color:#ffffff;"
 
@@ -386,6 +392,14 @@ const vmdHold = 'numbers only'
 
 var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
 var flexlist = "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around"
+
+
+ 
+
+
+
+
+
 
 export default {
   name: "CreateGraph",
@@ -397,6 +411,8 @@ export default {
   data: () => ({
     longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
     flexlist,
+    basecardprops,
+    chipnoteprops,
     cardclass: `${flexlist}` +  "px-2 py-1 mx-2 my-2",
     chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
     chipclass: "justify-center align-center white medium flat",
@@ -443,7 +459,7 @@ export default {
           flat: true,
           shaped: false,
           raised: false,
-          "elevation": false,
+          "elevation": 0,
           color: "#E0F2F1"
         }
       }
@@ -459,15 +475,22 @@ export default {
       }
       return sp
     },
+
+    gcardWid () {
+      var aaabb = this.$refs.formrefc.attributes.width
+      return (.9 * aaabb)
+    },
+
     windsmall () {
       if (window.outerWidth < 960) 
          return true
       else return false
     },
-     windshaped () {
-      if (window.outerWidth < 960) 
-         return false
-      else return true
+    smallwidth () {
+      var testvar = window.outerWidth / 2
+      if (this.windsmall) {
+        return (window.outerWidth / 2) }
+      else return  (window.outerWidth / 4)
     },   
       gcardcolor () {
         if (window.outerWidth < 960) {
@@ -493,9 +516,12 @@ export default {
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
+    console.log("--- " + window.outerWidth)
 
+    console.log("--- " + window.innerWidth)
   },
   created () {
+
 
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)

@@ -3,9 +3,6 @@ node_modules
 /dist
 package-lock.json
 
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-
 # local env files
 .env.local
 .env.*.local
@@ -24,24 +21,16 @@ yarn-error.log*
 *.sln
 *.sw?
 sh.exe.stackdump
+stty.exe.stackdump
 src/views/dashboard/pages/extras.txt
 
-src/assets/extra/Dashboard.vue.txt
-src/assets/extra/clint-mckoy.jpg
-src/assets/extra/lock.jpg
-src/assets/extra/login.jpg
-src/assets/extra/logo.png
-src/assets/extra/nuls40x40.ico
-src/assets/extra/plotsTS/
-src/assets/extra/pricing.jpg
-src/assets/extra/register.jpg
-src/assets/morefiles/
-stty.exe.stackdump
+src/assets/extra/*
 src/assets/extra
 src/assets/users/
 public
-.idea
 __pycache__/*
 __pycache__/appsupport.cpython-37.pyc
 /static
 tokenlife/__pycache__
+/extras
+
