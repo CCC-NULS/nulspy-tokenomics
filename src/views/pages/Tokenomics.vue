@@ -12,7 +12,7 @@
         cols="12"
         md="9"
       >
-        <base-material-cardn
+        <material-cardn
           color="black"
           elevation-24
           raised
@@ -31,18 +31,6 @@
               All About Tokenomics 
             </div>
           </template>
-
-
-          <!-- <template v-slot:after-heading>
-            <div 
-              class="display-4 font-weight-heavy"
-            >              
-              All About test 
-            </div>
-          </template> -->
-
-          <!-- img="`linear-gradient(306deg, rgb(251, 233, 231) 0%, #4DB6AC 100%)!important;`" -->
-
 
           <v-card
             id="vcard2"
@@ -135,7 +123,7 @@
               </div>
             </v-row>
           </v-card>
-        </base-material-cardn>
+        </material-cardn>
       </v-col>
     </v-row>
   </v-container>

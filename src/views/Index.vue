@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <dashboard-core-app-bar />
+    <core-app-bar />
 
-    <dashboard-core-drawer />
+    <core-drawer />
 
     <core-view />
    
-    <dashboard-core-settings />
+    <core-settings />
   </v-app>
 </template>
 
@@ -17,9 +17,9 @@
     name: 'Index',
 
     components: {
-      DashboardCoreAppBar: () => import('./components/core/AppBar'),
-      DashboardCoreDrawer: () => import('./components/core/Drawer'),
-      DashboardCoreSettings: () => import('./components/core/Settings'),
+      CoreAppBar: () => import('./components/core/AppBar'),
+      CoreDrawer: () => import('./components/core/Drawer'),
+      CoreSettings: () => import('./components/core/Settings'),
       CoreView: () => import('./components/core/View'),
     },
     data: () => ({

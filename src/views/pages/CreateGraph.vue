@@ -14,7 +14,7 @@
         md="8"
         class="justify-center"
       >
-        <base-material-cardn
+        <material-cardn
           id="basematcard"
           v-bind="basecardprops"
           class="justify-center"
@@ -23,9 +23,9 @@
             <div
               id="firstdiv"
               height="100px"              
-              class="display-4 font-weight-light orange--text text--lighten-5"
-              :style="`font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;`"
-            >
+              :class="headingclss"
+              :style="headstyle"
+            > 
               design your graph
             </div>
           </template>
@@ -35,6 +35,7 @@
           <v-card
             id="vcard-for-form"
             ref="formrefc"
+            flat
             class="px-2 py-1 ma-1" 
             :class="flexlist"
             :style="backgrad"
@@ -46,6 +47,7 @@
               ref="formref"
               :key="resetform"
               vcard-for-form
+              style="flat=true"
               @submit.prevent
             >     
               <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
@@ -53,7 +55,7 @@
               <v-card
                 id="surroundcards"
                 width="96%"
-                flat
+                flat="true"
                 color="transparent"
                 :class="flexlist"               
                 class="px-3 py-1 ma-2"
@@ -61,14 +63,15 @@
                 <!-- chipnote card under sentence -->
                 <v-card
                   id="chipnote"
+                  height="62px"
                   v-bind="chipnoteprops"
                   elevated-6
-                  class="py-3 pl-3 pr-7 ma-3"
+                  class="py-2 pl-4 pr-7 ma-3"
                 >
                   <span 
-                    style="font-size:16px;font-family:'Roboto',sans-serif;color:black;" 
+                    style="font-size:14px;font-family:'Roboto',sans-serif;color:black;" 
                   >
-                    Inflation and disinflation begin together
+                    Disinflation begins <br>one interval after Inflation starts
                   </span>
                 </v-card>
             
@@ -77,7 +80,7 @@
                 <v-card 
                   id="vmd1card"
                   v-bind="gcprops"
-                  width="smallwidth"
+                  :width="cardwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -109,8 +112,8 @@
                       
                 <v-card 
                   id="vmd2card"
-                  :width="`${smallwidth}`"
                   v-bind="gcprops"
+                  :width="cardwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -143,6 +146,7 @@
                 <v-card 
                   id="vmd3card"
                   v-bind="gcprops"
+                  :width="cardwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -173,6 +177,7 @@
                 <v-card 
                   id="vmd4card"
                   v-bind="gcprops"
+                  :width="cardwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -181,7 +186,7 @@
                     class="pb-1 mb-1"
                     :style="longstyle"
                   >                  
-                    Disinflation starts in how many intervals <br>
+                    Inflation starts in how many intervals <br>
                     (usually months) Try: 24
                   </v-card-subtitle>
                   <v-chip 
@@ -211,6 +216,7 @@
                 <v-card 
                   id="vmd5card"
                   v-bind="gcprops"
+                  :width="cardwidth"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -219,7 +225,7 @@
                     class="pa-1 mb-1"
                     :style="longstyle"
                   >                  
-                    Disinflation Ratio:  Min 0, Max .9  Try: 0.4
+                    Disinflation Ratio:  Min 0, Max 2.0  Try: 0.4
                   </v-card-subtitle>
 
                   <v-chip 
@@ -230,16 +236,10 @@
                     <vue-numeric-input
                       id="vmd5id"
                       v-model="vmd5" 
+                      v-bind="numericinp"
                       :value="vmd5"
-                      :min=".1" 
-                      :max=".9" 
-                      :step=".1"
-                      :precision="1"
-                      size="30px"
-                      vmd5card
-                      controls-type="updown"
-                      align="center"
                       :style="arrowvuenumeric"
+                      vmd5card
                     />
                     <span style="font-size:14px"> % </span>
                   </v-chip>
@@ -248,24 +248,17 @@
 
                 <v-card
                   id="submit-btn-card"
-                  class="justify-center align-center mx-1 mb-1"
-                  width="500px"
+                  :width="cardwidth"
                   min-width="300px"
                   color="transparent"
+                  class="justify-center align-center mx-1 mb-1"
                   flat
                 >
                   <!-- submit button *-* *-* *-* *-* *-* *-*  -->
                   <v-btn
                     id="submitmain"
-                    type="submit"
-                    elevation-24
-                    dark
-                    hover
-                    shaped
-                    filled="true"
-                    width="345px"
-                    color="deep-orange lighten-1"
-                    class="mb-3 justify-center rounded-tl-xl"
+                    v-bind="subbtn"
+                    class="justify-center rounded-tl-xl mb-3"
                     :style="`text-transform:lowercase;`"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
@@ -276,14 +269,14 @@
               </v-card>
             </v-form>                
           </v-card>
-        </base-material-cardn>
+        </material-cardn>
         <!-- plot shows up here # # # # # # # -->
         <v-row>
           <v-col
             cols="12"
             md="12"
           >
-            <base-material-cardn
+            <material-cardn
               v-if="keyShowCard"
               :key="resetImage"
               width="100%"
@@ -295,7 +288,7 @@
                 :src="finalIMAGE"
               >
               <span style="align:left"> To save - right click on plot</span>
-            </base-material-cardn>
+            </material-cardn>
           </v-col>
         </v-row>
       </v-col>
@@ -310,11 +303,10 @@ import {  mapState  } from 'vuex'
 
 import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateVars.js"
-// import {	initsup } from "./TopWords.js"
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
 import AutoNumeric from 'autonumeric'
-import VueAutonumeric from '../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
+import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
 
 // import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
@@ -327,12 +319,33 @@ import VueNumericInput from 'vue-numeric-input'
 // Vue.component('validation-provider', ValidationProvider)
 // Vue.component('validation-observer', ValidationObserver)
 
+const subbtn = {
+  type: "submit",
+  elevation: 24,
+  dark: true,
+  hover: true,
+  shaped: true,
+  filled: true,
+  width: "345px",
+  color: "deep-orange lighten-1",
+}
 const vmdopts = {
   digitGroupSeparator: ',',
   currencySymbol: '',
   decimalPlaces: 0,
   overrideMinMaxLimits: 'invalid'
 }
+const numericinp = {
+  min: 0.0 ,
+  max: 2.0 ,
+  step: .1,
+  precision: 1,
+  size: '30px',
+  'controls-type': 'updown',
+  align: 'center',
+}
+
+
 const vmd1opts = {
   digitGroupSeparator: ',',
   currencySymbol: '',
@@ -375,7 +388,6 @@ const basecardprops = {
 }
 const chipnoteprops = {
   color: "rgba(251,233,231,1)",
-  height: "39px",
   shaped: true,
   dark: true,
   raised: true,
@@ -385,20 +397,12 @@ const chipnoteprops = {
 
 
 
-const arrowvuenumeric = "font-size:20px; \
-  height:23px; width: 110px; color:#ffffff;"
+const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
 
 const vmdHold = 'numbers only'
 
 var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
-var flexlist = "d-flex flex-column flex-grow-1 flex-shrink-1 justify-center align-center justify-around"
-
-
- 
-
-
-
-
+var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
 
 
 export default {
@@ -411,11 +415,15 @@ export default {
   data: () => ({
     longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
     flexlist,
+    subbtn,
+    numericinp,
     basecardprops,
     chipnoteprops,
-    cardclass: `${flexlist}` +  "px-2 py-1 mx-2 my-2",
+    cardclass: `${flexlist}` +  "px-2 py-1 ma-2",
     chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
     chipclass: "justify-center align-center white medium flat",
+    headingclss: "display-4 font-weight-light orange--text text--lighten-5",
+    headstyle: "font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;",
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -486,13 +494,28 @@ export default {
          return true
       else return false
     },
-    smallwidth () {
-      var testvar = window.outerWidth / 2
-      if (this.windsmall) {
-        return (window.outerWidth / 2) }
-      else return  (window.outerWidth / 4)
-    },   
-      gcardcolor () {
+    cardwidth () {
+      var finsize
+      var owid = window.outerWidth
+      console.log("found win size: " + owid)
+      var sms
+      var bigs
+
+      if (owid < 960) {
+        sms = (owid * .84);
+        console.log("found small win * .84: " + sms)
+        finsize = sms;
+        }
+      else  {
+        sms = (owid * .33 );
+        console.log("found big win * .33: " + sms)
+        finsize = sms 
+        }
+      console.log("finsize: " + finsize)
+      return finsize
+    },
+
+    gcardcolor () {
         if (window.outerWidth < 960) {
           console.log("window is small")
           return "transparent"; 
@@ -516,9 +539,8 @@ export default {
   mounted () {
     this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
-    console.log("--- " + window.outerWidth)
-
-    console.log("--- " + window.innerWidth)
+    console.log("---window.outerWidth " + window.outerWidth)
+    console.log("---window.innerWidth " + window.innerWidth)
   },
   created () {
 
@@ -663,6 +685,11 @@ export default {
 .boxshadeorig {
       box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
       0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+}
+.chipstyle {
+  font-size:16px;
+  font-family:'Roboto',sans-serif;
+  color:black;
 }
 .subtstyle {
     color: #3A5765;

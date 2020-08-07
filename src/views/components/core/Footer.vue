@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    id="dashboard-core-footer"
+    id="core-footer"
   >
     <v-container>
       <v-row
@@ -28,7 +28,7 @@
           cols="12"
           md="auto"
         >
-          <div class="body-1 font-weight-light pt-6 pt-md-0 text-center">
+          <div class="body-1 font-weight-medium pt-6 pt-md-0 text-center">
             &copy; 2020, made with
             <v-icon
               size="18"
@@ -46,25 +46,27 @@
 
 <script>
   export default {
-    name: 'DashboardCoreFooter',
+    name: 'CoreFooter',
 
     data: () => ({
       links: [
         {
-          href: '#',
+          href: 'https://nuls.io',
           text: 'NULS',
         },
+
         {
-          href: '#',
-          text: 'About Us',
+          href: 'https://bbs.nuls.io/',
+          text: 'Community',
         },
         {
-          href: '#',
-          text: 'Blog',
+          href: 'https://gov.nuls.io/',
+          text: 'Community Governance',
         },
+
         {
-          href: '#',
-          text: 'Licenses',
+          href: 'https://nuls.io',
+          text: 'Contact Us',
         },
       ],
     }),
@@ -72,10 +74,10 @@
 </script>
 
 <style lang="sass">
-  #dashboard-core-footer
+  #core-footer
     a
       font-size: .825rem
-      font-weight: 500
+      font-weight: 600
       text-decoration: none
       text-transform: uppercase
 </style>

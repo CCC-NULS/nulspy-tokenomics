@@ -16,7 +16,7 @@
             cols="12"
             md="12"
           >
-            <base-material-cardn
+            <material-cardn
               v-if="$store.state.gShowMe"
               id="land1"
               color="teal lighten-4"
@@ -34,7 +34,7 @@
                   </h3>
                 </div>
               </template>              
-            </base-material-cardn>
+            </material-cardn>
           </v-col>
         </v-col>
       </v-row>

@@ -7,7 +7,7 @@
       color="rgba(117, 201, 181, 0.5)"
       flat
       link
-      min-width="100"
+      min-width="70"
       style="position: fixed; top: 229px; right: -35px; border-radius: 8px;"
     >
       <v-icon medium>
@@ -61,7 +61,7 @@
   import { mapMutations, mapState } from 'vuex'
 
   export default {
-    name: 'DashboardCoreSettings',
+    name: 'CoreSettings',
 
     mixins: [Proxyable],
 

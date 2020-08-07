@@ -13,7 +13,7 @@
           cols="12"
           md="9"
         >
-          <base-material-card
+          <material-card
             color="blue-grey"
             elevation-24
             raised
@@ -24,10 +24,10 @@
               </div>
 
               <div class="display-4 font-weight-heavy">
-                All About Tokenomics
+                Contact Us
               </div>
             </template>
-          </base-material-card>
+          </material-card>
         </v-col>
       </v-row>
     </v-container>

@@ -63,15 +63,15 @@
       <div />
 
       <template v-for="(item, i) in computedItems">
-        <base-item-group
+        <item-group
           v-if="item.children"
           :key="`group-${i}`"
           :item="item"
         >
           <!--  -->
-        </base-item-group>
+        </item-group>
 
-        <base-item
+        <item
           v-else
           :key="`item-${i}`"
           :item="item"
@@ -81,7 +81,7 @@
     </v-list>
 
     <template v-slot:append>
-      <base-item
+      <item
         dark
         :item="{
           title: $t('home'),
@@ -96,7 +96,7 @@
 <script>
   import {  mapState  } from 'vuex'
   export default {
-    name: 'DashboardCoreDrawer',
+    name: 'CoreDrawer',
     props: {
       expandOnHover: {
         type: Boolean,

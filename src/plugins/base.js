@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+// nms: removed 'base' stuff
+
+// const requireComponent2 = require.context(
+//   '@/components/base', true, /\.vue$/,
+// )
 
 const requireComponent = require.context(
-  '@/components/base', true, /\.vue$/,
+  '@/components', true, /\.vue$/,
 )
 
 requireComponent.keys().forEach(fileName => {
@@ -13,5 +18,5 @@ requireComponent.keys().forEach(fileName => {
     camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')),
   )
 
-  Vue.component(`Base${componentName}`, componentConfig.default || componentConfig)
+  Vue.component(`${componentName}`, componentConfig.default || componentConfig)
 })
