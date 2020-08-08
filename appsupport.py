@@ -37,14 +37,14 @@ class AppSupport:
         self.initial_supply_y = int(initsupply_y)  # 100,000,000  NULS
         self.stop_inflation_y = int(args_dict.get("stop_inflation_y"))   # 210,000,000  NULS
         self.annual_inflation = int(args_dict.get("annual_inflation"))  # 5,000,000 NULS
-        start_inflation = int(args_dict.get("start_inflation"))
+        start_inflation_int = int(args_dict.get("start_inflation"))
         self.real_initial_supply_y = int(args_dict.get("initial_supply_y"))
         plotpath_timestp = args_dict.get("plotpath_timestp")   #
         plotpath_timestp2 = args_dict.get("plotpath_timestp2")   #
         print("max supply: " + str(self.stop_inflation_y))
-        print("start_inflation: " + str(start_inflation))
+        print("start_inflation: " + str(start_inflation_int))
         print("annual_inflation: " + str(self.annual_inflation))
-
+        start_disinflation = start_inflation_int + 1
         disinfla_sent = args_dict.get("disinflation_ratio")
 
         if not disinfla_sent:     # if it's empty  ie == 0
@@ -68,29 +68,67 @@ class AppSupport:
 
         monthly_inflation = realcnt / 12  # 5,000,000 NULS
         old_monthly_inflation = self.annual_inflation / 12  # 5,000,000 NULS
+        first_month_inflation = monthly_inflation
 
         interval_count = 1
-        print("new monthly_inflation: " + str(monthly_inflation))
-        print("OLD monthly_inflation: " + str(old_monthly_inflation))
-        print("start inflation: " + str(start_inflation))
+        print("new monthly (30.436875 days) inflation: " + str(monthly_inflation))
+        print("OLD monthly (30 days) inflation: " + str(old_monthly_inflation))
+        print("start inflation: " + str(start_inflation_int))
+        print("start disinflation: " + str(start_disinflation))
 
 
         print('interval - inflation - tokens')
-
+        spc = '   '
+        prev_toks = tokens
+        addinf = ' plus inflation '
+        minusdis = ' minus disinf: '
         while interval_count <= self.interval_limit_x:
 
-            # deflation = False
-            if (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation):
-                # deflation = True
-                monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
-                tokens = tokens + monthly_inflation
+            if (tokens <= self.stop_inflation_y) and (interval_count == start_inflation_int):  # only once, yes inf, no dis
+                prev_toks = tokens
+                new_monthly_inflation = monthly_inflation
+                tokens = prev_toks + monthly_inflation
 
-                inflstr = "{:,}".format(round(monthly_inflation))
-                newtokens = "{:,}".format(round(tokens))
-                print(str(interval_count) + '    ' + str(inflstr) + '    ' + str(newtokens))
+                new_mon_infln_str = "{:,}".format(round(new_monthly_inflation)) + minusdis
 
+                intct = str(interval_count) + spc
+                prevtokst = "{:,}".format(round(prev_toks)) + addinf
+                newtoken_fmt_str = "{:,}".format(round(tokens)) + spc
+
+                disin_amt_str = "0  = "
+                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_monthly_inflation
+
+                pstring = intct + prevtokst + new_mon_infln_str +  newtoken_fmt_str
+
+                print(pstring)
+                monthly_inflation = new_monthly_inflation
+            elif (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation_int): # yes inflation
+                prev_toks = tokens
+                new_monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
+                dis_amt = monthly_inflation - new_monthly_inflation
+                tokens = prev_toks + new_monthly_inflation
+
+                intct = str(interval_count) + spc
+                prevtokst = "{:,}".format(round(prev_toks)) + addinf
+                new_mon_infln_str = "{:,}".format(round(new_monthly_inflation)) + '  '
+                disin_amt_str = "{:,}".format(round(dis_amt)) + '  = '
+                newtoken_fmt_str = "{:,}".format(round(tokens)) + spc
+                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_monthly_inflation
+                pstring = intct + prevtokst + new_mon_infln_str + newtoken_fmt_str
+
+                print(ps1)
+                print(pstring)
+                monthly_inflation = new_monthly_inflation
             else:
-                print(str(interval_count) + '               ' + str("{:,}".format(round(tokens))))
+                # print(str(interval_count) + '               ' + str("{:,}".format(round(tokens))))
+                intct = str(interval_count) + spc
+                prevtokst = str(prev_toks) + addinf
+                new_mon_infln_str = str(0) + minusdis
+                newtoken_fmt_str = ' 0 '
+
+                disin_amt_str = "0   = "
+                pstring = intct + prevtokst + new_mon_infln_str + disin_amt_str + newtoken_fmt_str
+                print(pstring)
 
             self.token_count_list_y.append(round(tokens, 0))
             self.initial_supply_list.append(self.initial_supply_y)
