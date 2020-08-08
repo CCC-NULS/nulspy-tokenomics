@@ -27,7 +27,6 @@ src/views/dashboard/pages/extras.txt
 src/assets/extra/*
 src/assets/extra
 src/assets/users/
-public
 __pycache__/*
 __pycache__/appsupport.cpython-37.pyc
 /static

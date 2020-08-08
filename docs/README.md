@@ -73,7 +73,6 @@ nuls-tokenomics
 │   ├── main.js
 │   ├── plugins
 │   │   ├── base.js
-│   │   ├── chartist.js
 │   │   ├── vee-validate.js
 │   │   └── vuetify.js
 │   ├── router.js
@@ -90,7 +89,6 @@ nuls-tokenomics
 │           ├── Index.vue
 │           ├── Widgets.vue
 │           ├── component
-│           │   ├── Grid.vue
 │           │   ├── Icons.vue
 │           │   ├── Notifications.vue
 │           │   └── Tokenomics.vue

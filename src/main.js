@@ -19,15 +19,14 @@ import './plugins/base'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
-import 'material-icons'
 
 Vue.config.productionTip = false
+  // iconfont: 'mdi',
 
 new Vue({
   router,
   store,
   vuetify,
   i18n,
-  iconfont: 'mdi',
   render: h => h(App)
 }).$mount('#app')

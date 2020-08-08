@@ -55,7 +55,7 @@
               <v-card
                 id="surroundcards"
                 width="96%"
-                flat="true"
+                flat
                 color="transparent"
                 :class="flexlist"               
                 class="px-3 py-1 ma-2"

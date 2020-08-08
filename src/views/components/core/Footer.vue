@@ -29,14 +29,14 @@
           md="auto"
         >
           <div class="body-1 font-weight-medium pt-6 pt-md-0 text-center">
-            &copy; 2020, made with
+            &copy; 2020 Made with
             <v-icon
               size="18"
-              color="red"
+              color="red darken-1"
             >
               mdi-heart
             </v-icon>
-            by <a href="https://nuls.io">NULS</a> for a better blockchain.
+            by <a href="https://nuls.io">NULS</a> for a better blockchain
           </div>
         </v-col>
       </v-row>

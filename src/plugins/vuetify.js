@@ -6,6 +6,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuetify from 'vuetify'
 import colors from 'vuetify/lib/util/colors'
+import '@mdi/font/scss/materialdesignicons.scss' // Ensure you are using css-loader
 
 Vue.use(Vuetify, VueAxios, axios)
 
@@ -59,6 +60,9 @@ const dtheme = {
 export default new Vuetify({
   axios,
   VueAxios,
+  icons: {
+    iconfont: 'mdi', // default - only for display purposes
+  },
   lang: {
     t: (key, ...params) => i18n.t(key, params),
   },
