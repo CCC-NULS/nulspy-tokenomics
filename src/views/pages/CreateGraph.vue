@@ -119,7 +119,7 @@
                   <v-card-subtitle
                     id="vmd2cardsubt"
                     vmd2card
-                    class="pb-1 mb-1 xyz"
+                    class="pb-1 mb-1 vmd2style"
                     :style="longstyle"
                   >
                     Max/Total supply when inflation ends - min: 20,000<br> 
@@ -270,29 +270,30 @@
             </v-form>                
           </v-card>
         </material-cardn>
-        <!-- plot shows up here # # # # # # # -->
-        <v-row>
-          <v-col
-            cols="12"
-            md="12"
-          >
-            <material-cardn
-              v-if="keyShowCard"
-              :key="resetImage"
-              width="100%"
-              color="teal lighten-3"
-              class="justify-center mx-0 px-0 mt-1 mb-2 pb-5 pt-7"
-            >
-              <img
-                :key="resetImage"
-                :src="finalIMAGE"
-              >
-              <span style="align:left"> To save - right click on plot</span>
-            </material-cardn>
-          </v-col>
-        </v-row>
       </v-col>
-    </v-row>     
+    </v-row>
+    <!-- plot shows up here # # # # # # # -->
+    <v-row>
+      <v-col
+        cols="12"
+        md="11"
+        sm="3"
+      >
+        <material-cardn
+          v-if="keyShowCard"
+          :key="resetImage"
+          width="922px"
+          color="transparent"
+          class="ml-4 px-0 mt-1 mb-2 pb-5 pt-7 justify-center align-center"
+        >
+          <img
+            :key="resetImage"
+            :src="finalIMAGE"
+          >
+          <span style="align:left"> To save - right click on plot</span>
+        </material-cardn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -308,16 +309,6 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
-
-// import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
-// import { max,  min,  numeric,   required, } from 'vee-validate/dist/rules'
-// console.log("initsupply finalIPwPORT at top: " + initsupply, finalIPwPORT +  finalIMAGEp1)
-// extend('max', max)
-// extend('min', min)
-// extend('numeric', numeric)
-// extend('required', required)
-// Vue.component('validation-provider', ValidationProvider)
-// Vue.component('validation-observer', ValidationObserver)
 
 const subbtn = {
   type: "submit",
@@ -336,15 +327,14 @@ const vmdopts = {
   overrideMinMaxLimits: 'invalid'
 }
 const numericinp = {
-  min: 0.0 ,
-  max: 2.0 ,
+  min: 0.0,
+  max: 2.0,
   step: .1,
   precision: 1,
   size: '30px',
   'controls-type': 'updown',
   align: 'center',
 }
-
 
 const vmd1opts = {
   digitGroupSeparator: ',',
@@ -374,10 +364,10 @@ const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
 const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
-  padding-left:2px;\
-  padding-right:2px; \
-  padding-bottom:2px;padding-top:2px;  \
-  margin-bottom:2px; margin-left:2px;margin-right:2px; margin-top:5px; color:purple; background-color:white; "
+  padding-left:2px;  padding-right:2px; \
+  padding-bottom:2px;padding-top:2px; \
+  margin-bottom:2px; margin-left:2px;margin-right:2px; \
+  margin-top:5px; color:purple; background-color:white;"
 
 const basecardprops = {
   width: "95%",
@@ -393,17 +383,10 @@ const chipnoteprops = {
   raised: true,
   }
 
-
-
-
-
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
-
 const vmdHold = 'numbers only'
-
 var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
-
 
 export default {
   name: "CreateGraph",
@@ -673,45 +656,56 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
 
-.creategreygrad {
-    background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
-      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
-}
-.vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
-      background-color: #ffffff!important;
-}
-
-.boxshadeorig {
-      box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
-      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
-}
 .chipstyle {
   font-size:16px;
   font-family:'Roboto',sans-serif;
   color:black;
 }
-.subtstyle {
+.vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
+      background-color: #ffffff!important;
+}
+.v-card__subtitle {
+    font-size: 15px!important;
+}
+.vmd2style {
+  color:#BF360C;
+  font-family:Roboto,sans-serif;
+  font-size:15px!important;
+  font-weight:400;
+}
+
+/* // import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
+// import { max,  min,  numeric,   required, } from 'vee-validate/dist/rules'
+// console.log("initsupply finalIPwPORT at top: " + initsupply, finalIPwPORT +  finalIMAGEp1)
+// extend('max', max) // extend('min', min) // extend('numeric', numeric) // extend('required', required)
+// Vue.component('validation-provider', ValidationProvider)
+// Vue.component('validation-observer', ValidationObserver) */
+/* .creategreygrad {
+    background-image: linear-gradient(306deg, #3A5765 0%, #476472 100%);
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+} */
+
+
+/* .boxshadeorig {
+      box-shadow: 0px 3px 5px -1px rgba(147, 90, 201, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
+} */
+
+/* .subtstyle {
     color: #3A5765;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     margin-bottom: 4px; 
     padding-bottom: 4px;
-  }
-.v-card__subtitle {
-    font-size: 15px!important;
-}
-.substyle3 {
+  } */
+
+/* .substyle3 {
   color:purple;
   font-family:Roboto,sans-serif;
   font-size:15px!important;
   font-weight:600;
-}
-.xyz {
-  color:#BF360C;
-  font-family:Roboto,sans-serif;
-  font-size:15px!important;
-  font-weight:400;
-}
+} */
+
 </style>

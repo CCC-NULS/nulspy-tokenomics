@@ -230,33 +230,21 @@ import colors from 'vuetify/lib/util/colors'
 .montser {
   font-family: 'Montserrat', sans-serif !important;
 }
-.ortext {
-  font-family: 'Montserrat', sans-serif !important;
-  
-}
+
 .v-chip{
     padding-right:2px;padding-left:2px;padding-bottom:2px;padding-top:2px;
-
 }
 .v-chip__content {
-    font-size: 14px!important;
-    color: deep-purple--text;
-  
-    padding-right:2px;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif !important;
-
+  font-size: 14px!important;
+  color: deep-purple--text;
+  padding-left: 5px;
+  padding-right: 2px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif !important;
 }
+
 .theme--light.v-chip {
   color: purple;
 }
- .unusedstyle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 42!important;
-  font-weight: 700;
-  color:white;
-  text-shadow: 3px 4px 4px #000000;
-  text-shadow: 1px 1px 1px #7F7F7F;
 
-} 
 </style>
