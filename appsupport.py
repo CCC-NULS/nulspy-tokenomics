@@ -75,46 +75,54 @@ class AppSupport:
         print("OLD monthly (30 days) inflation: " + str(old_monthly_inflation))
         print("start inflation: " + str(start_inflation_int))
         print("start disinflation: " + str(start_disinflation))
+        print()
 
-
-        print('interval - inflation - tokens')
+        print('interval -    inflation -      tokens')
+        print('\n\n')
         spc = '   '
         prev_toks = tokens
-        addinf = ' plus inflation '
-        minusdis = ' minus disinf: '
+        addinf = ' + infla/dis: '
+        minusdis = ' - dis: '
         while interval_count <= self.interval_limit_x:
 
             if (tokens <= self.stop_inflation_y) and (interval_count == start_inflation_int):  # only once, yes inf, no dis
                 prev_toks = tokens
                 new_monthly_inflation = monthly_inflation
                 tokens = prev_toks + monthly_inflation
+                monthly_inflation_str = "{:,}".format(round(monthly_inflation))
 
                 new_mon_infln_str = "{:,}".format(round(new_monthly_inflation)) + minusdis
 
                 intct = str(interval_count) + spc
                 prevtokst = "{:,}".format(round(prev_toks)) + addinf
-                newtoken_fmt_str = "{:,}".format(round(tokens)) + spc
+                newtoken_fmt_str = " {:,}".format(round(tokens)) + spc
 
                 disin_amt_str = "0  = "
-                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_mon_infln_str
+                ps1 = intct + " pre-calc: " + monthly_inflation_str + '(inf) - ' + disin_amt_str + ' (disinf)  = ' + new_mon_infln_str
 
-                pstring = intct + prevtokst + new_mon_infln_str +  newtoken_fmt_str
+                pstring = "  " + prevtokst + new_mon_infln_str + newtoken_fmt_str
 
+                print(ps1)
                 print(pstring)
                 monthly_inflation = new_monthly_inflation
             elif (tokens <= self.stop_inflation_y) and (interval_count >= start_inflation_int): # yes inflation
                 prev_toks = tokens
+
+                monthly_inflation_str = "{:,}".format(round(monthly_inflation))
+
                 new_monthly_inflation = monthly_inflation * (1 - self.disinflation_ratio)
+
                 dis_amt = monthly_inflation - new_monthly_inflation
                 tokens = prev_toks + new_monthly_inflation
 
                 intct = str(interval_count) + spc
                 prevtokst = "{:,}".format(round(prev_toks)) + addinf
-                new_mon_infln_str = "{:,}".format(round(new_monthly_inflation)) + '  '
-                disin_amt_str = "{:,}".format(round(dis_amt)) + '  = '
-                newtoken_fmt_str = "{:,}".format(round(tokens)) + spc
-                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_monthly_inflation
-                pstring = intct + prevtokst + new_mon_infln_str + newtoken_fmt_str
+                new_mon_infln_str = "{:,}".format(round(new_monthly_inflation))
+                disin_amt_str = "{:,}".format(round(dis_amt)) + '(disinf)  = '
+                newtoken_fmt_str = " {:,}".format(round(tokens)) + spc
+                print()
+                ps1 = intct + " pre-calc: " + monthly_inflation_str + ' (inf) - ' + disin_amt_str + new_mon_infln_str
+                pstring = "  " + prevtokst + new_mon_infln_str + newtoken_fmt_str
 
                 print(ps1)
                 print(pstring)
@@ -126,8 +134,11 @@ class AppSupport:
                 new_mon_infln_str = str(0) + minusdis
                 newtoken_fmt_str = ' 0 '
 
-                disin_amt_str = "0   = "
-                pstring = intct + prevtokst + new_mon_infln_str + disin_amt_str + newtoken_fmt_str
+                disin_amt_str = " 0   = "
+                pstring = "  " + prevtokst  + new_mon_infln_str + disin_amt_str + newtoken_fmt_str
+
+                ps1 = intct + " pre-calc: " + " no calc no inflation"
+                print(ps1)
                 print(pstring)
 
             self.token_count_list_y.append(round(tokens, 0))
