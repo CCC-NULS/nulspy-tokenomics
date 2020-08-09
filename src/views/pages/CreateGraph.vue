@@ -23,7 +23,7 @@
             <div
               id="firstdiv"
               height="100px"              
-              :class="headingclss"
+              :class="headingClsStyle"
               :style="headstyle"
             > 
               design your graph
@@ -38,7 +38,7 @@
             flat
             class="px-2 py-1 ma-1" 
             :class="flexlist"
-            :style="backgrad"
+            color="e0e0e0"
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
@@ -56,7 +56,7 @@
                 id="surroundcards"
                 width="96%"
                 flat
-                color="transparent"
+                color="bdbdbd"
                 :class="flexlist"               
                 class="px-3 py-1 ma-2"
               >
@@ -371,9 +371,9 @@ const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
 
 const basecardprops = {
   width: "95%",
-  "min-width": "400px",
-  "min-height": "500px",
-  "height": "1000px",
+  "min-width": "200px",
+  "min-height": "400px",
+  "height": "950px",
   "max-height": "1900px",
 }
 const chipnoteprops = {
@@ -385,7 +385,7 @@ const chipnoteprops = {
 
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
 const vmdHold = 'numbers only'
-var formcp = 'height="800px" max-height="2900px" min-height="700px" width="95%" flat color="transparent"'
+var formcp = 'height="800px" max-height="2900px" min-height="400px" width="95%" flat color="transparent"'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
 
 export default {
@@ -402,10 +402,9 @@ export default {
     numericinp,
     basecardprops,
     chipnoteprops,
-    cardclass: `${flexlist}` +  "px-2 py-1 ma-2",
+    cardclass: `${flexlist}` +  "px-2 pt-1 pb-2 ma-2",
     chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
     chipclass: "justify-center align-center white medium flat",
-    headingclss: "display-4 font-weight-light orange--text text--lighten-5",
     headstyle: "font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;",
     arrowvuenumeric,
     vmdInputBox,   
@@ -432,14 +431,7 @@ export default {
     backgrad () {
       var stte = ' '
       if (window.outerWidth >= 960) {
-        stte = "background-image: linear-gradient(306deg, #4DB6AC, #000000)" 
-      }
-      return stte
-    },
-    backgrad2 () {
-      var stte = ' '
-      if (window.outerWidth >= 960) {
-        stte = "background-image: linear-gradient(306deg, #E0F2F1, #D1C4E9)" 
+        stte = "background-image: linear-gradient(306deg, #4DB6AC, #9e9e9e)" 
       }
       return stte
     },
@@ -505,11 +497,18 @@ export default {
         }
       else return "E0F2F1";  // #E0F2F1 = teal lighten-5
     },
+    headingClsStyle () {
+        if (window.outerWidth < 960) {
+          console.log("window is small")
+          return "display-3 deep-orange--text text--darken-2"; 
+        }
+      else return "display-4 font-weight-light orange--text text--lighten-5";
+    },
     
     tcolor () {
       var colr = false
       if (window.outerWidth < 960)
-        colr = "transparent" 
+        colr = "#E0F2F1" 
       return colr  // #E0F2F1 = teal lighten-5
     },
     bkgstyle1 () {
@@ -526,8 +525,6 @@ export default {
     console.log("---window.innerWidth " + window.innerWidth)
   },
   created () {
-
-
    // this.$refs.formref.reset()
     // console.log("localshowme in createpage: " + localShowMe)
   },

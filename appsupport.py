@@ -96,7 +96,7 @@ class AppSupport:
                 newtoken_fmt_str = "{:,}".format(round(tokens)) + spc
 
                 disin_amt_str = "0  = "
-                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_monthly_inflation
+                ps1 = '   ' + str(monthly_inflation) + ' - ' + disin_amt_str + ' = ' + new_mon_infln_str
 
                 pstring = intct + prevtokst + new_mon_infln_str +  newtoken_fmt_str
 

@@ -17,15 +17,15 @@
       <v-sheet
         v-else
         :class="{
-          'pa-7': !$slots.image
+          'pa-7': !$slots.image,
         }"
-        :color="color"
+        color="teal lighten-4"
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
-        elevation="6"
+        :elevation="`${elevatd}`"
         class="text-start v-card--material__heading mb-n6"
         dark
-        :style="`background-image: linear-gradient(306deg, #80CBC4 0%, #3A5765 100%);`"
+        :style="`${nicegradiantt}`"
       >
         <slot
           v-if="$slots.heading"
@@ -117,7 +117,7 @@
         default: '',
       },
     },
-
+  
     computed: {
       classes () {
         return {
@@ -130,6 +130,35 @@
       hasAltHeading () {
         return Boolean(this.$slots.heading || (this.title && this.icon))
       },
+      bigsize () {
+        if (window.outerWidth < 960) {
+          return false; 
+        }
+        else return true
+      },
+      elevatd () { 
+        if (window.outerWidth > 959) {
+          return '6' 
+        }
+        else return '0'
+    }, 
+      nicegradiantt () { 
+        if (window.outerWidth > 959) {
+          // return 'background-image: linear-gradient(306deg, #80CBC4 0%, #3A5765 100%);' 
+          return 'background-image: linear-gradient(306deg, rgba(54, 54, 54, 0.05) 0%, rgba(54, 54, 54, 0.05) 33.333%,rgba(85, 85, 85, 0.05) 33.333%, rgba(85, 85, 85, 0.05) 66.666%,rgba(255, 255, 255, 0.05) 66.666%, rgba(255, 255, 255, 0.05) 99.999%),linear-gradient(353deg, rgba(81, 81, 81, 0.05) 0%, rgba(81, 81, 81, 0.05) 33.333%,rgba(238, 238, 238, 0.05) 33.333%, rgba(238, 238, 238, 0.05) 66.666%,rgba(32, 32, 32, 0.05) 66.666%, rgba(32, 32, 32, 0.05) 99.999%),linear-gradient(140deg, rgba(192, 192, 192, 0.05) 0%, rgba(192, 192, 192, 0.05) 33.333%,rgba(109, 109, 109, 0.05) 33.333%, rgba(109, 109, 109, 0.05) 66.666%,rgba(30, 30, 30, 0.05) 66.666%, rgba(30, 30, 30, 0.05) 99.999%),linear-gradient(189deg, rgba(77, 77, 77, 0.05) 0%, rgba(77, 77, 77, 0.05) 33.333%,rgba(55, 55, 55, 0.05) 33.333%, rgba(55, 55, 55, 0.05) 66.666%,rgba(145, 145, 145, 0.05) 66.666%, rgba(145, 145, 145, 0.05) 99.999%),linear-gradient(90deg, #4DB6AC, #e0e0e0)'
+
+        }
+        else return 'undefined'
+    }, 
+      nogradiant () {
+        return "none"
+      },     
+      topgradiant () {
+        return "`background-image: linear-gradient(306deg, #80CBC4 0%, #3A5765 100%);`"
+    },
+      topgradiant2 () {
+        return "`background-image: linear-gradient(306deg, rgba(54, 54, 54, 0.05) 0%, rgba(54, 54, 54, 0.05) 33.333%,rgba(85, 85, 85, 0.05) 33.333%, rgba(85, 85, 85, 0.05) 66.666%,rgba(255, 255, 255, 0.05) 66.666%, rgba(255, 255, 255, 0.05) 99.999%),linear-gradient(353deg, rgba(81, 81, 81, 0.05) 0%, rgba(81, 81, 81, 0.05) 33.333%,rgba(238, 238, 238, 0.05) 33.333%, rgba(238, 238, 238, 0.05) 66.666%,rgba(32, 32, 32, 0.05) 66.666%, rgba(32, 32, 32, 0.05) 99.999%),linear-gradient(140deg, rgba(192, 192, 192, 0.05) 0%, rgba(192, 192, 192, 0.05) 33.333%,rgba(109, 109, 109, 0.05) 33.333%, rgba(109, 109, 109, 0.05) 66.666%,rgba(30, 30, 30, 0.05) 66.666%, rgba(30, 30, 30, 0.05) 99.999%),linear-gradient(189deg, rgba(77, 77, 77, 0.05) 0%, rgba(77, 77, 77, 0.05) 33.333%,rgba(55, 55, 55, 0.05) 33.333%, rgba(55, 55, 55, 0.05) 66.666%,rgba(145, 145, 145, 0.05) 66.666%, rgba(145, 145, 145, 0.05) 99.999%),linear-gradient(90deg, rgb(251, 233, 231), #4DB6AC)`"
+      }
     },
   }
 </script>
