@@ -11,7 +11,7 @@
       <v-col
         cols="12"
         sm="3"
-        md="8"
+        md="7"
         class="justify-center"
       >
         <material-cardn
@@ -38,7 +38,7 @@
             flat
             class="px-2 py-1 ma-1" 
             :class="flexlist"
-            color="e0e0e0"
+            color="transparent"
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
@@ -56,9 +56,9 @@
                 id="surroundcards"
                 width="96%"
                 flat
-                color="bdbdbd"
+                color="transparent"
                 :class="flexlist"               
-                class="px-3 py-1 ma-2"
+                class="px-3 py-1 mx-2 my-0"
               >
                 <!-- chipnote card under sentence -->
                 <v-card
@@ -273,31 +273,39 @@
       </v-col>
     </v-row>
     <!-- plot shows up here # # # # # # # -->
-    <v-row>
+    <v-row
+      align="center"
+      justify="center"
+    >
       <v-col
         cols="12"
         md="11"
         sm="3"
+        align="center"
       >
-        <material-cardn
+        <v-card
           v-if="keyShowCard"
           :key="resetImage"
-          width="922px"
+          flat
+          height="imgheight"
+          width="imgwid"          
           color="transparent"
-          class="ml-4 px-0 mt-1 mb-2 pb-5 pt-7 justify-center align-center"
+          class="ml-4 mt-1 mb-2  px-0 pb-5 pt-7 justify-center align-center"
         >
           <img
             :key="resetImage"
             :src="finalIMAGE"
+            height="imgheight"
+            :width="imgwid"
           >
           <span style="align:left"> To save - right click on plot</span>
-        </material-cardn>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-    <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # # # # # # -->
+    <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # 691.2  922 or 400 x 533 # # # # # -->
 <script>
 import Vue from 'vue'
 import {  mapState  } from 'vuex'
@@ -362,12 +370,12 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "width:120px; font-size:16px; font-weight:500; \
+const vmdInputBox = "width:140px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
   padding-left:2px;  padding-right:2px; \
   padding-bottom:2px;padding-top:2px; \
   margin-bottom:2px; margin-left:2px;margin-right:2px; \
-  margin-top:5px; color:purple; background-color:white;"
+  margin-top:5px; color:black; background-color:white;"
 
 const basecardprops = {
   width: "95%",
@@ -403,8 +411,8 @@ export default {
     basecardprops,
     chipnoteprops,
     cardclass: `${flexlist}` +  "px-2 pt-1 pb-2 ma-2",
-    chipstyle: "border-top-right-radius:1px;border-bottom-left-radius:1px;",
-    chipclass: "justify-center align-center white medium flat",
+    chipstyle: "border-bottom-color:#000000;",
+    chipclass: "justify-center align-center white medium elevation-2 pr-2",
     headstyle: "font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;",
     arrowvuenumeric,
     vmdInputBox,   
@@ -435,6 +443,7 @@ export default {
       }
       return stte
     },
+    
     gcprops () {
       var sp
       if (window.outerWidth < 960) {
@@ -458,7 +467,10 @@ export default {
       }
       return sp
     },
+    greygrad () {
+      return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
 
+    },
     gcardWid () {
       var aaabb = this.$refs.formrefc.attributes.width
       return (.9 * aaabb)
@@ -468,6 +480,23 @@ export default {
       if (window.outerWidth < 960) 
          return true
       else return false
+    },
+    imgwid () {
+      var wid
+      if (window.outerWidth < 960) {
+        wid = '533'   // mobile
+      }
+      else wid = '922'   // desktop
+      return wid
+    },
+    // 922 x 691.2  or   533 x 400  
+    imgheight () {
+      var heit
+      if (window.outerWidth < 960) {
+        heit = '400'   // mobile
+      }
+      else heit = '691'   // desktop
+      return heit
     },
     cardwidth () {
       var finsize
