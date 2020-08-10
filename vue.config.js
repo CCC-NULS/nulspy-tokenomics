@@ -1,7 +1,7 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? '/tokenlife/'
-    : '/',
+    : '/tokenlife/',
   baseUrl: '/usr/share/nginx/html/tokenlife',
   devServer: {
     disableHostCheck: true,
