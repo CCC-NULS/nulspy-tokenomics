@@ -1,7 +1,10 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/tokenlife/'
-    : '/',
+    publicPath: '/tokenlife',
+    outputDir: 'dist/tokenlife',
+  
+    // publicPath: process.env.NODE_ENV === 'production'
+    //   ? '/tokenlife/'
+    //   : '/',
   devServer: {
     disableHostCheck: true,
   },
