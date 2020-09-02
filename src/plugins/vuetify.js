@@ -12,7 +12,7 @@ Vue.use(Vuetify, VueAxios, axios)
 
 const theme = {
   primary: colors.teal.base, // #009688
-  secondary: colors.teal.base,  // deep purple  673AB7
+  secondary: "#000000",  // deep purple  673AB7
   success: colors.cyan.base,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
   info: colors.grey.base,              //   grey 

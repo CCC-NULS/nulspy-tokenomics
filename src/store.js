@@ -3,19 +3,13 @@ import Vuex from 'vuex'
 // import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
-// console.log("this in store: " + this)
 
 export default new Vuex.Store({
   // plugins: [createPersistedState()],
   state: {
     barColor: 'rgba(33, 138, 184, 1), rgba(0, 241, 181, 1)',
-    barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
+    // barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
-    // gCounter: 0,
-    // sCounter: 0,
-    // gTimeNAMEonly: '',
-    // gTimedPlotPath: '',
-    // gPlotPATHARRAY: [],
     gShowMe: true,
     gImgName: '',
     gDirPath: '',
@@ -28,21 +22,6 @@ export default new Vuex.Store({
     SET_DRAWER(state, payload) {
       state.drawer = payload
     },
-    // gCounterMut(state, theval) {
-    //   state.gCounter = theval
-    // },
-    // sCounterMut(state, theval) {
-    //   state.sCounter = theval
-    // },
-    // gTimedPlotPathMut(state, theval) {
-    //   state.gTimedPlotPath = theval
-    // },
-    // gPlotPATHARRAYpushMut(state, theval) {
-    //   state.gPlotPATHARRAY.push(theval)
-    // },
-    // gTimeNAMEonlyMut(state, theval) {
-    //   state.gTimeNAMEonly = theval
-    // },
     gShowMeMut(state, theval) {
       state.gShowMe = theval
     },
@@ -57,34 +36,12 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    // gShowPlotGet: state => state.gShowPlot,
-    // gTimedPlotPathGet: state => state.gTimedPlotPath,
-    // gPlotPATHARRAYGet: state => state.gPlotPATHARRAY,
-    // gSaveOneGet: state => state.gSaveOne,
     gShowMeGet: state => state.gShowMe,
-
     gDirPathGet: state => state.gDirPath,
     gImgNameGet: state => state.gImgName,
     gSessionStrGet: state => state.gSessionStr,
-
-    
   },
   actions: {
-    // gCounterAct (context, theval) {
-    //   context.commit('gCounterMut', theval)
-    // },
-    // sCounterAct (context, theval) {
-    //   context.commit('sCounterMut', theval)
-    // },
-    // gTimedPlotPathAct (context, theval) {
-    //   context.commit('gTimedPlotPathMut', theval)
-    // },
-    // gPlotPATHARRAYpushAct (context, theval) {
-    //   context.commit('gPlotPATHARRAYpushMut', theval)
-    // },
-    // gTimeNAMEonlyAct (context, theval) {
-    //   context.commit('gTimeNAMEonlyMut', theval)
-    // },
     gShowMeAct (context, theval) {
       context.commit('gShowMeMut', theval)
     },

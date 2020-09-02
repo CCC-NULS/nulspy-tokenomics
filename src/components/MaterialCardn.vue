@@ -25,7 +25,6 @@
         :elevation="`${elevatd}`"
         class="text-start v-card--material__heading mb-n6"
         dark
-        :style="`${nicegradiantt}`"
       >
         <slot
           v-if="$slots.heading"

@@ -34,7 +34,7 @@
 
           <v-card
             id="vcard2"
-            color="deep-orange lighten-5"
+            color="grey lighten-5"
             dark
             align="left"
             class="black--text pr-9 pl-9 ml-9 mr-9 rounded-tl-xl"
@@ -42,7 +42,7 @@
             elevation-24
             raised
             filled="true"
-            :style="`font-size:16px;background-image: linear-gradient(306deg, #E0F2F1 0%, #fbe9e7 100%)!important;`"
+            :style="`font-size:16px;`"
           >
             <v-col
               cols="1"
@@ -199,6 +199,7 @@ import colors from 'vuetify/lib/util/colors'
 
     data () {
       return {  
+        showme: false,
         fontpeach,
         leader1,
         leader2,

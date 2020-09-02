@@ -11,7 +11,6 @@ export default new Router({
       name: 'Home',
       path: '/',
       component: () => import('@/views/Index'),
-
       children: [
         // Pages
         {
@@ -39,7 +38,6 @@ export default new Router({
           path: 'pages/createcs',
           component: () => import('@/views/pages/CreateCs'),
         },
-      
       ],
     },
   ],

@@ -4,7 +4,7 @@
   
     <Home />
 
-    <CoreFooter />
+    <Footer />
   </v-main>
 </template>
 
@@ -15,7 +15,7 @@
 
     components: {
       Home: () => import('./Home'),
-      CoreFooter: () => import('./Footer'),
+      Footer: () => import('./Footer'),
     },
   }
 </script>

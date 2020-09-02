@@ -1,6 +1,6 @@
 module.exports = {
-    publicPath: '/tokenlife',
-    outputDir: 'dist/tokenlife',
+    publicPath: './',
+    outputDir: 'dist/',
   
     // publicPath: process.env.NODE_ENV === 'production'
     //   ? '/tokenlife/'
