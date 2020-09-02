@@ -8,10 +8,7 @@
       justify="center"
       class="flex-d justify-center align-center"
     >
-      <v-card
-        v-if="$store.state.gShowMe"
-        :key="$store.state.gShowMe"
-      >
+      <v-card>
         Parent component contents will be here
         {{ message }}
 
@@ -39,18 +36,6 @@
         message: "hi",
       }
     },
-    computed: {
-      getShowMe () {
-        return this.$store.state.gShowMe;
-      },
-      setShowMeTrue () {
-        return this.$store.dispatch('gShowMeAct', true);
-      },
-    },
-    mounted () {
-      this.setShowMeTrue
-    },
-
   }
 </script>
 <style>

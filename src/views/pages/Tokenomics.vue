@@ -222,7 +222,7 @@ import colors from 'vuetify/lib/util/colors'
         }
       },
     mounted () {
-      this.$store.dispatch("gShowMeAct", false)
+      // this.$store.dispatch("gShowMeAct", false)
     },
   };
 </script>

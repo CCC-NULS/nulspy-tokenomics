@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import $store from './store'
 
 Vue.use(Router)
 
@@ -11,8 +10,7 @@ export default new Router({
     {
       path: '/',
       component: () => import('@/views/Index'),
-      // beforeEnter: $store.dispatch("gShowMeAct", true),
-      // beforeRouteUpdate: $store.dispatch("gShowMeAct", true),
+
       children: [
         {
           path: '',

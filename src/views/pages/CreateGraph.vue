@@ -323,10 +323,10 @@ const subbtn = {
   elevation: 24,
   dark: true,
   hover: true,
-  shaped: true,
+  shaped: false,
   filled: true,
   width: "345px",
-  color: "deep-orange lighten-1",
+  color: "teal lighten-1",
 }
 const vmdopts = {
   digitGroupSeparator: ',',
@@ -386,7 +386,7 @@ const basecardprops = {
 }
 const chipnoteprops = {
   color: "rgba(251,233,231,1)",
-  shaped: true,
+  shaped: false,
   dark: true,
   raised: true,
   }
@@ -458,7 +458,7 @@ export default {
       else {
           sp = {
             flat: false,
-            shaped: true,
+            shaped: false,
             raised: true,
             "elevation": 12,
             color: "#E0F2F1",
@@ -529,7 +529,7 @@ export default {
     headingClsStyle () {
         if (window.outerWidth < 960) {
           console.log("window is small")
-          return "display-3 deep-orange--text text--darken-2"; 
+          return "display-3 teal--text text--darken-2"; 
         }
       else return "display-4 font-weight-light orange--text text--lighten-5";
     },
@@ -540,15 +540,15 @@ export default {
         colr = "#E0F2F1" 
       return colr  // #E0F2F1 = teal lighten-5
     },
-    bkgstyle1 () {
-      var gstyle = "transparent"
-      if (window.outerWidth > 959)
-        gstyle =  "`background-image: linear-gradient(306deg, #4DB6AC, #000000)`" 
-      return gstyle  // #E0F2F1 = teal lighten-5
-    },   
+    // bkgstyle1 () {
+    //   var gstyle = "transparent"
+    //   if (window.outerWidth > 959)
+    //     gstyle =  "`background-image: linear-gradient(306deg, #4DB6AC, #000000)`" 
+    //   return gstyle  // #E0F2F1 = teal lighten-5
+    // },   
   },  
   mounted () {
-    this.$store.dispatch("gShowMeAct", false)
+    // this.$store.dispatch("gShowMeAct", false)
     // this.keyShowCard = false
     console.log("---window.outerWidth " + window.outerWidth)
     console.log("---window.innerWidth " + window.innerWidth)

@@ -22,9 +22,7 @@
       dense
       nav
     >
-      <v-list-item 
-        @click="myprogram(item)"
-      >
+      <v-list-item>
         <v-list-item-avatar
           class="align-self-center"
           contain
@@ -137,16 +135,8 @@
           title: this.$t('avatar'),
         }
       },
-      myprogram3 (itm) {
-        return this.$store.dispatch('gShowMeAct', true)
-      },
     },
     methods: {
-      myprogram (itm) {
-        if (itm.title == 'Home') {
-          this.$store.dispatch('gShowMeAct', true)
-        }
-      },
       mapItem (item) {
         return {
           ...item,
