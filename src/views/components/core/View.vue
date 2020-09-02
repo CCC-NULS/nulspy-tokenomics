@@ -1,8 +1,6 @@
 <template>
   <v-main>
     <router-view />
-  
-    <Home />
 
     <Footer />
   </v-main>
@@ -14,7 +12,6 @@
     name: 'CoreView',
 
     components: {
-      Home: () => import('./Home'),
       Footer: () => import('./Footer'),
     },
   }

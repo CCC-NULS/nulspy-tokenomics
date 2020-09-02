@@ -8,8 +8,9 @@
       justify="center"
       class="flex-d justify-center align-center"
     >
-      <div 
+      <v-card
         v-if="$store.state.gShowMe"
+        :key="$store.state.gShowMe"
       >
         Parent component contents will be here
         {{ message }}
@@ -23,7 +24,7 @@
         >       
           NULS Tokenomics
         </v-card>
-      </div>
+      </v-card>
     </v-row>
   </v-container>
 </template>

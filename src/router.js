@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import $store from './store'
 
 Vue.use(Router)
 
@@ -8,10 +9,16 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      name: 'Home',
       path: '/',
       component: () => import('@/views/Index'),
+      // beforeEnter: $store.dispatch("gShowMeAct", true),
+      // beforeRouteUpdate: $store.dispatch("gShowMeAct", true),
       children: [
+        {
+          path: '',
+          name: 'Home',
+          component: () => import('@/views/pages/Home'),
+        },
         // Pages
         {
           name: 'Create Graph',
