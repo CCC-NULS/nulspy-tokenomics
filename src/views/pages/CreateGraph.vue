@@ -5,39 +5,52 @@
     tag="section"
   >
     <v-row
-      align="center"
-      justify="center"
-    >
+      class="d-flex justify-center"
+    >    
       <v-col
         cols="12"
-        sm="3"
-        md="7"
-        class="justify-center"
+        xs="12"
+        md="12"
       >
-        <material-cardn
-          id="basematcard"
-          v-bind="basecardprops"
-          class="justify-center"
+        <v-card
+          width="97%"
+          height="94px"
+          flat
+          color="green lighten-3"
+          class="flex-d flex-column align-center justify-center mt-0"
         >
-          <template v-slot:heading>
-            <div
-              id="firstdiv"
-              height="100px"              
-              :class="headingClsStyle"
-              :style="headstyle"
-            > 
-              design your graph
-            </div>
-          </template>
+          <span
+            id="titlespan"
+            :style="`montserrat, sans-serif;font-size:52px;`"
+          > 
+            TokenLife Design
+          </span>  
+          <!-- chipnote card under sentence -->
+          <v-img>
+            src='@/assets/addins/nulsWallet.svg'
+          </v-img>
+          <span 
+            style="font-size:24px;font-family:'Roboto',sans-serif;color:black;" 
+          >
+            <br>Disinflation begins one interval after Inflation starts
+          </span>
+        </v-card>
+        <v-card
+          id="basematcard"
+          width="97%"
+          flat
+          color="indigo lighten-5"
+          class="d-flex flex-inline-row justify-start"
+        >
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--        # # #   -->
           <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <v-card
             id="vcard-for-form"
             ref="formrefc"
+            width="100%"
             flat
-            class="px-2 py-1 ma-1" 
-            :class="flexlist"
+            class="d-flex flex-inline-row justify-around px-0 py-0 ma-0" 
             color="transparent"
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
@@ -47,34 +60,18 @@
               ref="formref"
               :key="resetform"
               vcard-for-form
-              style="flat=true"
+              :style="`flat=true; width='100%'`" 
               @submit.prevent
             >     
               <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
               <v-card
                 id="surroundcards"
-                width="96%"
+                width="1200px"
                 flat
-                color="transparent"
-                :class="flexlist"               
-                class="px-3 py-1 mx-2 my-0"
+                color="purple"
+                class="d-flex flex-row flex-wrap justify-around px-1 py-1 mx-0 my-0"
               >
-                <!-- chipnote card under sentence -->
-                <v-card
-                  id="chipnote"
-                  height="62px"
-                  v-bind="chipnoteprops"
-                  elevated-6
-                  class="py-2 pl-4 pr-7 ma-3"
-                >
-                  <span 
-                    style="font-size:14px;font-family:'Roboto',sans-serif;color:black;" 
-                  >
-                    Disinflation begins <br>one interval after Inflation starts
-                  </span>
-                </v-card>
-            
                 <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
                 <v-card 
@@ -91,9 +88,11 @@
                   >
                     Initial Token Supply - Min 10,000,  <br>Suggestion: 100,000,000
                   </v-card-subtitle>
-       
+        
                   <v-chip 
                     id="vchip1"
+                    label
+                    filter
                     :style="chipstyle"
                     :class="chipclass"
                   >        
@@ -269,7 +268,7 @@
               </v-card>
             </v-form>                
           </v-card>
-        </material-cardn>
+        </v-card>
       </v-col>
     </v-row>
     <!-- plot shows up here # # # # # # # -->
@@ -279,8 +278,8 @@
     >
       <v-col
         cols="12"
-        md="11"
-        sm="3"
+        md="12"
+        sm="12"
         align="center"
       >
         <v-card
@@ -326,7 +325,7 @@ const subbtn = {
   shaped: false,
   filled: true,
   width: "345px",
-  color: "teal lighten-1",
+  color: "red",
 }
 const vmdopts = {
   digitGroupSeparator: ',',
@@ -385,8 +384,8 @@ const basecardprops = {
   "max-height": "1900px",
 }
 const chipnoteprops = {
-  color: "rgba(251,233,231,1)",
-  shaped: false,
+  color: "grey lighten-5",
+  label: true,
   dark: true,
   raised: true,
   }
@@ -404,7 +403,7 @@ export default {
   },
 
   data: () => ({
-    longstyle: "color:#BF360C;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
+    longstyle: "color:white;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
     flexlist,
     subbtn,
     numericinp,
@@ -412,7 +411,7 @@ export default {
     chipnoteprops,
     cardclass: `${flexlist}` +  "px-2 pt-1 pb-2 ma-2",
     chipstyle: "border-bottom-color:#000000;",
-    chipclass: "justify-center align-center white medium elevation-2 pr-2",
+    chipclass: "shaped=false justify-center align-center white medium elevation-2 pr-2",
     headstyle: "font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;",
     arrowvuenumeric,
     vmdInputBox,   
@@ -433,13 +432,12 @@ export default {
     finalIMAGE: '',
     }),
   computed: {
-    aShowMe () {
-      return this.$store.state.gShowMe;
-    },
+
     backgrad () {
       var stte = ' '
       if (window.outerWidth >= 960) {
-        stte = "background-image: linear-gradient(306deg, #4DB6AC, #9e9e9e)" 
+        //stte = "background-image: linear-gradient(306deg, #4DB6AC, #9e9e9e)" 
+        stte = "background-image: linear-gradient(306deg, black, #9e9e9e)" 
       }
       return stte
     },
@@ -452,7 +450,7 @@ export default {
           shaped: false,
           raised: false,
           "elevation": 0,
-          color: "#E0F2F1"
+          color: "blue-grey"
         }
       }
       else {
@@ -461,7 +459,8 @@ export default {
             shaped: false,
             raised: true,
             "elevation": 12,
-            color: "#E0F2F1",
+            color: "blue-grey darken-4",
+            // color: "#E0F2F1",
             "min-width": "445px",              
           }
       }
@@ -531,7 +530,7 @@ export default {
           console.log("window is small")
           return "display-3 teal--text text--darken-2"; 
         }
-      else return "display-4 font-weight-light orange--text text--lighten-5";
+      else return "display-3 white--text";
     },
     
     tcolor () {

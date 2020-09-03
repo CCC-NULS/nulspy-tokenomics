@@ -2,7 +2,8 @@
   <v-card
     v-bind="$attrs"
     :class="classes"
-    class="v-card--material pa-3"
+    class="v-card--materialn pa-3"
+    :style="`background-color:rgba(1,1,1,.1)`"
   >
     <div class="d-flex flex-wrap">
       <v-avatar
@@ -67,7 +68,6 @@
         class="ml-4"
       >
         <div
-
           class="card-title font-weight-light"
           v-text="title"
         />
@@ -148,7 +148,8 @@
 </script>
 
 <style lang="sass">
-  .v-card--material
+  .v-card--materialn
+
     &__avatar
       position: relative
       top: -64px
