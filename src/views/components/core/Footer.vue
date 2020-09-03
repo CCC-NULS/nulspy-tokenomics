@@ -1,6 +1,7 @@
 <template>
   <v-footer
     id="core-footer"
+    absolute
   >
     <v-container>
       <v-row

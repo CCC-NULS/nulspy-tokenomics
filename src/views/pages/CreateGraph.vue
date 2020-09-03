@@ -5,7 +5,7 @@
     tag="section"
   >
     <v-row
-      class="d-flex justify-center"
+      class="d-flex flex-align-start"
     >    
       <v-col
         cols="12"
@@ -13,26 +13,44 @@
         md="12"
       >
         <v-card
+          id="rocketcard"
+          width="97%"
+          height="214px"
+          flat
+          color="white"
+        >
+          <v-row> 
+            <v-col cols="9" />
+            <v-col cols="3">
+              <v-img 
+                width="204"
+                height="211"
+                src="../../assets/images/addins/nulsRocket.png" 
+              />
+            </v-col> 
+          </v-row> 
+        </v-card>
+
+        <v-card
+          id="titlecard"
           width="97%"
           height="94px"
           flat
-          color="green lighten-3"
-          class="flex-d flex-column align-center justify-center mt-0"
+          color="transparent"
+          class="mt-n30"
         >
           <span
             id="titlespan"
-            :style="`montserrat, sans-serif;font-size:52px;`"
+            :style="`montserrat, sans-serif;font-size:32px;`"
           > 
-            TokenLife Design
+            TokenLife Design Tool
           </span>  
-          <!-- chipnote card under sentence -->
-          <v-img>
-            src='@/assets/addins/nulsWallet.svg'
-          </v-img>
+
+          <br>
           <span 
-            style="font-size:24px;font-family:'Roboto',sans-serif;color:black;" 
+            style="font-size:24px;font-family:'Roboto',sans-serif;color:#000;" 
           >
-            <br>Disinflation begins one interval after Inflation starts
+            Disinflation begins one interval after Inflation starts
           </span>
         </v-card>
         <v-card
@@ -40,7 +58,7 @@
           width="97%"
           flat
           color="indigo lighten-5"
-          class="d-flex flex-inline-row justify-start"
+          class="d-flex flex-inline-row justify-around"
         >
           <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
           <!--        # # #   -->
@@ -67,18 +85,16 @@
 
               <v-card
                 id="surroundcards"
-                width="1200px"
+                width="100%"
                 flat
-                color="purple"
+                color="grey lighten-4"
                 class="d-flex flex-row flex-wrap justify-around px-1 py-1 mx-0 my-0"
               >
                 <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
 
                 <v-card 
                   id="vmd1card"
-                  v-bind="gcprops"
-                  :width="cardwidth"
-                  :class="cardclass"
+                  v-bind="cardprops"
                 >
                   <v-card-subtitle
                     id="vmd1cardsubt"
@@ -91,8 +107,6 @@
         
                   <v-chip 
                     id="vchip1"
-                    label
-                    filter
                     :style="chipstyle"
                     :class="chipclass"
                   >        
@@ -111,8 +125,7 @@
                       
                 <v-card 
                   id="vmd2card"
-                  v-bind="gcprops"
-                  :width="cardwidth"
+                  v-bind="cardprops"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -144,8 +157,7 @@
                       
                 <v-card 
                   id="vmd3card"
-                  v-bind="gcprops"
-                  :width="cardwidth"
+                  v-bind="cardprops"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -175,8 +187,7 @@
                 <!-- wrapped to align cards-->
                 <v-card 
                   id="vmd4card"
-                  v-bind="gcprops"
-                  :width="cardwidth"
+                  v-bind="cardprops"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -214,8 +225,7 @@
                 
                 <v-card 
                   id="vmd5card"
-                  v-bind="gcprops"
-                  :width="cardwidth"
+                  v-bind="cardprops"
                   :class="cardclass"
                 >
                   <v-card-subtitle
@@ -248,7 +258,7 @@
                 <v-card
                   id="submit-btn-card"
                   :width="cardwidth"
-                  min-width="300px"
+                  min-width="240px"
                   color="transparent"
                   class="justify-center align-center mx-1 mb-1"
                   flat
@@ -257,7 +267,7 @@
                   <v-btn
                     id="submitmain"
                     v-bind="subbtn"
-                    class="justify-center rounded-tl-xl mb-3"
+                    class="justify-center mb-3"
                     :style="`text-transform:lowercase;`"
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
@@ -307,7 +317,6 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # 691.2  922 or 400 x 533 # # # # # -->
 <script>
 import Vue from 'vue'
-import {  mapState  } from 'vuex'
 
 import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
   from "./CreateVars.js"
@@ -325,7 +334,9 @@ const subbtn = {
   shaped: false,
   filled: true,
   width: "345px",
-  color: "red",
+  "min-width": "145px",
+  height: "100px",
+  color: "deep-orange darken-1",
 }
 const vmdopts = {
   digitGroupSeparator: ',',
@@ -372,27 +383,12 @@ const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 const vmdInputBox = "width:140px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
   padding-left:2px;  padding-right:2px; \
-  padding-bottom:2px;padding-top:2px; \
-  margin-bottom:2px; margin-left:2px;margin-right:2px; \
-  margin-top:5px; color:black; background-color:white;"
-
-const basecardprops = {
-  width: "95%",
-  "min-width": "200px",
-  "min-height": "400px",
-  "height": "950px",
-  "max-height": "1900px",
-}
-const chipnoteprops = {
-  color: "grey lighten-5",
-  label: true,
-  dark: true,
-  raised: true,
-  }
+  padding-bottom:2px; padding-top:2px; \
+  margin-bottom:2px; margin-left:2px; margin-right:2px; \
+  margin-top:5px; color:#000; background-color:white;"
 
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
 const vmdHold = 'numbers only'
-var formcp = 'height="800px" max-height="2900px" min-height="400px" width="95%" flat color="transparent"'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
 
 export default {
@@ -403,16 +399,13 @@ export default {
   },
 
   data: () => ({
-    longstyle: "color:white;font-family:Roboto,sans-serif;font-size:15px!important;font-weight:400",
+    longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400",
     flexlist,
     subbtn,
     numericinp,
-    basecardprops,
-    chipnoteprops,
-    cardclass: `${flexlist}` +  "px-2 pt-1 pb-2 ma-2",
-    chipstyle: "border-bottom-color:#000000;",
-    chipclass: "shaped=false justify-center align-center white medium elevation-2 pr-2",
-    headstyle: "font-family:Rubik, sans-serif;text-shadow: 1px 1px 1px black;",
+    cardclass: `${flexlist}` +  "px-1 pt-1 pb-2 ma-1",
+    chipstyle: "border-bottom-color:#000;",
+    chipclass: "outlined v-chip--label justify-center align-center white medium elevation-2 pr-2",
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -432,130 +425,42 @@ export default {
     finalIMAGE: '',
     }),
   computed: {
-
-    backgrad () {
-      var stte = ' '
-      if (window.outerWidth >= 960) {
-        //stte = "background-image: linear-gradient(306deg, #4DB6AC, #9e9e9e)" 
-        stte = "background-image: linear-gradient(306deg, black, #9e9e9e)" 
-      }
-      return stte
-    },
-    
-    gcprops () {
-      var sp
-      if (window.outerWidth < 960) {
-        sp = {
-          flat: true,
+    cardprops () {
+      var owid = window.outerWidth
+      var mw =  owid < 960 ? '145' : '245'
+      var wid = owid < 960 ? (owid * .84) : (owid * .33)
+      var flx = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
+      return {
+          class: flx + "px-1 pt-1 pb-2 ma-1",
           shaped: false,
           raised: false,
-          "elevation": 0,
-          color: "blue-grey"
+          outlined: true,
+          "elevation": 2,
+          color: "#FFF",
+          width: wid,
+          "min-width": mw,              
+          "max-width": "295px", 
+          "border-bottom-color": "#000",
         }
-      }
-      else {
-          sp = {
-            flat: false,
-            shaped: false,
-            raised: true,
-            "elevation": 12,
-            color: "blue-grey darken-4",
-            // color: "#E0F2F1",
-            "min-width": "445px",              
-          }
-      }
-      return sp
     },
     greygrad () {
       return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
-
-    },
-    gcardWid () {
-      var aaabb = this.$refs.formrefc.attributes.width
-      return (.9 * aaabb)
-    },
-
-    windsmall () {
-      if (window.outerWidth < 960) 
-         return true
-      else return false
     },
     imgwid () {
-      var wid
-      if (window.outerWidth < 960) {
-        wid = '533'   // mobile
-      }
-      else wid = '922'   // desktop
-      return wid
+      return window.outerWidth < 960 ? '533' : '922'   
     },
-    // 922 x 691.2  or   533 x 400  
     imgheight () {
-      var heit
-      if (window.outerWidth < 960) {
-        heit = '400'   // mobile
-      }
-      else heit = '691'   // desktop
-      return heit
+      return window.outerWidth < 960 ? '400' : '691'   
     },
     cardwidth () {
-      var finsize
-      var owid = window.outerWidth
-      console.log("found win size: " + owid)
-      var sms
-      var bigs
-
-      if (owid < 960) {
-        sms = (owid * .84);
-        console.log("found small win * .84: " + sms)
-        finsize = sms;
-        }
-      else  {
-        sms = (owid * .33 );
-        console.log("found big win * .33: " + sms)
-        finsize = sms 
-        }
-      console.log("finsize: " + finsize)
-      return finsize
+      return window.outerWidth < 960 ? (window.outerWidth * .84) : (window.outerWidth * .33)
     },
-
-    gcardcolor () {
-        if (window.outerWidth < 960) {
-          console.log("window is small")
-          return "transparent"; 
-        }
-      else return "E0F2F1";  // #E0F2F1 = teal lighten-5
-    },
-    headingClsStyle () {
-        if (window.outerWidth < 960) {
-          console.log("window is small")
-          return "display-3 teal--text text--darken-2"; 
-        }
-      else return "display-3 white--text";
-    },
-    
-    tcolor () {
-      var colr = false
-      if (window.outerWidth < 960)
-        colr = "#E0F2F1" 
-      return colr  // #E0F2F1 = teal lighten-5
-    },
-    // bkgstyle1 () {
-    //   var gstyle = "transparent"
-    //   if (window.outerWidth > 959)
-    //     gstyle =  "`background-image: linear-gradient(306deg, #4DB6AC, #000000)`" 
-    //   return gstyle  // #E0F2F1 = teal lighten-5
-    // },   
-  },  
+  },
   mounted () {
-    // this.$store.dispatch("gShowMeAct", false)
-    // this.keyShowCard = false
     console.log("---window.outerWidth " + window.outerWidth)
     console.log("---window.innerWidth " + window.innerWidth)
   },
-  created () {
-   // this.$refs.formref.reset()
-    // console.log("localshowme in createpage: " + localShowMe)
-  },
+
   methods: {   
     checkPic (finimag) {
       this.keyShowCard += 1;
@@ -662,15 +567,6 @@ export default {
       this.keyShowCard = true
       this.checkPic(this.finalIMAGE)
     },
-    resetc() {
-      console.log("resetting form");
-      this.$refs.formref.reset() 
-      // alert("You have reset the form")
-    },
-    keepplot() {
-      console.log("in keepplot");
-      // this.alert=true
-    },
   }
 }
  // let aw = "&initsup=100000000"; // let bw = "&anninf=5000000" // let cw = "&startinf=24" // let dw = "&stopinf=210000000" // let ew = "&disinf=4" // let dw = "&stopinf=210000000";
@@ -695,7 +591,7 @@ export default {
   color:#BF360C;
   font-family:Roboto,sans-serif;
   font-size:15px!important;
-  font-weight:400;
+  font-weight:500;
 }
 
 /* // import { extend, ValidationObserver, ValidationProvider, } from 'vee-validate'
