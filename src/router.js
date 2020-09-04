@@ -12,15 +12,15 @@ export default new Router({
       component: () => import('@/views/Index'),
 
       children: [
-        {
-          path: '',
-          name: 'Home',
-          component: () => import('@/views/pages/Home'),
-        },
+        // {
+        //   path: '',
+        //   name: 'Home2',
+        //   component: () => import('@/views/pages/Home'),
+        // },
         // Pages
         {
-          name: 'Create Graph',
-          path: 'pages/creategraph',
+          name: 'Home',
+          path: '',
           component: () => import('@/views/pages/CreateGraph'),
         }, 
         {
