@@ -2,6 +2,7 @@
   <v-footer
     id="core-footer"
     absolute
+    color="teal lighten-4"
   >
     <v-container>
       <v-row
