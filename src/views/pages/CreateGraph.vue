@@ -12,46 +12,48 @@
         xs="12"
         md="12"
       >
-        <div>
-          <v-row> 
-            <v-col cols="9">
-              <v-card
-                color="yellow"
-                flat
-                outlined="true"
-                height="220"
-                :style="`${cardtopmarg}`"
-              >
-                <span
-                  id="titlespan"
-                  :style="`font-family: 'montserrat', sans-serif;font-size:52px; font-weight:900;`"
-                  class="grey--text darken3"
-                > 
-                  TokenLife Design Tool
-                </span> 
-                <br>
-                <span 
-                  style="font-size:24px;font-family:'Roboto',sans-serif;color:#424242;line-height:32px;" 
-                >
-                  Input different numbers and see tokens grow over time
-                </span>
-                <br>
-                <span 
-                  style="font-size:16px;font-family:'Roboto',sans-serif;color:#424242;line-height:92px;" 
-                >
-                  Disinflation begins one interval after Inflation starts
-                </span>
-              </v-card>
-            </v-col>
-            <v-col cols="3">
-              <v-img 
-                width="204"
-                height="211"
-                src="../../assets/images/addins/nulsRocket.png" 
-              />
-            </v-col> 
-          </v-row> 
-        </div>
+        <!-- <div 
+          v-for="(item, i) in toplines"
+          :key="i"
+          :style="item.sty"
+        /> -->
+        <template name="MHeadComp2">
+          <slot 
+            name="MHeadComp2" 
+            :toplines="toplines"
+          > 
+            {{ toplines.nme }}
+          </slot>
+        </template>
+        <v-row> 
+          <v-col cols="9">
+            <v-card
+              color="red lighten-2"
+              height="220"
+              :style="`${cardtopmarg}`"
+            >
+              <template>
+                inside template
+
+                <slot name="MHeadComp2">
+                  Not bound yet
+                </slot>
+                <!-- </MHeadComp> -->
+              </template>
+            </v-card>
+          </v-col>
+          <v-col cols="3">
+            <v-img 
+              width="204"
+              height="211"
+              src="../../assets/images/addins/nulsRocket.png" 
+            />
+          </v-col> 
+        </v-row> 
+      </v-col> 
+    </v-row> 
+    <v-row> 
+      <v-col> 
         <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
         <!--        # # #   -->
         <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
@@ -278,7 +280,7 @@
           :key="resetImage"
           height="imgheight"
           width="imgwid"          
-          class="flat transparent ml-4 mt-1 mb-2  px-0 pb-5 pt-7 justify-center align-center"
+          class="flat transparent ml-4 mt-1 mb-2 px-0 pb-5 pt-7 justify-center align-center"
         >
           <img
             :key="resetImage"
@@ -304,6 +306,7 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
+import MHeadComp from './MHeadComp.vue'
 
 const subbtn = {
   type: "submit",
@@ -357,23 +360,46 @@ const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
 const vmdInputBox = "width:140px; font-size:16px; font-weight:500; \
   line-height:23px; text-align:right; \
-  padding-left:2px;  padding-right:2px; \
+  padding-left:2px; padding-right:2px; \
   padding-bottom:2px; padding-top:2px; \
   margin-bottom:2px; margin-left:2px; margin-right:2px; \
   margin-top:5px; color:#000; background-color:#FFF;"
 
+const toplines = [
+  {
+    id: "item1",
+    thewords: "TokenLife Design Tool",
+    sty: "`font-family: 'montserrat', sans-serif;font-size:52px; font-weight:900;`",
+    clss: "grey--text darken2",
+  },
+  {
+    id: "item2",
+    thewords: "Input different numbers and see tokens grow over time",
+    sty: "font-family:'montserrat',sans-serif; font-size:24px;  color:#424242; line-height:32px;`",
+    clss: "grey--text darken3",
+  },
+  {
+    id: "item3",
+    thewords: "Disinflation begins one interval after Inflation starts",
+    sty: "font-size:16px;font-family:'Roboto',sans-serif;color:#424242;line-height:92px;",
+    clss: "grey--text darken3",
+  },
+]
+
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
 const vmdHold = 'numbers only'
-var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-around"
+var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-space-around"
 
 export default {
   name: "CreateGraph",
   components: {
     VueAutonumeric,
-    VueNumericInput
+    VueNumericInput,
+    // MHeadComp,
   },
 
   data: () => ({
+    toplines,
     longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
     flexlist,
     subbtn,
@@ -403,7 +429,7 @@ export default {
       var wid = owid < 960 ? (owid * .84) : (owid * .33)
       var flx = "d-flex flex-column flex-shrink-1 justify-center align-center"
       return {
-          class: flx + "px-1 pt-1 pb-2 ma-1",
+          class: flx + "px-1 pt-1 pb-2 ma-4",
           shaped: false,
           raised: false,
           outlined: true,

@@ -96,12 +96,12 @@
           icon: 'mdi-poll',
           to: '/',
         }, 
-        {
-          title: 'creategraph',
-          icon: 'mdi-chart-areaspline',
-          to: '/pages/creategraph',
+        // {
+        //   title: 'creategraph',
+        //   icon: 'mdi-chart-areaspline',
+        //   to: '/pages/creategraph',
 
-        },           
+        // },           
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
