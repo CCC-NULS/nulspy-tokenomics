@@ -12,19 +12,11 @@
         xs="12"
         md="12"
       >
-        <!-- <div 
-          v-for="(item, i) in toplines"
-          :key="i"
-          :style="item.sty"
-        /> -->
-        <template name="MHeadComp2">
-          <slot 
-            name="MHeadComp2" 
-            :toplines="toplines"
-          > 
-            {{ toplines.nme }}
-          </slot>
-        </template>
+        <mack 
+          :url="`/profile`"
+        >
+          Your Profile
+        </mack>
         <v-row> 
           <v-col cols="9">
             <v-card
@@ -32,14 +24,7 @@
               height="220"
               :style="`${cardtopmarg}`"
             >
-              <template>
-                inside template
-
-                <slot name="MHeadComp2">
-                  Not bound yet
-                </slot>
-                <!-- </MHeadComp> -->
-              </template>
+              red card
             </v-card>
           </v-col>
           <v-col cols="3">
@@ -306,7 +291,7 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
-import MHeadComp from './MHeadComp.vue'
+import Mack from './Mack.vue'
 
 const subbtn = {
   type: "submit",
@@ -395,7 +380,7 @@ export default {
   components: {
     VueAutonumeric,
     VueNumericInput,
-    // MHeadComp,
+    Mack,
   },
 
   data: () => ({

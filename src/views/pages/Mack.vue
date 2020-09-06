@@ -1,23 +1,13 @@
 <template>
-  <v-container>
-    <div>
-      <slot 
-        :name="MHeadComp" 
-        :toplines="toplines"
-      > 
-        {{ toplines.nme }}
-      </slot>
-      <!-- v-for="(item, i) in toplines"
-      :key="i"
-      :style="item.sty"
-      >
-      {{ item.nme }}
-    </slot>  -->
-    </div>
-  </v-container>
+  <a
+    :href="url"
+    class="display-1"
+  >
+    <slot />
+  </a>
 </template>
-<script>
 
+<script>
 
   const toplines = [
     {
@@ -40,14 +30,18 @@
     },
   ]
 
-
   export default {
-    name: "MHeadComp",
-    components: "MHeadComp",
+    name: "Mack",
+    props: {
+      url: {
+        type: String,
+        default: "abc.com"
+      }
+    },
     data: function () {
       return {
         toplines,
-        mmessage: "hi from imported component MHeadComp.",
+        mmessage: "hi from IMPORTED component Mack.",
       }
     },
   }
