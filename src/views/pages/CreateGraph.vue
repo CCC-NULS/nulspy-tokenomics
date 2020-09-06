@@ -4,6 +4,9 @@
     fluid
     tag="section"
   >
+    <template v-slot="{ i }">
+      <li>I am you slot before {{ String(i) }}</li>
+    </template>
     <v-row
       class="d-flex flex-align-start"
     >    
@@ -14,15 +17,14 @@
       >
         <v-row> 
           <v-col cols="9">
-            <v-data-table
-              v-for="topline in toplines"
-              :key="topline.id"
-              :items="toplines"
-            >
-              <template v-slot:item="{ item }">
-                {{ item }}
+            <ul ref="list">
+              <template v-for="i in items">
+                <slot :i="i" />
+                <li :key="i">
+                  {{ i.thewords }}
+                </li>
               </template>
-            </v-data-table>
+            </ul>
           </v-col>
           <v-col cols="3">
             <v-img 
@@ -347,11 +349,11 @@ const vmdInputBox = "width:140px; font-size:16px; font-weight:500; \
   margin-bottom:2px; margin-left:2px; margin-right:2px; \
   margin-top:5px; color:#000; background-color:#FFF;"
 
-const toplines = [
+const items = [
   {
     id: "item1",
     thewords: "TokenLife Design Tool",
-    sty: "`font-family: 'montserrat', sans-serif;font-size:52px; font-weight:900;`",
+    sty: "font-family:montserrat, sans-serif;font-size:52px; font-weight:900;",
     clss: "grey--text darken2",
   },
   {
@@ -380,7 +382,7 @@ export default {
   },
 
   data: () => ({
-    toplines,
+    items,
     longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
     flexlist,
     subbtn,
