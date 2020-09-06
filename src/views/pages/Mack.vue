@@ -1,13 +1,12 @@
 <template>
-  <v-card 
-    :key="tp.id"
-    slot:items="`tp in toplines`"
-    :name="todo"
-    :pname="tp.nme"
-  >
-    <slot>
-      {{ pname }}
-    </slot>
+  <v-card color="blue">
+    <aaa 
+      v-for="item in toplines"
+      slot="item.id"
+      :key="item.id"
+    >
+      1
+    </aaa>
   </v-card>
 </template>
 
@@ -35,7 +34,7 @@
   ]
 
   export default {
-    name: "Mack",
+    name: "Aaa",
     props: {
       url: {
         type: String,
@@ -44,6 +43,7 @@
     },
     data: function () {
       return {
+        items: [1,2,3,4],
         toplines,
         mmessage: "hi from IMPORTED component Mack.",
       }

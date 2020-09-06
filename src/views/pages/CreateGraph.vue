@@ -12,33 +12,17 @@
         xs="12"
         md="12"
       >
-        <v-row>
-          <v-select
-            :items="['Foo', 'Bar', 'Fizz', 'Buzz']"
-            label="Fizzbuzz"
-          >
-            <template v-slot:item="{ item, attrs, on }">
-              <v-list-item
-                v-bind="attrs"
-                v-on="on"
-              >
-                <v-list-item-title
-                  :id="attrs['aria-labelledby']"
-                  v-text="item"
-                />
-              </v-list-item>
-            </template>
-          </v-select>
-        </v-row>
         <v-row> 
           <v-col cols="9">
-            <v-card
-              color="red lighten-2"
-              height="220"
-              :style="`${cardtopmarg}`"
+            <v-data-table
+              v-for="topline in toplines"
+              :key="topline.id"
+              :items="toplines"
             >
-              red card
-            </v-card>
+              <template v-slot:item="{ item }">
+                {{ item }}
+              </template>
+            </v-data-table>
           </v-col>
           <v-col cols="3">
             <v-img 
@@ -304,7 +288,7 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
-// import Mack from './Mack.vue'
+import Aaa from './Mack.vue'
 
 const subbtn = {
   type: "submit",
