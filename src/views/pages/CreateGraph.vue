@@ -12,11 +12,24 @@
         xs="12"
         md="12"
       >
-        <mack 
-          :url="`/profile`"
-        >
-          Your Profile
-        </mack>
+        <v-row>
+          <v-select
+            :items="['Foo', 'Bar', 'Fizz', 'Buzz']"
+            label="Fizzbuzz"
+          >
+            <template v-slot:item="{ item, attrs, on }">
+              <v-list-item
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-list-item-title
+                  :id="attrs['aria-labelledby']"
+                  v-text="item"
+                />
+              </v-list-item>
+            </template>
+          </v-select>
+        </v-row>
         <v-row> 
           <v-col cols="9">
             <v-card
@@ -291,7 +304,7 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
-import Mack from './Mack.vue'
+// import Mack from './Mack.vue'
 
 const subbtn = {
   type: "submit",
@@ -380,7 +393,6 @@ export default {
   components: {
     VueAutonumeric,
     VueNumericInput,
-    Mack,
   },
 
   data: () => ({

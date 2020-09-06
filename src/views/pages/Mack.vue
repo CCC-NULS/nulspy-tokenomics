@@ -1,10 +1,14 @@
 <template>
-  <a
-    :href="url"
-    class="display-1"
+  <v-card 
+    :key="tp.id"
+    slot:items="`tp in toplines`"
+    :name="todo"
+    :pname="tp.nme"
   >
-    <slot />
-  </a>
+    <slot>
+      {{ pname }}
+    </slot>
+  </v-card>
 </template>
 
 <script>
