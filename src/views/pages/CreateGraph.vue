@@ -4,9 +4,6 @@
     fluid
     tag="section"
   >
-    <template v-slot="{ i }">
-      <li>I am you slot before {{ String(i) }}</li>
-    </template>
     <v-row
       class="d-flex flex-align-start"
     >    
@@ -17,14 +14,20 @@
       >
         <v-row> 
           <v-col cols="9">
-            <ul ref="list">
-              <template v-for="i in items">
-                <slot :i="i" />
-                <li :key="i">
-                  {{ i.thewords }}
-                </li>
-              </template>
-            </ul>
+            <template 
+              v-for="i in items"
+            >
+              <span 
+                slot
+                :key="i"
+                name="newslot"
+                :i="i"
+                :style="i.sty"
+                :class="i.clss"              
+              >
+                {{ i.thewords }} <br>
+              </span>
+            </template>     
           </v-col>
           <v-col cols="3">
             <v-img 
