@@ -1,20 +1,32 @@
 <template>
-  <v-container>
-    <template slot:header>
-      Here might be a page title 
-      {{ vmdInputBox }} 
-    </template>
-    <div class="header">
-      <!-- We want header content here -->
-      <slot 
-        name="header"
-      />
-    </div>
-  </v-container>
+  <v-chip
+    id="childc"
+    slot
+    name="childc"
+    v-bind="tchipprops"
+    :mytext="mytext"
+  >
+    {{ mytext }}
+  </v-chip>
 </template>
 
 <script>
-export default {
-  name: childc,
-}
+  export default {
+    name: childc,
+    props: {
+      mytext: {
+        type: String,
+        default: "howdy doody",
+      },
+    },
+    data: () => ({
+      tchipprops: { 
+        color: 'grey lighten-4',
+        textColor: 'black',
+        'elevation-24': true,
+        class: 'label montser mb-3 pr-1', 
+        style: "line-height:18px; box-shadow: 0px 2px 2px -1px grey",
+      }
+    })
+  }
 </script>

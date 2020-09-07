@@ -14,18 +14,15 @@
       >
         <v-row> 
           <v-col cols="9">
-            <template 
-              v-for="i in items"
-            >
+            <template v-for="(stuf, i) in items">
               <span 
                 slot
                 :key="i"
                 name="newslot"
-                :i="i"
-                :style="i.sty"
-                :class="i.clss"              
+                :style="stuf.sty"
+                :class="stuf.clss"              
               >
-                {{ i.thewords }} <br>
+                {{ stuf.thewords }} <br>
               </span>
             </template>     
           </v-col>
