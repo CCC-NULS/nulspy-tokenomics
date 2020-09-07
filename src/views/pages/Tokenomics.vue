@@ -14,7 +14,7 @@
 
 <script>
   import colors from 'vuetify/lib/util/colors'
-  // import childc from './childc'
+  import childc from './childc'
 
   // const tHeader = 'About NULS'
   const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'

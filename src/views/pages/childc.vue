@@ -1,24 +1,20 @@
 <template>
   <v-chip
-    id="childc"
-    slot
-    name="childc"
-    v-bind="tchipprops"
-    :mytext="mytext"
-  >
-    {{ mytext }}
-  </v-chip>
+    id="Childc"
+    name="Childc"
+  />
 </template>
 
 <script>
   export default {
-    name: childc,
-    props: {
-      mytext: {
-        type: String,
-        default: "howdy doody",
-      },
-    },
+    name: 'Childc',
+    props: '',
+    // props: {
+    //   mytext: {
+    //     type: String,
+    //     default: "howdy doody",
+    //   },
+    // },
     data: () => ({
       tchipprops: { 
         color: 'grey lighten-4',
