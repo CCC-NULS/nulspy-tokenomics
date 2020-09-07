@@ -8,17 +8,16 @@
       align="center"
       justify="center"
     >
+      <v-col
+        cols="1"
+      />
       <v-col 
         cols="12"
-        md="11"
+        md="10"
       >
         <v-card
-          color="grey darken-3"
-          elevation-24
-          raised
-          width="100%"
-          height="92px"
-          class="d-flex align-center justify-center"
+          id="blackcard"
+          v-bind="blackcard"
         >
           <span 
             :style="`font-family:Montserrat,sans-serif;font-size:52px;color:white;`"
@@ -26,46 +25,43 @@
             All About Tokenomics
           </span>
         </v-card>
-
-        <div 
-          class="display-2 font-weight-light"
-        >
-          {{ mat1 }} 
-        </div>
-        <div 
-          class="display-2 font-weight-light"
-        >
-          {{ mat2 }} 
-        </div>
       </v-col>
     </v-row>
     <v-row>
-      <v-card
-        id="vcard2"
-        color="blue-grey lighten-5"
-        align="center"
-        class="grey--text text-darken-3 pr-9 pl-9 py-t pb-12 mb-12 ml-9 mr-12"
-        elevation-24
-        :style="`font-size:24px;`"
+      <v-col
+        cols="1"
+      />
+      <v-col 
+        cols="12"
+        md="10"
       >
         <v-card
-          vcard2
-          color="teal lighten-5"
-          width="70%"
-          class="d-flex align-self-center text-center pl-10 pr-24 mx-10"
+          id="vcard2"
+          v-bind="tokencardback"
+          :class="bigline"
         >
-          {{ tsubtitle }}
-        </v-card>
+          <v-card
+            id="tealcard"
+            vcard2
+            dark
+            color="teal lighten-2"
+            width="70%"
+            class="d-flex align-self-center align-center text-center pl-10 py-5 pr-12 mx-10"
+          >
+            {{ tsubtitle }}
+          </v-card>
 
-        <Childc 
-          v-for="(stuf, i) in biglist"
-          slot
-          :key="i"
-          name="Childc"
-          :lead="stuf.lead"             
-          :parag="stuf.parag"             
-        />
-      </v-card>
+          <Childc 
+            v-for="(stuf, i) in biglist"
+            :key="i"
+            slot
+            v-bind="$attrs"
+            name="Childc"
+            :lead="stuf.lead"             
+            :parag="stuf.parag"             
+          />
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -131,30 +127,26 @@
         '(example 30 days).',
     },
   ]
-  
 
-  const ctwoprops = {
-    color: "grey lighten-5",
-    // align: "left",
-    // class: "black--text pr-9 pl-9 ml-9 mr-9 rounded-tl-xl",
-    // shaped: true,
-    // elevation: 24,
-    // raised,
-    // style: "font-size:16px"
-    }
-
-  const fontpeach = "deep-orange lighten-4"
-
-  const tchipprops = {
-    color: 'grey lighten-4',
-    textColor: 'black',
-    shaped: true,
+  const blackcard = {
+    color: "grey darken-3",
+    elevation: 24,
+    dark: true,
     raised: true,
-    filled: true,
-    label: true,
-    'elevation-24': true,
-    class: 'label montser mb-3 pr-1', 
-    style: "line-height:18px; box-shadow: 0px 2px 2px -1px grey",
+    width: "90%",
+    height: "92px",
+    class: "d-flex align-center justify-center align-content-center",
+  }
+
+  var bigline1 = "d-flex flex-column align-center justify-center grey--text text-darken-3 "
+  var bigline2 = " px-9 pb-12 mb-12 ml-9 mr-12 display-2 "
+  var bigline = bigline1 + bigline2
+
+  const tokencardback = {
+    color: "bluegreylight5",
+    width: "90%",
+    dark: true,
+    elevation: 24,
   }
 
   export default {
@@ -164,6 +156,9 @@
     },
     data () {
       return {  
+        bigline,
+        tokencardback,
+        blackcard,
         tsubtitle,
         biglist,
         }
@@ -174,5 +169,7 @@
   .montser {
     font-family: 'Montserrat', sans-serif !important;
   }
-
+  .bigsz {
+    font-size:24px !important;
+  }
 </style>
