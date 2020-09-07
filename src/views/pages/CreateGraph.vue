@@ -290,6 +290,7 @@ import axios from "axios";
 import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
+import Childc from './childc'
 
 const subbtn = {
   type: "submit",

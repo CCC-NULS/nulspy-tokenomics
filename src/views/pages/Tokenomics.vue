@@ -9,12 +9,20 @@
       width="144px"
       height="122px"
     />
+    <Childc 
+      v-for="(stuf, i) in biglist"
+      slot
+      :key="i"
+      name="Childc"
+      :lead="stuf.lead"             
+      :parag="stuf.parag"             
+    />
   </v-container>
 </template>
 
 <script>
   import colors from 'vuetify/lib/util/colors'
-  import childc from './childc'
+  import Childc from './childc'
 
   // const tHeader = 'About NULS'
   const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'
@@ -25,7 +33,7 @@
   const tsubtitle = 'Featuring microservices, smart contracts, cross-chain interoperability, and ' +
     'chain-building, NULS sets a new industry standard in streamlining blockchain adoption.' ;
   
-  const bigstruct = [
+  const biglist = [
       {
       lead: 'Total Supply',
       parag: 'is the initial total token supply that will be created for the new blockchain. ' +
@@ -102,7 +110,7 @@
   export default {
     name: 'Tokenomics',
     components: { 
-      // childc,
+      Childc,
     },
     data () {
       return {  
@@ -110,7 +118,7 @@
         fontpeach,
         tsubtitle,
         // leader2,
-        bigstruct,
+        biglist,
         tchipprops   
         }
       },

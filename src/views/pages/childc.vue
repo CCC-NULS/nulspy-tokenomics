@@ -1,20 +1,48 @@
 <template>
-  <v-chip
+  <v-card
     id="Childc"
+    slot
     name="Childc"
-  />
+    label
+    x-large
+    :color="color"
+    :parag="parag"
+    :lead="lead"
+  >
+    <v-chip 
+      x-large
+    >
+      {{ lead }}
+    </v-chip>
+
+    {{ parag }}
+  </v-card>
 </template>
 
 <script>
   export default {
     name: 'Childc',
-    props: '',
+    props: {
+      color: {
+        type: String,
+        default: "green",
+      },
+      lead: {
+        type: String,
+        default: "Hi there lead",
+      },
+      parag: {
+        type: String,
+        default: "Hi there twords",
+      },
+      
+    },
     // props: {
     //   mytext: {
     //     type: String,
     //     default: "howdy doody",
     //   },
-    // },
+    
     data: () => ({
       tchipprops: { 
         color: 'grey lighten-4',
