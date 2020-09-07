@@ -105,7 +105,7 @@
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
-          to: '/pages/tokenomics',
+          to: '/tokenomics',
 
         },
         // {

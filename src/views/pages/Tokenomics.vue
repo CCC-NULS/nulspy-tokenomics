@@ -4,69 +4,11 @@
     fluid
     tag="section"
   >
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <v-col 
-        cols="12"
-        md="9"
-      >
-        <v-card
-          color="black"
-          elevation-24
-          raised
-        >
-          Black card
-          <!-- <template v-slot:heading>
-            <div 
-              class="display-5 font-weight-light" 
-              :style="`font-family:Montserrat,sans-serif;`"
-            >
-              NULS Blockchain
-            </div>
-
-            <div 
-              class="display-4 font-weight-light"
-            >
-              All About Tokenomics 
-            </div>
-          </template> -->
-
-          <v-card
-            id="vcard2"
-            color="green"
-          >
-            <v-row
-              align="center"
-              justify="center"
-            >
-              helllo
-              <!-- <childc /> -->
-              
-              <!-- <div class="transparent">
-                {{ tsubtitle }}<br><br>
-
-                <template 
-                  v-for="b in bigstruct"
-                >
-
-                  <span 
-                    v-slot
-                    :key="b.lead"
-                    name="slotbod"
-                    :style="b.sty"
-                    :class="b.clss"              
-                  >
-                    {{ b.thewords }} <br>
-                  </span>
-                </template>
-              </div> -->
-            </v-row>
-          </v-card>
-        </v-card>
-      </v-col>
-    </v-row>
+    <v-card
+      color="red"
+      width="144px"
+      height="122px"
+    />
   </v-container>
 </template>
 
@@ -85,7 +27,6 @@
   
   const bigstruct = [
       {
-      id: tsl1,
       lead: 'Total Supply',
       parag: 'is the initial total token supply that will be created for the new blockchain. ' +
         'There are many variables to consider when selecting an initial total token supply including valuation, ' +
@@ -93,25 +34,21 @@
         'use case road map and community incentive programs.',
     },
       {
-      id: tsl2,
       lead: 'Decimal',
       parag: '8 is the maximum needed. 8 decimal places are used by large public blockchain projects such as ' +
         'Bitcoin and Ethereum.',
     },
       {
-      id: tsl3,
       lead: 'Inflation',
       parag: 'is the number and rate of new tokens that will be created and primarily used as rewards ' +
       'to incentivize the blockchain network to create, pack and validate blocks.',
       },
     {
-      id: tsl4,
       lead: 'Initial Inflation',
       parag: 'is the fixed number of new tokens that will be generated to incentivize the blockchain ' +
       'network.',
       },
     {
-      id: tsl5,
       lead: 'Total Inflation',
       parag: 'is the Total Supply plus the Initial Amount of Inflation.' + 
         'The maximum supply of tokens for the blockchain. It cannot be changed ' +
@@ -122,18 +59,15 @@
         'operation.',
       },
     {
-      id: tsl6,
       lead: 'Inflation Starting Time',
       parag: 'is the calendar date the inflation begins.',
       },
     {
-      id: tsl7,
       lead: 'Disinflation Ratio',
       parag: 'is the rate at which the creation of new tokens (inflation) will be decreased at a ' +
       'set point and interval of time. (example: 0.4 %).',
       },
     {
-      id: tsl8,
       lead: 'Interval',
       parag: '(in days): The frequency in which disinflation is enforced to decrease the creation of new tokens over time.' + 
         '(example 30 days).',
@@ -175,7 +109,7 @@
         showme: false,
         fontpeach,
         tsubtitle,
-        leader2,
+        // leader2,
         bigstruct,
         tchipprops   
         }
