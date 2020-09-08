@@ -1,23 +1,23 @@
-<template slot:name="Childc">
+<template>
   <v-card
-    id="Childcc"
-    slot
+    id="childslot"
     light
     v-bind="cardprops"
-    :parag="parag"
-    :lead="lead"
+    :stuf="stuf"
     :class="`${cardclss}`"
   >
     <v-chip
       v-bind="tchipprops"
     >
-      {{ lead }}
+      <slot name="leadd">
+        replacemelead
+      </slot>
     </v-chip>
 
     <span
       :class="themefont"
     >
-      {{ parag }}
+      {{ stuf.parag }}
     </span>
   </v-card>
 </template>

@@ -51,15 +51,18 @@
             {{ tsubtitle }}
           </v-card>
 
-          <Childc 
+        
+          <childc
             v-for="(stuf, i) in biglist"
             :key="i"
-            slot
-            v-bind="$attrs"
-            name="Childc"
-            :lead="stuf.lead"             
-            :parag="stuf.parag"             
-          />
+          >              
+            <template
+              v-slot:leadd
+              :stuf="stuf"             
+            >
+              {{ stuf.lead }}
+            </template>
+          </childc>
         </v-card>
       </v-col>
     </v-row>
@@ -152,7 +155,7 @@
   export default {
     name: 'Tokenomics',
     components: { 
-      Childc,
+      childc: Childc,
     },
     data () {
       return {  
