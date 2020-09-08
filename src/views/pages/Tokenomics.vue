@@ -50,8 +50,6 @@
           >
             {{ tsubtitle }}
           </v-card>
-
-        
           <childc
             v-for="(stuf, i) in biglist"
             :key="i"
@@ -61,6 +59,12 @@
               :stuf="stuf"             
             >
               {{ stuf.lead }}
+            </template>
+            <template
+              v-slot:paragg
+              :stuf="stuf"             
+            >
+              {{ stuf.parag }}
             </template>
           </childc>
         </v-card>

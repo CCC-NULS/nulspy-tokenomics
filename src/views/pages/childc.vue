@@ -1,12 +1,17 @@
 <template>
   <v-card
     id="childslot"
-    light
-    v-bind="cardprops"
-    :stuf="stuf"
-    :class="`${cardclss}`"
+    height="auto"
+    width="97%"
+    left
+    elevation-4
+    color="switchlightgrey4"
+    class="px-12 py-6 ml-14 mr-14 mt-3 align=left"
+    :style="`font-size:19px; line-height:24px; text-align:left !important;`"
   >
     <v-chip
+      label
+      class="montser mb-0 pr-2 ml-n7 mt-n1 grey--text darken-1" 
       v-bind="tchipprops"
     >
       <slot name="leadd">
@@ -15,32 +20,22 @@
     </v-chip>
 
     <span
-      :class="themefont"
+      :class="themefont" 
+      :style="`text-align:left!important;`"
     >
-      {{ stuf.parag }}
+      <slot name="paragg">
+        replacemeparag
+      </slot>
     </span>
   </v-card>
 </template>
 
 <script>
   const tchipprops = {
-    color: 'grey darken-3',
+    color: 'grey darken-1',
     textColor: 'white',
-    flat: true,
     dark: true,
-    label: true,
-    class: 'montser mb-0 pr-2 ml-n7 mt-n1', 
-    style: "line-height:20px; padding-right:9px; box-shadow: 1px 2px 2px -1px grey;",
-  }
-
-const cardclss = "pr-12 pt-6 ml-14 mr-14 mt-3 py-3"
-
-const cardprops = {
-    color: "switchlightgrey4",
-    dark: false,
-    align: "left",
-    elevation: 4,
-    style: "font-size:20px; line-height:24px; padding-left:70px;",
+    style: "line-height:20px; box-shadow: 1px 2px 2px -1px;",
   }
 
   export default {
@@ -57,10 +52,7 @@ const cardprops = {
     },   
 
     data: () => ({
-      txtclss,
-      cardclss,
       tchipprops,
-      cardprops,
     }),
     computed: {
       themefont () {
@@ -75,11 +67,8 @@ const cardprops = {
     font-family: 'Montserrat', sans-serif !important;
   }
     
-  .v-chip{
-      padding-right:2px;padding-left:2px;padding-bottom:2px;padding-top:2px;
-  }
   .v-chip__content {
-    font-size: 20px!important;
+    font-size: 19px!important;
     color: white;
     padding-left: 5px;
     padding-right: 2px;
