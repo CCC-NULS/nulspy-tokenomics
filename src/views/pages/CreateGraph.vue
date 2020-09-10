@@ -59,7 +59,26 @@
             vcardforform
             :style="`flat=true; width='100%'`" 
             @submit.prevent
-          >     
+          >
+            <!-- test card slot:  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
+            <v-row>
+              <childcardm
+                v-bind="slotonewords"
+              >
+                <template 
+                  v-slot:slotone
+                />
+                <template
+                  v-slot:slottwo
+                >
+                  <vue-autonumeric
+                    v-model="vmd1"
+                    :options="vmd1opts"
+                    :style="vmdInputBox"
+                  />                
+                </template>
+              </childcardm>
+            </v-row>
             <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <v-row>
               <v-card
@@ -291,6 +310,7 @@ import AutoNumeric from 'autonumeric'
 import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components/VueAutonumeric';
 import VueNumericInput from 'vue-numeric-input'
 import Childc from './childc'
+import Childcardm from './childcardm'
 
 const subbtn = {
   type: "submit",
@@ -379,6 +399,7 @@ export default {
   components: {
     VueAutonumeric,
     VueNumericInput,
+    childcardm: Childcardm,
   },
 
   data: () => ({
@@ -430,6 +451,12 @@ export default {
         style: "border-bottom-color:#000;",
         class: "outlined v-chip--label justify-center align-center white medium elevation-2 pr-2",
       }
+    },
+    slotonewords (valc) {
+      var s1 = "`Initial Token Supply - Min 10,000`"
+      var s2 = "`Suggestion: 100,000,000`"
+      var tlist = [s1, s2]
+      return valc == 1 ? tlist : 0
     },
     greygrad () {
       return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
