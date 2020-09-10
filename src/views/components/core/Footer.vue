@@ -12,7 +12,7 @@
         <v-col
           v-for="(link, i) in links"
           :key="i"
-          class="text-center mb-sm-0 mb-5"
+          class="text-center mb-sm-0 mb-4"
           cols="auto"
         >
           <a
@@ -30,7 +30,7 @@
           cols="12"
           md="auto"
         >
-          <div class="body-1 font-weight-medium pt-6 pt-md-0 mt-5 text-center">
+          <div class="body-1 font-weight-medium pt-1 pt-md-0 mt-1 text-center">
             &copy; 2020 Made with
             <v-icon
               size="18"

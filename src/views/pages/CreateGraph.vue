@@ -178,7 +178,9 @@
                       :class="stuf.clss"              
                     >
                       {{ stuf.thewords }} <br><br>
-                      Watch for the chart to appear below
+                      Watch for the chart to appear below<br>
+                      To save - right click on plot 
+
                     </span>
                   </template>     
                 </v-col>
@@ -209,8 +211,12 @@
           </v-card>
         </v-row>
       </v-col>
-      <v-col cols="3">
+      <v-col 
+        cols="3"
+        md="3"
+      >
         <v-img 
+          v-if="showimg"
           width="204"
           height="211"
           src="../../assets/images/addins/nulsRocket.png" 
@@ -222,29 +228,22 @@
       align="start"
       justify="center"
     >
-      <v-col
-        cols="12"
-        md="12"
-        sm="12"
-        align="center"
+      <v-card
+        :key="resetImage"
+        color="transparent"
+        flat
+        :height="imgheight2"
+        width="imgwid"          
+        class="ml-4 mt-0 mb-1 px-0 pb-0 pt-0"
       >
-        <v-card
-          v-if="keyShowCard"
+        <img
           :key="resetImage"
-          height="imgheight2"
-          width="imgwid"          
-          class="flat transparent ml-4 mt-1 mb-1 px-0 pb-0 pt-5"
-        >
-          <img
-            :key="resetImage"
-            :src="finalIMAGE"
-            height="imgheight"
-            :width="imgwid"
-          >
-          <span style="align:left;margin-bottom:24px;"> To save - right click on plot</span>
-          <br>
-        </v-card>
-      </v-col>
+          :src="finalIMAGE"
+          height="imgheight"
+          :width="imgwid"
+        >    
+        <br>
+      </v-card>
     </v-row>
   </v-container>
 </template>
@@ -387,7 +386,7 @@ export default {
     slotfivewords,
     subbtn,
     numericinp,
-    cardclass: `${flexlist}` +  "px-1 pt-1 pb-1 ma-1",
+    cardclass: `${flexlist}` +  " px-1 pt-1 pb-1 ma-1",
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -407,7 +406,9 @@ export default {
     finalIMAGE: '',
     }),
   computed: {
-    
+    showimg () {
+      return window.outerWidth < 960 ? false : true   
+    },
     // greygrad () {
     //   return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
     // },
@@ -418,7 +419,7 @@ export default {
       return window.outerWidth < 960 ? '400' : '691'   
     },
     imgheight2 () {
-      return window.outerWidth < 960 ? '420' : '711'   
+      return window.outerWidth < 960 ? '650' : '750'   
     },
     // cardtopmarg () {
     //   return window.outerWidth < 960 ? 'margin-top:12px' : 'margin-top:65px'   
