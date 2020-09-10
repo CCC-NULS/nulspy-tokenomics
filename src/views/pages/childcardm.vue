@@ -2,29 +2,37 @@
   <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
   <v-card 
     v-bind="cardprops"
-    color="orange lighten-3"
-    height="170px"
-    width="290px"
+    color="blue-grey lighten-5"
+    height="120px"
+    width="390px"
+    min-width="270px"              
+    max-width="470px"
+    min-height="70px"              
+    max-height="270px"  
+    :style="`padding-top:2px!important;margin-top:2px;`"
   >
     <v-card-subtitle
-      class="pb-1 mb-1"
+      class="pb-0 mb-0 mt-0"
       :style="longstyle"
     >
       <slot 
         name="slotone" 
-        slotonewords="slotonewords"
+        slotwords="slotwords"
       />
     </v-card-subtitle>
 
     <v-chip
-      width="100px"
-      max-width="100px"
+      width="200px"
+      max-width="250px"
+      min-width="window.outerWidth < 960 ? 145 : 150"             
+      max-height="300px" 
+      v-bind="chipprops"
       medium
       label
-      color="blue lighten-3"
-      v-bind="chipprops"
-      :style="`width:100px;`"
-    >        
+      color="white"
+      :class="chipprops.clss"
+      :style="chipprops.stle"
+    >
       <slot name="slottwo">
         replaceme
       </slot>
@@ -33,46 +41,36 @@
 </template>
 
 <script>
-  // var ld1={
-  //       type: String,
-  //       default: "000",
-  //     },
-  // var ld2={
-  //       type: String,
-  //       default: "000",
-  //     },
+  const chipprops = {
+      stle: "border-bottom-color:#000;",
+      clss: "outlined v-chip--label justify-center align-center white medium elevation-2 pr-2",
+  }
+  const ld1 = "words"
+  const ld2 = "words"
+
   export default {
     name: 'Childcardm',
-
     data: () => ({
-      longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
-      slotonewords: [ ld1, ld2],  
+      longstyle: "color:#000;font-family:Montserrat,sans-serif;font-size:16px!important;font-weight:500;",
+      slotonewords: [ ld1, ld2],
+      chipprops,
     }),
     computed: {
       cardprops () {
         var owid = window.outerWidth
         var wid = owid < 960 ? (owid * .84) : (owid * .33)
-        var flx = "d-flex flex-column flex-shrink-1 justify-center align-center"
+        var flx = "d-flex flex-column flex-xs-shrink-1 flex-md-shrink-0 justify-center align-center"
         return {
-            class: flx + "px-1 pt-1 pb-2 ma-4",
+            class: flx + " px-1 pb-1 ma-1",
             shaped: false,
             raised: false,
-            outlined: true,
+            outlined: false,
             "elevation": 2,
             // color: "#FFF",
             // width: wid,
-            // "min-width": owid < 960 ? '145' : '245',              
-            // "max-width": "300px", 
             // "border-bottom-color": "#000",
             vcardforform: true,
           }
-      },
-
-      chipprops () {
-        return {
-          style: "border-bottom-color:#000;",
-          class: "outlined v-chip--label justify-center align-center white medium elevation-2 pr-2",
-        }
       },
     }
   }

@@ -30,7 +30,7 @@
           cols="12"
           md="auto"
         >
-          <div class="body-1 font-weight-medium pt-6 pt-md-0 text-center">
+          <div class="body-1 font-weight-medium pt-6 pt-md-0 mt-5 text-center">
             &copy; 2020 Made with
             <v-icon
               size="18"
