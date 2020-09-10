@@ -67,10 +67,13 @@
               >
                 <template 
                   v-slot:slotone
-                />
-                <template
-                  v-slot:slottwo
                 >
+                  {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
+                </template>
+
+                <template  
+                  v-slot:slottwo
+                >                 
                   <vue-autonumeric
                     v-model="vmd1"
                     :options="vmd1opts"
@@ -362,12 +365,12 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "width:140px; font-size:16px; font-weight:500; \
-  line-height:23px; text-align:right; \
+const vmdInputBox = "width:140px; font-size:20px; font-weight:500; \
+  line-height:30px; text-align:right; \
   padding-left:2px; padding-right:2px; \
   padding-bottom:2px; padding-top:2px; \
   margin-bottom:2px; margin-left:2px; margin-right:2px; \
-  margin-top:5px; color:#000; background-color:#FFF;"
+  margin-top:5px; color:#000; background-color:#2AA;"
 
 const items = [
   {
@@ -393,6 +396,13 @@ const items = [
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
 const vmdHold = 'numbers only'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-space-around"
+var s1 = "`Initial Token Supply - Min 10,000`"
+var s2 = "`Suggestion: 100,000,000`"
+const slotonewords = {
+  s1: "Initial Token Supply - Min 10,000",
+  s2: "Suggestion: 100,000,000"
+}
+ 
 
 export default {
   name: "CreateGraph",
@@ -406,6 +416,7 @@ export default {
     items,
     longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
     flexlist,
+    slotonewords,
     subbtn,
     numericinp,
     cardclass: `${flexlist}` +  "px-1 pt-1 pb-2 ma-1",
@@ -452,12 +463,7 @@ export default {
         class: "outlined v-chip--label justify-center align-center white medium elevation-2 pr-2",
       }
     },
-    slotonewords (valc) {
-      var s1 = "`Initial Token Supply - Min 10,000`"
-      var s2 = "`Suggestion: 100,000,000`"
-      var tlist = [s1, s2]
-      return valc == 1 ? tlist : 0
-    },
+    
     greygrad () {
       return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
     },

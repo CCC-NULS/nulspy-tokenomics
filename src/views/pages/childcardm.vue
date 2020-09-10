@@ -2,9 +2,9 @@
   <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
   <v-card 
     v-bind="cardprops"
-    color="pink"
-    height="200px"
-    width="500px"
+    color="orange lighten-3"
+    height="170px"
+    width="290px"
   >
     <v-card-subtitle
       class="pb-1 mb-1"
@@ -12,14 +12,18 @@
     >
       <slot 
         name="slotone" 
-        default="slotonewords"
-      >
-        {{ slotonewords.led1 }} <br>  {{ slotonewords.led2 }}
-      </slot>
+        slotonewords="slotonewords"
+      />
     </v-card-subtitle>
 
-    <v-chip 
+    <v-chip
+      width="100px"
+      max-width="100px"
+      medium
+      label
+      color="blue lighten-3"
       v-bind="chipprops"
+      :style="`width:100px;`"
     >        
       <slot name="slottwo">
         replaceme
@@ -29,24 +33,20 @@
 </template>
 
 <script>
-
+  // var ld1={
+  //       type: String,
+  //       default: "000",
+  //     },
+  // var ld2={
+  //       type: String,
+  //       default: "000",
+  //     },
   export default {
     name: 'Childcardm',
-    props: {
-      slotonewords: {
-      led1: {
-        type: String,
-        default: "Initial Token Supply - Min 10,000,",
-      },
-      led2: {
-        type: String,
-        default: "Suggestion: 100,000,000",
-      },   
-    },   
 
     data: () => ({
       longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
-
+      slotonewords: [ ld1, ld2],  
     }),
     computed: {
       cardprops () {
@@ -84,7 +84,7 @@
   }
     
   .v-chip__content {
-    font-size: 19px!important;
+    font-size: 20px!important;
     color: white;
     padding-left: 5px;
     padding-right: 2px;
