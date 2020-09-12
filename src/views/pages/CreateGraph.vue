@@ -36,9 +36,7 @@
             ref="formrefc"
             width="100%"
             flat
-            class="d-flex flex-inline-row justify-around px-3 py-1 mx-3 mt-4" 
-            color="transparent"
-            basematcard
+            class="transparent d-flex flex-inline-row justify-around px-3 py-1 mx-3 mt-4" 
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
@@ -52,10 +50,7 @@
             >
               <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
               <v-row>
-                <v-col
-                  cols="12"
-                  md="6"
-                >
+                <v-col :class="colstwelvsix">
                   <childcardm :slotwords="slotonewords">
                     <template v-slot:slotone>
                       {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
@@ -70,11 +65,7 @@
                   </childcardm>
                 </v-col>
                 <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
-                <!--  "start 2" # # # # Max Supply:  # # # ## # # #  # # # #  --> 
-                <v-col
-                  cols="12"
-                  md="6"
-                >           
+                <v-col :class="colstwelvsix">           
                   <childcardm :slotwords="slottwowords">
                     <template v-slot:slotone>
                       {{ slottwowords.s1 }} <br>  {{ slottwowords.s2 }}
@@ -91,13 +82,9 @@
                   </childcardm>    
                 </v-col>          
               </v-row>            
-              <!-- <v-select id="end 2" # # # #  # # # ## # # #  # # # #  -->              
               <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
               <v-row>
-                <v-col
-                  cols="12"
-                  md="6"
-                >              
+                <v-col :class="colstwelvsix">              
                   <childcardm>
                     <template v-slot:slotone>
                       {{ slotthreewords.s1 }} <br>  {{ slotthreewords.s2 }}
@@ -113,41 +100,25 @@
                   </childcardm>  
                 </v-col>       
                 <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->         
-                <!-- wrapped to align cards-->
-                <v-col
-                  cols="12"
-                  md="6"
-                >                
+                <v-col :class="colstwelvsix"> 
                   <childcardm>
                     <template v-slot:slotone>
                       {{ slotfourwords.s1 }} <br>  {{ slotfourwords.s2 }}
                     </template>
                     <template v-slot:slottwo> 
-                      <vue-numeric-input
+                      <vue-numeric-input 
                         id="vmd4id"
                         v-model="vmd4" 
+                        v-bind="fourprops"
                         :value="vmd4"
-                        size="20px"
-                        :min="0" 
-                        :max="100" 
-                        :step="1"
-                        :precision="0"
-                        vchip4
-                        controls-type="updown"
-                        align="center"
-                        :style="arrowvuenumeric"                     
                       />                
                     </template>
                   </childcardm>
                 </v-col>       
               </v-row>
-              <!-- 5  5  5  # # # #  # # # #  # # # #  -->
-              <!--  5  5  Disinflation ratio: font-family: Avenir, Helvetica, Arial, sans-serif;  5  5  # # # #  # # # #  # # # #  -->
+              <!--  5  5  Disinflation ratio:    5  5  # # # #  # # # #  # # # #  -->
               <v-row>
-                <v-col
-                  cols="12"
-                  md="6"
-                >                     
+                <v-col :class="colstwelvsix">
                   <childcardm>
                     <template v-slot:slotone>
                       {{ slotfivewords.s1 }} <br>  {{ slotfivewords.s2 }}
@@ -158,17 +129,13 @@
                         v-model="vmd5" 
                         v-bind="numericinp"
                         :value="vmd5"
-                        vmd5card
                       />
                       <span style="font-size:14px"> % </span>
                     </template>
                   </childcardm> 
                 </v-col>
                 <!-- # # # # # # #  *-* *-* *-* *-* *-* *-*  -->
-                <v-col
-                  cols="12"
-                  md="6"
-                >                 
+                <v-col :class="colstwelvsix">                 
                   <template v-for="(stuf, i) in notes">
                     <span 
                       slot
@@ -189,21 +156,17 @@
               <v-row>
                 <v-card
                   id="submit-btn-card"
-                  width="100%"
-                  min-width="240px"
-                  class="d-flex flex-row transparent justify-center align-center mx-1 mt-0 mb-4"
-                  flat
+                  v-bind="subcardprops"
                 >
                   <!-- submit button *-* *-* *-* *-* *-* *-*  -->
                   <v-btn
                     id="submitmain"
                     v-bind="subbtn"
-                    :style="`text-transform:lowercase;margin-top:0px;`"
                     submit-btn-card
                     @submit.prevent
                     @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
                   >
-                    <h1> make graph </h1>
+                    <h1>{{ subbtn.twords }}</h1>
                   </v-btn>
                 </v-card> 
               </v-row>                                                       
@@ -263,11 +226,14 @@ import Childc from './childc'
 import Childcardm from './childcardm'
 
 const subbtn = {
-  type: "submit",
-  width: "345px",
-  height: "50px",
-  "min-width": "105px",
-  class: "white--text hover elevation-6 teal justify-center mb-2",
+  type: 'submit',
+  width: '345px',
+  height: '50px',
+  'min-width': '105px',
+  class: 'white--text hover elevation-6 teal justify-center mb-2',
+  twords: 'make graph',
+  style: "text-transform:lowercase;margin-top:0px",
+
 }
 const vmdopts = {
   digitGroupSeparator: ',',
@@ -283,7 +249,25 @@ const numericinp = {
   size: '30px',
   'controls-type': 'updown',
   align: 'center',
-  style: "font-size:20px; height:23px; width: 110px; color:#ffffff;",
+  style: 'font-size:20px; height:23px; width: 110px; color:#ffffff;',
+}
+
+const fourprops = {
+  min: 0, 
+  max: 100,
+  step: 1,
+  precision: 0,
+  size: '20px',
+  'controls-type': 'updown',
+  align: 'center',
+  style: 'font-size:20px; height:23px; width: 110px; color:#ffffff;'
+}
+
+const subcardprops = {
+  width: '90%',
+  'min-width': 'window.outerWidth < 960 ? 175 : 240',
+  class: 'd-flex flex-row transparent justify-center align-center mx-1 mt-0 mb-4',
+  flat: true,
 }
 
 const vmd1opts = {
@@ -312,18 +296,18 @@ const vmd3Val = {
 const vmd2opts = { ...vmdopts, ...vmd2Val }   // max supply
 const vmd3opts = { ...vmdopts, ...vmd3Val }   // annual inflation
 
-const vmdInputBox = "width:140px; font-size:20px; font-weight:500; \
+const vmdInputBox = 'width:140px; font-size:20px; font-weight:700; \
   line-height:29px; text-align:right; \
   padding-left:2px; padding-right:2px; \
   padding-bottom:2px; padding-top:2px; \
   margin-bottom:1px; margin-left:2px; margin-right:2px; \
-  margin-top:2px; color:#000; background-color:transparent;"
+  margin-top:2px; color:#000; background-color:transparent;'
 
 const items = [
   {
-    thewords: "TokenLife Design Tool",
-    sty: "font-family:montserrat, sans-serif;font-size:52px; font-weight:1000; margin-left:4px;",
-    clss: "rgba(0,0,0,.9)",
+    thewords: 'TokenLife Design Tool',
+    sty: 'font-family:montserrat, sans-serif;font-size:52px; font-weight:1000; margin-left:4px;',
+    clss: 'rgba(0,0,0,.9)',
   },
   {
     thewords: "Input numbers - Watch tokens grow",
@@ -340,9 +324,10 @@ const notes = [
   }
 ]
 
-const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff;"
+const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff; text-align:center!important;"
 const vmdHold = 'numbers only'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-space-around"
+const cardclass = flexlist +  " px-1 pt-1 pb-1 ma-1"
 var s1 = "`Initial Token Supply - Min 10,000`"
 var s2 = "`Suggestion: 100,000,000`"
 const slotonewords = {
@@ -376,8 +361,9 @@ export default {
 
   data: () => ({
     items,
+    fourprops,
+    subcardprops,
     notes,
-    longstyle: "color:#000;font-family:Roboto,sans-serif;font-size:14px!important;font-weight:400;",
     flexlist,
     slotonewords,
     slottwowords,
@@ -404,6 +390,7 @@ export default {
     finalIMAGEp1,
     finalIPwPORT,
     finalIMAGE: '',
+    colstwelvsix: { cols: "12", md: "6" }
     }),
   computed: {
     showimg () {
