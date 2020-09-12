@@ -21,13 +21,16 @@ const theme = {
 
   lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5 e7
   stayblack: colors.black,
-  switchdarkgrey3: colors.grey.darken3,
   switchtext:colors.black, 
   switchpaper: colors.grey.lighten3,
   switchtab: colors.deepOrange.lighten5,
   tertiary: colors.grey.darken2,     // darkdarkgrey
   bluegreylight5: colors.blueGrey.lighten5,
   switchlightgrey4: colors.grey.lighten4,
+  switchlightgrey3: colors.grey.lighten3,
+
+  switchdarkgrey3: colors.grey.darken3,
+  switchdarkgrey4: colors.grey.darken4,
 
 }
 // teal=009688
@@ -42,11 +45,11 @@ const theme = {
 // teal lighten-5 #E0F2F1
 
 const dtheme = {
-  primary: colors.teal.base, // #009688
+  primary: colors.teal.lighten1, // #009688
   secondary: colors.teal.base,  // deep purple  673AB7
-  success: colors.cyan.base,   // cyan
+  success: colors.cyan.lighten1,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
-  info: colors.grey.base,              //   grey 
+  info: colors.grey.lighten1,              //   grey 
   error: colors.red.base,   // red
   warning: colors.deepOrange.base,    // deep-orange
   bluegreylight5: colors.blueGrey.darken3,
@@ -56,8 +59,13 @@ const dtheme = {
   switchtext: colors.white, 
   switchpaper: colors.grey.darken3,
   switchtab: colors.deepOrange.lighten3,
+
   switchdarkgrey3: colors.grey.lighten3,
   switchlightgrey4: colors.grey.darken3,
+  switchlightgrey3: colors.grey.darken3,
+  switchdarkgrey5: colors.grey.lighten5,
+  switchdarkgrey4: colors.grey.lighten4,
+
   tertiary: colors.grey.darken2,     // darkdarkgrey
 }
 

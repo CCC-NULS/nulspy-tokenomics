@@ -2,7 +2,7 @@
   <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
   <v-card 
     v-bind="cardprops"
-    color="blue-grey lighten-5"
+    color="switchlightgrey3"
     flat
     height="125px"
     width="window.outerWidth < 960 ? 200 : 390"
@@ -52,7 +52,7 @@
   export default {
     name: 'Childcardm',
     data: () => ({
-      longstyle: "color:#000;padding-top:1px;font-family:Montserrat,sans-serif;font-size:16px!important;font-weight:500;",
+      longstyle: "padding-top:1px;font-family:Montserrat,sans-serif;font-size:16px!important;font-weight:500;",
       slotonewords: [ ld1, ld2],
       chipprops,
     }),
@@ -67,7 +67,7 @@
             raised: false,
             outlined: false,
             // "elevation": 2,
-            // color: "#FFF",
+            // color: "info",
             // width: wid,
             // "border-bottom-color": "#000",
             vcardforform: true,

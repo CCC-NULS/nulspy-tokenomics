@@ -58,7 +58,9 @@
                 <v-col :class="colstwelvsix">
                   <childcardm :slotwords="slotonewords">
                     <template v-slot:slotone>
-                      {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
+                      <span style="color:switchdarkgrey4;font-weight:900;">                      
+                        {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
+                      </span>
                     </template>
                     <template v-slot:slottwo>                 
                       <vue-autonumeric
@@ -73,7 +75,9 @@
                 <v-col :class="colstwelvsix">           
                   <childcardm :slotwords="slottwowords">
                     <template v-slot:slotone>
-                      {{ slottwowords.s1 }} <br>  {{ slottwowords.s2 }}
+                      <span style="color:switchdarkgrey4;font-weight:900;">                      
+                        {{ slottwowords.s1 }} <br>  {{ slottwowords.s2 }}
+                      </span>
                     </template>
                     <template v-slot:slottwo>                    
                       <vue-autonumeric
@@ -92,7 +96,9 @@
                 <v-col :class="colstwelvsix">              
                   <childcardm>
                     <template v-slot:slotone>
-                      {{ slotthreewords.s1 }} <br>  {{ slotthreewords.s2 }}
+                      <span style="color:switchdarkgrey4;font-weight:900;">                      
+                        {{ slotthreewords.s1 }} <br>  {{ slotthreewords.s2 }}
+                      </span>
                     </template>
                     <template v-slot:slottwo> 
                       <vue-autonumeric
@@ -108,7 +114,9 @@
                 <v-col :class="colstwelvsix"> 
                   <childcardm>
                     <template v-slot:slotone>
-                      {{ slotfourwords.s1 }} <br>  {{ slotfourwords.s2 }}
+                      <span style="color:switchdarkgrey4;font-weight:900;">                      
+                        {{ slotfourwords.s1 }} <br>  {{ slotfourwords.s2 }}
+                      </span>
                     </template>
                     <template v-slot:slottwo> 
                       <vue-numeric-input 
@@ -126,7 +134,9 @@
                 <v-col :class="colstwelvsix">
                   <childcardm>
                     <template v-slot:slotone>
-                      {{ slotfivewords.s1 }} <br>  {{ slotfivewords.s2 }}
+                      <span style="color:switchdarkgrey4;font-weight:900;">                      
+                        {{ slotfivewords.s1 }} <br>  {{ slotfivewords.s2 }}
+                      </span>
                     </template>
                     <template v-slot:slottwo> 
                       <vue-numeric-input
@@ -188,6 +198,7 @@
           v-if="showimg"
           width="204"
           height="211"
+          class="ml-4"
           src="@/assets/images/nulsRocket.png" 
         />
       </v-col>       
@@ -311,29 +322,28 @@ const vmdInputBox = 'width:140px; font-size:20px; font-weight:700; \
 const items = [
   {
     thewords: 'TokenLife Design Tool',
-    sty: 'font-family:montserrat, sans-serif;font-size:52px; font-weight:1000; margin-left:4px;',
-    clss: 'rgba(0,0,0,.9)',
+    sty: 'font-family:Roboto, sans-serif;font-size:72px; font-weight:900; margin-left:2px;',
+    clss: 'info--text'
   },
   {
     thewords: "Input numbers - Watch tokens grow",
-    sty: "font-family:'montserrat',sans-serif font-size:24px;color:#424242;line-height:32px;",
-    clss: "teal--text darken4",
+    sty: "font-family:'montserrat',font-weight:700;font-size:24px;sans-serif font-size:24px;color:#424242;line-height:32px;",
+    clss: 'primary--text'
   },
 ]
 
 const notes = [
   {
     thewords: "Note: Disinflation begins one interval after Inflation starts",
-    sty: "font-size:14px;font-family:'Roboto',sans-serif;color:#424242;line-height:20px;",
-    clss: "teal--text darken3",
+    sty: "font-size:16px;font-family:'Roboto',sans-serif;color:#424242;line-height:20px;",
+    clss: 'teal--text'
   }
 ]
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff; text-align:center!important;"
 const vmdHold = 'numbers only'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-space-around"
 const cardclass = flexlist +  " px-1 pt-1 pb-1 ma-1"
-var s1 = "`Initial Token Supply - Min 10,000`"
-var s2 = "`Suggestion: 100,000,000`"
+
 const slotonewords = {
   s1: "Initial Token Supply - Min 10,000",
   s2: "Suggestion: 100,000,000"
