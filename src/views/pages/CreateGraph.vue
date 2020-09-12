@@ -212,15 +212,15 @@
         :key="resetImage"
         color="transparent"
         flat
-        :height="imgheight2"
-        width="plotwid"          
+        width="plotcardwid"          
+        :height="plotcardheight"
         class="ml-4 mt-0 mb-1 px-0 pb-0 pt-0"
       >
         <img
           :key="resetImage"
           :src="finalIMAGE"
-          height="imgheight"
           :width="plotwid"
+          height="plotheight"
         >    
         <br>
       </v-card>
@@ -336,7 +336,7 @@ const notes = [
   {
     thewords: "Note: Disinflation begins one interval after Inflation starts",
     sty: "font-size:16px;font-family:'Roboto',sans-serif;color:#424242;line-height:20px;",
-    clss: 'teal--text'
+    clss: 'primary--text'
   }
 ]
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff; text-align:center!important;"
@@ -411,13 +411,16 @@ export default {
       return window.outerWidth < 960 ? false : true   
     },
     plotwid () {
-      return window.outerWidth < 960 ? 307 : 922  
+      return window.outerWidth < 960 ? 461 : 922  
     },
-    imgheight () {
-      return window.outerWidth < 960 ? 230 : 691   
+    plotheight () {
+      return window.outerWidth < 960 ? 345 : 691   
     },
-    imgheight2 () {
-      return window.outerWidth < 960 ? 250 : 750   
+    plotcardwid () {
+      return window.outerWidth < 960 ? 511 : 1022   
+    },
+    plotcardheight () {
+      return window.outerWidth < 960 ? 700 : 750   
     },
   },
   mounted () {

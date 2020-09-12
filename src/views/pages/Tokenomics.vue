@@ -150,7 +150,7 @@
   var bigline = bigline1 + bigline2
 
   const tokencardback = {
-    color: "bluegreylight5",
+    color: "switchlightgrey3",
     width: "90%",
     dark: true,
     elevation: 24,
