@@ -11,24 +11,25 @@ import '@mdi/font/scss/materialdesignicons.scss' // Ensure you are using css-loa
 Vue.use(Vuetify, VueAxios, axios)
 
 const theme = {
-  primary: colors.teal.base, // #009688
-  secondary: "#000000",  // deep purple  673AB7
+  primary: colors.teal.darken1, // #009688
+  secondary: colors.teal.base,  // deep purple  673AB7
   success: colors.cyan.base,   // cyan
   accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
   info: colors.grey.base,              //   grey 
   error: colors.red.base,   // red
   warning: colors.deepOrange.base,    // deep-orange
 
-  lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5 e7
+  lighttext: colors.grey.lighten5,     //deep-orange lighten-5 e7
   stayblack: colors.black,
   switchtext:colors.black, 
-  switchpaper: colors.grey.lighten3,
-  switchtab: colors.deepOrange.lighten5,
+  swdorangelght5: colors.deepOrange.lighten5,
   tertiary: colors.grey.darken2,     // darkdarkgrey
-  bluegreylight5: colors.blueGrey.lighten5,
-  switchlightgrey4: colors.grey.lighten4,
-  switchlightgrey3: colors.grey.lighten3,
 
+  swbluegreylight5: colors.blueGrey.lighten5,
+
+  switchlightgrey3: colors.grey.lighten3,
+  switchlightgrey4: colors.grey.lighten4,
+  switchlightgrey5: colors.grey.lighten5,
   switchdarkgrey3: colors.grey.darken3,
   switchdarkgrey4: colors.grey.darken4,
 
@@ -48,23 +49,26 @@ const dtheme = {
   primary: colors.teal.lighten1, // #009688
   secondary: colors.teal.base,  // deep purple  673AB7
   success: colors.cyan.lighten1,   // cyan
-  accent: colors.deepOrange.lighten2,    // deep-orangeFF5722
+  accent: colors.deepOrange.darken2,    // deep-orangeFF5722
   info: colors.grey.lighten1,              //   grey 
   error: colors.red.base,   // red
   warning: colors.deepOrange.base,    // deep-orange
-  bluegreylight5: colors.blueGrey.darken3,
 
-  lighttext: colors.deepOrange.lighten5,     //deep-orange lighten-5  
-  stayblack: colors.black,
+  lighttext: colors.grey.lighten5,     //deep-orange lighten-5  
+  stayblack: colors.black,  
   switchtext: colors.white, 
+
   switchpaper: colors.grey.darken3,
-  switchtab: colors.deepOrange.lighten3,
+  swdeepOrange: colors.deepOrange.lighten3,
+  // following all reversed:
+  switchlightgrey3: colors.grey.darken43,
+  switchlightgrey4: colors.grey.darken4,
+  switchlightgrey5: colors.grey.darken5,
 
   switchdarkgrey3: colors.grey.lighten3,
-  switchlightgrey4: colors.grey.darken3,
-  switchlightgrey3: colors.grey.darken3,
-  switchdarkgrey5: colors.grey.lighten5,
   switchdarkgrey4: colors.grey.lighten4,
+  switchdarkgrey5: colors.grey.lighten5,
+  swbluegreylight5: colors.blueGrey.darken3,
 
   tertiary: colors.grey.darken2,     // darkdarkgrey
 }

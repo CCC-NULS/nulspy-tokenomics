@@ -2,7 +2,7 @@
   <!-- choice card: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
   <v-card 
     v-bind="cardprops"
-    color="switchlightgrey3"
+    color="transparent"
     flat
     height="125px"
     width="window.outerWidth < 960 ? 200 : 390"

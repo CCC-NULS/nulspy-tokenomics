@@ -8,7 +8,7 @@
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     mobile-breakpoint="960"
     app
-    width="260"
+    :width="`twidth`"
     v-bind="$attrs"
   >
     <!-- v-slot:img below does drawer expand -->
@@ -95,13 +95,7 @@
           title: 'home',
           icon: 'mdi-poll',
           to: '/',
-        }, 
-        // {
-        //   title: 'creategraph',
-        //   icon: 'mdi-chart-areaspline',
-        //   to: '/pages/creategraph',
-
-        // },           
+        },       
         {
           title: 'tokenomics',
           icon: 'mdi-electron-framework',
@@ -125,6 +119,9 @@
         set (val) {
           this.$store.commit('SET_DRAWER', val)
           },
+        },
+        twidth () {
+          return window.outerWidth < 960 ? 200 : 260   
         },
       computedItems () {
         return this.items.map(this.mapItem)

@@ -11,7 +11,8 @@
       style="position: fixed; top: 100px; right: -10px; border-radius: 8px;"
     >
       <span 
-        style="font-size:9px;"
+        class="teal--text text--darken2"
+        style="font-size:11px;"
       >
         Color
       </span>

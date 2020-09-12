@@ -8,7 +8,7 @@
     height="75"
   >
     <v-btn
-      class="mr-3"
+      class="ml-3 mr-3"
       elevation="1"
       fab
       small

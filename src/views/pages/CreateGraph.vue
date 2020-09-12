@@ -5,6 +5,7 @@
     tag="section"
   >
     <v-row
+      no-gutters
       class="d-flex flex-align-start"
     >    
       <v-col
@@ -17,178 +18,186 @@
         md="7"
         xs="11"
       >
-        <v-row
-          class="d-flex flex-column align-center"
-        >           
-          <template v-for="(stuf, i) in items">
-            <span 
-              slot
-              :key="i"
-              name="newslot"
-              :style="stuf.sty"
-              :class="stuf.clss"              
+        <v-card
+          id="maincard"
+          height="auto"
+          color="switchlightgrey3"
+          class="pb-3 mb-2 ml-0 pl-1 mr-0"
+        >
+          <v-row
+            no-gutters
+            class="d-flex flex-column align-center"
+          >           
+            <template v-for="(stuf, i) in items">
+              <span 
+                slot
+                :key="i"
+                name="newslot"
+                :style="stuf.sty"
+                :class="stuf.clss"              
+              >
+                {{ stuf.thewords }} <br>
+              </span>
+            </template>     
+          </v-row> 
+          <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
+          <!--        # # #   -->
+          <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
+          <v-row> 
+            <v-card
+              id="vcardforform"
+              ref="formrefc"
+              width="100%"
+              flat
+              class="transparent d-flex flex-inline-row justify-around pl-3 py-1 ml-3 mt-1" 
             >
-              {{ stuf.thewords }} <br>
-            </span>
-          </template>     
-        </v-row> 
-        <!-- FORM ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-        <!--        # # #   -->
-        <!-- FORMcard ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - FORM - ^^^^^^^^^^ -->
-        <v-row> 
-          <v-card
-            id="vcardforform"
-            ref="formrefc"
-            width="100%"
-            flat
-            class="transparent d-flex flex-inline-row justify-around pl-3 py-1 ml-3 mt-1" 
-          >
-            <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-            <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
-            <v-form
-              id="mainform"
-              ref="formref"
-              :key="resetform"
-              vcardforform
-              :style="`flat=true; width='100%'`" 
-              @submit.prevent
-            >
-              <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
-              <v-row>
-                <v-col :class="colstwelvsix">
-                  <childcardm :slotwords="slotonewords">
-                    <template v-slot:slotone>
-                      <span style="color:switchdarkgrey4;font-weight:900;">                      
-                        {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
-                      </span>
-                    </template>
-                    <template v-slot:slottwo>                 
-                      <vue-autonumeric
-                        v-model="vmd1"
-                        :options="vmd1opts"
-                        :style="vmdInputBox"
-                      />                
-                    </template>
-                  </childcardm>
-                </v-col>
-                <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
-                <v-col :class="colstwelvsix">           
-                  <childcardm :slotwords="slottwowords">
-                    <template v-slot:slotone>
-                      <span style="color:switchdarkgrey4;font-weight:900;">                      
-                        {{ slottwowords.s1 }} <br>  {{ slottwowords.s2 }}
-                      </span>
-                    </template>
-                    <template v-slot:slottwo>                    
-                      <vue-autonumeric
-                        id="vmd2auto"
-                        v-model="vmd2"
-                        :placeholder="vmdHold"
-                        :options="vmd2opts"
-                        :style="vmdInputBox" 
-                      />         
-                    </template>
-                  </childcardm>    
-                </v-col>          
-              </v-row>            
-              <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
-              <v-row>
-                <v-col :class="colstwelvsix">              
-                  <childcardm>
-                    <template v-slot:slotone>
-                      <span style="color:switchdarkgrey4;font-weight:900;">                      
-                        {{ slotthreewords.s1 }} <br>  {{ slotthreewords.s2 }}
-                      </span>
-                    </template>
-                    <template v-slot:slottwo> 
-                      <vue-autonumeric
-                        id="vmd3auto"
-                        v-model="vmd3"
-                        :options="vmd3opts"
-                        :style="vmdInputBox" 
-                      />
-                    </template>
-                  </childcardm>  
-                </v-col>       
-                <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->         
-                <v-col :class="colstwelvsix"> 
-                  <childcardm>
-                    <template v-slot:slotone>
-                      <span style="color:switchdarkgrey4;font-weight:900;">                      
-                        {{ slotfourwords.s1 }} <br>  {{ slotfourwords.s2 }}
-                      </span>
-                    </template>
-                    <template v-slot:slottwo> 
-                      <vue-numeric-input 
-                        id="vmd4id"
-                        v-model="vmd4" 
-                        v-bind="fourprops"
-                        :value="vmd4"
-                      />                
-                    </template>
-                  </childcardm>
-                </v-col>       
-              </v-row>
-              <!--  5  5  Disinflation ratio:    5  5  # # # #  # # # #  # # # #  -->
-              <v-row>
-                <v-col :class="colstwelvsix">
-                  <childcardm>
-                    <template v-slot:slotone>
-                      <span style="color:switchdarkgrey4;font-weight:900;">                      
-                        {{ slotfivewords.s1 }} <br>  {{ slotfivewords.s2 }}
-                      </span>
-                    </template>
-                    <template v-slot:slottwo> 
-                      <vue-numeric-input
-                        id="vmd5id"
-                        v-model="vmd5" 
-                        v-bind="numericinp"
-                        :value="vmd5"
-                      />
-                      <span style="font-size:14px"> % </span>
-                    </template>
-                  </childcardm> 
-                </v-col>
-                <!-- # # # # # # #  *-* *-* *-* *-* *-* *-*  -->
-                <v-col :class="colstwelvsix">                 
-                  <template v-for="(stuf, i) in notes">
-                    <span 
-                      slot
-                      :key="i"
-                      name="newslot"
-                      style="font-size:14px;"
-                      :style="stuf.sty"
-                      :class="stuf.clss"              
-                    >
-                      {{ stuf.thewords }} <br><br>
-                      Watch for the chart to appear below<br>
-                      To save - right click on plot 
+              <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
+              <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
+              <v-form
+                id="mainform"
+                ref="formref"
+                :key="resetform"
+                vcardforform
+                :style="`flat=true; width='100%'`" 
+                @submit.prevent
+              >
+                <!-- card group: 1  # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
+                <v-row>
+                  <v-col :class="colstwelvsix">
+                    <childcardm :slotwords="slotonewords">
+                      <template v-slot:slotone>
+                        <span style="color:switchdarkgrey5;font-weight:900;">                      
+                          {{ slotonewords.s1 }} <br>  {{ slotonewords.s2 }}
+                        </span>
+                      </template>
+                      <template v-slot:slottwo>                 
+                        <vue-autonumeric
+                          v-model="vmd1"
+                          :options="vmd1opts"
+                          :style="vmdInputBox"
+                        />                
+                      </template>
+                    </childcardm>
+                  </v-col>
+                  <!-- Max Supply: 2  # # # # Max Supply: 2  # # # #  # # # #  -->
+                  <v-col :class="colstwelvsix">           
+                    <childcardm :slotwords="slottwowords">
+                      <template v-slot:slotone>
+                        <span style="color:switchdarkgrey4;font-weight:900;">                      
+                          {{ slottwowords.s1 }} <br>  {{ slottwowords.s2 }}
+                        </span>
+                      </template>
+                      <template v-slot:slottwo>                    
+                        <vue-autonumeric
+                          id="vmd2auto"
+                          v-model="vmd2"
+                          :placeholder="vmdHold"
+                          :options="vmd2opts"
+                          :style="vmdInputBox" 
+                        />         
+                      </template>
+                    </childcardm>    
+                  </v-col>          
+                </v-row>            
+                <!--3   annual inflation:  3  # # # #  # # # #  # # # #  -->
+                <v-row>
+                  <v-col :class="colstwelvsix">              
+                    <childcardm>
+                      <template v-slot:slotone>
+                        <span style="color:switchdarkgrey4;font-weight:900;">                      
+                          {{ slotthreewords.s1 }} <br>  {{ slotthreewords.s2 }}
+                        </span>
+                      </template>
+                      <template v-slot:slottwo> 
+                        <vue-autonumeric
+                          id="vmd3auto"
+                          v-model="vmd3"
+                          :options="vmd3opts"
+                          :style="vmdInputBox" 
+                        />
+                      </template>
+                    </childcardm>  
+                  </v-col>       
+                  <!-- 4  inflatervals Inflation Interval:  4  # # # #  # # # #  # # # #  -->         
+                  <v-col :class="colstwelvsix"> 
+                    <childcardm>
+                      <template v-slot:slotone>
+                        <span style="color:switchdarkgrey4;font-weight:900;">                      
+                          {{ slotfourwords.s1 }} <br>  {{ slotfourwords.s2 }}
+                        </span>
+                      </template>
+                      <template v-slot:slottwo> 
+                        <vue-numeric-input 
+                          id="vmd4id"
+                          v-model="vmd4" 
+                          v-bind="fourprops"
+                          :value="vmd4"
+                        />                
+                      </template>
+                    </childcardm>
+                  </v-col>       
+                </v-row>
+                <!--  5  5  Disinflation ratio:    5  5  # # # #  # # # #  # # # #  -->
+                <v-row>
+                  <v-col :class="colstwelvsix">
+                    <childcardm>
+                      <template v-slot:slotone>
+                        <span style="color:switchdarkgrey4;font-weight:900;">                      
+                          {{ slotfivewords.s1 }} <br>  {{ slotfivewords.s2 }}
+                        </span>
+                      </template>
+                      <template v-slot:slottwo> 
+                        <vue-numeric-input
+                          id="vmd5id"
+                          v-model="vmd5" 
+                          v-bind="numericinp"
+                          :value="vmd5"
+                        />
+                        <span style="font-size:14px"> % </span>
+                      </template>
+                    </childcardm> 
+                  </v-col>
+                  <!-- # # # # # # #  *-* *-* *-* *-* *-* *-*  -->
+                  <v-col :class="colstwelvsix">                 
+                    <template v-for="(stuf, i) in notes">
+                      <span 
+                        slot
+                        :key="i"
+                        name="newslot"
+                        style="font-size:14px;"
+                        :style="stuf.sty"
+                        :class="stuf.clss"              
+                      >
+                        {{ stuf.thewords }} <br><br>
+                        Watch for the chart to appear below<br>
+                        To save - right click on plot 
 
-                    </span>
-                  </template>     
-                </v-col>
-              </v-row>
+                      </span>
+                    </template>     
+                  </v-col>
+                </v-row>
 
-              <v-row>
-                <v-card
-                  id="submit-btn-card"
-                  v-bind="subcardprops"
-                >
-                  <!-- submit button *-* *-* *-* *-* *-* *-*  -->
-                  <v-btn
-                    id="submitmain"
-                    v-bind="subbtn"
-                    submit-btn-card
-                    @submit.prevent
-                    @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                <v-row>
+                  <v-card
+                    id="submit-btn-card"
+                    v-bind="subcardprops"
                   >
-                    <h1>{{ subbtn.twords }}</h1>
-                  </v-btn>
-                </v-card> 
-              </v-row>                                                       
-            </v-form>                
-          </v-card>
-        </v-row>
+                    <!-- submit button *-* *-* *-* *-* *-* *-*  -->
+                    <v-btn
+                      id="submitmain"
+                      v-bind="subbtn"
+                      submit-btn-card
+                      @submit.prevent
+                      @click="makePlot(vmd1, vmd2, vmd3, vmd4, vmd5)"
+                    >
+                      <h1>{{ subbtn.twords }}</h1>
+                    </v-btn>
+                  </v-card> 
+                </v-row>                                                       
+              </v-form>                
+            </v-card>
+          </v-row>
+        </v-card>
       </v-col>
       <v-col 
         cols="2"
@@ -205,6 +214,7 @@
     </v-row>
     <!-- plot shows up here # # # # # # # -->
     <v-row
+      no-gutters
       align="start"
       justify="center"
     >
@@ -213,14 +223,16 @@
         color="transparent"
         flat
         width="plotcardwid"          
-        :height="plotcardheight"
-        class="ml-4 mt-0 mb-1 px-0 pb-0 pt-0"
+        height="plotcardheight"
+        class="v-flex ml-0 mt-0 mb-1 px-0 pb-0 pt-0"
       >
         <img
           :key="resetImage"
           :src="finalIMAGE"
-          :width="plotwid"
+          width="plotwid"
           height="plotheight"
+          min-height="700px"
+          min-width="220px"
         >    
         <br>
       </v-card>
@@ -417,10 +429,10 @@ export default {
       return window.outerWidth < 960 ? 345 : 691   
     },
     plotcardwid () {
-      return window.outerWidth < 960 ? 511 : 1022   
+      return window.outerWidth < 960 ? 511 : 1022
     },
     plotcardheight () {
-      return window.outerWidth < 960 ? 700 : 750   
+      return window.outerWidth < 960 ? 1900 : 1600   
     },
   },
   mounted () {
