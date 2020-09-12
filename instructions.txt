@@ -20,31 +20,26 @@ git pull origin master
 
 plots are in 'static'
 
-systemctl tokenlife.service does this:
-#/home/Nancy/anaconda3/bin/python flask_app.py >/dev/null 2>&1
-
 
 systemctl tokenlifeapp.service does this:
 (to serve - you must use /usr/node-v12.17.0-linux-x64/lib/node_modules/serve/bin/serve.js)
 # /usr/node-v12.17.0-linux-x64/lib/node_modules/serve/bin/serve.js -s dist
 
-
-debugging:
+--debugging---------------------------------
 sudo netstat -anp | grep node
 
+--systemctl-------------------------------------
 
 sudo systemctl status tokenlifeapp
 sudo systemctl stop tokenlifeapp
 sudo systemctl start tokenlifeapp
 
-Gunicorn run the python part
-gunicorn start:
+--Gunicorn-------------------------------------
+Gunicorn runs the python part, connecting it to nginx
+
+gunicorn is built into the systemctl script tokenlife.service:
 sudo systemctl status tokenlife
 
-
-todo:
-- make refilling the form better
-- fix picture at bottom
-- better explanations on forms
-
+systemctl tokenlife.service does this:
+#/home/Nancy/anaconda3/bin/python flask_app.py >/dev/null 2>&1
 

@@ -8,8 +8,13 @@
       flat
       link
       min-width="70"
-      style="position: fixed; top: 229px; right: -35px; border-radius: 8px;"
+      style="position: fixed; top: 100px; right: -10px; border-radius: 8px;"
     >
+      <span 
+        style="font-size:9px;"
+      >
+        Color
+      </span>
       <v-icon medium>
         mdi-settings
       </v-icon>

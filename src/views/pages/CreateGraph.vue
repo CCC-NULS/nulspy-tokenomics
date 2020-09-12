@@ -141,6 +141,7 @@
                       slot
                       :key="i"
                       name="newslot"
+                      style="font-size:14px;"
                       :style="stuf.sty"
                       :class="stuf.clss"              
                     >
@@ -196,14 +197,14 @@
         color="transparent"
         flat
         :height="imgheight2"
-        width="imgwid"          
+        width="plotwid"          
         class="ml-4 mt-0 mb-1 px-0 pb-0 pt-0"
       >
         <img
           :key="resetImage"
           :src="finalIMAGE"
           height="imgheight"
-          :width="imgwid"
+          :width="plotwid"
         >    
         <br>
       </v-card>
@@ -227,13 +228,12 @@ import Childcardm from './childcardm'
 
 const subbtn = {
   type: 'submit',
-  width: '345px',
+  width: '220',
   height: '50px',
   'min-width': '105px',
   class: 'white--text hover elevation-6 teal justify-center mb-2',
   twords: 'make graph',
   style: "text-transform:lowercase;margin-top:0px",
-
 }
 const vmdopts = {
   digitGroupSeparator: ',',
@@ -301,7 +301,7 @@ const vmdInputBox = 'width:140px; font-size:20px; font-weight:700; \
   padding-left:2px; padding-right:2px; \
   padding-bottom:2px; padding-top:2px; \
   margin-bottom:1px; margin-left:2px; margin-right:2px; \
-  margin-top:2px; color:#000; background-color:transparent;'
+  margin-top:2px; color:#000; background-color:transparent;border-bottom-color:#FF0000;'
 
 const items = [
   {
@@ -323,7 +323,6 @@ const notes = [
     clss: "teal--text darken3",
   }
 ]
-
 const arrowvuenumeric = "font-size:20px; height:23px; width: 110px; color:#ffffff; text-align:center!important;"
 const vmdHold = 'numbers only'
 var flexlist = "d-flex flex-column flex-shrink-1 justify-center align-center justify-space-around"
@@ -372,7 +371,7 @@ export default {
     slotfivewords,
     subbtn,
     numericinp,
-    cardclass: `${flexlist}` +  " px-1 pt-1 pb-1 ma-1",
+    cardclass,
     arrowvuenumeric,
     vmdInputBox,   
     vmd1opts,
@@ -390,34 +389,26 @@ export default {
     finalIMAGEp1,
     finalIPwPORT,
     finalIMAGE: '',
-    colstwelvsix: { cols: "12", md: "6" }
+    colstwelvsix: { cols: '12', md: '6' }
     }),
   computed: {
     showimg () {
       return window.outerWidth < 960 ? false : true   
     },
-    // greygrad () {
-    //   return "background-image: linear-gradient(306deg, #fbe9e7, #e0f2f1)" 
-    // },
-    imgwid () {
-      return window.outerWidth < 960 ? '533' : '922'   
+    plotwid () {
+      return window.outerWidth < 960 ? 307 : 922  
     },
     imgheight () {
-      return window.outerWidth < 960 ? '400' : '691'   
+      return window.outerWidth < 960 ? 230 : 691   
     },
     imgheight2 () {
-      return window.outerWidth < 960 ? '650' : '750'   
+      return window.outerWidth < 960 ? 250 : 750   
     },
-    // cardtopmarg () {
-    //   return window.outerWidth < 960 ? 'margin-top:12px' : 'margin-top:65px'   
-    // },
-    // cardwidth () {
-    //   return window.outerWidth < 960 ? (window.outerWidth * .84) : (window.outerWidth * .33)
-    // },
   },
   mounted () {
-    console.log("---window.outerWidth " + window.outerWidth)
-    console.log("---window.innerWidth " + window.innerWidth)
+    console.log("---window outerWidth " + window.outerWidth)
+    console.log("---window innerWidth " + window.innerWidth)
+
   },
 
   methods: {   

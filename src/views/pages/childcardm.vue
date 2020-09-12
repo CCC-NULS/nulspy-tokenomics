@@ -5,8 +5,8 @@
     color="blue-grey lighten-5"
     flat
     height="115px"
-    width="390px"
-    min-width="270px"              
+    width="window.outerWidth < 960 ? 200 : 390"
+    min-width="200px"              
     max-width="470px"
     min-height="70px"              
     max-height="270px"  
