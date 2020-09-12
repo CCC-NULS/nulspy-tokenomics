@@ -141,11 +141,13 @@
     dark: true,
     raised: true,
     width: "90%",
-    height: "92px",
-    class: "d-flex align-center justify-center align-content-center",
+    height: "120px",
+    'max-height': "150px",
+    style: "line-height:64px",
+    class: "d-flex flex-grow-1 align-center justify-center align-content-center",
   }
 
-  var bigline1 = "d-flex flex-column align-center justify-center grey--text text-darken-3 "
+  var bigline1 = "d-flex flex-column align-center justify-center grey--text text--darken3 "
   var bigline2 = " px-9 pb-12 mb-12 ml-9 mr-12 display-2 "
   var bigline = bigline1 + bigline2
 

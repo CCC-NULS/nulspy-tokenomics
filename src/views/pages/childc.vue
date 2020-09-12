@@ -11,7 +11,7 @@
   >
     <v-chip
       label
-      class="montser mb-0 pr-2 ml-n7 mt-n1 grey--text darken-1" 
+      class="montser mb-0 pr-2 ml-n7 mt-n1 grey--text text--darken1" 
       v-bind="tchipprops"
     >
       <slot name="leadd">

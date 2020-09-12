@@ -61,7 +61,7 @@ const dtheme = {
   switchpaper: colors.grey.darken3,
   swdeepOrange: colors.deepOrange.lighten3,
   // following all reversed:
-  switchlightgrey3: colors.grey.darken43,
+  switchlightgrey3: colors.grey.darken3,
   switchlightgrey4: colors.grey.darken4,
   switchlightgrey5: colors.grey.darken5,
 

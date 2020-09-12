@@ -169,8 +169,8 @@
                         :class="stuf.clss"              
                       >
                         {{ stuf.thewords }} <br><br>
-                        Watch for the chart to appear below<br>
-                        To save - right click on plot 
+                        Watch for graph below<br>
+                        Right click on plot to Save
 
                       </span>
                     </template>     
@@ -200,16 +200,25 @@
         </v-card>
       </v-col>
       <v-col 
-        cols="2"
-        md="2"
+        cols="3"
+        md="3"
+        class="pl-9"
       >
-        <v-img 
+        <v-card
           v-if="showimg"
-          width="204"
-          height="211"
+          flat
+          width="340"
+          height="250"
           class="ml-4"
-          src="@/assets/images/nulsRocket.png" 
-        />
+        >
+          <v-img 
+            v-if="showimg"
+            width="204"
+            height="211"
+            class="ml-2"
+            src="@/assets/images/nulsRocket.png" 
+          />
+        </v-card>
       </v-col>       
     </v-row>
     <!-- plot shows up here # # # # # # # -->
@@ -218,24 +227,26 @@
       align="start"
       justify="center"
     >
-      <v-card
+      <!-- <v-card
         :key="resetImage"
         color="transparent"
         flat
-        width="plotcardwid"          
-        height="plotcardheight"
-        class="v-flex ml-0 mt-0 mb-1 px-0 pb-0 pt-0"
-      >
-        <img
-          :key="resetImage"
-          :src="finalIMAGE"
-          width="plotwid"
-          height="plotheight"
-          min-height="700px"
-          min-width="220px"
-        >    
-        <br>
-      </v-card>
+        width="auto"          
+        height="auto"
+        :max-height="plotcardheightmax"
+        min-height="4px"
+        min-width="4px"
+        class="v-flex flex-column flex-grow-1 flex-shrink-1 ml-0 mt-0 mb-1 px-0 pb-0 pt-0"
+      > -->
+      <img
+        :key="resetImage"
+        :src="finalIMAGE"
+        :width="plotwid"
+        :height="plotheight"
+        min-height="700px"
+        min-width="220px"
+      >    
+      <br><br>
     </v-row>
   </v-container>
 </template>
@@ -432,6 +443,9 @@ export default {
       return window.outerWidth < 960 ? 511 : 1022
     },
     plotcardheight () {
+      return window.outerWidth < 960 ? 845 : 900   
+    },
+    plotcardheightmax () {
       return window.outerWidth < 960 ? 1900 : 1600   
     },
   },
