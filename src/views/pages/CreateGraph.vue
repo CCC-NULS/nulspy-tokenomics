@@ -7,10 +7,15 @@
     <v-row
       class="d-flex flex-align-start"
     >    
+      <v-col
+        cols="1"
+        md="1"
+        style="padding:0px;"
+      />
       <v-col 
-        cols="12"
-        md="9"
-        xs="12"
+        cols="11"
+        md="7"
+        xs="11"
       >
         <v-row
           class="d-flex flex-column align-center"
@@ -36,7 +41,7 @@
             ref="formrefc"
             width="100%"
             flat
-            class="transparent d-flex flex-inline-row justify-around px-3 py-1 mx-3 mt-4" 
+            class="transparent d-flex flex-inline-row justify-around pl-3 py-1 ml-3 mt-1" 
           >
             <!--    # # # #  # # # #  # #  # # # ## #  # # # ## # # #  -->
             <!-- form  # # # #  # # # #  # #  # # # ## #  # # # ## # #  -->
@@ -176,14 +181,14 @@
         </v-row>
       </v-col>
       <v-col 
-        cols="3"
-        md="3"
+        cols="2"
+        md="2"
       >
         <v-img 
           v-if="showimg"
           width="204"
           height="211"
-          src="../../assets/images/addins/nulsRocket.png" 
+          src="@/assets/images/nulsRocket.png" 
         />
       </v-col>       
     </v-row>

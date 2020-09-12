@@ -4,7 +4,7 @@
     v-bind="cardprops"
     color="blue-grey lighten-5"
     flat
-    height="115px"
+    height="125px"
     width="window.outerWidth < 960 ? 200 : 390"
     min-width="200px"              
     max-width="470px"
