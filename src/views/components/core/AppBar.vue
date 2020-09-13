@@ -23,36 +23,38 @@
       </v-icon>
     </v-btn>
    
-    <v-btn
-      class="mr-3"
-      style="margin-left:120px!important;"
-      color="primary lighten-1"
+    <!-- <v-btn
+      class="mr-1"
+      style="margin-left:400px!important;"
+      color="rgba(117, 201, 181, 0.5)"
       elevation="99"
-      fab
       medium
       @click="setDrawer(!drawer)"
     >
+      close this menu
       <v-icon v-if="value">
-        mdi-restart
+        mdi-close
       </v-icon>
 
       <v-icon v-else>
-        mdi-dots-vertical
+        mdi-close
       </v-icon>
     </v-btn>
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light"
       v-text="$route.name"
-    />
+    /> -->
+
 
     <v-spacer />
     <!-- removed text search from here  -->
 
-    <div class="mx-3" />
+    <div class="mx-0" />
 
     <v-btn
       class="ml-2"
-      color="teal lighten-1"
+      color="primary"
+      
       shaped
       filled="true"
       text

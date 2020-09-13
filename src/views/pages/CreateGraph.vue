@@ -5,18 +5,13 @@
     tag="section"
   >
     <v-row
-      no-gutters
       class="d-flex flex-align-start"
+      no-gutters
     >    
-      <v-col
-        cols="1"
-        md="1"
-        style="padding:0px;"
-      />
       <v-col 
-        cols="11"
-        md="7"
-        xs="11"
+        cols="12"
+        md="10"
+        xs="12"
       >
         <v-card
           id="maincard"
@@ -200,9 +195,9 @@
         </v-card>
       </v-col>
       <v-col 
-        cols="3"
-        md="3"
-        class="pl-9"
+        cols="2"
+        md="2"
+        xs="0"
       > 
         <!-- rocket Nuls graphic shows up here # # # # # # # -->
        <v-card
@@ -225,11 +220,17 @@
     </v-row>
     <!-- plot shows up here # # # # # # # -->
     <v-row
-      no-gutters
       align="start"
       justify="center"
-      class="py-2"
     >
+    <v-card
+      id="spacercard"
+      flat
+      height="5px"
+      width="75%"
+      align="center"
+      color="transparent"
+    />
       <!-- <v-card
         :key="resetImage"
         color="transparent"
@@ -244,13 +245,23 @@
       <v-img
         :key="resetImage"
         :src="finalIMAGE"
-        :width="plotwid"
-        :height="plotheight"
-        min-height="700px"
-        min-width="220px"
-        class="ml-2"
+        width="auto"
+        height="auto"
+        min-height="0px"
+        max-height="bigs ? 932 : 500"
+        min-width="bigs ? 691 : 300"
+        max-width="bigs ? 720 : 400"
+        class="ml-1"
       />    
       <br><br>
+        <v-card
+          id="spacercard"
+          flat
+          height="2px"
+          width="90%"
+          align="center"
+          color="transparent"
+        />
     </v-row>
   </v-container>
 </template>
@@ -406,6 +417,7 @@ export default {
     subcardprops,
     notes,
     flexlist,
+    bigs: true,
     slotonewords,
     slottwowords,
     slotthreewords,
@@ -434,29 +446,29 @@ export default {
     colstwelvsix: { cols: '12', md: '6' }
     }),
   computed: {
-    showimg () {
-      return window.outerWidth < 960 ? false : true   
+    showimg () { 
+      return this.bigs ? true : false
     },
-    plotwid () {
-      return window.outerWidth < 960 ? 461 : 922  
+    plotwid () { 
+      return this.bigs ? 922 : 461
     },
-    plotheight () {
-      return window.outerWidth < 960 ? 345 : 691   
+    plotheight () {  
+      return this.bigs ? 691 : 345
     },
     plotcardwid () {
-      return window.outerWidth < 960 ? 511 : 1022
+      return this.bigs ? 1022 : 511
     },
     plotcardheight () {
-      return window.outerWidth < 960 ? 845 : 900   
+      return this.bigs ? 900 : 845
     },
     plotcardheightmax () {
-      return window.outerWidth < 960 ? 1900 : 1600   
+      return this.bigs ? 2200 : auto
     },
   },
   mounted () {
     console.log("---window outerWidth " + window.outerWidth)
     console.log("---window innerWidth " + window.innerWidth)
-
+    this.bigs = window.outerWidth > 960 ? true : false
   },
 
   methods: {   

@@ -3,18 +3,18 @@
     <!-- weird dark mode tab in upper right -->
     <v-card
       id="settings"
-      class="py-2 px-4"
+      class="py-2 px-2"
       color="rgba(117, 201, 181, 0.5)"
       flat
       link
       min-width="70"
-      style="position: fixed; top: 100px; right: 0px; border-radius: 8px;"
+      style="position: fixed; top: 0px; right: 200px;"
     >
       <span 
-        class="teal--text text--darken2"
-        style="font-size:11px;"
+        class="primary--text text--darken2 mt-0"
+        style="font-size:12px;"
       >
-        Color
+        Colors
       </span>
       <v-icon medium>
         mdi-settings

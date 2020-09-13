@@ -64,34 +64,39 @@
         />
       </template>
     </v-list>
+    <v-spacer />
     <!-- CLOSE DRAWER IN MOBILE --> 
     <v-btn
-          class="mr-3"
-          style="margin-left:120px!important;"
-          color="primary lighten-3"
-          elevation="99"
+          class="mr-0 ml-0"
+          style="margin-top:300px;"
+          color="rgba(117, 201, 181, 0.5)"
+          elevation="1"
           medium
+          flat
           @click="setDrawer(!drawer)"
         >
           Close
           <v-icon v-if="value">
-            mdi-restart
+            mdi-swap-horizontal
           </v-icon>
 
-          <v-icon v-else>
-            mdi-dots-vertical
+          <v-icon 
+            v-else
+            class="pl-4"
+          >
+            mdi-swap-horizontal
           </v-icon>
         </v-btn>
-        <v-toolbar-title
+        <!-- <v-toolbar-title
           class="hidden-sm-and-down font-weight-light"
           v-text="$route.name"
-        />
+        /> -->
 
     <template v-slot:append>
       <item
         dark
         :item="{
-          title: $t('home'),
+          title: $t(''),
           icon: 'mdi-package-up',
           to: '/',
         }"
@@ -100,8 +105,9 @@
   </v-navigation-drawer>
 </template>
 
-<script>
-  import {  mapState  } from 'vuex'
+<script>   
+
+  import {  mapState, mapMutations  } from 'vuex'
   export default {
     name: 'CoreDrawer',
     props: {
@@ -133,6 +139,7 @@
     }),
 
     computed: {
+      ...mapState(['drawer']),
       ...mapState(['barColor', 'barImage']),
       drawer: {
         get () {
@@ -156,6 +163,9 @@
       },
     },
     methods: {
+      ...mapMutations({
+        setDrawer: 'SET_DRAWER',
+      }),
       mapItem (item) {
         return {
           ...item,
