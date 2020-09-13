@@ -73,14 +73,7 @@
 
     data: () => ({
       color: '#E91E63',
-      colors: [
-        '#9C27b0',
-        '#00CAE3',
-        '#4CAF50',
-        '#ff9800',
-        '#E91E63',
-        '#FF5252',
-      ],
+
       image: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
       images: [
         'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',

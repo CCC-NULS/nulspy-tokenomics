@@ -221,16 +221,17 @@
     <!-- plot shows up here # # # # # # # -->
     <v-row
       align="start"
-      justify="center"
+      justify="start"
+      no-gutters
     >
-    <v-card
-      id="spacercard"
-      flat
-      height="5px"
-      width="75%"
-      align="center"
-      color="transparent"
-    />
+      <v-card
+        id="spacercard"
+        flat
+        height="5px"
+        width="90%"
+        align="start"
+        color="transparent"
+      />
       <!-- <v-card
         :key="resetImage"
         color="transparent"
@@ -247,7 +248,7 @@
         :src="finalIMAGE"
         width="auto"
         height="auto"
-        min-height="0px"
+        min-height="100px"
         max-height="bigs ? 932 : 500"
         min-width="bigs ? 691 : 300"
         max-width="bigs ? 720 : 400"
@@ -259,7 +260,7 @@
           flat
           height="2px"
           width="90%"
-          align="center"
+          align="start"
           color="transparent"
         />
     </v-row>

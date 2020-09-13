@@ -4,15 +4,17 @@
     height="auto"
     width="97%"
     left
+    text-left
     elevation-4
-    color="switchlightgrey4"
-    class="px-12 py-6 ml-14 mr-14 mt-3 align=left"
-    :style="`font-size:19px; line-height:24px; text-align:left !important;`"
+    color="grey lighten-2"
+    class="px-12 py-6 ml-14 mr-14 mt-3 text-left"
+    :style="`line-height:22px; text-left!important;`"
   >
     <v-chip
       label
-      class="montser mb-0 pr-2 ml-n7 mt-n1 grey--text text--darken1" 
+      class="montser mb-0 pr-2 ml-n7 mt-n1" 
       v-bind="tchipprops"
+      :style="fontsz"
     >
       <slot name="leadd">
         replacemelead
@@ -20,7 +22,7 @@
     </v-chip>
 
     <span
-      :class="themefont" 
+      :class="fontsize"
       :style="`text-align:left!important;`"
     >
       <slot name="paragg">
@@ -33,7 +35,6 @@
 <script>
   const tchipprops = {
     color: 'grey darken-1',
-    textColor: 'white',
     dark: true,
     style: "line-height:20px; box-shadow: 1px 2px 2px -1px;",
   }
@@ -53,12 +54,25 @@
 
     data: () => ({
       tchipprops,
+      fontsz: ' font-size:15px;',
+      bigs: true,
     }),
     computed: {
-      themefont () {
-        return this.$vuetify.dark ? "grey--text darken2" : "grey--text darken2"
-      }
+      // themefont () {
+      //   return this.$vuetify.dark ? " red--text text--lighten2 " : " grey--text text--darken5"
+      // },
+      // need extra spaces below so they can be combined with other vars with "+"
+      fontsize () {
+        return this.bigs ? " font-size:19px" : " font-size:15px"
+      },
+   },    
+    mounted () {
+      console.log("---window outerWidth " + window.outerWidth)
+      console.log("---window innerWidth " + window.innerWidth)
+      this.bigs = window.outerWidth > 960 ? true : false
+      this.fontsz = this.bigs ? " font-size:19px;" : " font-size:16px;"
     },
+
   }
 </script>
 <style>
@@ -68,7 +82,7 @@
   }
     
   .v-chip__content {
-    font-size: 19px!important;
+    font-size: 16px!important; 
     color: white;
     padding-left: 5px;
     padding-right: 2px;

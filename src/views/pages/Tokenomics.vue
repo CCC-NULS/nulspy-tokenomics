@@ -46,7 +46,7 @@
             dark
             color="teal lighten-2"
             width="70%"
-            class="d-flex align-self-center align-center text-center pl-10 py-5 pr-12 mx-10"
+            class="d-flex align-self-center align-center text-left pl-10 py-5 pr-12 mx-10"
           >
             {{ tsubtitle }}
           </v-card>
@@ -64,7 +64,11 @@
               v-slot:paragg
               :stuf="stuf"             
             >
-              {{ stuf.parag }}
+              <span
+                style="color:#166161;"
+              >
+                {{ stuf.parag }} 
+              </span>
             </template>
           </childc>
         </v-card>
@@ -134,14 +138,13 @@
         '(example 30 days).',
     },
   ]
-
   const blackcard = {
     color: "grey darken-3",
     elevation: 24,
     dark: true,
     raised: true,
     width: "90%",
-    height: "120px",
+    height: "125px",
     'max-height': "150px",
     style: "line-height:64px",
     class: "d-flex flex-grow-1 align-center justify-center align-content-center",
@@ -166,15 +169,26 @@
     data () {
       return {  
         bigline,
+        fontsz: "18px",
+        bigs: true,
         tokencardback,
         blackcard,
         tsubtitle,
         biglist,
         }
-      },
-  };
+      },       
+    mounted () {
+      console.log("---window outerWidth " + window.outerWidth)
+      console.log("---window innerWidth " + window.innerWidth)
+      this.bigs = window.outerWidth > 960 ? true : false
+      this.fontsz = this.bigs ? "18px" : "14px"
+    },
+  }
 </script>
 <style>
+  .v-application .display-2 {
+    font-size:18px!important;
+  }
   .montser {
     font-family: 'Montserrat', sans-serif !important;
   }

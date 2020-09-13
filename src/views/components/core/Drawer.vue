@@ -69,19 +69,13 @@
     <v-btn
           class="mr-0 ml-0"
           style="margin-top:300px;"
-          color="rgba(117, 201, 181, 0.5)"
+          color="rgba(128,203,196, 0.7)"
           elevation="1"
           medium
-          flat
           @click="setDrawer(!drawer)"
         >
           Close
-          <v-icon v-if="value">
-            mdi-swap-horizontal
-          </v-icon>
-
           <v-icon 
-            v-else
             class="pl-4"
           >
             mdi-swap-horizontal
