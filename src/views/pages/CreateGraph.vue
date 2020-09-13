@@ -206,7 +206,7 @@
       > 
         <!-- rocket Nuls graphic shows up here # # # # # # # -->
        <v-card
-          v-if="`window.outerWidth < 960`"
+          v-if="`showimg`"
           flat
           color="transparent"
           width="224"

@@ -8,7 +8,7 @@
       flat
       link
       min-width="70"
-      style="position: fixed; top: 100px; right: -10px; border-radius: 8px;"
+      style="position: fixed; top: 100px; right: 0px; border-radius: 8px;"
     >
       <span 
         class="teal--text text--darken2"

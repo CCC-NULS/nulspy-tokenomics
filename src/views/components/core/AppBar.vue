@@ -24,9 +24,10 @@
     </v-btn>
    
     <v-btn
-      class="ml-10 mr-3"
-      color="primary"
-      elevation="1"
+      class="mr-3"
+      style="margin-left:120px!important;"
+      color="primary lighten-1"
+      elevation="99"
       fab
       medium
       @click="setDrawer(!drawer)"

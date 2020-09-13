@@ -64,6 +64,28 @@
         />
       </template>
     </v-list>
+    <!-- CLOSE DRAWER IN MOBILE --> 
+    <v-btn
+          class="mr-3"
+          style="margin-left:120px!important;"
+          color="primary lighten-3"
+          elevation="99"
+          medium
+          @click="setDrawer(!drawer)"
+        >
+          Close
+          <v-icon v-if="value">
+            mdi-restart
+          </v-icon>
+
+          <v-icon v-else>
+            mdi-dots-vertical
+          </v-icon>
+        </v-btn>
+        <v-toolbar-title
+          class="hidden-sm-and-down font-weight-light"
+          v-text="$route.name"
+        />
 
     <template v-slot:append>
       <item

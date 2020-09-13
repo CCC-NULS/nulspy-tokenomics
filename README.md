@@ -1,6 +1,6 @@
 ## nulspy-tokenomics
 
-This project contains the code for:  http://westteam.nulstar.com/tokenlifeapp .
+This project contains the code for:  http://westteam.nulstar.com/tokenlife .
 
 The project was created as a prop for a class on blockchain at Portland State University. The class intended to teach the basic six (6) underlining elements (modules) of a functioning blockchain, set-up tokenomic parameters, genesis block, seed node, blockchain explorers, wallets, smart contracts, decentralized application development and deployment, node network and consensus mechanisms.
 
@@ -30,6 +30,6 @@ The app/dapp aims to help understand the economic ramifications of these setting
 
 To setup and run: You'll need at least python 3.7, flask, and the other goodies in the repo. The easiest way to run it yourself is to use flask as the server. Otherwise you'll need Nginx with Gunicorn, Waitress, or something similar that will serve Python.
 
-To run - see the run.sh file. The other run files are provided as helpers for your server setup.
+To run - see the Instructions.md file. The other run files are provided as helpers for your server setup.
 
-The python part is in directory tokenlife and runs on port 8084 by nginx and gunicorn via the wsgi.py file.  On the server - gunicorn must be running.  The tokenlife service takes care of that.
+On the server - gunicorn must be running. The python part is in flask_app.py and appsupport.py and runs on port 8084 by nginx and gunicorn via the systemctl file tokenlifeapp.service. The tokenlife service takes care of that. You need sudo to stop and start it, replace it, etc.
