@@ -203,12 +203,14 @@
         cols="3"
         md="3"
         class="pl-9"
-      >
-        <v-card
-          v-if="showimg"
+      > 
+        <!-- rocket Nuls graphic shows up here # # # # # # # -->
+       <v-card
+          v-if="`window.outerWidth < 960`"
           flat
-          width="340"
-          height="250"
+          color="transparent"
+          width="224"
+          height="233"
           class="ml-4"
         >
           <v-img 
@@ -226,6 +228,7 @@
       no-gutters
       align="start"
       justify="center"
+      class="py-2"
     >
       <!-- <v-card
         :key="resetImage"
@@ -238,14 +241,15 @@
         min-width="4px"
         class="v-flex flex-column flex-grow-1 flex-shrink-1 ml-0 mt-0 mb-1 px-0 pb-0 pt-0"
       > -->
-      <img
+      <v-img
         :key="resetImage"
         :src="finalIMAGE"
         :width="plotwid"
         :height="plotheight"
         min-height="700px"
         min-width="220px"
-      >    
+        class="ml-2"
+      />    
       <br><br>
     </v-row>
   </v-container>

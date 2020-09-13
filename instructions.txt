@@ -6,19 +6,27 @@
 
 # /usr/node-v12.17.0-linux-x64/lib/node_modules/serve/bin/serve.js -s dist >/dev/null 2>&1
 
-1) 
-git pull origin dev7
+cd /usr/share/nginx/html/tokenlife
+
+git pull origin dev99
 or
 git pull origin master
 
-2) change the constant for ISCENTOS
+rm -rf /usr/share/nginx/html/tokenlife/node_modules/.cache
 
-3) cd /home/Nancy/html/tokenlife
-
-4)  npm run build
+npm run build
   creates dist dir
+cd dist
+cp -r * ..
+sudo cp -r * ../../
 
-plots are in 'static'
+sudo systemctl status tokenlifeapp
+sudo systemctl stop tokenlifeapp
+sudo systemctl start tokenlifeapp
+
+
+
+(plots are in 'static')
 
 
 systemctl tokenlifeapp.service does this:
