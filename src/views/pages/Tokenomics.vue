@@ -191,17 +191,6 @@
   }
 </script>
 <style>
-  html {
-    overflow: hidden !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  html::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
   .v-application .display-2 {
     font-size:18px!important;
   }

@@ -237,7 +237,6 @@
           :key="resetImage"
           :src="finalIMAGE"
           contain
-          class="contain=true"
         />    
         <br><br>
       </v-col>
