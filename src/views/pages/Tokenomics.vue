@@ -44,16 +44,16 @@
             id="tealcard"
             vcard2
             dark
-            color="teal lighten-2"
+            color="teal lighten-2 white--text text--darken2"
             width="70%"
-            class="d-flex align-self-center align-center text-left pl-10 py-5 pr-12 mx-10"
+            class="d-flex align-self-center align-center text-left pl-10 py-5 pr-10 mx-10"
           >
             {{ tsubtitle }}
           </v-card>
           <childc
             v-for="(stuf, i) in biglist"
             :key="i"
-          >              
+          > 
             <template
               v-slot:leadd
               :stuf="stuf"             
@@ -64,8 +64,9 @@
               v-slot:paragg
               :stuf="stuf"             
             >
+              <!-- style="color:#166161;" -->
               <span
-                style="color:#166161;"
+                :style="`${rootIsDark ? 'color:#EEEEEE' : 'color:#212121' }`"
               >
                 {{ stuf.parag }} 
               </span>
@@ -80,6 +81,7 @@
 <script>
   import colors from 'vuetify/lib/util/colors'
   import Childc from './childc'
+  import Themeable from 'vuetify/lib/mixins/themeable'
 
   // const tHeader = 'About NULS'
   const mat1 = 'NULS: Open-Source, Enterprise-Grade - Adaptive'
@@ -166,11 +168,14 @@
     components: { 
       childc: Childc,
     },
+    mixins: [Themeable],
     data () {
       return {  
         bigline,
         fontsz: "18px",
         bigs: true,
+        darksch: '#212121',
+        lightsch: '#212121',
         tokencardback,
         blackcard,
         tsubtitle,
@@ -186,6 +191,17 @@
   }
 </script>
 <style>
+  html {
+    overflow: hidden !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
   .v-application .display-2 {
     font-size:18px!important;
   }

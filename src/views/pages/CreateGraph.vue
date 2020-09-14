@@ -197,23 +197,24 @@
       <v-col 
         cols="2"
         md="2"
-        xs="0"
+        xs="d-none"
+        class="d-xs-none d-md-flex"
       > 
         <!-- rocket Nuls graphic shows up here # # # # # # # -->
-       <v-card
-          v-if="`showimg`"
+        <v-card
+          v-if="bigs"
+          :key="bigs"
           flat
           color="transparent"
           width="224"
           height="233"
-          class="ml-4"
+          class="ml-6"
         >
           <v-img 
-            v-if="showimg"
             width="204"
             height="211"
-            class="ml-2"
-            src="@/assets/images/nulsRocket.png" 
+            src="http://westteam.nulstar.com/permimgs/nulsrocket.png" 
+            class="ml-6"
           />
         </v-card>
       </v-col>       
@@ -232,37 +233,27 @@
         align="start"
         color="transparent"
       />
-      <!-- <v-card
-        :key="resetImage"
-        color="transparent"
-        flat
-        width="auto"          
-        height="auto"
-        :max-height="plotcardheightmax"
-        min-height="4px"
-        min-width="4px"
-        class="v-flex flex-column flex-grow-1 flex-shrink-1 ml-0 mt-0 mb-1 px-0 pb-0 pt-0"
-      > -->
       <v-img
         :key="resetImage"
         :src="finalIMAGE"
-        width="auto"
-        height="auto"
-        min-height="100px"
-        max-height="bigs ? 932 : 500"
-        min-width="bigs ? 691 : 300"
-        max-width="bigs ? 720 : 400"
+        :width="`${bigs ? 691 : 691/2}`"
+        :height="`${bigs ? 932 : 932/2}`"
+        min-height="400px"
+        max-height="932"
+        min-width="340"
+        max-width="700"
         class="ml-1"
       />    
       <br><br>
-        <v-card
-          id="spacercard"
-          flat
-          height="2px"
-          width="90%"
-          align="start"
-          color="transparent"
-        />
+      <v-card
+        id="spacercard"
+        flat
+        height="10px"
+        width="100%"
+        align="start"
+        color="transparent"
+        class="mb-4 mt-2"
+      />
     </v-row>
   </v-container>
 </template>

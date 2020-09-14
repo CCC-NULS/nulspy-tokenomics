@@ -6,8 +6,8 @@
     left
     text-left
     elevation-4
-    color="grey lighten-2"
-    class="px-12 py-6 ml-14 mr-14 mt-3 text-left"
+    class="px-12 py-6 ml-14 mr-14 mt-3 text-left" 
+    :color="`${rootIsDark ? '#222222' : '#E0E0E0' }`"
     :style="`line-height:22px; text-left!important;`"
   >
     <v-chip
@@ -33,14 +33,18 @@
 </template>
 
 <script>
+  import Themeable from 'vuetify/lib/mixins/themeable'
+  import colors from 'vuetify/lib/util/colors'
+
   const tchipprops = {
     color: 'grey darken-1',
     dark: true,
     style: "line-height:20px; box-shadow: 1px 2px 2px -1px;",
   }
-
+  // need for dark/light changing: mixins: [Themeable]
   export default {
     name: 'Childc',
+    mixins: [Themeable],
     props: {
       lead: {
         type: String,
@@ -54,7 +58,9 @@
 
     data: () => ({
       tchipprops,
-      fontsz: ' font-size:15px;',
+      lightsch: '#E0E0E0',
+      darksch: '#4F4F4F',  //dgrey3
+      fontsz: 'font-size:15px;',
       bigs: true,
     }),
     computed: {

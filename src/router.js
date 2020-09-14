@@ -23,26 +23,12 @@ export default new Router({
           path: '',
           component: () => import('@/views/pages/CreateGraph'),
         }, 
-        // {
-        //   name: 'Saved Graphs',
-        //   path: 'pages/savedgraphs',
-        //   component: () => import('@/views/pages/SavedGraphs'),
-        // },
         {
           name: 'Tokenomics',
           path: '/tokenomics',
           component: () => import('@/views/pages/Tokenomics'),
         },
-        // {
-        //   name: 'About',
-        //   path: 'about',
-        //   component: () => import('@/views/dashboard/pages/Tokenomics'),
-        // },
-        {
-          name: 'Create Cs',
-          path: 'pages/createcs',
-          component: () => import('@/views/pages/CreateCs'),
-        },
+
       ],
     },
   ],

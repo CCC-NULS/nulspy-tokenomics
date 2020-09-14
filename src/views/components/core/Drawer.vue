@@ -67,24 +67,25 @@
     <v-spacer />
     <!-- CLOSE DRAWER IN MOBILE --> 
     <v-btn
-          class="mr-0 ml-0"
-          style="margin-top:300px;"
-          color="rgba(128,203,196, 0.7)"
-          elevation="1"
-          medium
-          @click="setDrawer(!drawer)"
-        >
-          Close
-          <v-icon 
-            class="pl-4"
-          >
-            mdi-swap-horizontal
-          </v-icon>
-        </v-btn>
-        <!-- <v-toolbar-title
-          class="hidden-sm-and-down font-weight-light"
-          v-text="$route.name"
-        /> -->
+      class="mr-0 ml-0"
+      style="position: relative; bottom:0;"
+      :style="`${bigs ? 'margin-top:100px;' : 'margin-top:300px;'}`"
+      color="rgba(128,203,196, 0.7)"
+      elevation="1"
+      small
+      @click="setDrawer(!drawer)"
+    >
+      Close
+      <v-icon 
+        class="pl-4"
+      >
+        mdi-swap-horizontal
+      </v-icon>
+    </v-btn>
+    <!-- <v-toolbar-title
+      class="hidden-sm-and-down font-weight-light"
+      v-text="$route.name"
+    /> -->
 
     <template v-slot:append>
       <item
@@ -112,6 +113,7 @@
     },
 
     data: () => ({
+      bigs: true,
       items: [
        {
           title: 'home',
@@ -155,6 +157,11 @@
           title: this.$t('avatar'),
         }
       },
+    },
+    mounted () {
+      console.log("---window outerWidth " + window.outerWidth)
+      console.log("---window innerWidth " + window.innerWidth)
+      this.bigs = window.outerWidth > 960 ? true : false
     },
     methods: {
       ...mapMutations({

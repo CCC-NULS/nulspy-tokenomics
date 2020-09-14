@@ -3,16 +3,16 @@
     <!-- weird dark mode tab in upper right -->
     <v-card
       id="settings"
-      class="py-2 px-2"
+      class="py-1 px-2"
       color="rgba(117, 201, 181, 0.5)"
       flat
       link
       min-width="70"
-      style="position: fixed; top: 0px; right: 200px;"
+      style="position: absolute; top: 0px; right: 100px;"
     >
       <span 
         class="primary--text text--darken2 mt-0"
-        style="font-size:12px;"
+        style="font-size:12px;margin-left:2px;"
       >
         Colors
       </span>
@@ -23,19 +23,19 @@
 
     <v-menu
       v-model="menu"
-      :close-on-content-click="false"
+      :close-on-content-click="true"
       activator="#settings"
       bottom
       content-class="v-settings"
       left
-      nudge-left="8"
+      nudge-left="2" 
       offset-x
       origin="top right"
       transition="scale-transition"
     >
       <v-card
         class="text-center mb-0 mt-0 pt-2 pb-2 pl-4"
-        width="300"
+        width="150"
       >
         <v-row
           align="center"
@@ -50,9 +50,10 @@
           <v-col cols="auto">
             <v-switch
               v-model="$vuetify.theme.dark"
-              class="ma-0 pa-0"
+              class="ma-0 py-0 pl-0 pr-2"
               color="secondary"
               hide-details
+              :style="`overflow:hidden!important;scrollbar-width:none;`"  
             />
           </v-col>
         </v-row>
@@ -63,13 +64,13 @@
 
 <script>
   // Mixins
-  import Proxyable from 'vuetify/lib/mixins/proxyable'
+  // import Proxyable from 'vuetify/lib/mixins/proxyable'
   import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'CoreSettings',
 
-    mixins: [Proxyable],
+    // mixins: [Proxyable],
 
     data: () => ({
       color: '#E91E63',

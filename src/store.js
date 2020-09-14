@@ -11,9 +11,10 @@ export default new Vuex.Store({
     // barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
     gShowMe: true,
-    gImgName: '',
+    gThemeChgKey: '',
     gDirPath: '',
-    gSessionStr: 'a',
+    gTheme: false,
+    gThemeChgKey: 0,
   },
   mutations: {
     SET_BAR_IMAGE(state, payload) {
@@ -25,35 +26,40 @@ export default new Vuex.Store({
     gShowMeMut(state, theval) {
       state.gShowMe = theval
     },
-    gImgNameMut(state, theval) {
-      state.gImgName = theval
+    gThemeChgKeyMut(state, theval) {
+      state.gThemeChgKey = theval
     },
     gDirPathMut(state, theval) {
       state.gDirPath = theval
     },
-    gSessionStrMut(state, theval) {
-      state.gSessionStr = theval
+    gThemeMut(state, theval) {
+      state.gTheme = theval
     },
   },
   getters: {
     gShowMeGet: state => state.gShowMe,
     gDirPathGet: state => state.gDirPath,
-    gImgNameGet: state => state.gImgName,
-    gSessionStrGet: state => state.gSessionStr,
+    gThemeChgKeyGet: state => state.gThemeChgKey,
+    gThemeGet: state => state.gTheme,
   },
   actions: {
     gShowMeAct (context, theval) {
       context.commit('gShowMeMut', theval)
     },
-    gImgNameAct(context, theval) {
-      context.commit('gImgNameMut', theval)
+    gThemeChgKeyAct(context, theval) {
+      context.commit('gThemeChgKeyMut', theval)
     },
     
     gDirPathAct(context, theval) {
       context.commit('gDirPathMut', theval)
     },
-    gSessionStrAct(context, theval) {
-      context.commit('gSessionStrMut', theval)
+    gThemeAct(context, theval) {
+      context.commit('gThemeMut', theval)
+      context.commit('gThemeChgKeyMut', theval)
+      console.log("-- inside store.actions.gThemeAct")
+      // might as well do key at some time
     }
+    // this.$store.dispatch('gShowMeAct', true)
+
   }
 });
