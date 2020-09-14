@@ -203,6 +203,7 @@
         <!-- rocket Nuls graphic shows up here # # # # # # # -->
         <v-card
           v-if="bigs"
+          id="rockcard"
           :key="bigs"
           flat
           color="transparent"
@@ -213,6 +214,7 @@
           <v-img 
             width="204"
             height="211"
+            rockcard
             src="http://westteam.nulstar.com/permimgs/nulsrocket.png" 
             class="ml-6"
           />
@@ -220,40 +222,25 @@
       </v-col>       
     </v-row>
     <!-- plot shows up here # # # # # # # -->
-    <v-row
-      align="start"
-      justify="start"
-      no-gutters
-    >
-      <v-card
-        id="spacercard"
-        flat
-        height="5px"
-        width="90%"
-        align="start"
-        color="transparent"
-      />
-      <v-img
-        :key="resetImage"
-        :src="finalIMAGE"
-        :width="`${bigs ? 691 : 691/2}`"
-        :height="`${bigs ? 932 : 932/2}`"
-        min-height="400px"
-        max-height="932"
-        min-width="340"
-        max-width="700"
-        class="ml-1"
-      />    
-      <br><br>
-      <v-card
-        id="spacercard"
-        flat
-        height="10px"
-        width="100%"
-        align="start"
-        color="transparent"
-        class="mb-4 mt-2"
-      />
+    <v-row>
+      <v-col
+        cols="12"
+      >
+        <!-- <v-card
+          id="spacercard"
+          flat
+          height="5px"
+          width="90%"
+          color="transparent"
+        /> -->
+        <v-img
+          :key="resetImage"
+          :src="finalIMAGE"
+          contain
+          class="contain=true"
+        />    
+        <br><br>
+      </v-col>
     </v-row>
   </v-container>
 </template>
