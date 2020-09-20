@@ -34,3 +34,9 @@ tokenlife/__pycache__
 /extras
 gunicsockdir/__pycache__
 public/*svg
+css/
+fonts/
+index.html
+js/
+serve.json
+
