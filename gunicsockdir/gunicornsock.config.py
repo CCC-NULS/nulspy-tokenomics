@@ -24,7 +24,7 @@ bind = '0.0.0.0:8084'
 backlog = 2048
 #proxy_allow_ips = ['0.0.0.0']
 proxy_allow_ips = '*'
-pythonpath = '/home/Nancy/anaconda3'
+pythonpath = '/usr/local/bin'
 
 proxy_protocol = True
 
@@ -50,7 +50,7 @@ access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
 #bind = 'unix:/tmp/gunicorn.sock'
 #chdir='/usr/share/nginx/html/tokenlife'
 
-raw_env = [ 'PATH=/home/Nancy/anaconda3/bin']
+raw_env = [ 'PATH=/usr/local/bin']
 user = 'Nancy'
 group = 'Nancy'
 tmp_upload_dir = None
