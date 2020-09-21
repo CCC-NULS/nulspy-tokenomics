@@ -257,6 +257,7 @@ import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components
 import VueNumericInput from 'vue-numeric-input'
 import Childc from './childc'
 import Childcardm from './childcardm'
+import fs from 'fs'
 
 const subbtn = {
   type: 'submit',
@@ -450,25 +451,35 @@ export default {
   },
 
   methods: {  
-    secmethod () {
-      // var axios = require('axios')
+    // secmethod () {
+    //   var axios = require('axios')
+    //   var https = require('https')
+    //   var fs = require('fs')
+    //   const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
+    //   const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
+
+    //   var instance = axios.create({
+    //     httpsAgent: new https.Agent({
+    //         cert: fs.readFileSync(ucert),
+    //         key: fs.readFileSync(ukey),
+    //         // passphrase: 'secret',
+    //         rejectUnauthorized: false
+    //         })
+    //     })
+    // },
+    checkPic (finimag) {
       var https = require('https')
       var fs = require('fs')
       const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
       const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
 
-      var instance = axios.create({
-        httpsAgent: new https.Agent({
-            cert: fs.readFileSync(`user.cert`),
-            key: fs.readFileSync(`user.key`),
-            // passphrase: 'secret',
-            rejectUnauthorized: false
-            })
-        })
-    },
-    checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({
+        httpsAgent: new https.Agent({
+          cert: fs.readFileSync(ucert),
+          key: fs.readFileSync(ukey),
+          rejectUnauthorized: false
+        }),     
         defaults: {
           headers: {
             get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
@@ -506,8 +517,8 @@ export default {
       const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
       const axiosi = axios.create({
         httpsAgent: new https.Agent({
-            cert: fs.readFileSync(`user.cert`),
-            key: fs.readFileSync(`user.key`),
+            cert: fs.readFileSync(ucert),
+            key: fs.readFileSync(ukey),
             rejectUnauthorized: false
             }),
         defaults: {
