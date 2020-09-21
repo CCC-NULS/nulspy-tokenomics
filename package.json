@@ -17,6 +17,7 @@
     "autonumeric": "^4.6.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.2",
+    "cors": "^2.8.5",
     "cypress": "^5.2.0",
     "fs": "0.0.1-security",
     "retry": "^0.12.0",
