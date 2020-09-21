@@ -449,7 +449,23 @@ export default {
     this.bigs = window.outerWidth > 960 ? true : false
   },
 
-  methods: {   
+  methods: {  
+    secmethod () {
+      // var axios = require('axios')
+      var https = require('https')
+      var fs = require('fs')
+      const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
+      const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
+
+      var instance = axios.create({
+        httpsAgent: new https.Agent({
+            cert: fs.readFileSync(`user.cert`),
+            key: fs.readFileSync(`user.key`),
+            // passphrase: 'secret',
+            rejectUnauthorized: false
+            })
+        })
+    },
     checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({
@@ -484,14 +500,23 @@ export default {
       }) 
     }, 
     axiosPost(baseurl) {
+      var https = require('https')
+      var fs = require('fs')
+      const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
+      const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
       const axiosi = axios.create({
+        httpsAgent: new https.Agent({
+            cert: fs.readFileSync(`user.cert`),
+            key: fs.readFileSync(`user.key`),
+            rejectUnauthorized: false
+            }),
         defaults: {
           headers: {
             post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
             common: { acctlOrig: "*" }
+            },
           },
-        },
-      });
+        });
       try {
         console.log("inside axiosPost: " + baseurl);
         (async () => {
