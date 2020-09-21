@@ -258,6 +258,7 @@ import VueNumericInput from 'vue-numeric-input'
 import Childc from './childc'
 import Childcardm from './childcardm'
 import fs from 'fs'
+import https from 'https'
 
 const subbtn = {
   type: 'submit',
@@ -476,8 +477,8 @@ export default {
       this.keyShowCard += 1;
       const axiosGet = axios.create({
         httpsAgent: new https.Agent({
-          cert: fs.readFileSync(ucert),
-          key: fs.readFileSync(ukey),
+          cert: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem"),
+          key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
           rejectUnauthorized: false
         }),     
         defaults: {
@@ -517,8 +518,8 @@ export default {
       const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
       const axiosi = axios.create({
         httpsAgent: new https.Agent({
-            cert: fs.readFileSync(ucert),
-            key: fs.readFileSync(ukey),
+            cert: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem"),
+            key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
             rejectUnauthorized: false
             }),
         defaults: {
