@@ -22,7 +22,7 @@ module.exports = {
   testMatch: [
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
-  testURL: 'http://localhost/',
+  testURL: 'https://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',

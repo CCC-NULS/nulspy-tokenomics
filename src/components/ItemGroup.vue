@@ -22,7 +22,7 @@
         color="white"
         contain
       >
-        <v-img src="http://westteam.nulstar.com/nms/artws/Enterprise_NULS_Engine.svg" />
+        <v-img src="https://westteam.nulstar.com/nms/artws/Enterprise_NULS_Engine.svg" />
       </v-list-item-avatar>
 
       <v-list-item-content>

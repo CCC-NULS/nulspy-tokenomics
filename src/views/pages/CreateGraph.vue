@@ -215,7 +215,7 @@
             width="204"
             height="211"
             rockcard
-            src="http://westteam.nulstar.com/permimgs/nulsrocket.png" 
+            src="https://westteam.nulstar.com/permimgs/nulsrocket.png" 
             class="ml-6"
           />
         </v-card>

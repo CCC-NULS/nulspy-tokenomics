@@ -8,8 +8,8 @@ const WESTTEAM = true
 
 var thePort = "8084"
 
-var westIP = "http://116.202.157.151"  //westteam   "http://116.202.157.151"
-var homeIP = "http://127.0.0.1"        //home  "http://127.0.0.1" 
+var westIP = "https://116.202.157.151"  //westteam   "http://116.202.157.151"
+var homeIP = "https://127.0.0.1"        //home  "http://127.0.0.1" 
 
 var westIPwPORT =  `${westIP}:${thePort}`  // west
 var homeIPwPORT = `${homeIP}:${thePort}` // home
