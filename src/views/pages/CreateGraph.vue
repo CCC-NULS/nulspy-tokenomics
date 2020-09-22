@@ -212,7 +212,7 @@
           class="ml-6"
         >
           <v-img 
-            src="@/assets/images/nulsWhiteLogo40.jpg"
+            src="@/assets/images/nulsrocket.jpg"
           />
         </v-card>
       </v-col>       
