@@ -14,7 +14,6 @@ export { finalPOST }
 export { GETpartone }
 console.log("finalPOST in constants: " + finalPOST)
 console.log("GETpartone in constants: " + GETpartone)
-
 export var acceptstretc = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 export var getpostetc = "GET, POST, OPTIONS";
 export var accessmethods = "Access-Control-Allow-Methods";
