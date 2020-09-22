@@ -535,7 +535,7 @@ export default {
       const gDate = Date.now().toString().substring(7,13);
       console.log(`gDate makePlot: ${gDate}`);
 
-      let aw = '&initsup=' + fin_a_init_supply.replace(/,/g, '');
+      let aw = 'initsup=' + fin_a_init_supply.replace(/,/g, '');
       let dw = '&stopinf=' + fin_d_max_supply.replace(/,/g, '');  // still send in old order
       let bw = '&anninf=' + fin_b_ann_infl.replace(/,/g, '');
       let cw = '&startinf=' + fin_c_start_time;
