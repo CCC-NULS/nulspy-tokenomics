@@ -40,9 +40,52 @@ console.log("finalIPwPORT in constants: " + finalIPwPORT)
 console.log("finalIMAGEp1 in constants: " + finalIMAGEp1)
 
 
-export var acceptStr = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-export var restTypes = "GET, POST, HEAD, UPDATE, PUT";
-export var acctlMeths = "Access-Control-Allow-Methods";
-export var acctlOrig = "Access-Control-Allow-Origin";
-export var appJson = "application/json";
-export var ctType = "Content-Type";
+export var acceptstretc = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+export var getpostetc = "GET, POST, OPTIONS";
+export var accessmethods = "Access-Control-Allow-Methods";
+export var accesscontrol = "Access-Control-Allow-Origin";
+export var plaintext = "text/plain; charset=utf-8";
+export var contenttype = "Content-Type";
+
+export var maxage = "Access-Control-Max-Age";   // preflight only
+export var maxageval = 1728000;
+export var aclh = "Access-Control-Allow-Headers";
+export var aclhlist = "'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range";
+
+
+
+//         add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+//         add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+
+// #
+// # Wide-open CORS config for nginx
+// #
+// location / {
+//      if ($request_method = 'OPTIONS') {
+//         add_header 'Access-Control-Allow-Origin' '*';
+//         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+//         #
+//         # Custom headers and headers various browsers *should* be OK with but aren't
+//         #
+//         add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+//         #
+//         # Tell client that this pre-flight info is valid for 20 days
+//         #
+//         add_header 'Access-Control-Max-Age' 1728000;
+//         add_header 'Content-Type' 'text/plain; charset=utf-8';
+//         add_header 'Content-Length' 0;
+//         return 204;
+//      }
+//      if ($request_method = 'POST') {
+//         add_header 'Access-Control-Allow-Origin' '*';
+//         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+//         add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+//         add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+//      }
+//      if ($request_method = 'GET') {
+//         add_header 'Access-Control-Allow-Origin' '*';
+//         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+//         add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+//         add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+//      }
+// }

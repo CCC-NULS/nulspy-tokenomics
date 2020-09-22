@@ -215,7 +215,7 @@
             width="204"
             height="211"
             rockcard
-            src="https://westteam.nulstar.com/permimgs/nulsrocket.png" 
+            src="nulsrocket.png" 
             class="ml-6"
           />
         </v-card>
@@ -248,7 +248,8 @@
 <script>
 import Vue from 'vue'
 
-import { acceptStr, restTypes, acctlMeths, acctlOrig, appJson, ctType, finalIPwPORT, finalIMAGEp1 } 
+import { acceptstretc, getpostetc, accessmethods, accesscontrol, plaintext, contenttype, finalIPwPORT, finalIMAGEp1, 
+  aclh, aclhlist, maxage, maxageval } 
   from "./CreateVars.js"
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
@@ -257,8 +258,6 @@ import VueAutonumeric from '../../../node_modules/vue-autonumeric/src/components
 import VueNumericInput from 'vue-numeric-input'
 import Childc from './childc'
 import Childcardm from './childcardm'
-import fs from 'fs'
-import https from 'https'
 
 const subbtn = {
   type: 'submit',
@@ -450,41 +449,18 @@ export default {
     console.log("---window innerWidth " + window.innerWidth)
     this.bigs = window.outerWidth > 960 ? true : false
   },
-
+  // we only get the images - the plots and the rocket picture
   methods: {  
-    // secmethod () {
-    //   var axios = require('axios')
-    //   var https = require('https')
-    //   var fs = require('fs')
-    //   const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
-    //   const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
-
-    //   var instance = axios.create({
-    //     httpsAgent: new https.Agent({
-    //         cert: fs.readFileSync(ucert),
-    //         key: fs.readFileSync(ukey),
-    //         // passphrase: 'secret',
-    //         rejectUnauthorized: false
-    //         })
-    //     })
-    // },
     checkPic (finimag) {
-      var https = require('https')
-      var fs = require('fs')
-      const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
-      const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
-
       this.keyShowCard += 1;
-      const axiosGet = axios.create({
-        httpsAgent: new https.Agent({
-          cert: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem"),
-          key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
-          rejectUnauthorized: false
-        }),     
+      const axiosGet = axios.create({    
         defaults: {
           headers: {
-            get: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
-            common: { acctlOrig: "*" }
+              Accept: "image/png,image/svg+xml", 
+              accessmethods: getpostetc, 
+              contenttype: plaintext ,
+              accesscontrol: "*",
+              "Access-Control-Expose-Headers": "Content-Length,Content-Range",
           },
         },
       });
@@ -512,22 +488,15 @@ export default {
       }) 
     }, 
     axiosPost(baseurl) {
-      var https = require('https')
-      var fs = require('fs')
-      const ucert = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
-      const ukey = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
       const axiosi = axios.create({
-        httpsAgent: new https.Agent({
-            cert: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem"),
-            key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
-            rejectUnauthorized: false
-            }),
-        defaults: {
-          headers: {
-            post: { Accept: acceptStr, acctlMeths: restTypes, ctType: appJson },
-            common: { acctlOrig: "*" }
-            },
+        headers: {
+              Accept: acceptstretc,    // we get the image with another function, so just a 200 resp here
+              accessmethods: getpostetc, 
+              contenttype: plaintext,
+              accesscontrol: "*",
+              "Access-Control-Expose-Headers": "Content-Length,Content-Range",
           },
+        httpsAgent: new https.Agent({ keepAlive: true }),
         });
       try {
         console.log("inside axiosPost: " + baseurl);

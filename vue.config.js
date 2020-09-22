@@ -1,15 +1,23 @@
+
+
+import 'fs'
+import 'https'
+
+const fs = require('fs')
+
 module.exports = {
-    publicPath: './',
-    outputDir: 'dist/',
-  
-    // publicPath: process.env.NODE_ENV === 'production'
-    //   ? '/tokenlife/'
-    //   : '/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/tokenlife/' : '/',
+  outputDir: 'dist/',
   devServer: {
-    disableHostCheck: true,
+    https: {
+      cert: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem"),
+      key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
+      rejectUnauthorized: false
+    },
+    public: 'https://localhost:5000/'
   },
   transpileDependencies: ['vuetify'],
-
   pluginOptions: {
     i18n: {
       locale: 'en',
