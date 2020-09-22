@@ -28,7 +28,7 @@ keyfile = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
 certfile = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
 
 
-bind = 'localhost:8084'
+bind = '0.0.0.0:8084'
 backlog = 2048
 #proxy_allow_ips = ['0.0.0.0']
 proxy_allow_ips = '*'
@@ -50,7 +50,7 @@ loglevel = 'debug'
 accesslog = '/tmp/gunicornaccess.log'
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 
-#daemon = False
+daemon = True
 #raw_env = [ #    'DJANGO_SECRET_KEY=something', #    'SPAM=eggs', #]
 #chdir='/usr/share/nginx/html/tokenlife'
 #pidfile = None
@@ -59,8 +59,8 @@ access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
 #chdir='/usr/share/nginx/html/tokenlife'
 
 raw_env = [ 'PATH=/usr/local/bin']
-user = 0
-group = 0
+# user = 0
+# group = 0
 tmp_upload_dir = None
 
 
@@ -116,7 +116,7 @@ tmp_upload_dir = None
 #       True or False
 #
 
-spew = True
+spew = False
 
 #
 # Server mechanics
