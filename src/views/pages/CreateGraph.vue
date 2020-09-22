@@ -245,7 +245,7 @@
 import Vue from 'vue'
 import https from 'https'
 
-import { acceptstretc, getpostetc, accessmethods, accesscontrol, plaintext, contenttype, finalIPwPORT, finalIMAGEp1, 
+import { acceptstretc, getpostetc, accessmethods, accesscontrol, plaintext, contenttype, finalPOST, finalIMAGEp1, 
   aclh, aclhlist, maxage, maxageval } 
   from "./CreateVars.js"
 // beware: arrow functions cause problems with 'this'
@@ -417,7 +417,7 @@ export default {
     keyShowCard: false,
     resetImage: 0,
     finalIMAGEp1,
-    finalIPwPORT,
+    finalPOST,
     finalIMAGE: '',
     colstwelvsix: { cols: '12', md: '6' }
     }),
@@ -544,9 +544,9 @@ export default {
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
       this.finalIMAGE = `${this.finalIMAGEp1}${gDate}.svg`
-      let pyReq = `${this.finalIPwPORT}/getpy?${requestVars}`;    // either
+      let pyReq = `${this.finalPOST}/getpy?${requestVars}`;    // either
 
-      console.log('The this.finalIPwPORT is: ' + this.finalIPwPORT);
+      console.log('The this.finalPOST is: ' + this.finalPOST);
       console.log(`The finalIMAGEp1 is: ${this.finalIMAGEp1}`);      
       console.log(`The pyReq is: ${pyReq}`);
       console.log(`The plot Url is: ${this.finalIMAGE}`);
