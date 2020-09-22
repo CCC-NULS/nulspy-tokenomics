@@ -416,7 +416,6 @@ export default {
     resetform: 0,
     keyShowCard: false,
     resetImage: 0,
-    finalIMAGEp1,
     finalPOST,
     finalIMAGE: '',
     colstwelvsix: { cols: '12', md: '6' }
