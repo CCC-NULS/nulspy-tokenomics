@@ -1,9 +1,6 @@
 
-
-import 'fs'
-import 'https'
-
 const fs = require('fs')
+const https = require('https')
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
