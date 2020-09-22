@@ -454,14 +454,13 @@ export default {
     checkPic (finimag) {
       this.keyShowCard += 1;
       const axiosGet = axios.create({    
-        defaults: {
-          headers: {
-              Accept: "image/png,image/svg+xml", 
-              accessmethods: getpostetc, 
-              contenttype: plaintext ,
-              accesscontrol: "*",
-              "Access-Control-Expose-Headers": "Content-Length,Content-Range",
-          },
+        headers: {
+          "Accept": "image/png,image/svg+xml", 
+          accessmethods: getpostetc, 
+          contenttype: plaintext ,
+          accesscontrol: "*",
+          "Access-Control-Expose-Headers": "Content-Length,Content-Range",
+          aclh: aclhlist,
         },
       });
       const retry = require('retry');
@@ -482,20 +481,18 @@ export default {
         let opAttempts = operation.attempts()
         console.log("retries: " + opAttempts)
         this.resetImage += 1;
-        // if (opAttempts < 15) {
-        //   this.showme = true
-        // }
       }) 
     }, 
     axiosPost(baseurl) {
       const axiosi = axios.create({
         headers: {
-              Accept: acceptstretc,    // we get the image with another function, so just a 200 resp here
-              accessmethods: getpostetc, 
-              contenttype: plaintext,
-              accesscontrol: "*",
-              "Access-Control-Expose-Headers": "Content-Length,Content-Range",
-          },
+          "Accept": acceptstretc,
+          accessmethods: getpostetc, 
+          contenttype: plaintext,
+          accesscontrol: "*",
+          "Access-Control-Expose-Headers": "Content-Length,Content-Range",
+          aclh: aclhlist,
+        },
         httpsAgent: new https.Agent({ keepAlive: true }),
         });
       try {
