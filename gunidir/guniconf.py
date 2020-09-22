@@ -28,7 +28,7 @@ keyfile = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
 certfile = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
 
 
-bind = 'localhost:8084/chart'
+bind = 'localhost:8084'
 backlog = 2048
 #proxy_allow_ips = ['0.0.0.0']
 proxy_allow_ips = '*'
