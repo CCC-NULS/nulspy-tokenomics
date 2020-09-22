@@ -212,11 +212,7 @@
           class="ml-6"
         >
           <v-img 
-            width="204"
-            height="211"
-            rockcard
-            src="nulsrocket.png" 
-            class="ml-6"
+            src="@/assets/images/nulsWhiteLogo40.jpg"
           />
         </v-card>
       </v-col>       
@@ -247,6 +243,7 @@
     <!-- # # # #  # #  # # # #  # # # # # # #  # #  # # # 691.2  922 or 400 x 533 # # # # # -->
 <script>
 import Vue from 'vue'
+import https from 'https'
 
 import { acceptstretc, getpostetc, accessmethods, accesscontrol, plaintext, contenttype, finalIPwPORT, finalIMAGEp1, 
   aclh, aclhlist, maxage, maxageval } 
