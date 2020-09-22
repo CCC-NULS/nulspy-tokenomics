@@ -564,11 +564,8 @@ export default {
 </script>
 <style src="@/assets/styles/mystyle.css">
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
 
 .vue-numeric-input .btn-decrement .btn-icon:before .numeric-input {
       background-color: #ffffff!important;
 }
-
 </style>
