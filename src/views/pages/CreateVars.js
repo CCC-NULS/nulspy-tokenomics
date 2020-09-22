@@ -3,7 +3,7 @@
 const WESTTEAM = true
 // end user edits - = - =  - = - = - = - = - = - = - = - = - = - = - = - = - = - = //
 
-var theroute = ""
+var theroute = "chart"
 
 var westteam = "https://westteam.nulstar.com"  //westteam   "http://116.202.157.151"
 
