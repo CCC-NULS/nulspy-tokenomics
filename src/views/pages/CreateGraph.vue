@@ -246,7 +246,7 @@ import Vue from 'vue'
 import https from 'https'
 
 import { acceptstretc, getpostetc, accessmethods, accesscontrol, plaintext, contenttype, finalPOST, 
-  aclh, aclhlist, maxage, maxageval, finalGET } 
+  aclh, aclhlist, maxage, maxageval, GETpartone } 
   from "./CreateVars.js"
 // beware: arrow functions cause problems with 'this'
 import axios from "axios";
@@ -418,6 +418,7 @@ export default {
     resetImage: 0,
     finalPOST,
     finalIMAGE: '',
+    GETpartone,
     colstwelvsix: { cols: '12', md: '6' }
     }),
   computed: {
@@ -542,9 +543,10 @@ export default {
       // need to remove comma's twice from fin_a_init_supply, fin_b_ann_infl, fin_d_max_supply
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
-      this.finalIMAGE = `${this.finalGET}${gDate}.svg`
+      this.finalIMAGE = `${this.GETpartone}${gDate}.svg`
       let pyReq = `${this.finalPOST}/getpy?${requestVars}`;    // either
 
+      console.log('The this.GETpartone is: ' + this.GETpartone);
       console.log('The this.finalPOST is: ' + this.finalPOST);
       console.log(`The pyReq is: ${pyReq}`);
       console.log(`The plot Url is: ${this.finalIMAGE}`);
