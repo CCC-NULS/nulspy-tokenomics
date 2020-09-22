@@ -3,8 +3,7 @@ const fs = require('fs')
 const https = require('https')
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/tokenlife/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/tokenlife/' : '/',
   outputDir: 'dist/',
   devServer: {
     https: {
@@ -12,8 +11,8 @@ module.exports = {
       key: fs.readFileSync("/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem"),
       rejectUnauthorized: false
     },
-    public: 'https://localhost:5000/'
-  },
+  public: 'https://localhost:5000/',
+  },  
   transpileDependencies: ['vuetify'],
   pluginOptions: {
     i18n: {

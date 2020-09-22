@@ -5,14 +5,12 @@ const WESTTEAM = true
 
 var theroute = "chart"
 
-var westteam = "https://westteam.nulstar.com"  //westteam   "http://116.202.157.151"
-
-var finalPOST =  `${westteam}/${theroute}`  // west
+var finalPOST = "https://westteam.nulstar.com"  //westteam   "http://116.202.157.151"
 
 // - = - =  - = - = - = - = - = - = - = - = - = - = - = - = - = - = //
 var westDirStr = `/tokenlife/static/plot` //  doesn't need port on westteam because nginx is serving image
             
-var finalGET = `${westteam}${westDirStr}`;  // westteam - nginx-only for viewing image
+var finalGET = `${finalPOST}${westDirStr}`;  // westteam - nginx-only for viewing image
   
 export { finalPOST }
 export { finalGET }
