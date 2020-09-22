@@ -68,7 +68,7 @@ def make_names(args_dict):
 
 
 if __name__ == "__main__":
-    application.run(host=0.0.0.0, port=8084)
+    application.run(host='localhost', port=8084)
     # application.run()
 
     # application.run(host='116.202.157.151', port='8084')
