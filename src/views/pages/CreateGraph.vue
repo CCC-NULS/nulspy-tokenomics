@@ -544,7 +544,7 @@ export default {
       let requestVars = aw + bw + cw + dw + ew + `&timestp=${gDate}`;
 
       this.finalIMAGE = `${this.GETpartone}${gDate}.svg`
-      let pyReq = `${this.finalPOST}/chart/getpy?${requestVars}`;    // either
+      let pyReq = `${this.finalPOST}/getpy?${requestVars}`;    // either
 
       console.log('The this.GETpartone is: ' + this.GETpartone);
       console.log('The this.finalPOST is: ' + this.finalPOST);
