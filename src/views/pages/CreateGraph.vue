@@ -497,7 +497,7 @@ export default {
         (async () => {
           let response = await axiosi({
             url: baseurl,
-            method: "post"
+            method: 'post'
           });
         })();
       } catch (e) {
