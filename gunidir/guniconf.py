@@ -18,7 +18,7 @@
 #       range.
 #
 
-#bind = 'unix:/tmp/gunicorn.sock'
+bind = 'unix:/tmp/gunicorn.sock'
 
 
 key = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
@@ -28,7 +28,7 @@ keyfile = '/etc/letsencrypt/archive/westteam.nulstar.com/privkey1.pem'
 certfile = '/etc/letsencrypt/archive/westteam.nulstar.com/fullchain1.pem'
 
 
-bind = '127.0.0.1:8084'
+#bind = '127.0.0.1:8084'
 backlog = 2048
 #proxy_allow_ips = ['0.0.0.0']
 proxy_allow_ips = '*'
@@ -50,7 +50,7 @@ loglevel = 'debug'
 accesslog = '/tmp/gunicornaccess.log'
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 
-daemon = True
+daemon = False
 #raw_env = [ #    'DJANGO_SECRET_KEY=something', #    'SPAM=eggs', #]
 #chdir='/usr/share/nginx/html/tokenlife'
 #pidfile = None
